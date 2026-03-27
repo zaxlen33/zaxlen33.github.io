@@ -1,0 +1,5258 @@
+{
+  "generated_at": "2026-03-26 21:07",
+  "members": [
+    {
+      "name": "160599",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1408917478,
+          "might_str": "1.41B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 211461220,
+          "kills_str": "211.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK1"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1410112062,
+          "might_str": "1.41B",
+          "might_diff": 1194584,
+          "might_diff_str": "+1.2M",
+          "kills": 211461220,
+          "kills_str": "211.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1411842711,
+          "might_str": "1.41B",
+          "might_diff": 1730649,
+          "might_diff_str": "+1.7M",
+          "kills": 211461220,
+          "kills_str": "211.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "1Shiz",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1873122781,
+          "might_str": "1.87B",
+          "might_diff": 8360532,
+          "might_diff_str": "+8.4M",
+          "kills": 384028251,
+          "kills_str": "384.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1873734706,
+          "might_str": "1.87B",
+          "might_diff": 611925,
+          "might_diff_str": "+611.9K",
+          "kills": 384028251,
+          "kills_str": "384.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1880089494,
+          "might_str": "1.88B",
+          "might_diff": 6354788,
+          "might_diff_str": "+6.4M",
+          "kills": 384028251,
+          "kills_str": "384.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1880107894,
+          "might_str": "1.88B",
+          "might_diff": 18400,
+          "might_diff_str": "+18.4K",
+          "kills": 384028251,
+          "kills_str": "384.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "453798",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 4322828692,
+          "might_str": "4.32B",
+          "might_diff": 68644167,
+          "might_diff_str": "+68.6M",
+          "kills": 318862873,
+          "kills_str": "318.9M",
+          "kills_diff": 1503949,
+          "kills_diff_str": "+1.5M",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 4337078363,
+          "might_str": "4.34B",
+          "might_diff": 14249671,
+          "might_diff_str": "+14.2M",
+          "kills": 319751674,
+          "kills_str": "319.8M",
+          "kills_diff": 888801,
+          "kills_diff_str": "+888.8K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 4400628923,
+          "might_str": "4.40B",
+          "might_diff": 63550560,
+          "might_diff_str": "+63.6M",
+          "kills": 319751674,
+          "kills_str": "319.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 4404294811,
+          "might_str": "4.40B",
+          "might_diff": 3665888,
+          "might_diff_str": "+3.7M",
+          "kills": 319863180,
+          "kills_str": "319.9M",
+          "kills_diff": 111506,
+          "kills_diff_str": "+111.5K",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "A u ro ra",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1029222525,
+          "might_str": "1.03B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 116510254,
+          "kills_str": "116.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1032377529,
+          "might_str": "1.03B",
+          "might_diff": 3155004,
+          "might_diff_str": "+3.2M",
+          "kills": 116510254,
+          "kills_str": "116.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1034793297,
+          "might_str": "1.03B",
+          "might_diff": 2415768,
+          "might_diff_str": "+2.4M",
+          "kills": 116510265,
+          "kills_str": "116.5M",
+          "kills_diff": 11,
+          "kills_diff_str": "+11",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "abankbro",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 351480972,
+          "might_str": "351.5M",
+          "might_diff": 20383934,
+          "might_diff_str": "+20.4M",
+          "kills": 132043,
+          "kills_str": "132.0K",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK5"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 358968878,
+          "might_str": "359.0M",
+          "might_diff": 7487906,
+          "might_diff_str": "+7.5M",
+          "kills": 132043,
+          "kills_str": "132.0K",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK5"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 359021742,
+          "might_str": "359.0M",
+          "might_diff": 52864,
+          "might_diff_str": "+52.9K",
+          "kills": 132043,
+          "kills_str": "132.0K",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK5"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 359020182,
+          "might_str": "359.0M",
+          "might_diff": -1560,
+          "might_diff_str": "-1.6K",
+          "kills": 132043,
+          "kills_str": "132.0K",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK5"
+        }
+      ]
+    },
+    {
+      "name": "AHMETCY",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 800751585,
+          "might_str": "800.8M",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 18257992,
+          "kills_str": "18.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 815309808,
+          "might_str": "815.3M",
+          "might_diff": 14558223,
+          "might_diff_str": "+14.6M",
+          "kills": 18315383,
+          "kills_str": "18.3M",
+          "kills_diff": 57391,
+          "kills_diff_str": "+57.4K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 920866755,
+          "might_str": "920.9M",
+          "might_diff": 105556947,
+          "might_diff_str": "+105.6M",
+          "kills": 18990367,
+          "kills_str": "19.0M",
+          "kills_diff": 674984,
+          "kills_diff_str": "+675.0K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 921427255,
+          "might_str": "921.4M",
+          "might_diff": 560500,
+          "might_diff_str": "+560.5K",
+          "kills": 18990367,
+          "kills_str": "19.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "al tetra",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2314614000,
+          "might_str": "2.31B",
+          "might_diff": 35220418,
+          "might_diff_str": "+35.2M",
+          "kills": 423826271,
+          "kills_str": "423.8M",
+          "kills_diff": 9048837,
+          "kills_diff_str": "+9.0M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2300959365,
+          "might_str": "2.30B",
+          "might_diff": -13654635,
+          "might_diff_str": "-13.7M",
+          "kills": 431406337,
+          "kills_str": "431.4M",
+          "kills_diff": 7580066,
+          "kills_diff_str": "+7.6M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2309705248,
+          "might_str": "2.31B",
+          "might_diff": 8745883,
+          "might_diff_str": "+8.7M",
+          "kills": 431790153,
+          "kills_str": "431.8M",
+          "kills_diff": 383816,
+          "kills_diff_str": "+383.8K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2311384740,
+          "might_str": "2.31B",
+          "might_diff": 1679492,
+          "might_diff_str": "+1.7M",
+          "kills": 432726811,
+          "kills_str": "432.7M",
+          "kills_diff": 936658,
+          "kills_diff_str": "+936.7K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "AMAN 1986",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1495773319,
+          "might_str": "1.50B",
+          "might_diff": 18589690,
+          "might_diff_str": "+18.6M",
+          "kills": 350107246,
+          "kills_str": "350.1M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1501719235,
+          "might_str": "1.50B",
+          "might_diff": 5945916,
+          "might_diff_str": "+5.9M",
+          "kills": 350690576,
+          "kills_str": "350.7M",
+          "kills_diff": 583330,
+          "kills_diff_str": "+583.3K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1503011611,
+          "might_str": "1.50B",
+          "might_diff": 1292376,
+          "might_diff_str": "+1.3M",
+          "kills": 350792644,
+          "kills_str": "350.8M",
+          "kills_diff": 102068,
+          "kills_diff_str": "+102.1K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1507876495,
+          "might_str": "1.51B",
+          "might_diff": 4864884,
+          "might_diff_str": "+4.9M",
+          "kills": 350792644,
+          "kills_str": "350.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Arjan Don",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 480653439,
+          "might_str": "480.7M",
+          "might_diff": -109730260,
+          "might_diff_str": "-109.7M",
+          "kills": 121582936,
+          "kills_str": "121.6M",
+          "kills_diff": 2494965,
+          "kills_diff_str": "+2.5M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 481106214,
+          "might_str": "481.1M",
+          "might_diff": 452775,
+          "might_diff_str": "+452.8K",
+          "kills": 121582936,
+          "kills_str": "121.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 486499572,
+          "might_str": "486.5M",
+          "might_diff": 5393358,
+          "might_diff_str": "+5.4M",
+          "kills": 121582936,
+          "kills_str": "121.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 488613876,
+          "might_str": "488.6M",
+          "might_diff": 2114304,
+          "might_diff_str": "+2.1M",
+          "kills": 121582936,
+          "kills_str": "121.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Armannd0",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1332569357,
+          "might_str": "1.33B",
+          "might_diff": -1824381,
+          "might_diff_str": "-1.8M",
+          "kills": 145537248,
+          "kills_str": "145.5M",
+          "kills_diff": 1383924,
+          "kills_diff_str": "+1.4M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1332108209,
+          "might_str": "1.33B",
+          "might_diff": -461148,
+          "might_diff_str": "-461.1K",
+          "kills": 145719620,
+          "kills_str": "145.7M",
+          "kills_diff": 182372,
+          "kills_diff_str": "+182.4K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1341579179,
+          "might_str": "1.34B",
+          "might_diff": 9470970,
+          "might_diff_str": "+9.5M",
+          "kills": 145719620,
+          "kills_str": "145.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1335439263,
+          "might_str": "1.34B",
+          "might_diff": -6139916,
+          "might_diff_str": "-6.1M",
+          "kills": 145935917,
+          "kills_str": "145.9M",
+          "kills_diff": 216297,
+          "kills_diff_str": "+216.3K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Arow63",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1420671944,
+          "might_str": "1.42B",
+          "might_diff": 8654374,
+          "might_diff_str": "+8.7M",
+          "kills": 563975373,
+          "kills_str": "564.0M",
+          "kills_diff": 1689838,
+          "kills_diff_str": "+1.7M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1421623684,
+          "might_str": "1.42B",
+          "might_diff": 951740,
+          "might_diff_str": "+951.7K",
+          "kills": 563975373,
+          "kills_str": "564.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1422930630,
+          "might_str": "1.42B",
+          "might_diff": 1306946,
+          "might_diff_str": "+1.3M",
+          "kills": 564505259,
+          "kills_str": "564.5M",
+          "kills_diff": 529886,
+          "kills_diff_str": "+529.9K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1423334694,
+          "might_str": "1.42B",
+          "might_diff": 404064,
+          "might_diff_str": "+404.1K",
+          "kills": 564505259,
+          "kills_str": "564.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "AxelMax1",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 632034246,
+          "might_str": "632.0M",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 32234546,
+          "kills_str": "32.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 639093706,
+          "might_str": "639.1M",
+          "might_diff": 7059460,
+          "might_diff_str": "+7.1M",
+          "kills": 32234546,
+          "kills_str": "32.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 639104730,
+          "might_str": "639.1M",
+          "might_diff": 11024,
+          "might_diff_str": "+11.0K",
+          "kills": 32234546,
+          "kills_str": "32.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Beeeast",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2632552606,
+          "might_str": "2.63B",
+          "might_diff": 26948328,
+          "might_diff_str": "+26.9M",
+          "kills": 91164065,
+          "kills_str": "91.2M",
+          "kills_diff": 245579,
+          "kills_diff_str": "+245.6K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2626196004,
+          "might_str": "2.63B",
+          "might_diff": -6356602,
+          "might_diff_str": "-6.4M",
+          "kills": 92909025,
+          "kills_str": "92.9M",
+          "kills_diff": 1744960,
+          "kills_diff_str": "+1.7M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2628672660,
+          "might_str": "2.63B",
+          "might_diff": 2476656,
+          "might_diff_str": "+2.5M",
+          "kills": 94094921,
+          "kills_str": "94.1M",
+          "kills_diff": 1185896,
+          "kills_diff_str": "+1.2M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2619826630,
+          "might_str": "2.62B",
+          "might_diff": -8846030,
+          "might_diff_str": "-8.8M",
+          "kills": 95704236,
+          "kills_str": "95.7M",
+          "kills_diff": 1609315,
+          "kills_diff_str": "+1.6M",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Ben2301",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1403646677,
+          "might_str": "1.40B",
+          "might_diff": 9485438,
+          "might_diff_str": "+9.5M",
+          "kills": 555143962,
+          "kills_str": "555.1M",
+          "kills_diff": 3015231,
+          "kills_diff_str": "+3.0M",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "Bi9 99",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1489969801,
+          "might_str": "1.49B",
+          "might_diff": 20477739,
+          "might_diff_str": "+20.5M",
+          "kills": 118746263,
+          "kills_str": "118.7M",
+          "kills_diff": 716476,
+          "kills_diff_str": "+716.5K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1491610919,
+          "might_str": "1.49B",
+          "might_diff": 1641118,
+          "might_diff_str": "+1.6M",
+          "kills": 118746263,
+          "kills_str": "118.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1509942158,
+          "might_str": "1.51B",
+          "might_diff": 18331239,
+          "might_diff_str": "+18.3M",
+          "kills": 118837721,
+          "kills_str": "118.8M",
+          "kills_diff": 91458,
+          "kills_diff_str": "+91.5K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1514001692,
+          "might_str": "1.51B",
+          "might_diff": 4059534,
+          "might_diff_str": "+4.1M",
+          "kills": 118837721,
+          "kills_str": "118.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Binzzz215",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1237645143,
+          "might_str": "1.24B",
+          "might_diff": 41414501,
+          "might_diff_str": "+41.4M",
+          "kills": 713120303,
+          "kills_str": "713.1M",
+          "kills_diff": 210729,
+          "kills_diff_str": "+210.7K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1240683291,
+          "might_str": "1.24B",
+          "might_diff": 3038148,
+          "might_diff_str": "+3.0M",
+          "kills": 713691794,
+          "kills_str": "713.7M",
+          "kills_diff": 571491,
+          "kills_diff_str": "+571.5K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1259518210,
+          "might_str": "1.26B",
+          "might_diff": 18834919,
+          "might_diff_str": "+18.8M",
+          "kills": 715084128,
+          "kills_str": "715.1M",
+          "kills_diff": 1392334,
+          "kills_diff_str": "+1.4M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1262688590,
+          "might_str": "1.26B",
+          "might_diff": 3170380,
+          "might_diff_str": "+3.2M",
+          "kills": 715890126,
+          "kills_str": "715.9M",
+          "kills_diff": 805998,
+          "kills_diff_str": "+806.0K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Black Ichigo",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1539989512,
+          "might_str": "1.54B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 133897096,
+          "kills_str": "133.9M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1551748252,
+          "might_str": "1.55B",
+          "might_diff": 11758740,
+          "might_diff_str": "+11.8M",
+          "kills": 133897096,
+          "kills_str": "133.9M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1554385028,
+          "might_str": "1.55B",
+          "might_diff": 2636776,
+          "might_diff_str": "+2.6M",
+          "kills": 133897096,
+          "kills_str": "133.9M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Cappyman",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1572837766,
+          "might_str": "1.57B",
+          "might_diff": 11166857,
+          "might_diff_str": "+11.2M",
+          "kills": 265808696,
+          "kills_str": "265.8M",
+          "kills_diff": 406397,
+          "kills_diff_str": "+406.4K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1573819186,
+          "might_str": "1.57B",
+          "might_diff": 981420,
+          "might_diff_str": "+981.4K",
+          "kills": 265808696,
+          "kills_str": "265.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1571634937,
+          "might_str": "1.57B",
+          "might_diff": -2184249,
+          "might_diff_str": "-2.2M",
+          "kills": 266442306,
+          "kills_str": "266.4M",
+          "kills_diff": 633610,
+          "kills_diff_str": "+633.6K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1577063627,
+          "might_str": "1.58B",
+          "might_diff": 5428690,
+          "might_diff_str": "+5.4M",
+          "kills": 266442306,
+          "kills_str": "266.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "CatFishx",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1101156696,
+          "might_str": "1.10B",
+          "might_diff": 15316583,
+          "might_diff_str": "+15.3M",
+          "kills": 175677646,
+          "kills_str": "175.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1094985981,
+          "might_str": "1.09B",
+          "might_diff": -6170715,
+          "might_diff_str": "-6.2M",
+          "kills": 177658406,
+          "kills_str": "177.7M",
+          "kills_diff": 1980760,
+          "kills_diff_str": "+2.0M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1095630153,
+          "might_str": "1.10B",
+          "might_diff": 644172,
+          "might_diff_str": "+644.2K",
+          "kills": 177658406,
+          "kills_str": "177.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1101770833,
+          "might_str": "1.10B",
+          "might_diff": 6140680,
+          "might_diff_str": "+6.1M",
+          "kills": 177658406,
+          "kills_str": "177.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "CaveBat",
+      "snapshots": [
+        {
+          "date": "2026-03-26",
+          "might": 1455309618,
+          "might_str": "1.46B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 1238206352,
+          "kills_str": "1.24B",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK1"
+        }
+      ]
+    },
+    {
+      "name": "Charlyx1x",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1196186370,
+          "might_str": "1.20B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 244234653,
+          "kills_str": "244.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1203058728,
+          "might_str": "1.20B",
+          "might_diff": 6872358,
+          "might_diff_str": "+6.9M",
+          "kills": 244234653,
+          "kills_str": "244.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1203058728,
+          "might_str": "1.20B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 244234653,
+          "kills_str": "244.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Chen Pei Xin",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2013909177,
+          "might_str": "2.01B",
+          "might_diff": 1808936,
+          "might_diff_str": "+1.8M",
+          "kills": 240992229,
+          "kills_str": "241.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "CHiLL2NiGHT",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1716591716,
+          "might_str": "1.72B",
+          "might_diff": -14121124,
+          "might_diff_str": "-14.1M",
+          "kills": 237831597,
+          "kills_str": "237.8M",
+          "kills_diff": 1880090,
+          "kills_diff_str": "+1.9M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1728926544,
+          "might_str": "1.73B",
+          "might_diff": 12334828,
+          "might_diff_str": "+12.3M",
+          "kills": 237857528,
+          "kills_str": "237.9M",
+          "kills_diff": 25931,
+          "kills_diff_str": "+25.9K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1743155431,
+          "might_str": "1.74B",
+          "might_diff": 14228887,
+          "might_diff_str": "+14.2M",
+          "kills": 237937428,
+          "kills_str": "237.9M",
+          "kills_diff": 79900,
+          "kills_diff_str": "+79.9K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1723894975,
+          "might_str": "1.72B",
+          "might_diff": -19260456,
+          "might_diff_str": "-19.3M",
+          "kills": 238659739,
+          "kills_str": "238.7M",
+          "kills_diff": 722311,
+          "kills_diff_str": "+722.3K",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "Chocoflan1",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1314135129,
+          "might_str": "1.31B",
+          "might_diff": 4068681,
+          "might_diff_str": "+4.1M",
+          "kills": 115168724,
+          "kills_str": "115.2M",
+          "kills_diff": 10,
+          "kills_diff_str": "+10",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1321733066,
+          "might_str": "1.32B",
+          "might_diff": 7597937,
+          "might_diff_str": "+7.6M",
+          "kills": 115168724,
+          "kills_str": "115.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1327950216,
+          "might_str": "1.33B",
+          "might_diff": 6217150,
+          "might_diff_str": "+6.2M",
+          "kills": 115168724,
+          "kills_str": "115.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1340930899,
+          "might_str": "1.34B",
+          "might_diff": 12980683,
+          "might_diff_str": "+13.0M",
+          "kills": 115168724,
+          "kills_str": "115.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Clayton V",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1503745891,
+          "might_str": "1.50B",
+          "might_diff": 11843248,
+          "might_diff_str": "+11.8M",
+          "kills": 130782354,
+          "kills_str": "130.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "D A H L I A",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2308928133,
+          "might_str": "2.31B",
+          "might_diff": -7622459,
+          "might_diff_str": "-7.6M",
+          "kills": 1461332415,
+          "kills_str": "1.46B",
+          "kills_diff": 1114055,
+          "kills_diff_str": "+1.1M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2307787148,
+          "might_str": "2.31B",
+          "might_diff": -1140985,
+          "might_diff_str": "-1.1M",
+          "kills": 1462276882,
+          "kills_str": "1.46B",
+          "kills_diff": 944467,
+          "kills_diff_str": "+944.5K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2309037356,
+          "might_str": "2.31B",
+          "might_diff": 1250208,
+          "might_diff_str": "+1.3M",
+          "kills": 1464172041,
+          "kills_str": "1.46B",
+          "kills_diff": 1895159,
+          "kills_diff_str": "+1.9M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2309816372,
+          "might_str": "2.31B",
+          "might_diff": 779016,
+          "might_diff_str": "+779.0K",
+          "kills": 1464172041,
+          "kills_str": "1.46B",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "Darren69",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1599462838,
+          "might_str": "1.60B",
+          "might_diff": 16701171,
+          "might_diff_str": "+16.7M",
+          "kills": 374830040,
+          "kills_str": "374.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1603764321,
+          "might_str": "1.60B",
+          "might_diff": 4301483,
+          "might_diff_str": "+4.3M",
+          "kills": 374830040,
+          "kills_str": "374.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1605890582,
+          "might_str": "1.61B",
+          "might_diff": 2126261,
+          "might_diff_str": "+2.1M",
+          "kills": 374837716,
+          "kills_str": "374.8M",
+          "kills_diff": 7676,
+          "kills_diff_str": "+7.7K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1607863390,
+          "might_str": "1.61B",
+          "might_diff": 1972808,
+          "might_diff_str": "+2.0M",
+          "kills": 374837716,
+          "kills_str": "374.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "Darren69 Bnk",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 400523055,
+          "might_str": "400.5M",
+          "might_diff": 9334358,
+          "might_diff_str": "+9.3M",
+          "kills": 9750592,
+          "kills_str": "9.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK1"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 401722747,
+          "might_str": "401.7M",
+          "might_diff": 1199692,
+          "might_diff_str": "+1.2M",
+          "kills": 9750592,
+          "kills_str": "9.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK1"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 403588472,
+          "might_str": "403.6M",
+          "might_diff": 1865725,
+          "might_diff_str": "+1.9M",
+          "kills": 9750592,
+          "kills_str": "9.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK1"
+        }
+      ]
+    },
+    {
+      "name": "Devmani Sing",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1091504758,
+          "might_str": "1.09B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 404785819,
+          "kills_str": "404.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1090930362,
+          "might_str": "1.09B",
+          "might_diff": -574396,
+          "might_diff_str": "-574.4K",
+          "kills": 404785819,
+          "kills_str": "404.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1094395024,
+          "might_str": "1.09B",
+          "might_diff": 3464662,
+          "might_diff_str": "+3.5M",
+          "kills": 404838605,
+          "kills_str": "404.8M",
+          "kills_diff": 52786,
+          "kills_diff_str": "+52.8K",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "DRAGON LH",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2187775201,
+          "might_str": "2.19B",
+          "might_diff": 5615742,
+          "might_diff_str": "+5.6M",
+          "kills": 794263611,
+          "kills_str": "794.3M",
+          "kills_diff": 819527,
+          "kills_diff_str": "+819.5K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2190243728,
+          "might_str": "2.19B",
+          "might_diff": 2468527,
+          "might_diff_str": "+2.5M",
+          "kills": 794263611,
+          "kills_str": "794.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2191253245,
+          "might_str": "2.19B",
+          "might_diff": 1009517,
+          "might_diff_str": "+1.0M",
+          "kills": 795483130,
+          "kills_str": "795.5M",
+          "kills_diff": 1219519,
+          "kills_diff_str": "+1.2M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2185847609,
+          "might_str": "2.19B",
+          "might_diff": -5405636,
+          "might_diff_str": "-5.4M",
+          "kills": 799847745,
+          "kills_str": "799.8M",
+          "kills_diff": 4364615,
+          "kills_diff_str": "+4.4M",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "dsgutrdghg",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2089496239,
+          "might_str": "2.09B",
+          "might_diff": 50629460,
+          "might_diff_str": "+50.6M",
+          "kills": 1049288371,
+          "kills_str": "1.05B",
+          "kills_diff": 14402950,
+          "kills_diff_str": "+14.4M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2065972652,
+          "might_str": "2.07B",
+          "might_diff": -23523587,
+          "might_diff_str": "-23.5M",
+          "kills": 1059890161,
+          "kills_str": "1.06B",
+          "kills_diff": 10601790,
+          "kills_diff_str": "+10.6M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2093909263,
+          "might_str": "2.09B",
+          "might_diff": 27936611,
+          "might_diff_str": "+27.9M",
+          "kills": 1065123238,
+          "kills_str": "1.07B",
+          "kills_diff": 5233077,
+          "kills_diff_str": "+5.2M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2086195425,
+          "might_str": "2.09B",
+          "might_diff": -7713838,
+          "might_diff_str": "-7.7M",
+          "kills": 1065507301,
+          "kills_str": "1.07B",
+          "kills_diff": 384063,
+          "kills_diff_str": "+384.1K",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "Duc Pham",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1691666097,
+          "might_str": "1.69B",
+          "might_diff": 38418743,
+          "might_diff_str": "+38.4M",
+          "kills": 226282471,
+          "kills_str": "226.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1690076730,
+          "might_str": "1.69B",
+          "might_diff": -1589367,
+          "might_diff_str": "-1.6M",
+          "kills": 229637999,
+          "kills_str": "229.6M",
+          "kills_diff": 3355528,
+          "kills_diff_str": "+3.4M",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1694958442,
+          "might_str": "1.69B",
+          "might_diff": 4881712,
+          "might_diff_str": "+4.9M",
+          "kills": 229637999,
+          "kills_str": "229.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1700254940,
+          "might_str": "1.70B",
+          "might_diff": 5296498,
+          "might_diff_str": "+5.3M",
+          "kills": 230206366,
+          "kills_str": "230.2M",
+          "kills_diff": 568367,
+          "kills_diff_str": "+568.4K",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Eagle10",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1011602545,
+          "might_str": "1.01B",
+          "might_diff": 3484008,
+          "might_diff_str": "+3.5M",
+          "kills": 159820793,
+          "kills_str": "159.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1012070545,
+          "might_str": "1.01B",
+          "might_diff": 468000,
+          "might_diff_str": "+468.0K",
+          "kills": 159820793,
+          "kills_str": "159.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1012070545,
+          "might_str": "1.01B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 159820793,
+          "kills_str": "159.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1012538545,
+          "might_str": "1.01B",
+          "might_diff": 468000,
+          "might_diff_str": "+468.0K",
+          "kills": 159820793,
+          "kills_str": "159.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "egao",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2520966851,
+          "might_str": "2.52B",
+          "might_diff": 96639313,
+          "might_diff_str": "+96.6M",
+          "kills": 82899668,
+          "kills_str": "82.9M",
+          "kills_diff": 2579361,
+          "kills_diff_str": "+2.6M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2525665106,
+          "might_str": "2.53B",
+          "might_diff": 4698255,
+          "might_diff_str": "+4.7M",
+          "kills": 85089586,
+          "kills_str": "85.1M",
+          "kills_diff": 2189918,
+          "kills_diff_str": "+2.2M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2524907106,
+          "might_str": "2.52B",
+          "might_diff": -758000,
+          "might_diff_str": "-758.0K",
+          "kills": 86612836,
+          "kills_str": "86.6M",
+          "kills_diff": 1523250,
+          "kills_diff_str": "+1.5M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2526549756,
+          "might_str": "2.53B",
+          "might_diff": 1642650,
+          "might_diff_str": "+1.6M",
+          "kills": 86612836,
+          "kills_str": "86.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "EL DIABL0 85",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 2810031274,
+          "might_str": "2.81B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 507341062,
+          "kills_str": "507.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2802945758,
+          "might_str": "2.80B",
+          "might_diff": -7085516,
+          "might_diff_str": "-7.1M",
+          "kills": 513194201,
+          "kills_str": "513.2M",
+          "kills_diff": 5853139,
+          "kills_diff_str": "+5.9M",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2785790575,
+          "might_str": "2.79B",
+          "might_diff": -17155183,
+          "might_diff_str": "-17.2M",
+          "kills": 516928877,
+          "kills_str": "516.9M",
+          "kills_diff": 3734676,
+          "kills_diff_str": "+3.7M",
+          "rank": "RANK1"
+        }
+      ]
+    },
+    {
+      "name": "Eltarii",
+      "snapshots": [
+        {
+          "date": "2026-03-25",
+          "might": 1767751345,
+          "might_str": "1.77B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 316745950,
+          "kills_str": "316.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1731010933,
+          "might_str": "1.73B",
+          "might_diff": -36740412,
+          "might_diff_str": "-36.7M",
+          "kills": 317554470,
+          "kills_str": "317.6M",
+          "kills_diff": 808520,
+          "kills_diff_str": "+808.5K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "ELYSINA",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1166423340,
+          "might_str": "1.17B",
+          "might_diff": 8958089,
+          "might_diff_str": "+9.0M",
+          "kills": 55206349,
+          "kills_str": "55.2M",
+          "kills_diff": 159836,
+          "kills_diff_str": "+159.8K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1166778697,
+          "might_str": "1.17B",
+          "might_diff": 355357,
+          "might_diff_str": "+355.4K",
+          "kills": 55206349,
+          "kills_str": "55.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "EnchanterTTT",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2157524283,
+          "might_str": "2.16B",
+          "might_diff": -20232141,
+          "might_diff_str": "-20.2M",
+          "kills": 125645394,
+          "kills_str": "125.6M",
+          "kills_diff": 4935530,
+          "kills_diff_str": "+4.9M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2172555890,
+          "might_str": "2.17B",
+          "might_diff": 15031607,
+          "might_diff_str": "+15.0M",
+          "kills": 125645394,
+          "kills_str": "125.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2172145507,
+          "might_str": "2.17B",
+          "might_diff": -410383,
+          "might_diff_str": "-410.4K",
+          "kills": 126153993,
+          "kills_str": "126.2M",
+          "kills_diff": 508599,
+          "kills_diff_str": "+508.6K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2157472829,
+          "might_str": "2.16B",
+          "might_diff": -14672678,
+          "might_diff_str": "-14.7M",
+          "kills": 126794443,
+          "kills_str": "126.8M",
+          "kills_diff": 640450,
+          "kills_diff_str": "+640.5K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "FLORECITA06",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1297785149,
+          "might_str": "1.30B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 115930901,
+          "kills_str": "115.9M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Frank143",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1881584492,
+          "might_str": "1.88B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 324943047,
+          "kills_str": "324.9M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1869211966,
+          "might_str": "1.87B",
+          "might_diff": -12372526,
+          "might_diff_str": "-12.4M",
+          "kills": 326727535,
+          "kills_str": "326.7M",
+          "kills_diff": 1784488,
+          "kills_diff_str": "+1.8M",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1868197003,
+          "might_str": "1.87B",
+          "might_diff": -1014963,
+          "might_diff_str": "-1.0M",
+          "kills": 327901739,
+          "kills_str": "327.9M",
+          "kills_diff": 1174204,
+          "kills_diff_str": "+1.2M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1865233127,
+          "might_str": "1.87B",
+          "might_diff": -2963876,
+          "might_diff_str": "-3.0M",
+          "kills": 328597946,
+          "kills_str": "328.6M",
+          "kills_diff": 696207,
+          "kills_diff_str": "+696.2K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Gato Plus",
+      "snapshots": [
+        {
+          "date": "2026-03-25",
+          "might": 1190750422,
+          "might_str": "1.19B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 58345157,
+          "kills_str": "58.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK1"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1189820806,
+          "might_str": "1.19B",
+          "might_diff": -929616,
+          "might_diff_str": "-929.6K",
+          "kills": 58471133,
+          "kills_str": "58.5M",
+          "kills_diff": 125976,
+          "kills_diff_str": "+126.0K",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "gdooo",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2792137072,
+          "might_str": "2.79B",
+          "might_diff": 13127888,
+          "might_diff_str": "+13.1M",
+          "kills": 158583232,
+          "kills_str": "158.6M",
+          "kills_diff": 1908096,
+          "kills_diff_str": "+1.9M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2792432077,
+          "might_str": "2.79B",
+          "might_diff": 295005,
+          "might_diff_str": "+295.0K",
+          "kills": 158860036,
+          "kills_str": "158.9M",
+          "kills_diff": 276804,
+          "kills_diff_str": "+276.8K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2794856497,
+          "might_str": "2.79B",
+          "might_diff": 2424420,
+          "might_diff_str": "+2.4M",
+          "kills": 159265130,
+          "kills_str": "159.3M",
+          "kills_diff": 405094,
+          "kills_diff_str": "+405.1K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2797225877,
+          "might_str": "2.80B",
+          "might_diff": 2369380,
+          "might_diff_str": "+2.4M",
+          "kills": 159265132,
+          "kills_str": "159.3M",
+          "kills_diff": 2,
+          "kills_diff_str": "+2",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "German Areta",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1412124441,
+          "might_str": "1.41B",
+          "might_diff": -5246775,
+          "might_diff_str": "-5.2M",
+          "kills": 97745358,
+          "kills_str": "97.7M",
+          "kills_diff": 845852,
+          "kills_diff_str": "+845.9K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1408252225,
+          "might_str": "1.41B",
+          "might_diff": -3872216,
+          "might_diff_str": "-3.9M",
+          "kills": 99844086,
+          "kills_str": "99.8M",
+          "kills_diff": 2098728,
+          "kills_diff_str": "+2.1M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1409329079,
+          "might_str": "1.41B",
+          "might_diff": 1076854,
+          "might_diff_str": "+1.1M",
+          "kills": 99844086,
+          "kills_str": "99.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1409483591,
+          "might_str": "1.41B",
+          "might_diff": 154512,
+          "might_diff_str": "+154.5K",
+          "kills": 99844086,
+          "kills_str": "99.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "Golden Boy19",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 987907352,
+          "might_str": "987.9M",
+          "might_diff": 6212382,
+          "might_diff_str": "+6.2M",
+          "kills": 44532289,
+          "kills_str": "44.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "HOLALORD88",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1640708609,
+          "might_str": "1.64B",
+          "might_diff": -116408453,
+          "might_diff_str": "-116.4M",
+          "kills": 372419427,
+          "kills_str": "372.4M",
+          "kills_diff": 2721650,
+          "kills_diff_str": "+2.7M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1642834217,
+          "might_str": "1.64B",
+          "might_diff": 2125608,
+          "might_diff_str": "+2.1M",
+          "kills": 372419427,
+          "kills_str": "372.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1650510238,
+          "might_str": "1.65B",
+          "might_diff": 7676021,
+          "might_diff_str": "+7.7M",
+          "kills": 372419427,
+          "kills_str": "372.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1650510238,
+          "might_str": "1.65B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 372419427,
+          "kills_str": "372.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "HuuHanh",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1362681870,
+          "might_str": "1.36B",
+          "might_diff": 22319873,
+          "might_diff_str": "+22.3M",
+          "kills": 224710986,
+          "kills_str": "224.7M",
+          "kills_diff": 2780056,
+          "kills_diff_str": "+2.8M",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "I  Nagato II",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1189193227,
+          "might_str": "1.19B",
+          "might_diff": 284160,
+          "might_diff_str": "+284.2K",
+          "kills": 198598860,
+          "kills_str": "198.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1189371307,
+          "might_str": "1.19B",
+          "might_diff": 178080,
+          "might_diff_str": "+178.1K",
+          "kills": 198598860,
+          "kills_str": "198.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "I Yumeko",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1594095328,
+          "might_str": "1.59B",
+          "might_diff": 15814619,
+          "might_diff_str": "+15.8M",
+          "kills": 309788561,
+          "kills_str": "309.8M",
+          "kills_diff": 3379421,
+          "kills_diff_str": "+3.4M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1597806874,
+          "might_str": "1.60B",
+          "might_diff": 3711546,
+          "might_diff_str": "+3.7M",
+          "kills": 309788561,
+          "kills_str": "309.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1598583730,
+          "might_str": "1.60B",
+          "might_diff": 776856,
+          "might_diff_str": "+776.9K",
+          "kills": 312172232,
+          "kills_str": "312.2M",
+          "kills_diff": 2383671,
+          "kills_diff_str": "+2.4M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1588425233,
+          "might_str": "1.59B",
+          "might_diff": -10158497,
+          "might_diff_str": "-10.2M",
+          "kills": 313300329,
+          "kills_str": "313.3M",
+          "kills_diff": 1128097,
+          "kills_diff_str": "+1.1M",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "II Yumeko",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1446510939,
+          "might_str": "1.45B",
+          "might_diff": 5469039,
+          "might_diff_str": "+5.5M",
+          "kills": 688743166,
+          "kills_str": "688.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1447005160,
+          "might_str": "1.45B",
+          "might_diff": 494221,
+          "might_diff_str": "+494.2K",
+          "kills": 688743166,
+          "kills_str": "688.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1447558056,
+          "might_str": "1.45B",
+          "might_diff": 552896,
+          "might_diff_str": "+552.9K",
+          "kills": 688743166,
+          "kills_str": "688.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1447961847,
+          "might_str": "1.45B",
+          "might_diff": 403791,
+          "might_diff_str": "+403.8K",
+          "kills": 688867673,
+          "kills_str": "688.9M",
+          "kills_diff": 124507,
+          "kills_diff_str": "+124.5K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "IIEMPERYALII",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 912472349,
+          "might_str": "912.5M",
+          "might_diff": 8126173,
+          "might_diff_str": "+8.1M",
+          "kills": 381466006,
+          "kills_str": "381.5M",
+          "kills_diff": 1915743,
+          "kills_diff_str": "+1.9M",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "iOoNe",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1339195019,
+          "might_str": "1.34B",
+          "might_diff": 9383075,
+          "might_diff_str": "+9.4M",
+          "kills": 131413487,
+          "kills_str": "131.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1339588789,
+          "might_str": "1.34B",
+          "might_diff": 393770,
+          "might_diff_str": "+393.8K",
+          "kills": 131413487,
+          "kills_str": "131.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1339661509,
+          "might_str": "1.34B",
+          "might_diff": 72720,
+          "might_diff_str": "+72.7K",
+          "kills": 131413487,
+          "kills_str": "131.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1346335653,
+          "might_str": "1.35B",
+          "might_diff": 6674144,
+          "might_diff_str": "+6.7M",
+          "kills": 131413487,
+          "kills_str": "131.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Itachi285",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1132788283,
+          "might_str": "1.13B",
+          "might_diff": 1864232,
+          "might_diff_str": "+1.9M",
+          "kills": 205927473,
+          "kills_str": "205.9M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1133289543,
+          "might_str": "1.13B",
+          "might_diff": 501260,
+          "might_diff_str": "+501.3K",
+          "kills": 206103684,
+          "kills_str": "206.1M",
+          "kills_diff": 176211,
+          "kills_diff_str": "+176.2K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1163858469,
+          "might_str": "1.16B",
+          "might_diff": 30568926,
+          "might_diff_str": "+30.6M",
+          "kills": 206979951,
+          "kills_str": "207.0M",
+          "kills_diff": 876267,
+          "kills_diff_str": "+876.3K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1163961989,
+          "might_str": "1.16B",
+          "might_diff": 103520,
+          "might_diff_str": "+103.5K",
+          "kills": 206979951,
+          "kills_str": "207.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Izares",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2465810698,
+          "might_str": "2.47B",
+          "might_diff": 8677745,
+          "might_diff_str": "+8.7M",
+          "kills": 180048938,
+          "kills_str": "180.0M",
+          "kills_diff": 5361781,
+          "kills_diff_str": "+5.4M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2488522129,
+          "might_str": "2.49B",
+          "might_diff": 22711431,
+          "might_diff_str": "+22.7M",
+          "kills": 181599857,
+          "kills_str": "181.6M",
+          "kills_diff": 1550919,
+          "kills_diff_str": "+1.6M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2463311953,
+          "might_str": "2.46B",
+          "might_diff": -25210176,
+          "might_diff_str": "-25.2M",
+          "kills": 537096399,
+          "kills_str": "537.1M",
+          "kills_diff": 355496542,
+          "kills_diff_str": "+355.5M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2444756439,
+          "might_str": "2.44B",
+          "might_diff": -18555514,
+          "might_diff_str": "-18.6M",
+          "kills": 537719890,
+          "kills_str": "537.7M",
+          "kills_diff": 623491,
+          "kills_diff_str": "+623.5K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Jjoyboyy",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1224150428,
+          "might_str": "1.22B",
+          "might_diff": 7610864,
+          "might_diff_str": "+7.6M",
+          "kills": 257249338,
+          "kills_str": "257.2M",
+          "kills_diff": 848691,
+          "kills_diff_str": "+848.7K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1224956668,
+          "might_str": "1.22B",
+          "might_diff": 806240,
+          "might_diff_str": "+806.2K",
+          "kills": 257249338,
+          "kills_str": "257.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1228210630,
+          "might_str": "1.23B",
+          "might_diff": 3253962,
+          "might_diff_str": "+3.3M",
+          "kills": 257271355,
+          "kills_str": "257.3M",
+          "kills_diff": 22017,
+          "kills_diff_str": "+22.0K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1217699210,
+          "might_str": "1.22B",
+          "might_diff": -10511420,
+          "might_diff_str": "-10.5M",
+          "kills": 258423815,
+          "kills_str": "258.4M",
+          "kills_diff": 1152460,
+          "kills_diff_str": "+1.2M",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "JJZeusJJ",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1150843041,
+          "might_str": "1.15B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 127567528,
+          "kills_str": "127.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "kathLeen07",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1384260441,
+          "might_str": "1.38B",
+          "might_diff": -283475656,
+          "might_diff_str": "-283.5M",
+          "kills": 180421478,
+          "kills_str": "180.4M",
+          "kills_diff": 162576,
+          "kills_diff_str": "+162.6K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1670564357,
+          "might_str": "1.67B",
+          "might_diff": 286303916,
+          "might_diff_str": "+286.3M",
+          "kills": 180438146,
+          "kills_str": "180.4M",
+          "kills_diff": 16668,
+          "kills_diff_str": "+16.7K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1672639164,
+          "might_str": "1.67B",
+          "might_diff": 2074807,
+          "might_diff_str": "+2.1M",
+          "kills": 180438146,
+          "kills_str": "180.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1672645068,
+          "might_str": "1.67B",
+          "might_diff": 5904,
+          "might_diff_str": "+5.9K",
+          "kills": 180502035,
+          "kills_str": "180.5M",
+          "kills_diff": 63889,
+          "kills_diff_str": "+63.9K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "katsu  katsu",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2386197096,
+          "might_str": "2.39B",
+          "might_diff": 19955752,
+          "might_diff_str": "+20.0M",
+          "kills": 278168379,
+          "kills_str": "278.2M",
+          "kills_diff": 445256,
+          "kills_diff_str": "+445.3K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2384837649,
+          "might_str": "2.38B",
+          "might_diff": -1359447,
+          "might_diff_str": "-1.4M",
+          "kills": 279808396,
+          "kills_str": "279.8M",
+          "kills_diff": 1640017,
+          "kills_diff_str": "+1.6M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2385628873,
+          "might_str": "2.39B",
+          "might_diff": 791224,
+          "might_diff_str": "+791.2K",
+          "kills": 279812711,
+          "kills_str": "279.8M",
+          "kills_diff": 4315,
+          "kills_diff_str": "+4.3K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2386246501,
+          "might_str": "2.39B",
+          "might_diff": 617628,
+          "might_diff_str": "+617.6K",
+          "kills": 279812713,
+          "kills_str": "279.8M",
+          "kills_diff": 2,
+          "kills_diff_str": "+2",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "kiiiiiiton",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2667221861,
+          "might_str": "2.67B",
+          "might_diff": 6018012,
+          "might_diff_str": "+6.0M",
+          "kills": 25659554,
+          "kills_str": "25.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2669912937,
+          "might_str": "2.67B",
+          "might_diff": 2691076,
+          "might_diff_str": "+2.7M",
+          "kills": 25659555,
+          "kills_str": "25.7M",
+          "kills_diff": 1,
+          "kills_diff_str": "+1",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2672114033,
+          "might_str": "2.67B",
+          "might_diff": 2201096,
+          "might_diff_str": "+2.2M",
+          "kills": 26578690,
+          "kills_str": "26.6M",
+          "kills_diff": 919135,
+          "kills_diff_str": "+919.1K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2672793253,
+          "might_str": "2.67B",
+          "might_diff": 679220,
+          "might_diff_str": "+679.2K",
+          "kills": 26578691,
+          "kills_str": "26.6M",
+          "kills_diff": 1,
+          "kills_diff_str": "+1",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "killers 20",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1022088638,
+          "might_str": "1.02B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 151206634,
+          "kills_str": "151.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1073430270,
+          "might_str": "1.07B",
+          "might_diff": 51341632,
+          "might_diff_str": "+51.3M",
+          "kills": 151206634,
+          "kills_str": "151.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1074076148,
+          "might_str": "1.07B",
+          "might_diff": 645878,
+          "might_diff_str": "+645.9K",
+          "kills": 151206634,
+          "kills_str": "151.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Kim Tan",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1023326912,
+          "might_str": "1.02B",
+          "might_diff": 17074689,
+          "might_diff_str": "+17.1M",
+          "kills": 330259150,
+          "kills_str": "330.3M",
+          "kills_diff": 725583,
+          "kills_diff_str": "+725.6K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1022059721,
+          "might_str": "1.02B",
+          "might_diff": -1267191,
+          "might_diff_str": "-1.3M",
+          "kills": 330463793,
+          "kills_str": "330.5M",
+          "kills_diff": 204643,
+          "kills_diff_str": "+204.6K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1025658641,
+          "might_str": "1.03B",
+          "might_diff": 3598920,
+          "might_diff_str": "+3.6M",
+          "kills": 330463793,
+          "kills_str": "330.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1028818145,
+          "might_str": "1.03B",
+          "might_diff": 3159504,
+          "might_diff_str": "+3.2M",
+          "kills": 330463793,
+          "kills_str": "330.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "KingAtli",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1135195838,
+          "might_str": "1.14B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 48577825,
+          "kills_str": "48.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1135367039,
+          "might_str": "1.14B",
+          "might_diff": 171201,
+          "might_diff_str": "+171.2K",
+          "kills": 48577825,
+          "kills_str": "48.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1135523559,
+          "might_str": "1.14B",
+          "might_diff": 156520,
+          "might_diff_str": "+156.5K",
+          "kills": 48730865,
+          "kills_str": "48.7M",
+          "kills_diff": 153040,
+          "kills_diff_str": "+153.0K",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "KollerGK",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1443250326,
+          "might_str": "1.44B",
+          "might_diff": 14384165,
+          "might_diff_str": "+14.4M",
+          "kills": 248988045,
+          "kills_str": "249.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1450258728,
+          "might_str": "1.45B",
+          "might_diff": 7008402,
+          "might_diff_str": "+7.0M",
+          "kills": 248988045,
+          "kills_str": "249.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1451464488,
+          "might_str": "1.45B",
+          "might_diff": 1205760,
+          "might_diff_str": "+1.2M",
+          "kills": 248988045,
+          "kills_str": "249.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1452322992,
+          "might_str": "1.45B",
+          "might_diff": 858504,
+          "might_diff_str": "+858.5K",
+          "kills": 248988045,
+          "kills_str": "249.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Le Clebard",
+      "snapshots": [
+        {
+          "date": "2026-03-25",
+          "might": 1704970905,
+          "might_str": "1.70B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 301952589,
+          "kills_str": "302.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK1"
+        }
+      ]
+    },
+    {
+      "name": "Looking 4 me",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2160607139,
+          "might_str": "2.16B",
+          "might_diff": 14423640,
+          "might_diff_str": "+14.4M",
+          "kills": 705692251,
+          "kills_str": "705.7M",
+          "kills_diff": 948060,
+          "kills_diff_str": "+948.1K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2167303674,
+          "might_str": "2.17B",
+          "might_diff": 6696535,
+          "might_diff_str": "+6.7M",
+          "kills": 705692251,
+          "kills_str": "705.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2172102466,
+          "might_str": "2.17B",
+          "might_diff": 4798792,
+          "might_diff_str": "+4.8M",
+          "kills": 709588046,
+          "kills_str": "709.6M",
+          "kills_diff": 3895795,
+          "kills_diff_str": "+3.9M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2175681114,
+          "might_str": "2.18B",
+          "might_diff": 3578648,
+          "might_diff_str": "+3.6M",
+          "kills": 710821347,
+          "kills_str": "710.8M",
+          "kills_diff": 1233301,
+          "kills_diff_str": "+1.2M",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "luckycoin4",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1691717491,
+          "might_str": "1.69B",
+          "might_diff": 34724587,
+          "might_diff_str": "+34.7M",
+          "kills": 907225743,
+          "kills_str": "907.2M",
+          "kills_diff": 5295602,
+          "kills_diff_str": "+5.3M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1751884498,
+          "might_str": "1.75B",
+          "might_diff": 60167007,
+          "might_diff_str": "+60.2M",
+          "kills": 918321581,
+          "kills_str": "918.3M",
+          "kills_diff": 11095838,
+          "kills_diff_str": "+11.1M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1754117994,
+          "might_str": "1.75B",
+          "might_diff": 2233496,
+          "might_diff_str": "+2.2M",
+          "kills": 919001802,
+          "kills_str": "919.0M",
+          "kills_diff": 680221,
+          "kills_diff_str": "+680.2K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1752284702,
+          "might_str": "1.75B",
+          "might_diff": -1833292,
+          "might_diff_str": "-1.8M",
+          "kills": 919329927,
+          "kills_str": "919.3M",
+          "kills_diff": 328125,
+          "kills_diff_str": "+328.1K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Luscop",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 856489280,
+          "might_str": "856.5M",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 660734205,
+          "kills_str": "660.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 859448799,
+          "might_str": "859.4M",
+          "might_diff": 2959519,
+          "might_diff_str": "+3.0M",
+          "kills": 661019416,
+          "kills_str": "661.0M",
+          "kills_diff": 285211,
+          "kills_diff_str": "+285.2K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 859520319,
+          "might_str": "859.5M",
+          "might_diff": 71520,
+          "might_diff_str": "+71.5K",
+          "kills": 661019416,
+          "kills_str": "661.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Mahesh 1433",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1472077331,
+          "might_str": "1.47B",
+          "might_diff": 10306821,
+          "might_diff_str": "+10.3M",
+          "kills": 183376967,
+          "kills_str": "183.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1472731372,
+          "might_str": "1.47B",
+          "might_diff": 654041,
+          "might_diff_str": "+654.0K",
+          "kills": 183376967,
+          "kills_str": "183.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1489312726,
+          "might_str": "1.49B",
+          "might_diff": 16581354,
+          "might_diff_str": "+16.6M",
+          "kills": 183376967,
+          "kills_str": "183.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1497715998,
+          "might_str": "1.50B",
+          "might_diff": 8403272,
+          "might_diff_str": "+8.4M",
+          "kills": 183376967,
+          "kills_str": "183.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "MASTER 1993",
+      "snapshots": [
+        {
+          "date": "2026-03-25",
+          "might": 1050059057,
+          "might_str": "1.05B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 308018329,
+          "kills_str": "308.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "milaros",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1999781407,
+          "might_str": "2.00B",
+          "might_diff": 47900530,
+          "might_diff_str": "+47.9M",
+          "kills": 151754217,
+          "kills_str": "151.8M",
+          "kills_diff": 352175,
+          "kills_diff_str": "+352.2K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2007201116,
+          "might_str": "2.01B",
+          "might_diff": 7419709,
+          "might_diff_str": "+7.4M",
+          "kills": 151754217,
+          "kills_str": "151.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2008311702,
+          "might_str": "2.01B",
+          "might_diff": 1110586,
+          "might_diff_str": "+1.1M",
+          "kills": 151900287,
+          "kills_str": "151.9M",
+          "kills_diff": 146070,
+          "kills_diff_str": "+146.1K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2012425742,
+          "might_str": "2.01B",
+          "might_diff": 4114040,
+          "might_diff_str": "+4.1M",
+          "kills": 151900287,
+          "kills_str": "151.9M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Milk1104",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1432038573,
+          "might_str": "1.43B",
+          "might_diff": 15411678,
+          "might_diff_str": "+15.4M",
+          "kills": 783082008,
+          "kills_str": "783.1M",
+          "kills_diff": 2517889,
+          "kills_diff_str": "+2.5M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1432000222,
+          "might_str": "1.43B",
+          "might_diff": -38351,
+          "might_diff_str": "-38.4K",
+          "kills": 784848212,
+          "kills_str": "784.8M",
+          "kills_diff": 1766204,
+          "kills_diff_str": "+1.8M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1434372306,
+          "might_str": "1.43B",
+          "might_diff": 2372084,
+          "might_diff_str": "+2.4M",
+          "kills": 785304492,
+          "kills_str": "785.3M",
+          "kills_diff": 456280,
+          "kills_diff_str": "+456.3K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1439291310,
+          "might_str": "1.44B",
+          "might_diff": 4919004,
+          "might_diff_str": "+4.9M",
+          "kills": 785304492,
+          "kills_str": "785.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Misaaa4",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 950426361,
+          "might_str": "950.4M",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 15703223,
+          "kills_str": "15.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 977053202,
+          "might_str": "977.1M",
+          "might_diff": 26626841,
+          "might_diff_str": "+26.6M",
+          "kills": 15703223,
+          "kills_str": "15.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 977053202,
+          "might_str": "977.1M",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 15703223,
+          "kills_str": "15.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "MoonOrchid",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 842693257,
+          "might_str": "842.7M",
+          "might_diff": 2291055,
+          "might_diff_str": "+2.3M",
+          "kills": 16520804,
+          "kills_str": "16.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 843255069,
+          "might_str": "843.3M",
+          "might_diff": 561812,
+          "might_diff_str": "+561.8K",
+          "kills": 16520804,
+          "kills_str": "16.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK1"
+        }
+      ]
+    },
+    {
+      "name": "MorcyJhon",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 998717727,
+          "might_str": "998.7M",
+          "might_diff": 22399599,
+          "might_diff_str": "+22.4M",
+          "kills": 114878998,
+          "kills_str": "114.9M",
+          "kills_diff": 11566,
+          "kills_diff_str": "+11.6K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 997923261,
+          "might_str": "997.9M",
+          "might_diff": -794466,
+          "might_diff_str": "-794.5K",
+          "kills": 117020096,
+          "kills_str": "117.0M",
+          "kills_diff": 2141098,
+          "kills_diff_str": "+2.1M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1001108851,
+          "might_str": "1.00B",
+          "might_diff": 3185590,
+          "might_diff_str": "+3.2M",
+          "kills": 117514022,
+          "kills_str": "117.5M",
+          "kills_diff": 493926,
+          "kills_diff_str": "+493.9K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 997982400,
+          "might_str": "998.0M",
+          "might_diff": -3126451,
+          "might_diff_str": "-3.1M",
+          "kills": 118164592,
+          "kills_str": "118.2M",
+          "kills_diff": 650570,
+          "kills_diff_str": "+650.6K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Mr Yichen",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2312877902,
+          "might_str": "2.31B",
+          "might_diff": 6096144,
+          "might_diff_str": "+6.1M",
+          "kills": 901282465,
+          "kills_str": "901.3M",
+          "kills_diff": 54161670,
+          "kills_diff_str": "+54.2M",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2314191913,
+          "might_str": "2.31B",
+          "might_diff": 1314011,
+          "might_diff_str": "+1.3M",
+          "kills": 1000026455,
+          "kills_str": "1.00B",
+          "kills_diff": 98743990,
+          "kills_diff_str": "+98.7M",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2315026775,
+          "might_str": "2.32B",
+          "might_diff": 834862,
+          "might_diff_str": "+834.9K",
+          "kills": 1002159192,
+          "kills_str": "1.00B",
+          "kills_diff": 2132737,
+          "kills_diff_str": "+2.1M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2302632907,
+          "might_str": "2.30B",
+          "might_diff": -12393868,
+          "might_diff_str": "-12.4M",
+          "kills": 1003082309,
+          "kills_str": "1.00B",
+          "kills_diff": 923117,
+          "kills_diff_str": "+923.1K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Naive ovo",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1911356610,
+          "might_str": "1.91B",
+          "might_diff": 8080854,
+          "might_diff_str": "+8.1M",
+          "kills": 227990813,
+          "kills_str": "228.0M",
+          "kills_diff": 180919,
+          "kills_diff_str": "+180.9K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1912645366,
+          "might_str": "1.91B",
+          "might_diff": 1288756,
+          "might_diff_str": "+1.3M",
+          "kills": 227990813,
+          "kills_str": "228.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1917647472,
+          "might_str": "1.92B",
+          "might_diff": 5002106,
+          "might_diff_str": "+5.0M",
+          "kills": 228020814,
+          "kills_str": "228.0M",
+          "kills_diff": 30001,
+          "kills_diff_str": "+30.0K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1922580806,
+          "might_str": "1.92B",
+          "might_diff": 4933334,
+          "might_diff_str": "+4.9M",
+          "kills": 228020814,
+          "kills_str": "228.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "Nekoarerugi",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1002362344,
+          "might_str": "1.00B",
+          "might_diff": 26681848,
+          "might_diff_str": "+26.7M",
+          "kills": 39332782,
+          "kills_str": "39.3M",
+          "kills_diff": 716476,
+          "kills_diff_str": "+716.5K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1031901640,
+          "might_str": "1.03B",
+          "might_diff": 29539296,
+          "might_diff_str": "+29.5M",
+          "kills": 39332782,
+          "kills_str": "39.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1041713181,
+          "might_str": "1.04B",
+          "might_diff": 9811541,
+          "might_diff_str": "+9.8M",
+          "kills": 40151188,
+          "kills_str": "40.2M",
+          "kills_diff": 818406,
+          "kills_diff_str": "+818.4K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1046275362,
+          "might_str": "1.05B",
+          "might_diff": 4562181,
+          "might_diff_str": "+4.6M",
+          "kills": 40151188,
+          "kills_str": "40.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "NEWBIE two",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1131141672,
+          "might_str": "1.13B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 39676783,
+          "kills_str": "39.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK1"
+        }
+      ]
+    },
+    {
+      "name": "Ninhbinh",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1062763286,
+          "might_str": "1.06B",
+          "might_diff": 11989661,
+          "might_diff_str": "+12.0M",
+          "kills": 110883213,
+          "kills_str": "110.9M",
+          "kills_diff": 1042936,
+          "kills_diff_str": "+1.0M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1075732459,
+          "might_str": "1.08B",
+          "might_diff": 12969173,
+          "might_diff_str": "+13.0M",
+          "kills": 111173368,
+          "kills_str": "111.2M",
+          "kills_diff": 290155,
+          "kills_diff_str": "+290.2K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1081838904,
+          "might_str": "1.08B",
+          "might_diff": 6106445,
+          "might_diff_str": "+6.1M",
+          "kills": 111358994,
+          "kills_str": "111.4M",
+          "kills_diff": 185626,
+          "kills_diff_str": "+185.6K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1085338668,
+          "might_str": "1.09B",
+          "might_diff": 3499764,
+          "might_diff_str": "+3.5M",
+          "kills": 111991534,
+          "kills_str": "112.0M",
+          "kills_diff": 632540,
+          "kills_diff_str": "+632.5K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Nohave a gun",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 941081767,
+          "might_str": "941.1M",
+          "might_diff": 7996483,
+          "might_diff_str": "+8.0M",
+          "kills": 82697433,
+          "kills_str": "82.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 944868071,
+          "might_str": "944.9M",
+          "might_diff": 3786304,
+          "might_diff_str": "+3.8M",
+          "kills": 82697433,
+          "kills_str": "82.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 947171147,
+          "might_str": "947.2M",
+          "might_diff": 2303076,
+          "might_diff_str": "+2.3M",
+          "kills": 82697433,
+          "kills_str": "82.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 947253227,
+          "might_str": "947.3M",
+          "might_diff": 82080,
+          "might_diff_str": "+82.1K",
+          "kills": 82697433,
+          "kills_str": "82.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "OliveiraPY",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1305947006,
+          "might_str": "1.31B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 138630408,
+          "kills_str": "138.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1304496006,
+          "might_str": "1.30B",
+          "might_diff": -1451000,
+          "might_diff_str": "-1.5M",
+          "kills": 140230716,
+          "kills_str": "140.2M",
+          "kills_diff": 1600308,
+          "kills_diff_str": "+1.6M",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1264070294,
+          "might_str": "1.26B",
+          "might_diff": -40425712,
+          "might_diff_str": "-40.4M",
+          "kills": 143051941,
+          "kills_str": "143.1M",
+          "kills_diff": 2821225,
+          "kills_diff_str": "+2.8M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1265737706,
+          "might_str": "1.27B",
+          "might_diff": 1667412,
+          "might_diff_str": "+1.7M",
+          "kills": 143051941,
+          "kills_str": "143.1M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "OliveVN",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1918356184,
+          "might_str": "1.92B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 475581874,
+          "kills_str": "475.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1919311232,
+          "might_str": "1.92B",
+          "might_diff": 955048,
+          "might_diff_str": "+955.0K",
+          "kills": 475604600,
+          "kills_str": "475.6M",
+          "kills_diff": 22726,
+          "kills_diff_str": "+22.7K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1915812428,
+          "might_str": "1.92B",
+          "might_diff": -3498804,
+          "might_diff_str": "-3.5M",
+          "kills": 475865627,
+          "kills_str": "475.9M",
+          "kills_diff": 261027,
+          "kills_diff_str": "+261.0K",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "OMeRo77",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1284711769,
+          "might_str": "1.28B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 191003849,
+          "kills_str": "191.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1284718345,
+          "might_str": "1.28B",
+          "might_diff": 6576,
+          "might_diff_str": "+6.6K",
+          "kills": 191198671,
+          "kills_str": "191.2M",
+          "kills_diff": 194822,
+          "kills_diff_str": "+194.8K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1272756363,
+          "might_str": "1.27B",
+          "might_diff": -11961982,
+          "might_diff_str": "-12.0M",
+          "kills": 191535576,
+          "kills_str": "191.5M",
+          "kills_diff": 336905,
+          "kills_diff_str": "+336.9K",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "ordogfioka",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2444214055,
+          "might_str": "2.44B",
+          "might_diff": 15932777,
+          "might_diff_str": "+15.9M",
+          "kills": 466990313,
+          "kills_str": "467.0M",
+          "kills_diff": 3672353,
+          "kills_diff_str": "+3.7M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2435069964,
+          "might_str": "2.44B",
+          "might_diff": -9144091,
+          "might_diff_str": "-9.1M",
+          "kills": 470122566,
+          "kills_str": "470.1M",
+          "kills_diff": 3132253,
+          "kills_diff_str": "+3.1M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2439052500,
+          "might_str": "2.44B",
+          "might_diff": 3982536,
+          "might_diff_str": "+4.0M",
+          "kills": 470130564,
+          "kills_str": "470.1M",
+          "kills_diff": 7998,
+          "kills_diff_str": "+8.0K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2439205713,
+          "might_str": "2.44B",
+          "might_diff": 153213,
+          "might_diff_str": "+153.2K",
+          "kills": 470130564,
+          "kills_str": "470.1M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "oThePanda",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1232605210,
+          "might_str": "1.23B",
+          "might_diff": 15193603,
+          "might_diff_str": "+15.2M",
+          "kills": 1303293581,
+          "kills_str": "1.30B",
+          "kills_diff": 6820498,
+          "kills_diff_str": "+6.8M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1232716374,
+          "might_str": "1.23B",
+          "might_diff": 111164,
+          "might_diff_str": "+111.2K",
+          "kills": 1304074766,
+          "kills_str": "1.30B",
+          "kills_diff": 781185,
+          "kills_diff_str": "+781.2K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1233194442,
+          "might_str": "1.23B",
+          "might_diff": 478068,
+          "might_diff_str": "+478.1K",
+          "kills": 1304317411,
+          "kills_str": "1.30B",
+          "kills_diff": 242645,
+          "kills_diff_str": "+242.6K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1233093822,
+          "might_str": "1.23B",
+          "might_diff": -100620,
+          "might_diff_str": "-100.6K",
+          "kills": 1304321123,
+          "kills_str": "1.30B",
+          "kills_diff": 3712,
+          "kills_diff_str": "+3.7K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "oTheViking",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1946626634,
+          "might_str": "1.95B",
+          "might_diff": -156442,
+          "might_diff_str": "-156.4K",
+          "kills": 2497846817,
+          "kills_str": "2.50B",
+          "kills_diff": 1584689,
+          "kills_diff_str": "+1.6M",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "palmeiras87",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1962503486,
+          "might_str": "1.96B",
+          "might_diff": 3915412,
+          "might_diff_str": "+3.9M",
+          "kills": 663683903,
+          "kills_str": "663.7M",
+          "kills_diff": 6336569,
+          "kills_diff_str": "+6.3M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1968675156,
+          "might_str": "1.97B",
+          "might_diff": 6171670,
+          "might_diff_str": "+6.2M",
+          "kills": 663697228,
+          "kills_str": "663.7M",
+          "kills_diff": 13325,
+          "kills_diff_str": "+13.3K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1994792044,
+          "might_str": "1.99B",
+          "might_diff": 26116888,
+          "might_diff_str": "+26.1M",
+          "kills": 663748899,
+          "kills_str": "663.7M",
+          "kills_diff": 51671,
+          "kills_diff_str": "+51.7K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1999276828,
+          "might_str": "2.00B",
+          "might_diff": 4484784,
+          "might_diff_str": "+4.5M",
+          "kills": 663748899,
+          "kills_str": "663.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "PEDASKALI",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1507897114,
+          "might_str": "1.51B",
+          "might_diff": 4397032,
+          "might_diff_str": "+4.4M",
+          "kills": 312175873,
+          "kills_str": "312.2M",
+          "kills_diff": 3348114,
+          "kills_diff_str": "+3.3M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1509843016,
+          "might_str": "1.51B",
+          "might_diff": 1945902,
+          "might_diff_str": "+1.9M",
+          "kills": 314510275,
+          "kills_str": "314.5M",
+          "kills_diff": 2334402,
+          "kills_diff_str": "+2.3M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1511140991,
+          "might_str": "1.51B",
+          "might_diff": 1297975,
+          "might_diff_str": "+1.3M",
+          "kills": 314779753,
+          "kills_str": "314.8M",
+          "kills_diff": 269478,
+          "kills_diff_str": "+269.5K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1511871939,
+          "might_str": "1.51B",
+          "might_diff": 730948,
+          "might_diff_str": "+730.9K",
+          "kills": 314779753,
+          "kills_str": "314.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "pr0fessor1",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 627160731,
+          "might_str": "627.2M",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 11619362,
+          "kills_str": "11.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 627801009,
+          "might_str": "627.8M",
+          "might_diff": 640278,
+          "might_diff_str": "+640.3K",
+          "kills": 11619362,
+          "kills_str": "11.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 643672718,
+          "might_str": "643.7M",
+          "might_diff": 15871709,
+          "might_diff_str": "+15.9M",
+          "kills": 12288121,
+          "kills_str": "12.3M",
+          "kills_diff": 668759,
+          "kills_diff_str": "+668.8K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 643720718,
+          "might_str": "643.7M",
+          "might_diff": 48000,
+          "might_diff_str": "+48.0K",
+          "kills": 12288121,
+          "kills_str": "12.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Prischilla",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1656858539,
+          "might_str": "1.66B",
+          "might_diff": 14887202,
+          "might_diff_str": "+14.9M",
+          "kills": 313632935,
+          "kills_str": "313.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1658826786,
+          "might_str": "1.66B",
+          "might_diff": 1968247,
+          "might_diff_str": "+2.0M",
+          "kills": 313632935,
+          "kills_str": "313.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1668337155,
+          "might_str": "1.67B",
+          "might_diff": 9510369,
+          "might_diff_str": "+9.5M",
+          "kills": 313665111,
+          "kills_str": "313.7M",
+          "kills_diff": 32176,
+          "kills_diff_str": "+32.2K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1671439537,
+          "might_str": "1.67B",
+          "might_diff": 3102382,
+          "might_diff_str": "+3.1M",
+          "kills": 313665111,
+          "kills_str": "313.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "RAJNEEL SEN1",
+      "snapshots": [
+        {
+          "date": "2026-03-25",
+          "might": 2258908073,
+          "might_str": "2.26B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 846328956,
+          "kills_str": "846.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK1"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2237777777,
+          "might_str": "2.24B",
+          "might_diff": -21130296,
+          "might_diff_str": "-21.1M",
+          "kills": 849447465,
+          "kills_str": "849.4M",
+          "kills_diff": 3118509,
+          "kills_diff_str": "+3.1M",
+          "rank": "RANK1"
+        }
+      ]
+    },
+    {
+      "name": "Rallito 01",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2075350685,
+          "might_str": "2.08B",
+          "might_diff": 18287982,
+          "might_diff_str": "+18.3M",
+          "kills": 72157601,
+          "kills_str": "72.2M",
+          "kills_diff": 737056,
+          "kills_diff_str": "+737.1K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2077296257,
+          "might_str": "2.08B",
+          "might_diff": 1945572,
+          "might_diff_str": "+1.9M",
+          "kills": 72157601,
+          "kills_str": "72.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2080858215,
+          "might_str": "2.08B",
+          "might_diff": 3561958,
+          "might_diff_str": "+3.6M",
+          "kills": 72157601,
+          "kills_str": "72.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2085149630,
+          "might_str": "2.09B",
+          "might_diff": 4291415,
+          "might_diff_str": "+4.3M",
+          "kills": 72157601,
+          "kills_str": "72.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Rashford29",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 865599679,
+          "might_str": "865.6M",
+          "might_diff": 7486772,
+          "might_diff_str": "+7.5M",
+          "kills": 342156297,
+          "kills_str": "342.2M",
+          "kills_diff": 364893,
+          "kills_diff_str": "+364.9K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 865808231,
+          "might_str": "865.8M",
+          "might_diff": 208552,
+          "might_diff_str": "+208.6K",
+          "kills": 342156297,
+          "kills_str": "342.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 870573925,
+          "might_str": "870.6M",
+          "might_diff": 4765694,
+          "might_diff_str": "+4.8M",
+          "kills": 342156297,
+          "kills_str": "342.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 876098626,
+          "might_str": "876.1M",
+          "might_diff": 5524701,
+          "might_diff_str": "+5.5M",
+          "kills": 342156297,
+          "kills_str": "342.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "RIGSSS",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1876520755,
+          "might_str": "1.88B",
+          "might_diff": 27974022,
+          "might_diff_str": "+28.0M",
+          "kills": 446876108,
+          "kills_str": "446.9M",
+          "kills_diff": 2782062,
+          "kills_diff_str": "+2.8M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1888001933,
+          "might_str": "1.89B",
+          "might_diff": 11481178,
+          "might_diff_str": "+11.5M",
+          "kills": 447438400,
+          "kills_str": "447.4M",
+          "kills_diff": 562292,
+          "kills_diff_str": "+562.3K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1898559853,
+          "might_str": "1.90B",
+          "might_diff": 10557920,
+          "might_diff_str": "+10.6M",
+          "kills": 447712306,
+          "kills_str": "447.7M",
+          "kills_diff": 273906,
+          "kills_diff_str": "+273.9K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1880352865,
+          "might_str": "1.88B",
+          "might_diff": -18206988,
+          "might_diff_str": "-18.2M",
+          "kills": 448604986,
+          "kills_str": "448.6M",
+          "kills_diff": 892680,
+          "kills_diff_str": "+892.7K",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "roman3265438",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2641198795,
+          "might_str": "2.64B",
+          "might_diff": 26628221,
+          "might_diff_str": "+26.6M",
+          "kills": 353635192,
+          "kills_str": "353.6M",
+          "kills_diff": 11294175,
+          "kills_diff_str": "+11.3M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2646365738,
+          "might_str": "2.65B",
+          "might_diff": 5166943,
+          "might_diff_str": "+5.2M",
+          "kills": 356609524,
+          "kills_str": "356.6M",
+          "kills_diff": 2974332,
+          "kills_diff_str": "+3.0M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2672348110,
+          "might_str": "2.67B",
+          "might_diff": 25982372,
+          "might_diff_str": "+26.0M",
+          "kills": 357269747,
+          "kills_str": "357.3M",
+          "kills_diff": 660223,
+          "kills_diff_str": "+660.2K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2672362594,
+          "might_str": "2.67B",
+          "might_diff": 14484,
+          "might_diff_str": "+14.5K",
+          "kills": 357574786,
+          "kills_str": "357.6M",
+          "kills_diff": 305039,
+          "kills_diff_str": "+305.0K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "ROSEWALL X",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1311861773,
+          "might_str": "1.31B",
+          "might_diff": 11775635,
+          "might_diff_str": "+11.8M",
+          "kills": 111805649,
+          "kills_str": "111.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1317947796,
+          "might_str": "1.32B",
+          "might_diff": 6086023,
+          "might_diff_str": "+6.1M",
+          "kills": 111805649,
+          "kills_str": "111.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1322569816,
+          "might_str": "1.32B",
+          "might_diff": 4622020,
+          "might_diff_str": "+4.6M",
+          "kills": 111805649,
+          "kills_str": "111.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1322632736,
+          "might_str": "1.32B",
+          "might_diff": 62920,
+          "might_diff_str": "+62.9K",
+          "kills": 111805649,
+          "kills_str": "111.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Ry0hei",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 962309913,
+          "might_str": "962.3M",
+          "might_diff": 11974743,
+          "might_diff_str": "+12.0M",
+          "kills": 155213252,
+          "kills_str": "155.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 964748566,
+          "might_str": "964.7M",
+          "might_diff": 2438653,
+          "might_diff_str": "+2.4M",
+          "kills": 155213252,
+          "kills_str": "155.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Sanko925",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 882168469,
+          "might_str": "882.2M",
+          "might_diff": 21301737,
+          "might_diff_str": "+21.3M",
+          "kills": 11851287,
+          "kills_str": "11.9M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "SICILYMAN",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1054560810,
+          "might_str": "1.05B",
+          "might_diff": -11143432,
+          "might_diff_str": "-11.1M",
+          "kills": 263622619,
+          "kills_str": "263.6M",
+          "kills_diff": 1752635,
+          "kills_diff_str": "+1.8M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1057481543,
+          "might_str": "1.06B",
+          "might_diff": 2920733,
+          "might_diff_str": "+2.9M",
+          "kills": 263622620,
+          "kills_str": "263.6M",
+          "kills_diff": 1,
+          "kills_diff_str": "+1",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1061638627,
+          "might_str": "1.06B",
+          "might_diff": 4157084,
+          "might_diff_str": "+4.2M",
+          "kills": 263704175,
+          "kills_str": "263.7M",
+          "kills_diff": 81555,
+          "kills_diff_str": "+81.6K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1062713691,
+          "might_str": "1.06B",
+          "might_diff": 1075064,
+          "might_diff_str": "+1.1M",
+          "kills": 263704175,
+          "kills_str": "263.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Sieu348",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1444249563,
+          "might_str": "1.44B",
+          "might_diff": 20665939,
+          "might_diff_str": "+20.7M",
+          "kills": 148850238,
+          "kills_str": "148.9M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1431010394,
+          "might_str": "1.43B",
+          "might_diff": -13239169,
+          "might_diff_str": "-13.2M",
+          "kills": 150309608,
+          "kills_str": "150.3M",
+          "kills_diff": 1459370,
+          "kills_diff_str": "+1.5M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1435809130,
+          "might_str": "1.44B",
+          "might_diff": 4798736,
+          "might_diff_str": "+4.8M",
+          "kills": 150309608,
+          "kills_str": "150.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1437607114,
+          "might_str": "1.44B",
+          "might_diff": 1797984,
+          "might_diff_str": "+1.8M",
+          "kills": 150309608,
+          "kills_str": "150.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "SK Genderuwo",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 890292133,
+          "might_str": "890.3M",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 876769927,
+          "kills_str": "876.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 892684326,
+          "might_str": "892.7M",
+          "might_diff": 2392193,
+          "might_diff_str": "+2.4M",
+          "kills": 878294065,
+          "kills_str": "878.3M",
+          "kills_diff": 1524138,
+          "kills_diff_str": "+1.5M",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 897030383,
+          "might_str": "897.0M",
+          "might_diff": 4346057,
+          "might_diff_str": "+4.3M",
+          "kills": 881460670,
+          "kills_str": "881.5M",
+          "kills_diff": 3166605,
+          "kills_diff_str": "+3.2M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 897102145,
+          "might_str": "897.1M",
+          "might_diff": 71762,
+          "might_diff_str": "+71.8K",
+          "kills": 881460670,
+          "kills_str": "881.5M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Sugoroku7",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 2308222278,
+          "might_str": "2.31B",
+          "might_diff": 28722885,
+          "might_diff_str": "+28.7M",
+          "kills": 478761912,
+          "kills_str": "478.8M",
+          "kills_diff": 1228726,
+          "kills_diff_str": "+1.2M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 2306635003,
+          "might_str": "2.31B",
+          "might_diff": -1587275,
+          "might_diff_str": "-1.6M",
+          "kills": 480001056,
+          "kills_str": "480.0M",
+          "kills_diff": 1239144,
+          "kills_diff_str": "+1.2M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 2303549123,
+          "might_str": "2.30B",
+          "might_diff": -3085880,
+          "might_diff_str": "-3.1M",
+          "kills": 480827074,
+          "kills_str": "480.8M",
+          "kills_diff": 826018,
+          "kills_diff_str": "+826.0K",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 2303863379,
+          "might_str": "2.30B",
+          "might_diff": 314256,
+          "might_diff_str": "+314.3K",
+          "kills": 480827075,
+          "kills_str": "480.8M",
+          "kills_diff": 1,
+          "kills_diff_str": "+1",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "Taurus8",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1071148587,
+          "might_str": "1.07B",
+          "might_diff": 9028101,
+          "might_diff_str": "+9.0M",
+          "kills": 2085196,
+          "kills_str": "2.1M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1079803104,
+          "might_str": "1.08B",
+          "might_diff": 8654517,
+          "might_diff_str": "+8.7M",
+          "kills": 2085196,
+          "kills_str": "2.1M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1083392464,
+          "might_str": "1.08B",
+          "might_diff": 3589360,
+          "might_diff_str": "+3.6M",
+          "kills": 2085196,
+          "kills_str": "2.1M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1055664111,
+          "might_str": "1.06B",
+          "might_diff": -27728353,
+          "might_diff_str": "-27.7M",
+          "kills": 2116634,
+          "kills_str": "2.1M",
+          "kills_diff": 31438,
+          "kills_diff_str": "+31.4K",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Tha Wences",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1378670954,
+          "might_str": "1.38B",
+          "might_diff": 8296526,
+          "might_diff_str": "+8.3M",
+          "kills": 65355560,
+          "kills_str": "65.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1384406217,
+          "might_str": "1.38B",
+          "might_diff": 5735263,
+          "might_diff_str": "+5.7M",
+          "kills": 65355560,
+          "kills_str": "65.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1385082143,
+          "might_str": "1.39B",
+          "might_diff": 675926,
+          "might_diff_str": "+675.9K",
+          "kills": 65355560,
+          "kills_str": "65.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1386306051,
+          "might_str": "1.39B",
+          "might_diff": 1223908,
+          "might_diff_str": "+1.2M",
+          "kills": 65355560,
+          "kills_str": "65.4M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "TheKing 6789",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1104176951,
+          "might_str": "1.10B",
+          "might_diff": 12979748,
+          "might_diff_str": "+13.0M",
+          "kills": 75836719,
+          "kills_str": "75.8M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Tieneko",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1785640712,
+          "might_str": "1.79B",
+          "might_diff": 189966163,
+          "might_diff_str": "+190.0M",
+          "kills": 295079240,
+          "kills_str": "295.1M",
+          "kills_diff": 16956472,
+          "kills_diff_str": "+17.0M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1794841955,
+          "might_str": "1.79B",
+          "might_diff": 9201243,
+          "might_diff_str": "+9.2M",
+          "kills": 306181643,
+          "kills_str": "306.2M",
+          "kills_diff": 11102403,
+          "kills_diff_str": "+11.1M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1774339835,
+          "might_str": "1.77B",
+          "might_diff": -20502120,
+          "might_diff_str": "-20.5M",
+          "kills": 552746082,
+          "kills_str": "552.7M",
+          "kills_diff": 246564439,
+          "kills_diff_str": "+246.6M",
+          "rank": "RANK4"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1741549425,
+          "might_str": "1.74B",
+          "might_diff": -32790410,
+          "might_diff_str": "-32.8M",
+          "kills": 557070445,
+          "kills_str": "557.1M",
+          "kills_diff": 4324363,
+          "kills_diff_str": "+4.3M",
+          "rank": "RANK4"
+        }
+      ]
+    },
+    {
+      "name": "Tio Vegeta",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1096369779,
+          "might_str": "1.10B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 169694447,
+          "kills_str": "169.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1094821815,
+          "might_str": "1.09B",
+          "might_diff": -1547964,
+          "might_diff_str": "-1.5M",
+          "kills": 170193265,
+          "kills_str": "170.2M",
+          "kills_diff": 498818,
+          "kills_diff_str": "+498.8K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1077290865,
+          "might_str": "1.08B",
+          "might_diff": -17530950,
+          "might_diff_str": "-17.5M",
+          "kills": 170711775,
+          "kills_str": "170.7M",
+          "kills_diff": 518510,
+          "kills_diff_str": "+518.5K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "TR11A03",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1518514143,
+          "might_str": "1.52B",
+          "might_diff": 4014052,
+          "might_diff_str": "+4.0M",
+          "kills": 576692912,
+          "kills_str": "576.7M",
+          "kills_diff": 1340204,
+          "kills_diff_str": "+1.3M",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1523834088,
+          "might_str": "1.52B",
+          "might_diff": 5319945,
+          "might_diff_str": "+5.3M",
+          "kills": 576773686,
+          "kills_str": "576.8M",
+          "kills_diff": 80774,
+          "kills_diff_str": "+80.8K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1532536836,
+          "might_str": "1.53B",
+          "might_diff": 8702748,
+          "might_diff_str": "+8.7M",
+          "kills": 579046948,
+          "kills_str": "579.0M",
+          "kills_diff": 2273262,
+          "kills_diff_str": "+2.3M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1534572744,
+          "might_str": "1.53B",
+          "might_diff": 2035908,
+          "might_diff_str": "+2.0M",
+          "kills": 579046949,
+          "kills_str": "579.0M",
+          "kills_diff": 1,
+          "kills_diff_str": "+1",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Valentex",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1809392417,
+          "might_str": "1.81B",
+          "might_diff": 11499008,
+          "might_diff_str": "+11.5M",
+          "kills": 203474682,
+          "kills_str": "203.5M",
+          "kills_diff": 225046,
+          "kills_diff_str": "+225.0K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1809758072,
+          "might_str": "1.81B",
+          "might_diff": 365655,
+          "might_diff_str": "+365.7K",
+          "kills": 203502368,
+          "kills_str": "203.5M",
+          "kills_diff": 27686,
+          "kills_diff_str": "+27.7K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1816844365,
+          "might_str": "1.82B",
+          "might_diff": 7086293,
+          "might_diff_str": "+7.1M",
+          "kills": 203502369,
+          "kills_str": "203.5M",
+          "kills_diff": 1,
+          "kills_diff_str": "+1",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1817455325,
+          "might_str": "1.82B",
+          "might_diff": 610960,
+          "might_diff_str": "+611.0K",
+          "kills": 203528836,
+          "kills_str": "203.5M",
+          "kills_diff": 26467,
+          "kills_diff_str": "+26.5K",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "venom 005",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 862731718,
+          "might_str": "862.7M",
+          "might_diff": 16099268,
+          "might_diff_str": "+16.1M",
+          "kills": 162849247,
+          "kills_str": "162.8M",
+          "kills_diff": 718472,
+          "kills_diff_str": "+718.5K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 860480428,
+          "might_str": "860.5M",
+          "might_diff": -2251290,
+          "might_diff_str": "-2.3M",
+          "kills": 163631821,
+          "kills_str": "163.6M",
+          "kills_diff": 782574,
+          "kills_diff_str": "+782.6K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 864807348,
+          "might_str": "864.8M",
+          "might_diff": 4326920,
+          "might_diff_str": "+4.3M",
+          "kills": 163631821,
+          "kills_str": "163.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 866559741,
+          "might_str": "866.6M",
+          "might_diff": 1752393,
+          "might_diff_str": "+1.8M",
+          "kills": 163631821,
+          "kills_str": "163.6M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "vgk one",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1165982755,
+          "might_str": "1.17B",
+          "might_diff": 35961380,
+          "might_diff_str": "+36.0M",
+          "kills": 350100479,
+          "kills_str": "350.1M",
+          "kills_diff": 26097,
+          "kills_diff_str": "+26.1K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1166922061,
+          "might_str": "1.17B",
+          "might_diff": 939306,
+          "might_diff_str": "+939.3K",
+          "kills": 350100479,
+          "kills_str": "350.1M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1185892589,
+          "might_str": "1.19B",
+          "might_diff": 18970528,
+          "might_diff_str": "+19.0M",
+          "kills": 350100479,
+          "kills_str": "350.1M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Vladimir G",
+      "snapshots": [
+        {
+          "date": "2026-03-25",
+          "might": 1323951342,
+          "might_str": "1.32B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 151655140,
+          "kills_str": "151.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1324436118,
+          "might_str": "1.32B",
+          "might_diff": 484776,
+          "might_diff_str": "+484.8K",
+          "kills": 151655140,
+          "kills_str": "151.7M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "Wibrahim",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1133969056,
+          "might_str": "1.13B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 322238409,
+          "kills_str": "322.2M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1196253320,
+          "might_str": "1.20B",
+          "might_diff": 62284264,
+          "might_diff_str": "+62.3M",
+          "kills": 322797947,
+          "kills_str": "322.8M",
+          "kills_diff": 559538,
+          "kills_diff_str": "+559.5K",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1205836368,
+          "might_str": "1.21B",
+          "might_diff": 9583048,
+          "might_diff_str": "+9.6M",
+          "kills": 326387298,
+          "kills_str": "326.4M",
+          "kills_diff": 3589351,
+          "kills_diff_str": "+3.6M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1196765989,
+          "might_str": "1.20B",
+          "might_diff": -9070379,
+          "might_diff_str": "-9.1M",
+          "kills": 326885363,
+          "kills_str": "326.9M",
+          "kills_diff": 498065,
+          "kills_diff_str": "+498.1K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "wimpyy",
+      "snapshots": [
+        {
+          "date": "2026-03-23",
+          "might": 1252834482,
+          "might_str": "1.25B",
+          "might_diff": 0,
+          "might_diff_str": "+0",
+          "kills": 315275238,
+          "kills_str": "315.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1290053199,
+          "might_str": "1.29B",
+          "might_diff": 37218717,
+          "might_diff_str": "+37.2M",
+          "kills": 315275238,
+          "kills_str": "315.3M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK2"
+        }
+      ]
+    },
+    {
+      "name": "xCrazy Busy",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1876008852,
+          "might_str": "1.88B",
+          "might_diff": 18584950,
+          "might_diff_str": "+18.6M",
+          "kills": 1259794236,
+          "kills_str": "1.26B",
+          "kills_diff": 151612,
+          "kills_diff_str": "+151.6K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1881562226,
+          "might_str": "1.88B",
+          "might_diff": 5553374,
+          "might_diff_str": "+5.6M",
+          "kills": 1259818610,
+          "kills_str": "1.26B",
+          "kills_diff": 24374,
+          "kills_diff_str": "+24.4K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1886265438,
+          "might_str": "1.89B",
+          "might_diff": 4703212,
+          "might_diff_str": "+4.7M",
+          "kills": 1259818610,
+          "kills_str": "1.26B",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1888261954,
+          "might_str": "1.89B",
+          "might_diff": 1996516,
+          "might_diff_str": "+2.0M",
+          "kills": 1259818610,
+          "kills_str": "1.26B",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "xgalax",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1179519093,
+          "might_str": "1.18B",
+          "might_diff": 32116041,
+          "might_diff_str": "+32.1M",
+          "kills": 14022134,
+          "kills_str": "14.0M",
+          "kills_diff": 3350610,
+          "kills_diff_str": "+3.4M",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1177634622,
+          "might_str": "1.18B",
+          "might_diff": -1884471,
+          "might_diff_str": "-1.9M",
+          "kills": 15556652,
+          "kills_str": "15.6M",
+          "kills_diff": 1534518,
+          "kills_diff_str": "+1.5M",
+          "rank": "RANK2"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1180252561,
+          "might_str": "1.18B",
+          "might_diff": 2617939,
+          "might_diff_str": "+2.6M",
+          "kills": 15631686,
+          "kills_str": "15.6M",
+          "kills_diff": 75034,
+          "kills_diff_str": "+75.0K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1174592417,
+          "might_str": "1.17B",
+          "might_diff": -5660144,
+          "might_diff_str": "-5.7M",
+          "kills": 15780606,
+          "kills_str": "15.8M",
+          "kills_diff": 148920,
+          "kills_diff_str": "+148.9K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "Xo M oX",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1631713434,
+          "might_str": "1.63B",
+          "might_diff": 18549594,
+          "might_diff_str": "+18.5M",
+          "kills": 1410623689,
+          "kills_str": "1.41B",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1635387723,
+          "might_str": "1.64B",
+          "might_diff": 3674289,
+          "might_diff_str": "+3.7M",
+          "kills": 1410634448,
+          "kills_str": "1.41B",
+          "kills_diff": 10759,
+          "kills_diff_str": "+10.8K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1637178196,
+          "might_str": "1.64B",
+          "might_diff": 1790473,
+          "might_diff_str": "+1.8M",
+          "kills": 1410651132,
+          "kills_str": "1.41B",
+          "kills_diff": 16684,
+          "kills_diff_str": "+16.7K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1653277284,
+          "might_str": "1.65B",
+          "might_diff": 16099088,
+          "might_diff_str": "+16.1M",
+          "kills": 1410681195,
+          "kills_str": "1.41B",
+          "kills_diff": 30063,
+          "kills_diff_str": "+30.1K",
+          "rank": "RANK3"
+        }
+      ]
+    },
+    {
+      "name": "ZENIIX",
+      "snapshots": [
+        {
+          "date": "2026-03-20",
+          "might": 1843191132,
+          "might_str": "1.84B",
+          "might_diff": 11961170,
+          "might_diff_str": "+12.0M",
+          "kills": 510959028,
+          "kills_str": "511.0M",
+          "kills_diff": 2926603,
+          "kills_diff_str": "+2.9M",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-23",
+          "might": 1854738804,
+          "might_str": "1.85B",
+          "might_diff": 11547672,
+          "might_diff_str": "+11.5M",
+          "kills": 510959029,
+          "kills_str": "511.0M",
+          "kills_diff": 1,
+          "kills_diff_str": "+1",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-25",
+          "might": 1853075449,
+          "might_str": "1.85B",
+          "might_diff": -1663355,
+          "might_diff_str": "-1.7M",
+          "kills": 510981264,
+          "kills_str": "511.0M",
+          "kills_diff": 22235,
+          "kills_diff_str": "+22.2K",
+          "rank": "RANK3"
+        },
+        {
+          "date": "2026-03-26",
+          "might": 1861205326,
+          "might_str": "1.86B",
+          "might_diff": 8129877,
+          "might_diff_str": "+8.1M",
+          "kills": 510981264,
+          "kills_str": "511.0M",
+          "kills_diff": 0,
+          "kills_diff_str": "+0",
+          "rank": "RANK3"
+        }
+      ]
+    }
+  ]
+}
