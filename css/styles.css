@@ -721,14 +721,15 @@ tbody td.mono   { font-family: var(--font-mono); }
 }
 
 /* ── Collapsible rows ── */
-.expand-toggle {
-  background: none;
-  border: none;
-  color: var(--accent-blue);
-  cursor: pointer;
-  font-size: 0.85rem;
-  padding: 2px 6px;
-  border-radius: 4px;
-  transition: background 0.15s;
-}
 .expand-toggle:hover { background: rgba(88,166,255,0.1); }
+
+/* ── Player Links ── */
+.member-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.member-link:hover {
+  color: var(--accent-blue);
+  text-decoration: underline;
+}
