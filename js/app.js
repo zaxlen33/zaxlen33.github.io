@@ -59,12 +59,12 @@ function getHashParam() {
 
 /** Set loading state for a container */
 function setLoading(el, msg = 'Loading data…') {
-  el.innerHTML = `<div class="loading-state"><div class="spinner"></div><p>${msg}</p></div>`;
+  if (el) el.innerHTML = `<div class="loading-state"><div class="spinner"></div><p>${msg}</p></div>`;
 }
 
 /** Set error state for a container */
 function setError(el, msg) {
-  el.innerHTML = `<div class="error-state">⚠️ ${msg}</div>`;
+  if (el) el.innerHTML = `<div class="error-state">⚠️ ${msg}</div>`;
 }
 
 /** Set empty state for a container */
@@ -455,7 +455,7 @@ function renderWarDetail(container, war) {
     tbody.innerHTML = currentMembers.map((m, i) => `
       <tr data-searchable="${(m.name || '').toLowerCase()} ${(m.rank || '').toLowerCase()}">
         <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
-        <td style="font-weight:500;">${m.name || '—'}</td>
+        <td style="font-weight:500;"><a href="player.html?id=${encodeURIComponent(m.name||'')}" class="member-link">${m.name || '—'}</a></td>
         <td class="center">${rankBadge(m.rank)}</td>
         <td class="right mono">${fmtNum(m.might)}</td>
         <td class="right">${fmtDelta(m.might_diff)}</td>
@@ -751,7 +751,7 @@ function renderHuntDetail(container, hunt) {
       return `
         <tr data-searchable="${(p.name || '').toLowerCase()}">
           <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
-          <td style="font-weight:500;">${p.name || '—'}</td>
+          <td style="font-weight:500;"><a href="player.html?id=${encodeURIComponent(p.name||'')}" class="member-link">${p.name || '—'}</a></td>
           <td class="right mono" style="font-weight:700;">${fmtNum(p.pts_total)}</td>
           <td class="right mono">${fmtNum(p.pts_hunt)}</td>
           <td class="right mono">${fmtNum(p.pts_purchase)}</td>
@@ -943,12 +943,12 @@ function renderGrowthList(container, members, lastUpdated) {
       const might_diff = last ? last.might_diff || 0 : 0;
       const kills      = last ? last.kills      || 0 : 0;
       const kills_diff = last ? last.kills_diff || 0 : 0;
-      const rank       = last ? last.rank || '' : '';
+      const lastRank   = last ? last.rank || '' : '';
       return `
-        <tr data-searchable="${(m.name || '').toLowerCase()} ${rank.toLowerCase()}">
+        <tr data-searchable="${(m.name || '').toLowerCase()} ${lastRank.toLowerCase()}">
           <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
-          <td style="font-weight:500;">${m.name || '—'}</td>
-          <td class="center">${rankBadge(rank)}</td>
+          <td style="font-weight:500;"><a href="player.html?id=${encodeURIComponent(m.name||'')}" class="member-link">${m.name || '—'}</a></td>
+          <td class="center">${rankBadge(lastRank)}</td>
           <td class="right mono">${fmtNum(might)}</td>
           <td class="right">${fmtDelta(might_diff)}</td>
           <td class="right mono" style="color:var(--accent-yellow);">${fmtNum(kills)}</td>
