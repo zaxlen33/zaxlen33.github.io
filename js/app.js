@@ -818,7 +818,7 @@ async function initHistory() {
 
   const hash = getHashParam();
   if (hash) {
-    const member = members.find(m => String(m.igg_id) === hash || m.name === hash);
+    const member = members.find(m => m.name === hash);
     if (member) {
       // Redirect to player dashboard with all charts
       window.location.replace(`./player.html?view=all&id=${encodeURIComponent(member.name)}`);
@@ -831,7 +831,7 @@ async function initHistory() {
   window.addEventListener('hashchange', () => {
     const h = getHashParam();
     if (h) {
-      const m = members.find(x => String(x.igg_id) === h || x.name === h);
+      const m = members.find(x => x.name === h);
       if (m) {
         window.location.replace(`./player.html?view=all&id=${encodeURIComponent(m.name)}`);
         return;
@@ -1008,7 +1008,7 @@ function renderHistoryDetail(container, member, lastUpdated) {
     <div class="detail-header">
       <h2>📈 ${member.name}</h2>
       <div class="meta-row">
-        <div class="meta-item">🆔 IGG ID: <strong>${member.igg_id}</strong></div>
+
         <div class="meta-item">📅 First Seen: <strong>${member.first_seen || '—'}</strong></div>
         <div class="meta-item">🔄 Last Seen: <strong>${member.last_seen || '—'}</strong></div>
         <div class="meta-item">📊 Snapshots: <strong>${snaps.length}</strong></div>
