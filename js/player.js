@@ -131,10 +131,11 @@ function renderPlayerDashboard(container, name, growth, hunts) {
   }
 
   if (hunts.length > 0) {
-    const dates = hunts.map(h => h.date);
+    // Mark the last hunt as "Ongoing Week" to reflect incomplete weekly data
+    const dates = hunts.map((h, i) => i === hunts.length - 1 ? h.date + ' (Ongoing Week)' : h.date);
     const huntPts = hunts.map(h => h.pts_hunt);
     
-    createLineChart('chart-hunt-pts', 'Hunt Points', dates, huntPts, '#3fb950');
+    createLineChart('chart-hunt-pts', 'Hunt Points', dates, huntPts, '#3fb950', true);
 
     // Bar chart for latest hunt monsters/purchases
     const { monsters, purchases } = latestHunt;
@@ -149,7 +150,7 @@ function renderPlayerDashboard(container, name, growth, hunts) {
   }
 }
 
-function createLineChart(canvasId, label, labels, data, color) {
+function createLineChart(canvasId, label, labels, data, color, isHunt = false) {
   const ctx = document.getElementById(canvasId).getContext('2d');
   
   // Create gradient
@@ -157,24 +158,32 @@ function createLineChart(canvasId, label, labels, data, color) {
   gradient.addColorStop(0, color + '66'); // 40% opacity
   gradient.addColorStop(1, color + '00'); // 0% opacity
 
+  const dataset = {
+    label: label,
+    data: data,
+    borderColor: color,
+    backgroundColor: gradient,
+    borderWidth: 2,
+    pointBackgroundColor: '#0d1117',
+    pointBorderColor: color,
+    pointBorderWidth: 2,
+    pointRadius: 4,
+    pointHoverRadius: 6,
+    fill: true,
+    tension: 0.3
+  };
+
+  if (isHunt && data.length > 1) {
+    dataset.segment = {
+      borderDash: ctx => ctx.p0DataIndex === data.length - 2 ? [5, 5] : undefined,
+    };
+  }
+
   new Chart(ctx, {
     type: 'line',
     data: {
       labels: labels,
-      datasets: [{
-        label: label,
-        data: data,
-        borderColor: color,
-        backgroundColor: gradient,
-        borderWidth: 2,
-        pointBackgroundColor: '#0d1117',
-        pointBorderColor: color,
-        pointBorderWidth: 2,
-        pointRadius: 4,
-        pointHoverRadius: 6,
-        fill: true,
-        tension: 0.3
-      }]
+      datasets: [dataset]
     },
     options: {
       responsive: true,
