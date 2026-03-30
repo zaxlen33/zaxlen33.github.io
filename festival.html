@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guild Festival · UE Guild Dashboard</title>
+  <meta name="description" content="Guild Festival history, score comparisons, and per-member performance tracking for UE Guild.">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/festival.css">
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-brand">
+        <span class="logo">🏰</span>
+        <span>UE Guild <span>Dashboard</span></span>
+      </div>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="navbar-nav">
+        <li><a href="./index.html">🏠 Home</a></li>
+        <li><a href="./war.html">🏰 War</a></li>
+        <li><a href="./hunt.html">🦅 Hunt</a></li>
+        <li><a href="./festival.html" class="active">🎪 Festival</a></li>
+        <li><a href="./tasks.html">🎯 Tasks</a></li>
+        <li><a href="./rankings.html">🏆 Rankings</a></li>
+        <li><a href="./members.html">👥 Check Member</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Page Content ── -->
+  <main class="container">
+    <div class="page-header">
+      <h1>🎪 Guild Festival</h1>
+      <p>Score history and individual performance across the last 12 festivals.
+        <span class="badge" id="min-badge">Min: 3,100 pts / player</span>
+      </p>
+    </div>
+
+    <!-- ── Tabs ─────────────────────────────────── -->
+    <div class="tabs" id="festival-tabs">
+      <button class="tab-btn active" data-tab="history" id="tab-history">📊 All History</button>
+      <button class="tab-btn" data-tab="members" id="tab-members">👤 Member Performance</button>
+    </div>
+
+    <!-- ══ TAB: ALL HISTORY ══════════════════════ -->
+    <section id="tab-history-content">
+
+      <!-- Summary stat cards -->
+      <div class="stats-grid" id="festival-stats">
+        <div class="stat-card blue">
+          <span class="stat-icon">🎪</span>
+          <span class="stat-value" id="stat-festivals">—</span>
+          <span class="stat-label">Festivals stored</span>
+        </div>
+        <div class="stat-card purple">
+          <span class="stat-icon">🏆</span>
+          <span class="stat-value" id="stat-latest-score">—</span>
+          <span class="stat-label">Latest total score</span>
+        </div>
+        <div class="stat-card green">
+          <span class="stat-icon">✅</span>
+          <span class="stat-value" id="stat-passed">—</span>
+          <span class="stat-label">Passed min (latest)</span>
+        </div>
+        <div class="stat-card red">
+          <span class="stat-icon">❌</span>
+          <span class="stat-value" id="stat-failed">—</span>
+          <span class="stat-label">Below min (latest)</span>
+        </div>
+      </div>
+
+      <!-- Score Trend chart -->
+      <div class="card">
+        <div class="card-header">
+          <h2>📈 Score Trend — All Festivals</h2>
+          <span class="badge-count" id="festival-count-badge"></span>
+        </div>
+        <div class="card-body">
+          <canvas id="chart-history-line" height="100"></canvas>
+        </div>
+      </div>
+
+      <!-- Bar comparison chart -->
+      <div class="card">
+        <div class="card-header">
+          <h2>📊 Score per Event — Comparison</h2>
+        </div>
+        <div class="card-body">
+          <canvas id="chart-history-bar" height="100"></canvas>
+        </div>
+      </div>
+
+      <!-- Festival events list -->
+      <div class="card">
+        <div class="card-header">
+          <h2>📋 Festival Events</h2>
+          <div class="toolbar" style="margin:0">
+            <div class="search-box" style="min-width:200px">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="search-festival" placeholder="Filter by date…">
+            </div>
+          </div>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div id="festival-list">
+            <div class="loading-state"><div class="spinner"></div><p>Loading festivals…</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selected festival detail table -->
+      <div id="festival-detail" style="display:none">
+        <div class="breadcrumb">
+          <a href="#" id="back-to-list">← All Festivals</a>
+          <span class="sep">›</span>
+          <span class="current" id="detail-title"></span>
+        </div>
+
+        <div class="detail-header" id="detail-summary-box"></div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>🎪 Player Scores</h2>
+            <div class="search-box" style="min-width:200px; margin:0">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="search-detail" placeholder="Search player…">
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table id="detail-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Player</th>
+                  <th class="right">Score</th>
+                  <th class="center">Min. Met?</th>
+                  <th class="center">Completed</th>
+                  <th class="center">Bonus</th>
+                </tr>
+              </thead>
+              <tbody id="detail-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TAB: MEMBER PERFORMANCE ═════════════ -->
+    <section id="tab-members-content" style="display:none">
+
+      <!-- Member search -->
+      <div class="card">
+        <div class="card-header">
+          <h2>🔍 Search Member</h2>
+        </div>
+        <div class="card-body">
+          <div class="toolbar">
+            <div class="search-box" style="flex:1; min-width:220px">
+              <span class="search-icon">👤</span>
+              <input type="text" id="member-search-input" placeholder="Type player name (partial ok)…">
+            </div>
+            <button class="btn btn-primary" id="member-search-btn">Search</button>
+          </div>
+          <!-- quick-pick list -->
+          <div id="member-list-quick" style="margin-top:0.5rem"></div>
+        </div>
+      </div>
+
+      <!-- Member result panel -->
+      <div id="member-result" style="display:none">
+        <div class="detail-header" id="member-summary-box"></div>
+
+        <div class="card">
+          <div class="card-header"><h2>📈 Score Trend</h2></div>
+          <div class="card-body"><canvas id="chart-member-line" height="100"></canvas></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2>📊 Score per Event</h2></div>
+          <div class="card-body"><canvas id="chart-member-bar" height="100"></canvas></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2>📋 Festival-by-Festival Detail</h2></div>
+          <div class="table-wrapper">
+            <table id="member-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th class="right">Score</th>
+                  <th class="center">Min. Met?</th>
+                  <th class="center">Completed</th>
+                  <th class="center">Bonus</th>
+                </tr>
+              </thead>
+              <tbody id="member-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      UE Guild Dashboard · Data updated via Telegram Bot
+    </div>
+  </footer>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="./js/festival.js"></script>
+  <script>
+    // Mobile nav toggle
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      document.querySelector('.navbar-nav').classList.toggle('open');
+    });
+    // Active link highlight
+    const path = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.navbar-nav a').forEach(a => {
+      if (a.getAttribute('href').includes(path)) a.classList.add('active');
+    });
+  </script>
+</body>
+</html>
