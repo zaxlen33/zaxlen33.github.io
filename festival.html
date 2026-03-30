@@ -26,6 +26,7 @@
 
         <li><a href="./rankings.html">🏆 Rankings</a></li>
         <li><a href="./members.html">👥 Check Member</a></li>
+        <li><a href="./tracker.html">🕵️‍♂️ Tracker</a></li>
       </ul>
     </div>
   </nav>
@@ -39,17 +40,14 @@
       </p>
     </div>
 
-    <!-- ── Tabs ─────────────────────────────────── -->
     <div class="tabs" id="festival-tabs">
       <button class="tab-btn active" data-tab="history" id="tab-history">📊 All History</button>
-      <button class="tab-btn" data-tab="members" id="tab-members">👤 Member Performance</button>
       <button class="tab-btn" data-tab="tasks" id="tab-tasks">🎯 Guild Tasks</button>
     </div>
 
     <!-- ══ TAB: ALL HISTORY ══════════════════════ -->
     <section id="tab-history-content">
 
-      <!-- Summary stat cards -->
       <div class="stats-grid" id="festival-stats">
         <div class="stat-card blue">
           <span class="stat-icon">🎪</span>
@@ -58,39 +56,35 @@
         </div>
         <div class="stat-card purple">
           <span class="stat-icon">🏆</span>
-          <span class="stat-value" id="stat-latest-score">—</span>
-          <span class="stat-label">Latest total score</span>
+          <span class="stat-value" id="stat-avg-score">—</span>
+          <span class="stat-label">Avg Points/Player</span>
         </div>
         <div class="stat-card green">
           <span class="stat-icon">✅</span>
-          <span class="stat-value" id="stat-passed">—</span>
-          <span class="stat-label">Passed min (latest)</span>
+          <span class="stat-value" id="stat-avg-pass">—</span>
+          <span class="stat-label">Avg Compliant Pl.</span>
         </div>
         <div class="stat-card red">
           <span class="stat-icon">❌</span>
-          <span class="stat-value" id="stat-failed">—</span>
-          <span class="stat-label">Below min (latest)</span>
+          <span class="stat-value" id="stat-avg-fail">—</span>
+          <span class="stat-label">Avg Non-compliant</span>
+        </div>
+        <div class="stat-card yellow">
+          <span class="stat-icon">🌟</span>
+          <span class="stat-value" id="stat-avg-bonus">—</span>
+          <span class="stat-label">Avg Bonus Pl.</span>
         </div>
       </div>
 
-      <!-- Score Trend chart -->
       <div class="card">
         <div class="card-header">
-          <h2>📈 Score Trend — All Festivals</h2>
+          <h2>📊 Averages Per Festival (Pass/Fail vs. Points)</h2>
           <span class="badge-count" id="festival-count-badge"></span>
         </div>
         <div class="card-body">
-          <canvas id="chart-history-line" height="100"></canvas>
-        </div>
-      </div>
-
-      <!-- Bar comparison chart -->
-      <div class="card">
-        <div class="card-header">
-          <h2>📊 Score per Event — Comparison</h2>
-        </div>
-        <div class="card-body">
-          <canvas id="chart-history-bar" height="100"></canvas>
+          <div style="position:relative; height:350px;">
+             <canvas id="chart-history-combo"></canvas>
+          </div>
         </div>
       </div>
 
@@ -149,60 +143,7 @@
       </div>
     </section>
 
-    <!-- ══ TAB: MEMBER PERFORMANCE ═════════════ -->
-    <section id="tab-members-content" style="display:none">
-
-      <!-- Member search -->
-      <div class="card">
-        <div class="card-header">
-          <h2>🔍 Search Member</h2>
-        </div>
-        <div class="card-body">
-          <div class="toolbar">
-            <div class="search-box" style="flex:1; min-width:220px">
-              <span class="search-icon">👤</span>
-              <input type="text" id="member-search-input" placeholder="Type player name (partial ok)…">
-            </div>
-            <button class="btn btn-primary" id="member-search-btn">Search</button>
-          </div>
-          <!-- quick-pick list -->
-          <div id="member-list-quick" style="margin-top:0.5rem"></div>
-        </div>
-      </div>
-
-      <!-- Member result panel -->
-      <div id="member-result" style="display:none">
-        <div class="detail-header" id="member-summary-box"></div>
-
-        <div class="card">
-          <div class="card-header"><h2>📈 Score Trend</h2></div>
-          <div class="card-body"><canvas id="chart-member-line" height="100"></canvas></div>
-        </div>
-
-        <div class="card">
-          <div class="card-header"><h2>📊 Score per Event</h2></div>
-          <div class="card-body"><canvas id="chart-member-bar" height="100"></canvas></div>
-        </div>
-
-        <div class="card">
-          <div class="card-header"><h2>📋 Festival-by-Festival Detail</h2></div>
-          <div class="table-wrapper">
-            <table id="member-table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th class="right">Score</th>
-                  <th class="center">Min. Met?</th>
-                  <th class="center">Completed</th>
-                  <th class="center">Bonus</th>
-                </tr>
-              </thead>
-              <tbody id="member-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
+    
 
     <!-- ══ TAB: TASKS ══════════════════════ -->
     <section id="tab-tasks-content" style="display:none">
