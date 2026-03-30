@@ -23,7 +23,7 @@
         <li><a href="./war.html">🏰 War</a></li>
         <li><a href="./hunt.html">🦅 Hunt</a></li>
         <li><a href="./festival.html" class="active">🎪 Festival</a></li>
-        <li><a href="./tasks.html">🎯 Tasks</a></li>
+
         <li><a href="./rankings.html">🏆 Rankings</a></li>
         <li><a href="./members.html">👥 Check Member</a></li>
       </ul>
@@ -43,6 +43,7 @@
     <div class="tabs" id="festival-tabs">
       <button class="tab-btn active" data-tab="history" id="tab-history">📊 All History</button>
       <button class="tab-btn" data-tab="members" id="tab-members">👤 Member Performance</button>
+      <button class="tab-btn" data-tab="tasks" id="tab-tasks">🎯 Guild Tasks</button>
     </div>
 
     <!-- ══ TAB: ALL HISTORY ══════════════════════ -->
@@ -200,6 +201,13 @@
             </table>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ══ TAB: TASKS ══════════════════════ -->
+    <section id="tab-tasks-content" style="display:none">
+      <div id="tasks-container">
+        <div class="loading-state"><div class="spinner"></div><p>Loading tasks…</p></div>
       </div>
     </section>
 
