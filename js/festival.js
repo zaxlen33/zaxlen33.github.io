@@ -258,97 +258,70 @@ document.getElementById('back-to-list').addEventListener('click', e => {
 function buildHistoryCharts() {
   destroyChart(chartHistLine);
   destroyChart(chartHistBar);
-  
-  const labels = festivals.map(f => shortDate(f.date));
-  const avgScores = festivals.map(f => Math.round(f.summary.total_score / (f.summary.total_players || 1)));
-  const passed = festivals.map(f => f.summary.passed_min);
-  const failed = festivals.map(f => f.summary.failed_min);
 
+  const labels    = festivals.map(f => shortDate(f.date));
+  const avgScores = festivals.map(f => Math.round(f.summary.total_score / (f.summary.total_players || 1)));
+  const passed    = festivals.map(f => f.summary.passed_min        || 0);
+  const failed    = festivals.map(f => f.summary.failed_min        || 0);
+  const bonus     = festivals.map(f => f.summary.completed_bonus   || 0);
+
+  const _tip = {
+    backgroundColor: 'rgba(13,17,23,.95)',
+    titleColor: '#c9d1d9', bodyColor: '#c9d1d9',
+    borderColor: '#30363d', borderWidth: 1
+  };
+  const _legend = { position: 'top', labels: { usePointStyle: true, boxWidth: 10, color: 'rgba(255,255,255,0.7)', padding: 14 } };
+  const _ptStyle = (color) => ({ pointRadius: 5, pointBackgroundColor: '#0d1117', pointBorderColor: color, pointBorderWidth: 2 });
+
+  // ── Compliance line chart (3 toggle-able lines) ─────────────────────────────
   const ctxBar = document.getElementById('chart-history-bar').getContext('2d');
   chartHistBar = new Chart(ctxBar, {
-    type: 'bar',
+    type: 'line',
     data: {
       labels,
       datasets: [
-        {
-          label: 'Passed Min',
-          data: passed,
-          backgroundColor: 'rgba(34,197,94,0.7)',
-          barPercentage: 0.6,
-          categoryPercentage: 0.8,
-          borderRadius: 4
-        },
-        {
-          label: 'Failed Min',
-          data: failed,
-          backgroundColor: 'rgba(239,68,68,0.7)',
-          barPercentage: 0.6,
-          categoryPercentage: 0.8,
-          borderRadius: 4
-        }
+        { label: 'Passed Min',   data: passed, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.08)',   borderWidth: 2.5, tension: 0.3, fill: false, ..._ptStyle('#22c55e') },
+        { label: 'Failed Min',   data: failed, borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.08)',   borderWidth: 2.5, tension: 0.3, fill: false, ..._ptStyle('#ef4444') },
+        { label: 'Bonus Earned', data: bonus,  borderColor: '#a855f7', backgroundColor: 'rgba(168,85,247,0.08)',  borderWidth: 2.5, tension: 0.3, fill: false, borderDash: [5,3], ..._ptStyle('#a855f7') }
       ]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 10, color: 'rgba(255,255,255,0.7)' } },
-        tooltip: {
-          backgroundColor: 'rgba(13,17,23,.95)',
-          titleColor: '#c9d1d9', bodyColor: '#c9d1d9',
-          borderColor: '#30363d', borderWidth: 1
-        }
-      },
+      plugins: { legend: _legend, tooltip: _tip },
       scales: {
-        x: { grid: { display: false }, stacked: false },
-        y: {
-          grid: { color: 'rgba(255,255,255,0.05)' },
-          title: { display: true, text: 'Number of Players', color: 'rgba(255,255,255,0.5)' },
-          beginAtZero: true
-        }
+        x: { grid: { display: false } },
+        y: { grid: { color: 'rgba(255,255,255,0.05)' }, title: { display: true, text: 'Players', color: 'rgba(255,255,255,0.5)' }, beginAtZero: true }
       }
     }
   });
 
+  // ── Average points line chart ────────────────────────────────────────────────
   const ctxLine = document.getElementById('chart-history-line').getContext('2d');
   chartHistLine = new Chart(ctxLine, {
     type: festivals.length === 1 ? 'bar' : 'line',
     data: {
       labels,
-      datasets: [
-        {
-          label: 'Avg Points/Player',
-          data: avgScores,
-          borderColor: '#f59e0b',
-          backgroundColor: festivals.length === 1 ? 'rgba(245,158,11,0.7)' : 'rgba(245,158,11,0.1)',
-          pointBackgroundColor: '#0d1117',
-          pointBorderWidth: 2,
-          pointRadius: 5,
-          tension: 0.3,
-          borderWidth: 2.5,
-          fill: festivals.length !== 1
-        }
-      ]
+      datasets: [{
+        label: 'Avg Points/Player',
+        data: avgScores,
+        borderColor: '#f59e0b',
+        backgroundColor: festivals.length === 1 ? 'rgba(245,158,11,0.7)' : 'rgba(245,158,11,0.12)',
+        borderWidth: 2.5, tension: 0.3,
+        fill: festivals.length !== 1,
+        ..._ptStyle('#f59e0b')
+      }]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: 'rgba(13,17,23,.95)',
-          titleColor: '#c9d1d9', bodyColor: '#c9d1d9',
-          borderColor: '#30363d', borderWidth: 1
-        }
+        legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 10, color: 'rgba(255,255,255,0.7)' } },
+        tooltip: _tip
       },
       scales: {
         x: { grid: { display: false } },
-        y: {
-          grid: { color: 'rgba(255,255,255,0.05)' },
-          title: { display: true, text: 'Avg Points', color: 'rgba(255,255,255,0.5)' },
-          beginAtZero: false
-        }
+        y: { grid: { color: 'rgba(255,255,255,0.05)' }, title: { display: true, text: 'Avg Points', color: 'rgba(255,255,255,0.5)' }, beginAtZero: false }
       }
     }
   });
