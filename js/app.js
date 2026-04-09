@@ -118,18 +118,19 @@ async function initIndex() {
   setLoading(container, 'Loading dashboard…');
 
   try {
-    const [wars, hunts, history] = await Promise.allSettled([
+    const [wars, hunts, history, weekly] = await Promise.allSettled([
       loadJSON('wars.json'),
       loadJSON('hunts.json'),
       loadJSON('history.json'),
+      loadJSON('weekly.json'),
     ]);
 
-    const warsData   = wars.status   === 'fulfilled' ? wars.value   : [];
-    const huntsData  = hunts.status  === 'fulfilled' ? hunts.value  : [];
+    const warsData    = wars.status    === 'fulfilled' ? wars.value    : [];
+    const huntsData   = hunts.status   === 'fulfilled' ? hunts.value   : [];
     const historyData = history.status === 'fulfilled' ? history.value : { members: [] };
+    const weeklyData  = weekly.status  === 'fulfilled' ? weekly.value  : [];
 
-    const latestWar   = warsData.length   ? warsData[warsData.length - 1]   : null;
-    const latestHunt  = huntsData.length  ? huntsData[huntsData.length - 1] : null;
+    const latestWeek  = weeklyData.length ? weeklyData[weeklyData.length - 1] : null;
     const memberCount = historyData.members ? historyData.members.length : 0;
 
     container.innerHTML = `
@@ -151,12 +152,12 @@ async function initIndex() {
         </div>
         <div class="stat-card orange">
           <div class="stat-icon">⭐</div>
-          <div class="stat-value">${latestWar ? fmtNum(latestWar.total_might) : '—'}</div>
+          <div class="stat-value">${latestWeek ? fmtNum(latestWeek.total_power) : '—'}</div>
           <div class="stat-label">Current Guild Power</div>
         </div>
         <div class="stat-card yellow">
           <div class="stat-icon">⚔️</div>
-          <div class="stat-value">${latestWar ? fmtNum(latestWar.total_kills) : '—'}</div>
+          <div class="stat-value">${latestWeek ? fmtNum(latestWeek.total_kills) : '—'}</div>
           <div class="stat-label">Current Guild Kills</div>
         </div>
       </div>`;
@@ -237,6 +238,13 @@ function renderWarList(container, weekly, wars) {
   const sortedWars = [...wars].reverse(); // newest monthly first
   const latest = sortedWars[0];
 
+  // Use the last weekly.json entry for headline stats (last actual GUILD_LIST report)
+  const latestWeek = weekly && weekly.length ? weekly[weekly.length - 1] : null;
+  const lrPower = latestWeek ? latestWeek.total_power : (latest ? latest.total_might : 0);
+  const lrKills = latestWeek ? latestWeek.total_kills : (latest ? latest.total_kills : 0);
+  const lrMembers = latestWeek ? latestWeek.member_count : (latest ? latest.total_members : 0);
+  const lrAvg = lrMembers > 0 ? Math.floor(lrPower / lrMembers) : 0;
+
   // Chart data from weekly.json (weekly granularity, up to 52 weeks)
   // Each entry uses the LAST GUILD_LIST report of that week as the single source of truth.
   const chartWeeks  = weekly ? [...weekly].slice(-52) : [];
@@ -256,18 +264,23 @@ function renderWarList(container, weekly, wars) {
       </div>
       <div class="stat-card green">
         <div class="stat-icon">👥</div>
-        <div class="stat-value">${latest.total_members}</div>
-        <div class="stat-label">Members (Latest)</div>
+        <div class="stat-value">${lrMembers}</div>
+        <div class="stat-label">Members (Last Report)</div>
+      </div>
+      <div class="stat-card orange">
+        <div class="stat-icon">🏰</div>
+        <div class="stat-value">${fmtNum(lrPower)}</div>
+        <div class="stat-label">Total Might (Last Report)</div>
       </div>
       <div class="stat-card yellow">
         <div class="stat-icon">⚔️</div>
-        <div class="stat-value">${fmtNum(latest.total_kills)}</div>
-        <div class="stat-label">Total Kills (Latest)</div>
+        <div class="stat-value">${fmtNum(lrKills)}</div>
+        <div class="stat-label">Total Kills (Last Report)</div>
       </div>
       <div class="stat-card purple">
-        <div class="stat-icon">🏰</div>
-        <div class="stat-value">${fmtNum(latest.avg_might)}</div>
-        <div class="stat-label">Avg. Might (Latest)</div>
+        <div class="stat-icon">📊</div>
+        <div class="stat-value">${fmtNum(lrAvg)}</div>
+        <div class="stat-label">Avg. Might (Last Report)</div>
       </div>
     </div>
 
