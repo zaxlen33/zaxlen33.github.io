@@ -11,7 +11,7 @@ _style.textContent = `
   .player-tab{padding:.5rem 1.1rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text-secondary);border-radius:8px;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .2s;}
   .player-tab:hover{border-color:var(--accent-blue);color:var(--accent-blue);}
   .player-tab.active{background:var(--accent-blue);border-color:var(--accent-blue);color:#fff;}
-  .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:1.5rem;margin-bottom:1.5rem;}
+  .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:1.5rem;}
   .chart-box{position:relative;height:270px;}
   .profile-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;background:var(--bg-card);padding:1.4rem;border-radius:12px;border:1px solid var(--border);}
   .profile-avatar{width:68px;height:68px;border-radius:50%;background:var(--accent-blue);display:flex;align-items:center;justify-content:center;font-size:1.9rem;font-weight:700;color:#fff;flex-shrink:0;}
@@ -173,8 +173,8 @@ function buildWarSection(name, month, warDailyData, growth, warsData) {
 
   let html = '';
   html += _statCards([
-    { icon:'🏰', value: last30 ? fmtNum(last30.might) : '—', label: t('current_might'), color:'blue',   delta: mightDiff, deltaLabel: month ? t('latest') : t('last_30_days') },
-    { icon:'⚔️', value: last30 ? fmtNum(last30.kills) : '—', label: t('current_kills'), color:'yellow', delta: killsDiff, deltaLabel: month ? t('latest') : t('last_30_days') },
+    { icon:'🏰', value: last30 ? fmtCompact(last30.might) : '—', label: t('current_might'), color:'blue',   delta: mightDiff, deltaLabel: month ? t('latest') : t('last_30_days') },
+    { icon:'⚔️', value: last30 ? fmtCompact(last30.kills) : '—', label: t('current_kills'), color:'yellow', delta: killsDiff, deltaLabel: month ? t('latest') : t('last_30_days') },
   ]);
 
   html += _quotaBadge(killsDiff);
@@ -379,8 +379,8 @@ function buildAllHistorySection(name, growth, playerHunts52, rawFestivalData) {
   const lastH52 = playerHunts52.length ? playerHunts52[playerHunts52.length-1] : null;
 
   let html = _statCards([
-    { icon:'🏰', value: last52 ? fmtNum(last52.might) : '—', label: t('current_might'), color:'blue' },
-    { icon:'⚔️', value: last52 ? fmtNum(last52.kills) : '—', label: t('current_kills'), color:'yellow' },
+    { icon:'🏰', value: last52 ? fmtCompact(last52.might) : '—', label: t('current_might'), color:'blue' },
+    { icon:'⚔️', value: last52 ? fmtCompact(last52.kills) : '—', label: t('current_kills'), color:'yellow' },
     { icon:'🎯', value: lastH52 ? fmtNum(lastH52.pts_total) : '—', label: t('points'), color:'green' },
     { icon:'📊', value: snaps52.length, label: t('snapshots_label'), color:'purple' },
   ]);
