@@ -81,9 +81,10 @@ function _card(title, canvasId) {
   return `<div class="card"><div class="card-header"><h2>${title}</h2></div>
     <div class="card-body"><div class="chart-box"><canvas id="${canvasId}"></canvas></div></div></div>`;
 }
-function _noData(title, msg='Not enough data yet.') {
+function _noData(title, msg) {
+  const message = msg || t('not_enough_data');
   return `<div class="card"><div class="card-header"><h2>${title}</h2></div>
-    <div class="card-body"><p style="color:var(--text-muted);text-align:center;padding:2rem;">${msg}</p></div></div>`;
+    <div class="card-body"><p style="color:var(--text-muted);text-align:center;padding:2rem;">${message}</p></div></div>`;
 }
 
 function _quotaBadge(killsDiff) {
@@ -91,12 +92,12 @@ function _quotaBadge(killsDiff) {
   const pct = Math.min(100, Math.round(killsDiff / 10_000));
   const col = met ? 'var(--accent-green)' : pct >= 60 ? 'var(--accent-yellow)' : 'var(--accent-red)';
   return `<div class="card" style="border-top:3px solid ${col};margin-bottom:1.5rem;">
-    <div class="card-header"><h2>⚔️ Monthly Kill Quota (1,000,000)</h2></div>
+    <div class="card-header"><h2>⚔️ ${t('quota_title')}</h2></div>
     <div class="card-body" style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
       <div style="font-size:2.2rem;">${met?'✅':'❌'}</div>
       <div style="flex:1;">
-        <div style="font-weight:700;font-size:1rem;color:${col};">${met?'QUOTA MET':'QUOTA NOT MET'}</div>
-        <div style="color:var(--text-secondary);margin-top:3px;">${fmtNum(killsDiff)} / 1,000,000 kills this month</div>
+        <div style="font-weight:700;font-size:1rem;color:${col};">${met ? t('quota_met') : t('quota_not_met')}</div>
+        <div style="color:var(--text-secondary);margin-top:3px;">${fmtNum(killsDiff)} / 1,000,000 ${t('kills_this_month')}</div>
         <div style="margin-top:8px;">
           <div class="progress-bar" style="width:100%;max-width:280px;"><div class="progress-fill" style="width:${pct}%;background:${col};"></div></div>
           <span style="font-family:var(--font-mono);font-size:.83rem;color:${col};">${pct}%</span>
@@ -123,10 +124,10 @@ function _profileHeader(name, growth, view, telegram) {
   const uid     = growth && growth.uid ? growth.uid : 'N/A';
 
   let backLink, backText;
-  if      (view==='war')    { backLink='./war.html';     backText='🏰 War Reports'; }
-  else if (view==='hunt')   { backLink='./hunt.html';    backText='🦅 Hunt Reports'; }
-  else if (view==='all')    { backLink='./history.html'; backText='📈 All History'; }
-  else                      { backLink='./members.html'; backText='👥 Check Member'; }
+  if      (view==='war')    { backLink='./war.html';     backText=t('nav_war'); }
+  else if (view==='hunt')   { backLink='./hunt.html';    backText=t('nav_hunt'); }
+  else if (view==='all')    { backLink='./history.html'; backText=t('nav_history') || '📈 History'; }
+  else                      { backLink='./members.html'; backText=t('nav_members'); }
 
   const tgBadge = telegram
     ? `<span style="font-size:0.78rem;color:var(--accent-orange);border:1px solid var(--accent-orange);border-radius:4px;padding:2px 7px;margin-left:6px;vertical-align:middle;font-family:var(--font-mono);white-space:nowrap;">💬 ${telegram}</span>`
@@ -140,7 +141,7 @@ function _profileHeader(name, growth, view, telegram) {
       <div class="profile-avatar">${initial}</div>
       <div class="profile-info">
         <h1>${name} <span style="font-size:0.8rem;color:var(--accent-orange);border:1px solid var(--accent-orange);border-radius:4px;padding:2px 6px;margin-left:8px;vertical-align:middle;font-family:var(--font-mono);">${uid}</span>${tgBadge}</h1>
-        <p>Rank: ${last?last.rank:'—'} &nbsp;|&nbsp; First seen: ${growth?growth.first_seen||'—':'—'}</p>
+        <p>${t('rank_label')}: ${last?last.rank||'—':'—'} &nbsp;|&nbsp; ${t('first_seen')}: ${growth?growth.first_seen||'—':'—'}</p>
       </div>
     </div>`;
 }
@@ -172,36 +173,36 @@ function buildWarSection(name, month, warDailyData, growth, warsData) {
 
   let html = '';
   html += _statCards([
-    { icon:'🏰', value: last30 ? fmtNum(last30.might) : '—', label:'Current Might', color:'blue',   delta: mightDiff, deltaLabel: month ? 'this month' : 'last 30 days' },
-    { icon:'⚔️', value: last30 ? fmtNum(last30.kills) : '—', label:'Current Kills', color:'yellow', delta: killsDiff, deltaLabel: month ? 'this month' : 'last 30 days' },
+    { icon:'🏰', value: last30 ? fmtNum(last30.might) : '—', label: t('current_might'), color:'blue',   delta: mightDiff, deltaLabel: month ? t('latest') : t('last_30_days') },
+    { icon:'⚔️', value: last30 ? fmtNum(last30.kills) : '—', label: t('current_kills'), color:'yellow', delta: killsDiff, deltaLabel: month ? t('latest') : t('last_30_days') },
   ]);
 
   html += _quotaBadge(killsDiff);
 
   // Chart section — always shows last 30 days of daily snapshots
-  html += `<div class="section-label">📅 Last 30 Days — Daily snapshots</div>`;
+  html += `<div class="section-label">📅 ${t('last_30_days')}</div>`;
   html += `<div class="chart-grid">`;
-  html += chartDays.length >= 2 ? _card('🏰 Power — Last 30 Days', 'chart-war-might-30d') : _noData('🏰 Power (30 days)', 'At least 2 snapshots needed.');
-  html += chartDays.length >= 2 ? _card('⚔️ Kills — Last 30 Days', 'chart-war-kills-30d') : _noData('⚔️ Kills (30 days)', 'At least 2 snapshots needed.');
+  html += chartDays.length >= 2 ? _card('🏰 ' + t('power_30d'), 'chart-war-might-30d') : _noData(t('power_30d'));
+  html += chartDays.length >= 2 ? _card('⚔️ ' + t('kills_30d'), 'chart-war-kills-30d') : _noData(t('kills_30d'));
   html += `</div>`;
 
-  html += `<div class="section-label">📊 All History — 52 Weeks</div>`;
+  html += `<div class="section-label">📊 ${t('yearly_history')}</div>`;
   const snaps52  = growth ? (growth.snapshots || []) : [];
   html += `<div class="chart-grid">`;
-  html += snaps52.length >= 2 ? _card('🏰 Power — 52 Weeks', 'chart-war-might-52w') : _noData('🏰 Power — 52 Weeks');
-  html += snaps52.length >= 2 ? _card('⚔️ Kills — 52 Weeks', 'chart-war-kills-52w') : _noData('⚔️ Kills — 52 Weeks');
+  html += snaps52.length >= 2 ? _card('🏰 ' + t('war_history'), 'chart-war-might-52w') : _noData(t('war_history'));
+  html += snaps52.length >= 2 ? _card('⚔️ ' + t('war_history'), 'chart-war-kills-52w') : _noData(t('war_history'));
   html += `</div>`;
 
   return { html, mount() {
     if (chartDays.length >= 2) {
       const dates = chartDays.map(s => s.date.slice(5));
-      _lineChart('chart-war-might-30d', 'Might', dates, chartDays.map(s=>s.might), '#58a6ff');
-      _lineChart('chart-war-kills-30d', 'Kills', dates, chartDays.map(s=>s.kills), '#f85149');
+      _lineChart('chart-war-might-30d', t('might'), dates, chartDays.map(s=>s.might), '#58a6ff');
+      _lineChart('chart-war-kills-30d', t('kills'), dates, chartDays.map(s=>s.kills), '#f85149');
     }
     if (snaps52.length >= 2) {
       const dates = snaps52.map(s => s.date);
-      _lineChart('chart-war-might-52w', 'Might', dates, snaps52.map(s=>s.might), '#58a6ff');
-      _lineChart('chart-war-kills-52w', 'Kills', dates, snaps52.map(s=>s.kills), '#f85149');
+      _lineChart('chart-war-might-52w', t('might'), dates, snaps52.map(s=>s.might), '#58a6ff');
+      _lineChart('chart-war-kills-52w', t('kills'), dates, snaps52.map(s=>s.kills), '#f85149');
     }
   }};
 }
@@ -232,7 +233,7 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52) {
     try {
       const mon = new Date(statWeekId + 'T00:00:00');
       const sun = new Date(mon); sun.setDate(sun.getDate() + 6);
-      statWeekLabel = `${mon.toLocaleDateString('en',{month:'short',day:'numeric'})} – ${sun.toLocaleDateString('en',{month:'short',day:'numeric',year:'numeric'})}`;
+      statWeekLabel = `${mon.toLocaleDateString(window.i18n?.currentLang || 'en',{month:'short',day:'numeric'})} – ${sun.toLocaleDateString(window.i18n?.currentLang || 'en',{month:'short',day:'numeric',year:'numeric'})}`;
     } catch { statWeekLabel = statWeekId; }
   }
 
@@ -255,12 +256,12 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52) {
   let html = '';
 
   html += `<div class="card" style="border-top:3px solid ${pctColor};margin-bottom:1.5rem;">
-    <div class="card-header"><h2>🎯 Weekly Hunt Goal — ${statWeekLabel}</h2></div>
+    <div class="card-header"><h2>🎯 ${t('goal_title')} — ${statWeekLabel}</h2></div>
     <div class="card-body" style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
       <div style="font-size:2.2rem;">${met?'✅':'❌'}</div>
       <div style="flex:1;">
-        <div style="font-weight:700;font-size:1rem;color:${pctColor};">${met?'GOAL MET':'GOAL NOT MET'}</div>
-        <div style="color:var(--text-secondary);margin-top:3px;">${fmtNum(weekTotal)} / 56 pts accumulated this week</div>
+        <div style="font-weight:700;font-size:1rem;color:${pctColor};">${met ? t('goal_met') : t('goal_not_met')}</div>
+        <div style="color:var(--text-secondary);margin-top:3px;">${fmtNum(weekTotal)} / 56 ${t('pts_accumulated')}</div>
         <div style="margin-top:8px;">
           <div class="progress-bar" style="width:100%;max-width:280px;"><div class="progress-fill" style="width:${pct}%;background:${pctColor};"></div></div>
           <span style="font-family:var(--font-mono);font-size:.83rem;color:${pctColor};">${pct}%</span>
@@ -269,30 +270,30 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52) {
     </div>
   </div>`;
 
-  html += `<div class="section-label">🗓️ Always Last Week — Cumulative daily progress</div>`;
+  html += `<div class="section-label">🗓️ ${t('last_30_days')}</div>`;
   html += `<div class="chart-grid">`;
-  html += sortedChartDays.length >= 1 ? _card('📈 Hunt Points — Cumulative by Day', 'chart-hunt-pts-7d') : _noData('📈 Hunt Points (7 days)', 'No daily hunt data for this week.');
-  html += sortedChartDays.length >= 1 ? _card('📦 Monsters & Chests — Week Total (Accumulated)', 'chart-hunt-bar-7d') : _noData('📦 Monsters & Chests (week)');
+  html += sortedChartDays.length >= 1 ? _card('📈 ' + t('hunt_history'), 'chart-hunt-pts-7d') : _noData(t('hunt_history'));
+  html += sortedChartDays.length >= 1 ? _card('📦 ' + t('monsters_hunted') + ' & ' + t('chests_purchased'), 'chart-hunt-bar-7d') : _noData(t('monsters_hunted'));
   html += `</div>`;
 
-  html += `<div class="section-label">📊 All History — 52 Weeks</div>`;
+  html += `<div class="section-label">📊 ${t('yearly_history')}</div>`;
   html += `<div class="chart-grid">`;
-  html += playerHunts52.length >= 2 ? _card('🦅 Hunt Points — 52 Weeks', 'chart-hunt-pts-52w') : _noData('🦅 Hunt Points — 52 Weeks', 'At least 2 weeks of data needed.');
-  html += playerHunts52.length >= 1 ? _card('📦 Monsters & Chests — 52-Week Total', 'chart-hunt-bar-52w') : _noData('📦 Monsters & Chests (52-week)');
+  html += playerHunts52.length >= 2 ? _card('🦅 ' + t('hunt_history'), 'chart-hunt-pts-52w') : _noData(t('hunt_history'));
+  html += playerHunts52.length >= 1 ? _card('📦 ' + t('monsters_hunted') + ' & ' + t('chests_purchased'), 'chart-hunt-bar-52w') : _noData(t('chests_purchased'));
   html += `</div>`;
 
   return { html, mount() {
     if (sortedChartDays.length >= 1) {
-      _lineChart('chart-hunt-pts-7d', 'Cumulative Points', cumDates, cumVals, '#3fb950');
+      _lineChart('chart-hunt-pts-7d', t('cumulative_points'), cumDates, cumVals, '#3fb950');
       const lvls = ['Lvl 1','Lvl 2','Lvl 3','Lvl 4','Lvl 5'];
       _barChart('chart-hunt-bar-7d', lvls, [
-        { label:'Monsters Hunted',  data:[cumMon.lvl1,cumMon.lvl2,cumMon.lvl3,cumMon.lvl4,cumMon.lvl5],   backgroundColor:'#a371f7' },
-        { label:'Chests Purchased', data:[cumPurch.lvl1,cumPurch.lvl2,cumPurch.lvl3,cumPurch.lvl4,cumPurch.lvl5], backgroundColor:'#e3b341' }
+        { label: t('monsters'),  data:[cumMon.lvl1,cumMon.lvl2,cumMon.lvl3,cumMon.lvl4,cumMon.lvl5],   backgroundColor:'#a371f7' },
+        { label: t('chests'), data:[cumPurch.lvl1,cumPurch.lvl2,cumPurch.lvl3,cumPurch.lvl4,cumPurch.lvl5], backgroundColor:'#e3b341' }
       ]);
     }
     if (playerHunts52.length >= 2) {
       const hd = playerHunts52.map((h,i) => i===playerHunts52.length-1 ? h.date+' ⟳' : h.date);
-      _lineChart('chart-hunt-pts-52w', 'Total Points', hd, playerHunts52.map(h=>h.pts_total), '#3fb950');
+      _lineChart('chart-hunt-pts-52w', t('hunt_history'), hd, playerHunts52.map(h=>h.pts_total), '#3fb950');
     }
     if (playerHunts52.length >= 1) {
       const monsters = {lvl1:0,lvl2:0,lvl3:0,lvl4:0,lvl5:0}, purchases = {lvl1:0,lvl2:0,lvl3:0,lvl4:0,lvl5:0};
@@ -304,8 +305,8 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52) {
       });
       const lvls = ['Lvl 1','Lvl 2','Lvl 3','Lvl 4','Lvl 5'];
       _barChart('chart-hunt-bar-52w', lvls, [
-        { label:'Monsters Hunted',  data:[monsters.lvl1||0,monsters.lvl2||0,monsters.lvl3||0,monsters.lvl4||0,monsters.lvl5||0],   backgroundColor:'#a371f7' },
-        { label:'Chests Purchased', data:[purchases.lvl1||0,purchases.lvl2||0,purchases.lvl3||0,purchases.lvl4||0,purchases.lvl5||0], backgroundColor:'#e3b341' }
+        { label: t('monsters'),  data:[monsters.lvl1||0,monsters.lvl2||0,monsters.lvl3||0,monsters.lvl4||0,monsters.lvl5||0],   backgroundColor:'#a371f7' },
+        { label: t('chests'), data:[purchases.lvl1||0,purchases.lvl2||0,purchases.lvl3||0,purchases.lvl4||0,purchases.lvl5||0], backgroundColor:'#e3b341' }
       ]);
     }
   }};
@@ -328,7 +329,7 @@ function buildFestivalSection(name, growth, rawFestivalData) {
         const dEnd = new Date(fest.date + 'T00:00:00');
         const dStart = new Date(dEnd);
         dStart.setDate(dStart.getDate() - 7);
-        dateSpan = `${dStart.toLocaleDateString('en-US',{month:'short',day:'numeric'})} – ${dEnd.toLocaleDateString('en-US',{month:'short',day:'numeric'})}`;
+        dateSpan = `${dStart.toLocaleDateString(window.i18n?.currentLang || 'en-US',{month:'short',day:'numeric'})} – ${dEnd.toLocaleDateString(window.i18n?.currentLang || 'en-US',{month:'short',day:'numeric'})}`;
       } catch (e) {}
       festHist.push({
         date: fest.date,
@@ -342,15 +343,15 @@ function buildFestivalSection(name, growth, rawFestivalData) {
 
   const last12 = festHist.slice(-12);
   
-  html += `<div class="section-label">📊 Festival Performance — Last 12 Events</div>`;
+  html += `<div class="section-label">📊 ${t('festival_history')} — Last 12 Events</div>`;
   html += `<div class="chart-grid">`;
-  html += last12.length > 0 ? _card('🎪 Festival Scores (Line)', 'chart-player-fest-line') : _noData('🎪 Festival Line');
-  html += last12.length > 0 ? _card('🎪 Festival Scores (Bar)', 'chart-player-fest-bar') : _noData('🎪 Festival Bar');
+  html += last12.length > 0 ? _card('🎪 ' + t('score') + ' (Line)', 'chart-player-fest-line') : _noData('🎪 Festival Line');
+  html += last12.length > 0 ? _card('🎪 ' + t('score') + ' (Bar)', 'chart-player-fest-bar') : _noData('🎪 Festival Bar');
   html += `</div>`;
   
   html += `<div class="card table-wrapper" style="margin-top:1.5rem">
     <table>
-      <thead><tr><th>Festival Week</th><th class="right">Score</th></tr></thead>
+      <thead><tr><th>${t('date')}</th><th class="right">${t('score')}</th></tr></thead>
       <tbody>
         ${last12.slice().reverse().map(f => `<tr><td>${f.dateSpan}</td><td class="right mono ${f.score >= f.min ? 'text-green' : 'text-red'}">${f.participated ? Number(f.score).toLocaleString() : '—'}</td></tr>`).join('')}
       </tbody>
@@ -362,9 +363,9 @@ function buildFestivalSection(name, growth, rawFestivalData) {
     mount() {
       if (last12.length > 0) {
         _barChart('chart-player-fest-bar', last12.map(f => f.dateSpan), [
-          { label: 'Festival Score', data: last12.map(f => f.score), backgroundColor: '#a371f7' }
+          { label: t('score'), data: last12.map(f => f.score), backgroundColor: '#a371f7' }
         ]);
-        _lineChart('chart-player-fest-line', 'Festival Score', last12.map(f => f.dateSpan), last12.map(f => f.score), '#a371f7');
+        _lineChart('chart-player-fest-line', t('score'), last12.map(f => f.dateSpan), last12.map(f => f.score), '#a371f7');
       }
     }
   };
@@ -378,19 +379,19 @@ function buildAllHistorySection(name, growth, playerHunts52, rawFestivalData) {
   const lastH52 = playerHunts52.length ? playerHunts52[playerHunts52.length-1] : null;
 
   let html = _statCards([
-    { icon:'🏰', value: last52 ? fmtNum(last52.might) : '—', label:'Current Might', color:'blue' },
-    { icon:'⚔️', value: last52 ? fmtNum(last52.kills) : '—', label:'Current Kills', color:'yellow' },
-    { icon:'🎯', value: lastH52 ? fmtNum(lastH52.pts_total) : '—', label:'Latest Hunt Pts', color:'green' },
-    { icon:'📊', value: snaps52.length, label:'Weekly Snapshots', color:'purple' },
+    { icon:'🏰', value: last52 ? fmtNum(last52.might) : '—', label: t('current_might'), color:'blue' },
+    { icon:'⚔️', value: last52 ? fmtNum(last52.kills) : '—', label: t('current_kills'), color:'yellow' },
+    { icon:'🎯', value: lastH52 ? fmtNum(lastH52.pts_total) : '—', label: t('points'), color:'green' },
+    { icon:'📊', value: snaps52.length, label: t('snapshots_label'), color:'purple' },
   ]);
 
-  html += `<div class="section-label">📊 All History — 52 Weeks</div>`;
+  html += `<div class="section-label">📊 ${t('all_history_52w')}</div>`;
   html += `<div class="chart-grid">`;
-  html += snaps52.length >= 2 ? _card('🏰 Power — 52 Weeks', 'chart-all-might') : _noData('🏰 Power — 52 Weeks');
-  html += snaps52.length >= 2 ? _card('⚔️ Kills — 52 Weeks', 'chart-all-kills') : _noData('⚔️ Kills — 52 Weeks');
+  html += snaps52.length >= 2 ? _card('🏰 ' + t('power_52w'), 'chart-all-might') : _noData(t('power_52w'));
+  html += snaps52.length >= 2 ? _card('⚔️ ' + t('kills_52w'), 'chart-all-kills') : _noData(t('kills_52w'));
   html += `</div><div class="chart-grid">`;
-  html += playerHunts52.length >= 2 ? _card('🦅 Hunt Points — 52 Weeks', 'chart-all-hunt-pts') : _noData('🦅 Hunt Points — 52 Weeks');
-  html += lastH52 ? _card('📦 Monsters & Chests — 52-Week Total', 'chart-all-hunt-bar') : _noData('📦 Monsters & Chests');
+  html += playerHunts52.length >= 2 ? _card('🦅 ' + t('hunt_pts_52w'), 'chart-all-hunt-pts') : _noData(t('hunt_pts_52w'));
+  html += lastH52 ? _card('📦 ' + t('monsters_chests_52w'), 'chart-all-hunt-bar') : _noData(t('monsters_chests_52w'));
   html += `</div>`;
   
   const uid = growth ? (growth.uid || 'N/A') : 'N/A';
@@ -404,7 +405,7 @@ function buildAllHistorySection(name, growth, playerHunts52, rawFestivalData) {
           const dEnd = new Date(fest.date + 'T00:00:00');
           const dStart = new Date(dEnd);
           dStart.setDate(dStart.getDate() - 7);
-          dateSpan = `${dStart.toLocaleDateString('en-US', {month:'short',day:'numeric'})} – ${dEnd.toLocaleDateString('en-US', {month:'short',day:'numeric'})}`;
+          dateSpan = `${dStart.toLocaleDateString(window.i18n?.currentLang || 'en-US', {month:'short',day:'numeric'})} – ${dEnd.toLocaleDateString(window.i18n?.currentLang || 'en-US', {month:'short',day:'numeric'})}`;
         } catch(e) {}
         festHist.push({ dateSpan, score: p ? p.score : 0, participated: !!p });
       }
@@ -412,21 +413,21 @@ function buildAllHistorySection(name, growth, playerHunts52, rawFestivalData) {
   }
   const last12Fest = festHist.slice(-12);
 
-  html += `<div class="section-label">🎪 Guild Festival — Last 12 Events</div>`;
+  html += `<div class="section-label">🎪 ${t('festival_last_12')}</div>`;
   html += `<div class="chart-grid">`;
-  html += last12Fest.length > 0 ? _card('🎪 Festival Scores (Line)', 'chart-all-fest-line') : _noData('🎪 Festival Line');
-  html += last12Fest.length > 0 ? _card('🎪 Festival Scores (Bar)', 'chart-all-fest-bar') : _noData('🎪 Festival Bar');
+  html += last12Fest.length > 0 ? _card('🎪 ' + t('festival_scores_line'), 'chart-all-fest-line') : _noData(t('festival_scores_line'));
+  html += last12Fest.length > 0 ? _card('🎪 ' + t('festival_scores_bar'), 'chart-all-fest-bar') : _noData(t('festival_scores_bar'));
   html += `</div>`;
 
   return { html, mount() {
     if (snaps52.length >= 2) {
       const dates = snaps52.map(s=>s.date);
-      _lineChart('chart-all-might', 'Might', dates, snaps52.map(s=>s.might), '#58a6ff');
-      _lineChart('chart-all-kills', 'Kills', dates, snaps52.map(s=>s.kills), '#f85149');
+      _lineChart('chart-all-might', t('might'), dates, snaps52.map(s=>s.might), '#58a6ff');
+      _lineChart('chart-all-kills', t('kills'), dates, snaps52.map(s=>s.kills), '#f85149');
     }
     if (playerHunts52.length >= 2) {
       const hd = playerHunts52.map((h,i)=>i===playerHunts52.length-1?h.date+' ⟳':h.date);
-      _lineChart('chart-all-hunt-pts','Hunt Points',hd,playerHunts52.map(h=>h.pts_total),'#3fb950');
+      _lineChart('chart-all-hunt-pts', t('points'),hd,playerHunts52.map(h=>h.pts_total),'#3fb950');
     }
     if (lastH52) {
       const monsters = {lvl1:0,lvl2:0,lvl3:0,lvl4:0,lvl5:0}, purchases = {lvl1:0,lvl2:0,lvl3:0,lvl4:0,lvl5:0};
@@ -438,15 +439,15 @@ function buildAllHistorySection(name, growth, playerHunts52, rawFestivalData) {
       });
       const lvls = ['Lvl 1','Lvl 2','Lvl 3','Lvl 4','Lvl 5'];
       _barChart('chart-all-hunt-bar', lvls, [
-        { label:'Monsters',data:[monsters.lvl1||0,monsters.lvl2||0,monsters.lvl3||0,monsters.lvl4||0,monsters.lvl5||0],backgroundColor:'#a371f7'},
-        { label:'Chests',data:[purchases.lvl1||0,purchases.lvl2||0,purchases.lvl3||0,purchases.lvl4||0,purchases.lvl5||0],backgroundColor:'#e3b341'}
+        { label: t('monsters'), data:[monsters.lvl1||0,monsters.lvl2||0,monsters.lvl3||0,monsters.lvl4||0,monsters.lvl5||0],backgroundColor:'#a371f7'},
+        { label: t('chests'), data:[purchases.lvl1||0,purchases.lvl2||0,purchases.lvl3||0,purchases.lvl4||0,purchases.lvl5||0],backgroundColor:'#e3b341'}
       ]);
     }
     if (last12Fest.length > 0) {
       _barChart('chart-all-fest-bar', last12Fest.map(f => f.dateSpan), [
-        { label: 'Festival Score', data: last12Fest.map(f => f.score), backgroundColor: '#a371f7' }
+        { label: t('score'), data: last12Fest.map(f => f.score), backgroundColor: '#a371f7' }
       ]);
-      _lineChart('chart-all-fest-line', 'Festival Score', last12Fest.map(f => f.dateSpan), last12Fest.map(f => f.score), '#a371f7');
+      _lineChart('chart-all-fest-line', t('score'), last12Fest.map(f => f.dateSpan), last12Fest.map(f => f.score), '#a371f7');
     }
   }};
 }
@@ -469,11 +470,11 @@ async function renderHuntView(container, name, week, huntDailyData, playerHunts5
     ? `<span style="font-size:0.8rem;color:var(--accent-orange);border:1px solid var(--accent-orange);border-radius:4px;padding:2px 6px;margin-left:8px;vertical-align:middle;font-family:var(--font-mono);">${uid}</span>`
     : '';
   const breadcrumb = `<div class="breadcrumb" style="margin-bottom:1.5rem;">
-    <a href="./hunt.html">🦅 Hunt Reports</a><span class="sep">›</span><span class="current">${name}</span>
+    <a href="./hunt.html">${t('nav_hunt')}</a><span class="sep">›</span><span class="current">${name}</span>
   </div>
   <div class="profile-header">
     <div class="profile-avatar">${initial}</div>
-    <div class="profile-info"><h1>${name}${uidBadge}${tgBadge}</h1><p>Hunt Player Dashboard</p></div>
+    <div class="profile-info"><h1>${name}${uidBadge}${tgBadge}</h1><p>${t('hunt_player_dashboard')}</p></div>
   </div>`;
   const sec = buildHuntSection(name, week, huntDailyData, playerHunts52);
   container.innerHTML = breadcrumb + sec.html;
@@ -491,11 +492,11 @@ async function renderMemberView(container, name, growth, warDailyData, huntDaily
   if (growth && growth.name_history && growth.name_history.length > 0) {
     nameChangesHtml = `<div class="card" style="margin-bottom:1.5rem;">
       <div class="card-header" style="cursor:pointer;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
-        <h2 style="font-size:1.1rem; color:var(--text-primary);"><span style="margin-right:8px;">📝</span>Identity Tracker (${growth.name_history.length} Previous Names) <span style="font-size:0.8rem;float:right;color:var(--text-secondary);font-weight:normal;">Click to expand ▾</span></h2>
+        <h2 style="font-size:1.1rem; color:var(--text-primary);"><span style="margin-right:8px;">📝</span>${t('identity_tracker')} (${growth.name_history.length} ${t('previous_names')}) <span style="font-size:0.8rem;float:right;color:var(--text-secondary);font-weight:normal;">${t('view_all')} ▾</span></h2>
       </div>
       <div class="card-body" style="display:none; padding:0; border-top:1px solid var(--border);">
         <table style="border:none;margin:0;">
-          <thead><tr><th>Old Name</th><th class="right">Used Until Date</th></tr></thead>
+          <thead><tr><th>${t('old_name_new_name')}</th><th class="right">${t('until_date')}</th></tr></thead>
           <tbody>
             ${growth.name_history.map(nh => `<tr><td style="color:var(--text-secondary);text-decoration:line-through">${nh.name}</td><td class="right mono">${nh.until}</td></tr>`).join('')}
           </tbody>
@@ -508,10 +509,10 @@ async function renderMemberView(container, name, growth, warDailyData, huntDaily
     ${_profileHeader(name, growth, 'member', telegram)}
     ${nameChangesHtml}
     <div style="display:flex;gap:.5rem;margin:1.2rem 0;flex-wrap:wrap;">
-      <button id="btn-war"  class="player-tab active" onclick="switchMemberTab('war')">🏰 War</button>
-      <button id="btn-hunt" class="player-tab" onclick="switchMemberTab('hunt')">🦅 Hunt</button>
-      <button id="btn-fest" class="player-tab" onclick="switchMemberTab('fest')">🎪 Festival</button>
-      <button id="btn-all"  class="player-tab" onclick="switchMemberTab('all')">📊 All History</button>
+      <button id="btn-war"  class="player-tab active" onclick="switchMemberTab('war')">${t('nav_war')}</button>
+      <button id="btn-hunt" class="player-tab" onclick="switchMemberTab('hunt')">${t('nav_hunt')}</button>
+      <button id="btn-fest" class="player-tab" onclick="switchMemberTab('fest')">${t('nav_festival')}</button>
+      <button id="btn-all"  class="player-tab" onclick="switchMemberTab('all')">${t('nav_history')}</button>
     </div>
     <div id="tab-war"></div>
     <div id="tab-hunt" style="display:none;"></div>
@@ -558,8 +559,8 @@ async function initPlayer() {
   const month = p.get('month') || '';
   const week  = p.get('week')  || '';
 
-  if (!name) { setError(container, 'No player specified.'); return; }
-  setLoading(container, `Loading ${name}…`);
+  if (!name) { setError(container, t('not_found')); return; }
+  setLoading(container, t('loading_player_param').replace('{name}', name));
 
   try {
     const [histRes, mhuntsRes, warDailyRes, huntDailyRes, festRes, membersRes, warsRes] = await Promise.allSettled([
@@ -593,10 +594,21 @@ async function initPlayer() {
     else /* member */           await renderMemberView(container, name, growth, warDailyData, huntDailyData, playerHunts52, festivalData, telegram, warsData);
 
   } catch(err) {
-    setError(container, 'Could not load player data: ' + err.message);
+    setError(container, t('error_loading') + ': ' + err.message);
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.pathname.split('/').pop() !== 'player.html') return;
+  // Wait for i18n to be ready before first render
+  const checkI18n = setInterval(() => {
+    if (window.i18n && Object.keys(window.i18n.data).length > 0) {
+      clearInterval(checkI18n);
+      initPlayer();
+    }
+  }, 50);
+});
+
+window.addEventListener('languageChanged', () => {
   if (window.location.pathname.split('/').pop() === 'player.html') initPlayer();
 });
