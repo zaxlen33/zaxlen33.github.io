@@ -47,7 +47,7 @@ function fmtDelta(n, html = true) {
   if (n === null || n === undefined || n === 0) return html ? '<span class="delta zero">0</span>' : '0';
   const cls = n > 0 ? 'pos' : 'neg';
   const sign = n > 0 ? '+' : '';
-  return html ? `<span class="delta ${cls}">${sign}${fmtNum(n)}</span>` : `${sign}${fmtNum(n)}`;
+  return html ? `<span class="delta ${cls}">${sign}${fmtCompact(n)}</span>` : `${sign}${fmtCompact(n)}`;
 }
 
 /** Capitalise first letter */
@@ -55,10 +55,18 @@ function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
 
 /** Render a rank badge */
 function rankBadge(rank) {
-  const r = (rank || '').toLowerCase().replace(/\s+/g, '');
-  const labels = { r5: 'R5', r4: 'R4', r3: 'R3', r2: 'R2', r1: 'R1' };
-  const label = labels[r] || cap(rank) || '—';
-  return `<span class="rank-badge rank-${r || 'r1'}">${label}</span>`;
+  const cleanRank = (rank || '').trim().replace(/[\r\n]+/g, '');
+  let rTier = '';
+  if (cleanRank.includes('5')) rTier = 'r5';
+  else if (cleanRank.includes('4')) rTier = 'r4';
+  else if (cleanRank.includes('3')) rTier = 'r3';
+  else if (cleanRank.includes('2')) rTier = 'r2';
+  else if (cleanRank.includes('1')) rTier = 'r1';
+  
+  const label = rTier ? rTier.toUpperCase() : (cap(cleanRank) || '—');
+  const cls = rTier || 'r1';
+  
+  return `<span class="rank-badge rank-${cls}">${label}</span>`;
 }
 
 /** Get URL hash parameter */
@@ -321,9 +329,9 @@ function renderWarList(container, weekly, wars) {
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.5rem;font-size:0.85rem;color:var(--text-secondary);">
           <div>👥 ${t('players')}: <strong style="color:var(--text-primary);">${w.total_members}</strong></div>
-          <div>⚔️ ${t('guild_kills')}: <strong style="color:var(--accent-yellow);">${fmtNum(w.total_kills)}</strong></div>
-          <div>🏰 ${t('average')} ${t('might')}: <strong style="color:var(--accent-blue);">${fmtNum(w.avg_might)}</strong></div>
-          <div>📈 ${t('kills_gained_title')}: <strong style="color:var(--accent-green);">${fmtNum(w.total_kills_gained)}</strong></div>
+          <div>⚔️ ${t('guild_kills')}: <strong style="color:var(--accent-yellow);">${fmtCompact(w.total_kills)}</strong></div>
+          <div>🏰 ${t('average')} ${t('might')}: <strong style="color:var(--accent-blue);">${fmtCompact(w.avg_might)}</strong></div>
+          <div>📈 ${t('kills_gained_title')}: <strong style="color:var(--accent-green);">${fmtCompact(w.total_kills_gained)}</strong></div>
         </div>
         <div style="margin-top:8px;font-size:0.8rem;color:var(--accent-blue);">${t('view_breakdown')}</div>
       </div>
@@ -339,8 +347,8 @@ function renderWarList(container, weekly, wars) {
     new Chart(document.getElementById('chart-war-combined-guild'), {
       type: 'line',
       data: { labels: chartLabels, datasets: [
-        { label: 'Guild Power', data: chartPower, borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,0.08)', borderWidth: 2.5, tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0d1117', pointBorderColor: '#58a6ff', pointBorderWidth: 2, yAxisID: 'y'  },
-        { label: 'Total Kills', data: chartKills, borderColor: '#f85149', backgroundColor: 'rgba(248,81,73,0.08)',  borderWidth: 2.5, tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0d1117', pointBorderColor: '#f85149', pointBorderWidth: 2, yAxisID: 'y2' }
+        { label: t('chart_guild_power'), data: chartPower, borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,0.08)', borderWidth: 2.5, tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0d1117', pointBorderColor: '#58a6ff', pointBorderWidth: 2, yAxisID: 'y'  },
+        { label: t('chart_total_kills'), data: chartKills, borderColor: '#f85149', backgroundColor: 'rgba(248,81,73,0.08)',  borderWidth: 2.5, tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0d1117', pointBorderColor: '#f85149', pointBorderWidth: 2, yAxisID: 'y2' }
       ]},
       options: {
         responsive: true, maintainAspectRatio: false,
@@ -354,7 +362,8 @@ function renderWarList(container, weekly, wars) {
                 const i = items[0]?.dataIndex ?? 0;
                 const rd = chartReportDates[i];
                 const mc = chartMemberCounts[i];
-                return rd ? `Week of ${chartLabels[i]}  (Report: ${rd}, ${mc} members)` : `Week of ${chartLabels[i]}`;
+                const w = `${t('week_of')} ${chartLabels[i]}`;
+                return rd ? `${w}  (${t('report_label')} ${rd}, ${mc} ${t('members_lower')})` : w;
               },
               label: (item) => {
                 const val = item.raw;
@@ -389,8 +398,8 @@ function renderWarDetail(container, war) {
       <div class="meta-row">
         <div class="meta-item">📅 ${t('date')}: <strong>${war.month}</strong></div>
         <div class="meta-item">👥 ${t('players')}: <strong>${war.total_members}</strong></div>
-        <div class="meta-item">⚔️ ${t('guild_kills')}: <strong>${fmtNum(war.total_kills)}</strong></div>
-        <div class="meta-item">🏰 ${t('average')} ${t('might')}: <strong>${fmtNum(war.avg_might)}</strong></div>
+        <div class="meta-item">⚔️ ${t('guild_kills')}: <strong>${fmtCompact(war.total_kills)}</strong></div>
+        <div class="meta-item">🏰 ${t('average')} ${t('might')}: <strong>${fmtCompact(war.avg_might)}</strong></div>
         <div class="meta-item">📊 ${t('snapshots_suffix')}: <strong>${war.snapshots_count}</strong></div>
       </div>
     </div>
@@ -430,19 +439,10 @@ function renderWarDetail(container, war) {
             <input type="text" id="war-search" placeholder="${t('search_placeholder')}" autocomplete="off">
           </div>
           <select class="select-box" id="war-sort">
-            <option value="kills">${t('sort_kills')}</option>
-            <option value="kills_diff">${t('sort_kills_diff')}</option>
             <option value="might">${t('sort_might')}</option>
-            <option value="might_diff">${t('sort_might_diff')}</option>
+            <option value="kills">${t('sort_kills')}</option>
             <option value="name">${t('sort_name')}</option>
-          </select>
-          <select class="select-box" id="war-rank-filter">
-            <option value="">${t('all_ranks')}</option>
-            <option value="r5">R5</option>
-            <option value="r4">R4</option>
-            <option value="r3">R3</option>
-            <option value="r2">R2</option>
-            <option value="r1">R1</option>
+            <option value="rank">${t('sort_rank')}</option>
           </select>
         </div>
         <div class="table-wrapper">
@@ -482,17 +482,15 @@ function renderWarDetail(container, war) {
       const met = gained >= KILL_GOAL;
       return `
       <tr data-searchable="${(m.name || '').toLowerCase()} ${(m.rank || '').toLowerCase()}">
-        <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
-        <td style="font-weight:500;"><a href="player.html?view=war&id=${encodeURIComponent(m.name||'')}&month=${war.month}" class="member-link">${m.name || '—'}</a></td>
-        <td class="center">${rankBadge(m.rank)}</td>
-        <td class="right mono">${fmtCompact(m.might)}</td>
-        <td class="right hide-mobile">${fmtDelta(m.might_diff)}</td>
-        <td class="right mono" style="color:var(--accent-yellow);">${fmtCompact(m.kills)}</td>
-        <td class="right hide-mobile">${fmtDelta(m.kills_diff)}</td>
-        <td class="right">
-          <span class="mono" style="font-weight:700;">${fmtNum(gained)}
-            <span style="font-size:0.75rem;color:var(--text-muted);"> / 1M</span>
-          </span>
+        <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
+        <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=war&id=${encodeURIComponent(m.name||'')}&month=${war.month}" class="member-link">${m.name || '—'}</a></td>
+        <td class="center" data-label="${t('table_rank')}">${rankBadge(m.rank)}</td>
+        <td class="right mono" data-label="${t('table_might')}">${fmtCompact(m.might)}</td>
+        <td class="right hide-mobile" data-label="${t('table_might_gained')}">${fmtDelta(m.might_diff)}</td>
+        <td class="right mono" data-label="${t('table_kills')}" style="color:var(--accent-yellow);">${fmtCompact(m.kills)}</td>
+        <td class="right hide-mobile" data-label="${t('table_kills_gained')}">${fmtDelta(m.kills_diff)}</td>
+        <td class="right" data-label="${t('table_goal')}">
+          <span class="mono" style="font-weight:700;">${fmtCompact(gained)} <span style="font-size:0.75rem;color:var(--text-muted);">/ 1M</span></span>
           <div style="display:flex;align-items:center;gap:5px;margin-top:3px;justify-content:flex-end;">
             <div class="progress-bar" style="width:55px;">
               <div class="progress-fill" style="width:${killPct}%;background:${pctColor};"></div>
@@ -500,7 +498,7 @@ function renderWarDetail(container, war) {
             <span class="pct-label" style="color:${pctColor};">${killPct}%</span>
           </div>
         </td>
-        <td class="center">${met
+        <td class="center" data-label="${t('table_status')}">${met
           ? `<span class="badge-met">✅ ${t('status_met')}</span>`
           : `<span class="badge-not-met">❌ ${t('status_miss')}</span>`}
         </td>
@@ -510,47 +508,30 @@ function renderWarDetail(container, war) {
 
   renderRows();
 
-  // Search
-  document.getElementById('war-search').addEventListener('input', e => {
-    const q = e.target.value.trim().toLowerCase();
-    currentMembers = members.filter(m => (m.name || '').toLowerCase().includes(q));
-    applyRankFilter();
-    renderRows();
+  // Search and Sort
+  let _search = '';
+  document.getElementById('war-search').addEventListener('input', e => { 
+    _search = e.target.value.trim().toLowerCase(); 
+    applyAll(); 
+  });
+  
+  document.getElementById('war-sort').addEventListener('change', () => { 
+    applyAll(); 
   });
 
-  // Sort
-  document.getElementById('war-sort').addEventListener('change', e => {
-    sortMembers(e.target.value);
-    renderRows();
-  });
-
-  // Rank filter
-  document.getElementById('war-rank-filter').addEventListener('change', e => {
-    applyRankFilter();
-    renderRows();
-  });
-
-  let _search = '', _rank = '';
-  document.getElementById('war-search').addEventListener('input', e => { _search = e.target.value.trim().toLowerCase(); applyAll(); });
-  document.getElementById('war-rank-filter').addEventListener('change', e => { _rank = e.target.value.toLowerCase(); applyAll(); });
-  document.getElementById('war-sort').addEventListener('change', e => { applyAll(e.target.value); });
-
-  function applyAll(sortKey) {
-    const sKey = sortKey || document.getElementById('war-sort').value;
-    currentMembers = members.filter(m => {
-      const nameOk = !_search || (m.name || '').toLowerCase().includes(_search);
-      const rankOk = !_rank || (m.rank || '').toLowerCase().replace(/\s+/g, '') === _rank;
-      return nameOk && rankOk;
-    });
+  function applyAll() {
+    const sKey = document.getElementById('war-sort').value;
+    currentMembers = members.filter(m => !_search || (m.name || '').toLowerCase().includes(_search));
     currentMembers.sort((a, b) => {
       if (sKey === 'name') return (a.name || '').localeCompare(b.name || '');
+      if (sKey === 'rank') {
+        const _r = x => { const v=(x||''); return v.includes('5')?5:v.includes('4')?4:v.includes('3')?3:v.includes('2')?2:v.includes('1')?1:0; };
+        return _r(b.rank) - _r(a.rank);
+      }
       return (b[sKey] || 0) - (a[sKey] || 0);
     });
     renderRows();
   }
-
-  function applyRankFilter() {} // handled in applyAll
-  function sortMembers() {}     // handled in applyAll
 }
 
 // ══════════════════════════════════════════════════════════
@@ -692,13 +673,13 @@ function renderHuntList(container, hunts) {
               const color = pct >= 80 ? 'var(--accent-green)' : pct >= 50 ? 'var(--accent-yellow)' : 'var(--accent-red)';
               return `
               <tr>
-                <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
-                <td style="font-weight:500;">${h.date}</td>
-                <td class="right mono">${h.summary.total_players}</td>
-                <td class="right"><span class="badge-met">✅ ${h.summary.met_minimum}</span></td>
-                <td class="right"><span class="badge-not-met">❌ ${h.summary.not_met}</span></td>
-                <td class="right mono">${h.summary.min_required}</td>
-                <td class="center">
+                <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
+                <td data-label="${t('date')}" style="font-weight:500;">${h.date}</td>
+                <td class="right mono" data-label="${t('players')}">${h.summary.total_players}</td>
+                <td class="right" data-label="${t('met_goal')}"><span class="badge-met">✅ ${h.summary.met_minimum}</span></td>
+                <td class="right" data-label="${t('not_met')}"><span class="badge-not-met">❌ ${h.summary.not_met}</span></td>
+                <td class="right mono" data-label="${t('min_required')}">${h.summary.min_required}</td>
+                <td class="center" data-label="${t('goal_rate')}">
                   <div style="display:flex;align-items:center;gap:8px;justify-content:center;">
                     <div class="progress-bar" style="width:80px;">
                       <div class="progress-fill" style="width:${pct}%;background:${color};"></div>
@@ -706,8 +687,8 @@ function renderHuntList(container, hunts) {
                     <span style="font-weight:700;color:${color};font-family:var(--font-mono);font-size:0.85rem;">${pct}%</span>
                   </div>
                 </td>
-                <td class="center">
-                  <a href="hunt.html#${h.id}" class="btn btn-primary" style="font-size:0.78rem;padding:4px 10px;">
+                <td class="center" data-label="${t('table_action')}">
+                  <a href="hunt.html#${h.id}" class="btn btn-primary action-btn">
                     ${t('view_arrow')}
                   </a>
                 </td>
@@ -819,11 +800,9 @@ function renderHuntDetail(container, hunt) {
             <option value="not_met">❌ ${t('status_miss')}</option>
           </select>
           <select class="select-box" id="hunt-sort">
-            <option value="pts_total">${t('sort_total_pts')}</option>
-            <option value="pts_hunt">${t('sort_hunt_pts')}</option>
-            <option value="pts_purchase">${t('sort_purchase_pts')}</option>
-            <option value="total_kills">${t('sort_total_kills')}</option>
             <option value="name">${t('sort_name')}</option>
+            <option value="pts_total">${t('sort_total_pts')}</option>
+            <option value="rank">${t('sort_rank')}</option>
           </select>
         </div>
         <div class="table-wrapper">
@@ -857,12 +836,11 @@ function renderHuntDetail(container, hunt) {
       const pctColor = p.met_minimum ? 'var(--accent-green)' : goalPct >= 75 ? 'var(--accent-yellow)' : 'var(--accent-red)';
       return `
         <tr data-searchable="${(p.name || '').toLowerCase()} ${(p.rank || '').toLowerCase()}">
-          <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
-          <td style="font-weight:500;"><a href="player.html?view=hunt&id=${encodeURIComponent(p.name||'')}&week=${encodeURIComponent(hunt.id)}" class="member-link">${p.name || '—'}</a></td>
-          <td class="center">${rankBadge(p.rank || '')}</td>
-          <td class="right mono" style="font-weight:700;">${fmtNum(p.pts_total)}
-            <span style="font-size:0.75rem;color:var(--text-muted);"> / ${minReq}</span></td>
-          <td class="center">
+          <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
+          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=hunt&id=${encodeURIComponent(p.name||'')}&week=${encodeURIComponent(hunt.id)}" class="member-link">${p.name || '—'}</a></td>
+          <td class="center" data-label="${t('table_rank')}">${rankBadge(p.rank || '')}</td>
+          <td class="right mono" data-label="${t('points')}" style="font-weight:700;"><span>${fmtCompact(p.pts_total)} <span style="font-size:0.75rem;color:var(--text-muted);">/ ${fmtCompact(minReq)}</span></span></td>
+          <td class="center" data-label="${t('goal_rate')}">
             <div style="display:flex;align-items:center;gap:6px;justify-content:center;min-width:100px;">
               <div class="progress-bar" style="width:55px;">
                 <div class="progress-fill" style="width:${goalPct}%;background:${pctColor};"></div>
@@ -870,7 +848,7 @@ function renderHuntDetail(container, hunt) {
               <span class="pct-label" style="color:${pctColor};">${goalPct}%</span>
             </div>
           </td>
-          <td class="center">
+          <td class="center" data-label="${t('table_status')}">
             ${p.met_minimum
               ? `<span class="badge-met">✅ ${t('status_met')}</span>`
               : `<span class="badge-not-met">❌ ${t('status_miss')}</span>`}
@@ -881,14 +859,21 @@ function renderHuntDetail(container, hunt) {
 
   renderHuntRows();
 
-  let _search = '', _filter = '', _sortKey = 'pts_total';
+  let _search = '', _filter = '', _sortKey = 'name';
   function applyHuntAll() {
     currentPlayers = players.filter(p => {
       const nameOk = !_search || (p.name || '').toLowerCase().includes(_search);
       const filterOk = !_filter || (_filter === 'met' ? p.met_minimum : !p.met_minimum);
       return nameOk && filterOk;
     });
-    currentPlayers.sort((a, b) => _sortKey === 'name' ? (a.name||'').localeCompare(b.name||'') : (b[_sortKey]||0) - (a[_sortKey]||0));
+    currentPlayers.sort((a, b) => {
+      if (_sortKey === 'name') return (a.name||'').localeCompare(b.name||'');
+      if (_sortKey === 'rank') {
+        const _r = x => { const v=(x||''); return v.includes('5')?5:v.includes('4')?4:v.includes('3')?3:v.includes('2')?2:v.includes('1')?1:0; };
+        return _r(b.rank) - _r(a.rank);
+      }
+      return (b[_sortKey]||0) - (a[_sortKey]||0);
+    });
     renderHuntRows();
   }
 
@@ -1055,16 +1040,16 @@ function renderHistoryList(container, members, lastUpdated) {
       const lastRank   = last ? last.rank || '' : '';
       return `
         <tr data-searchable="${(m.name || '').toLowerCase()} ${lastRank.toLowerCase()}">
-          <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
-          <td style="font-weight:500;"><a href="player.html?view=all&id=${encodeURIComponent(m.name||'')}" class="member-link">${m.name || '—'}</a></td>
-          <td class="center">${rankBadge(lastRank)}</td>
-          <td class="right mono">${fmtNum(might)}</td>
-          <td class="right">${fmtDelta(might_diff)}</td>
-          <td class="right mono" style="color:var(--accent-yellow);">${fmtNum(kills)}</td>
-          <td class="right">${fmtDelta(kills_diff)}</td>
-          <td class="right mono">${snaps.length}</td>
-          <td class="center">
-            <a href="player.html?view=all&id=${encodeURIComponent(m.name||'')}" class="btn btn-primary" style="font-size:0.78rem;padding:4px 10px;">${t('view_arrow')}</a>
+          <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
+          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=all&id=${encodeURIComponent(m.name||'')}" class="member-link">${m.name || '—'}</a></td>
+          <td class="center" data-label="${t('table_rank')}">${rankBadge(lastRank)}</td>
+          <td class="right mono" data-label="${t('table_might')}">${fmtCompact(might)}</td>
+          <td class="right hide-mobile" data-label="${t('table_might_gained')}">${fmtDelta(might_diff)}</td>
+          <td class="right mono" data-label="${t('table_kills')}" style="color:var(--accent-yellow);">${fmtCompact(kills)}</td>
+          <td class="right hide-mobile" data-label="${t('table_kills_gained')}">${fmtDelta(kills_diff)}</td>
+          <td class="right mono" data-label="${t('snapshots_label')}">${snaps.length}</td>
+          <td class="center" data-label="${t('table_action')}">
+            <a href="player.html?view=all&id=${encodeURIComponent(m.name||'')}" class="btn btn-primary action-btn">${t('view_arrow')}</a>
           </td>
         </tr>`;
     }).join('');
@@ -1171,14 +1156,14 @@ function renderHistoryDetail(container, member, lastUpdated) {
           <tbody>
             ${[...snaps].reverse().map((s, i) => `
               <tr>
-                <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
-                <td style="font-weight:500;">${s.date || '—'}</td>
-                <td class="mono" style="font-size:0.78rem;color:var(--text-muted);">${(s.filename || '').replace(/\.[^/.]+$/, '')}</td>
-                <td class="center">${rankBadge(s.rank)}</td>
-                <td class="right mono">${fmtNum(s.might)}</td>
-                <td class="right">${fmtDelta(s.might_diff)}</td>
-                <td class="right mono" style="color:var(--accent-yellow);">${fmtNum(s.kills)}</td>
-                <td class="right">${fmtDelta(s.kills_diff)}</td>
+                <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
+                <td data-label="${t('date')}" style="font-weight:500;">${s.date || '—'}</td>
+                <td class="mono" data-label="${t('file_label')}" style="font-size:0.78rem;color:var(--text-muted);">${(s.filename || '').replace(/\.[^/.]+$/, '')}</td>
+                <td class="center" data-label="${t('rank_label')}">${rankBadge(s.rank)}</td>
+                <td class="right mono" data-label="${t('might')}">${fmtCompact(s.might)}</td>
+                <td class="right" data-label="${t('might_gained_label')}">${fmtDelta(s.might_diff)}</td>
+                <td class="right mono" data-label="${t('kills')}" style="color:var(--accent-yellow);">${fmtCompact(s.kills)}</td>
+                <td class="right" data-label="${t('kills_gained_label')}">${fmtDelta(s.kills_diff)}</td>
               </tr>`).join('')}
           </tbody>
         </table>
@@ -1253,6 +1238,7 @@ async function initMembers() {
     return;
   }
 
+  container.classList.add('members-container');
   container.innerHTML = `
     <div class="card">
       <div class="card-header">
@@ -1269,6 +1255,7 @@ async function initMembers() {
             <option value="kills">${t('sort_kills')}</option>
             <option value="might">${t('sort_might')}</option>
             <option value="name">${t('sort_name')}</option>
+            <option value="rank">${t('sort_rank')}</option>
           </select>
         </div>
         <div class="table-wrapper">
@@ -1294,8 +1281,8 @@ async function initMembers() {
   let currentMembers = [...data];
 
   function _tgBadge(tg) {
-    if (!tg) return '<span style="color:var(--text-muted);font-size:0.8rem;">—</span>';
-    return `<span style="font-size:0.78rem;color:var(--accent-orange);border:1px solid var(--accent-orange);border-radius:4px;padding:2px 7px;font-family:var(--font-mono);white-space:nowrap;">${tg}</span>`;
+    if (!tg) return '<span style="color:var(--text-muted);font-size:0.9rem;">—</span>';
+    return `<span class="tg-badge">💬 ${tg}</span>`;
   }
 
   function renderRows() {
@@ -1305,14 +1292,14 @@ async function initMembers() {
     }
     tbody.innerHTML = currentMembers.map((m, i) => `
       <tr data-searchable="${(m.name || '').toLowerCase()} ${(m.rank || '').toLowerCase()} ${(m.telegram || '').toLowerCase()}">
-        <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
-        <td style="font-weight:500;">${m.name || '—'}</td>
-        <td class="center">${rankBadge(m.rank)}</td>
-        <td class="center">${_tgBadge(m.telegram)}</td>
-        <td class="right mono">${fmtNum(m.might)}</td>
-        <td class="right mono" style="color:var(--accent-yellow);">${fmtNum(m.kills)}</td>
-        <td class="center">
-          <a href="player.html?view=member&id=${encodeURIComponent(m.name||'')}" class="btn btn-primary" style="font-size:0.75rem;padding:4px 8px;">${t('view_profile')}</a>
+        <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
+        <td class="card-main" data-label="${t('table_player')}"><strong>${m.name || '—'}</strong></td>
+        <td class="center" data-label="${t('rank_label')}">${rankBadge(m.rank)}</td>
+        <td class="center td-telegram" data-label="${t('telegram')}">${_tgBadge(m.telegram)}</td>
+        <td class="right mono" data-label="${t('might')}">${fmtCompact(m.might)}</td>
+        <td class="right mono" data-label="${t('kills')}" style="color:var(--accent-yellow);">${fmtCompact(m.kills)}</td>
+        <td class="center" data-label="${t('table_action')}">
+          <a href="player.html?view=member&id=${encodeURIComponent(m.name||'')}" class="btn btn-primary action-btn">${t('view_profile')}</a>
         </td>
       </tr>`).join('');
   }
@@ -1321,9 +1308,23 @@ async function initMembers() {
 
   let _search = '', _sortKey = 'kills';
   function applyFilters() {
+    function _r(x) {
+      if (!x) return 0;
+      if (x.includes('5')) return 5;
+      if (x.includes('4')) return 4;
+      if (x.includes('3')) return 3;
+      if (x.includes('2')) return 2;
+      if (x.includes('1')) return 1;
+      return 0;
+    }
     currentMembers = data.filter(m => !_search || (m.name || '').toLowerCase().includes(_search));
     currentMembers.sort((a, b) => {
       if (_sortKey === 'name') return (a.name||'').localeCompare(b.name||'');
+      if (_sortKey === 'rank') {
+        const ra = _r(a.rank), rb = _r(b.rank);
+        if (ra !== rb) return rb - ra;
+        return (b.might||0) - (a.might||0);
+      }
       return (b[_sortKey]||0) - (a[_sortKey]||0);
     });
     renderRows();
