@@ -55,7 +55,7 @@ async function initRankings() {
     const huntWeekId = latestHunt ? latestHunt.id     : '';
 
     container.innerHTML = `
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-bottom:2rem;">
+      <div class="leaderboard-container" style="margin-bottom:2rem;">
         ${renderWarLeaderboard(t('rank_power_growth'), top5MightGrowth, 'might_diff', 'var(--accent-blue)', warMonth, warMonthId)}
         ${renderWarLeaderboard(t('rank_kills_growth'), top5KillsGrowth, 'kills_diff', 'var(--accent-yellow)', warMonth, warMonthId)}
         ${renderHuntLeaderboard(t('rank_hunt_pts'), top5Hunt, huntWeek, huntWeekId)}
@@ -93,7 +93,7 @@ function renderWarLeaderboard(title, members, metric, color, monthLabel, monthId
               <span class="leaderboard-rank${i < 3 ? ' top-' + (i+1) : ''}">${ranks[i]}</span>
               <a href="player.html?view=war&id=${encodeURIComponent(m.name)}&month=${monthId}"
                  class="leaderboard-name">${m.name}</a>
-              <span class="leaderboard-value" style="color:${valColor};">${sign}${fmtNum(val)}</span>
+              <span class="leaderboard-value" style="color:${valColor};">${sign}${fmtCompact(val)}</span>
             </div>`;
         }).join('')}
       </div>
