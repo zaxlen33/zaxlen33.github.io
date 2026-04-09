@@ -210,19 +210,39 @@ function buildWarSection(name, month, warDailyData, growth, warsData) {
 
 function buildHuntSection(name, weekId, huntDailyData, playerHunts52) {
   const playerWeeks = huntDailyData[name] || {};
-  let targetWeekId  = weekId;
+  const available = Object.keys(playerWeeks).sort();
+  const latestWeekId  = available.length ? available[available.length - 1] : null;
+  let statWeekId = weekId;
 
-  if (!targetWeekId || !playerWeeks[targetWeekId]) {
-    const available = Object.keys(playerWeeks).sort();
-    targetWeekId = available.length ? available[available.length - 1] : null;
+  if (!statWeekId || !playerWeeks[statWeekId]) {
+    statWeekId = latestWeekId;
   }
 
-  const weekDays   = targetWeekId ? (playerWeeks[targetWeekId] || []) : [];
-  const sortedDays = [...weekDays].sort((a, b) => a.date.localeCompare(b.date));
+  // ── 1. Calculate quota/stats for the SPECIFIED week (statWeekId) ──
+  const statDays = statWeekId ? (playerWeeks[statWeekId] || []) : [];
+  let weekTotal = 0;
+  for (const d of statDays) weekTotal += d.pts_total;
+  
+  const met      = weekTotal >= 56;
+  const pct      = Math.min(100, Math.round((weekTotal / 56) * 100));
+  const pctColor = met ? 'var(--accent-green)' : pct >= 75 ? 'var(--accent-yellow)' : 'var(--accent-red)';
 
+  let statWeekLabel = '';
+  if (statWeekId) {
+    try {
+      const mon = new Date(statWeekId + 'T00:00:00');
+      const sun = new Date(mon); sun.setDate(sun.getDate() + 6);
+      statWeekLabel = `${mon.toLocaleDateString('en',{month:'short',day:'numeric'})} – ${sun.toLocaleDateString('en',{month:'short',day:'numeric',year:'numeric'})}`;
+    } catch { statWeekLabel = statWeekId; }
+  }
+
+  // ── 2. Calculate daily cumulative for the LATEST week (latestWeekId) ──
+  const chartDays = latestWeekId ? (playerWeeks[latestWeekId] || []) : [];
+  const sortedChartDays = [...chartDays].sort((a, b) => a.date.localeCompare(b.date));
+  
   let cumPts = 0;
   const cumDates = [], cumVals = [], cumMon = {}, cumPurch = {};
-  for (const d of sortedDays) {
+  for (const d of sortedChartDays) {
     cumPts += d.pts_total;
     cumDates.push(d.date.slice(5));
     cumVals.push(cumPts);
@@ -232,30 +252,15 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52) {
     }
   }
 
-  const latestDay  = sortedDays.length ? sortedDays[sortedDays.length - 1] : null;
-  const weekTotal  = latestDay ? cumVals[cumVals.length - 1] : 0;
-  const met        = weekTotal >= 56;
-  const pct        = Math.min(100, Math.round((weekTotal / 56) * 100));
-  const pctColor   = met ? 'var(--accent-green)' : pct >= 75 ? 'var(--accent-yellow)' : 'var(--accent-red)';
-
-  let weekLabel = '';
-  if (targetWeekId) {
-    try {
-      const mon = new Date(targetWeekId + 'T00:00:00');
-      const sun = new Date(mon); sun.setDate(sun.getDate() + 6);
-      weekLabel = `${mon.toLocaleDateString('en',{month:'short',day:'numeric'})} – ${sun.toLocaleDateString('en',{month:'short',day:'numeric',year:'numeric'})}`;
-    } catch { weekLabel = targetWeekId; }
-  }
-
   let html = '';
 
   html += `<div class="card" style="border-top:3px solid ${pctColor};margin-bottom:1.5rem;">
-    <div class="card-header"><h2>🎯 Weekly Hunt Goal — ${weekLabel}</h2></div>
+    <div class="card-header"><h2>🎯 Weekly Hunt Goal — ${statWeekLabel}</h2></div>
     <div class="card-body" style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
       <div style="font-size:2.2rem;">${met?'✅':'❌'}</div>
       <div style="flex:1;">
         <div style="font-weight:700;font-size:1rem;color:${pctColor};">${met?'GOAL MET':'GOAL NOT MET'}</div>
-        <div style="color:var(--text-secondary);margin-top:3px;">${fmtNum(weekTotal)} / 56 pts accumulated</div>
+        <div style="color:var(--text-secondary);margin-top:3px;">${fmtNum(weekTotal)} / 56 pts accumulated this week</div>
         <div style="margin-top:8px;">
           <div class="progress-bar" style="width:100%;max-width:280px;"><div class="progress-fill" style="width:${pct}%;background:${pctColor};"></div></div>
           <span style="font-family:var(--font-mono);font-size:.83rem;color:${pctColor};">${pct}%</span>
@@ -264,10 +269,10 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52) {
     </div>
   </div>`;
 
-  html += `<div class="section-label">🗓️ This Week — Cumulative daily progress</div>`;
+  html += `<div class="section-label">🗓️ Always Last Week — Cumulative daily progress</div>`;
   html += `<div class="chart-grid">`;
-  html += sortedDays.length >= 1 ? _card('📈 Hunt Points — Cumulative by Day', 'chart-hunt-pts-7d') : _noData('📈 Hunt Points (7 days)', 'No daily hunt data for this week.');
-  html += sortedDays.length >= 1 ? _card('📦 Monsters & Chests — Week Total (Accumulated)', 'chart-hunt-bar-7d') : _noData('📦 Monsters & Chests (week)');
+  html += sortedChartDays.length >= 1 ? _card('📈 Hunt Points — Cumulative by Day', 'chart-hunt-pts-7d') : _noData('📈 Hunt Points (7 days)', 'No daily hunt data for this week.');
+  html += sortedChartDays.length >= 1 ? _card('📦 Monsters & Chests — Week Total (Accumulated)', 'chart-hunt-bar-7d') : _noData('📦 Monsters & Chests (week)');
   html += `</div>`;
 
   html += `<div class="section-label">📊 All History — 52 Weeks</div>`;
@@ -277,7 +282,7 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52) {
   html += `</div>`;
 
   return { html, mount() {
-    if (sortedDays.length >= 1) {
+    if (sortedChartDays.length >= 1) {
       _lineChart('chart-hunt-pts-7d', 'Cumulative Points', cumDates, cumVals, '#3fb950');
       const lvls = ['Lvl 1','Lvl 2','Lvl 3','Lvl 4','Lvl 5'];
       _barChart('chart-hunt-bar-7d', lvls, [
