@@ -1240,7 +1240,7 @@ async function initMembers() {
         <div class="toolbar">
           <div class="search-box">
             <span class="search-icon">🔍</span>
-            <input type="text" id="members-search" placeholder="Search member…" autocomplete="off">
+            <input type="text" id="members-search" placeholder="Search name or @telegram…" autocomplete="off">
           </div>
           <select class="select-box" id="members-sort">
             <option value="kills">Sort by Kills</option>
@@ -1255,6 +1255,7 @@ async function initMembers() {
                 <th>#</th>
                 <th>Name</th>
                 <th class="center">Rank</th>
+                <th class="center">Telegram</th>
                 <th class="right">Might</th>
                 <th class="right">Kills</th>
                 <th class="center">Action</th>
@@ -1269,16 +1270,22 @@ async function initMembers() {
   const tbody = document.getElementById('members-tbody');
   let currentMembers = [...data];
 
+  function _tgBadge(tg) {
+    if (!tg) return '<span style="color:var(--text-muted);font-size:0.8rem;">—</span>';
+    return `<span style="font-size:0.78rem;color:var(--accent-orange);border:1px solid var(--accent-orange);border-radius:4px;padding:2px 7px;font-family:var(--font-mono);white-space:nowrap;">${tg}</span>`;
+  }
+
   function renderRows() {
     if (!currentMembers.length) {
-      tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state" style="padding:1.5rem;"><p>No members match.</p></div></td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state" style="padding:1.5rem;"><p>No members match.</p></div></td></tr>';
       return;
     }
     tbody.innerHTML = currentMembers.map((m, i) => `
-      <tr data-searchable="${(m.name || '').toLowerCase()} ${(m.rank || '').toLowerCase()}">
+      <tr data-searchable="${(m.name || '').toLowerCase()} ${(m.rank || '').toLowerCase()} ${(m.telegram || '').toLowerCase()}">
         <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
         <td style="font-weight:500;">${m.name || '—'}</td>
         <td class="center">${rankBadge(m.rank)}</td>
+        <td class="center">${_tgBadge(m.telegram)}</td>
         <td class="right mono">${fmtNum(m.might)}</td>
         <td class="right mono" style="color:var(--accent-yellow);">${fmtNum(m.kills)}</td>
         <td class="center">
