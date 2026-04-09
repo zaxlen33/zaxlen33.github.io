@@ -33,19 +33,19 @@ const fmtNum = n => (n >= 1_000_000 ? (n/1_000_000).toFixed(1)+'M'
                    : n >= 1_000     ? (n/1_000).toFixed(1)+'K'
                    : String(n));
 
-const fmtComma = n => Number(n).toLocaleString('en-US');
+const fmtComma = n => Number(n).toLocaleString(window.i18n?.currentLang || 'en');
 
 const shortDate = d => {
   try {
     const dt = new Date(d + 'T00:00:00');
-    return dt.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+    return dt.toLocaleDateString(window.i18n?.currentLang || 'en', {month:'short', day:'numeric'});
   } catch { return d.slice(5,10); }
 };
 
 const fullDate = d => {
   try {
     const dt = new Date(d + 'T00:00:00');
-    return dt.toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+    return dt.toLocaleDateString(window.i18n?.currentLang || 'en', {year:'numeric', month:'long', day:'numeric'});
   } catch { return d; }
 };
 
@@ -69,9 +69,26 @@ async function init() {
     renderHistoryTab();
   } catch (err) {
     document.getElementById('festival-list').innerHTML =
-      `<div class="error-state">⚠️ Could not load festival data: ${err.message}</div>`;
+      `<div class="error-state">⚠️ ${t('error_loading')}: ${err.message}</div>`;
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.pathname.split('/').pop() !== 'festival.html') return;
+  // Wait for i18n to be ready before first render
+  const checkI18n = setInterval(() => {
+    if (window.i18n && Object.keys(window.i18n.data).length > 0) {
+      clearInterval(checkI18n);
+      init();
+    }
+  }, 50);
+
+  // Re-render when language changes
+  window.addEventListener('languageChanged', () => {
+    if (activeTab === 'history') renderHistoryTab();
+    else if (activeTab === 'tasks') initTasks();
+  });
+});
 
 // ── TAB SWITCHING ─────────────────────────────────────────────────────────────
 
@@ -93,7 +110,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 function renderHistoryTab() {
   if (!festivals.length) {
     document.getElementById('festival-list').innerHTML =
-      `<div class="empty-state"><div class="empty-icon">🎪</div><h3>No festival data yet</h3></div>`;
+      `<div class="empty-state"><div class="empty-icon">🎪</div><h3>${t('no_fest_data')}</h3></div>`;
     return;
   }
 
@@ -111,7 +128,7 @@ function renderHistoryTab() {
   document.getElementById('stat-avg-pass').textContent     = Math.round(sumPass / n);
   document.getElementById('stat-avg-fail').textContent     = Math.round(sumFail / n);
   document.getElementById('stat-avg-bonus').textContent    = Math.round(sumBonus / n);
-  document.getElementById('festival-count-badge').textContent = `${n} event(s)`;
+  document.getElementById('festival-count-badge').textContent = `${n} ${t('events_count')}`;
 
   buildHistoryCharts();
   renderFestivalList(festivals);
@@ -120,7 +137,7 @@ function renderHistoryTab() {
 function renderFestivalList(list) {
   const el = document.getElementById('festival-list');
   if (!list.length) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div><h3>No results</h3></div>';
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><h3>${t('no_results')}</h3></div>`;
     return;
   }
 
@@ -139,23 +156,23 @@ function renderFestivalList(list) {
       <div class="session-card" data-date="${f.date}" onclick="openFestivalDetail('${f.date}')">
         <div class="session-title">
           🎪 ${fullDate(f.date)}
-          ${isLatest ? '<span class="badge" style="font-size:0.7rem;background:rgba(168,85,247,.15);color:#a855f7;border-color:rgba(168,85,247,.3)">Latest</span>' : ''}
+          ${isLatest ? `<span class="badge" style="font-size:0.7rem;background:rgba(168,85,247,.15);color:#a855f7;border-color:rgba(168,85,247,.3)">${t('latest')}</span>` : ''}
         </div>
         <div class="session-meta">
           <div class="session-row">
-            <span>🏆 Total Score</span>
+            <span>🏆 ${t('total_score')}</span>
             <span class="val">${fmtComma(s.total_score)}</span>
           </div>
           <div class="session-row">
-            <span>👥 Players</span>
+            <span>👥 ${t('players')}</span>
             <span class="val">${s.total_players}</span>
           </div>
           <div class="session-row">
-            <span>✅ Bonus Completed</span>
+            <span>✅ ${t('bonus_completed')}</span>
             <span class="val">${s.completed_bonus}</span>
           </div>
           <div class="session-row" style="margin-top:4px">
-            <span>Min. Met (≥${fmtComma(FESTIVAL_MIN)})</span>
+            <span>${t('min_met')} (≥${fmtComma(FESTIVAL_MIN)})</span>
             <span class="val" style="color:${pct>=80?'var(--festival-pass)':pct>=50?'var(--accent-yellow)':'var(--festival-fail)'}">${passed}/${s.total_players} (${pct}%)</span>
           </div>
           <div class="pass-bar-wrap" style="margin-top:6px">
@@ -165,7 +182,7 @@ function renderFestivalList(list) {
             <span style="color:var(--text-muted);font-size:0.78rem;min-width:34px">${pct}%</span>
           </div>
         </div>
-        <div class="view-btn">View Details →</div>
+        <div class="view-btn">${t('view_details')}</div>
       </div>`;
     }).join('') + '</div>';
 }
@@ -203,13 +220,13 @@ function openFestivalDetail(date) {
     <h2>${fullDate(f.date)}</h2>
     <div class="festival-score-big">${fmtComma(s.total_score)}</div>
     <div class="meta-row" style="margin-top:0.8rem">
-      <div class="meta-item">👥 <strong>${s.total_players}</strong> players</div>
-      <div class="meta-item">✅ Bonus: <strong>${s.completed_bonus}</strong></div>
-      <div class="meta-item met-yes">✔ Passed min: <strong>${passed} (${pct}%)</strong></div>
-      <div class="meta-item met-no">✖ Below min: <strong>${players.length - passed}</strong></div>
+      <div class="meta-item">👥 <strong>${s.total_players}</strong> ${t('players')}</div>
+      <div class="meta-item">✅ ${t('bonus')}: <strong>${s.completed_bonus}</strong></div>
+      <div class="meta-item met-yes">✔ ${t('min_met')}: <strong>${passed} (${pct}%)</strong></div>
+      <div class="meta-item met-no">✖ ${t('miss')}: <strong>${players.length - passed}</strong></div>
     </div>
     <div class="pass-bar-wrap" style="margin-top:10px">
-      <span style="font-size:0.8rem;color:var(--text-muted)">Min. Compliance</span>
+      <span style="font-size:0.8rem;color:var(--text-muted)">${t('min_compliance')}</span>
       <div class="pass-bar-track" style="flex:1">
         <div class="pass-bar-fill" style="width:${pct}%"></div>
       </div>
@@ -235,7 +252,7 @@ function renderDetailTable(players) {
       <td class="center">${i+1}</td>
       <td>${isBest ? '🥇 ' : ''}${p.name}</td>
       <td class="right"><strong>${fmtComma(p.score)}</strong></td>
-      <td class="center ${met?'met-yes':'met-no'}">${met ? '✅ YES' : '❌ NO'}</td>
+      <td class="center ${met?'met-yes':'met-no'}">${met ? t('met_yes') : t('met_no')}</td>
       <td class="center">${p.completed}/${p.total}</td>
       <td class="center">${p.bonus ? '✅' : '—'}</td>
     </tr>`;
@@ -328,14 +345,23 @@ function buildHistoryCharts() {
 }
 
 // ── Start ─────────────────────────────────────────────────────────────────────
-init();
+// init() called by DOMContentLoaded above
+
+// Re-render when language changes
+window.addEventListener('languageChanged', () => {
+  if (selectedFest) {
+    openFestivalDetail(selectedFest.date);
+  } else {
+    renderHistoryTab();
+  }
+});
 
 // ── TASKS LOGIC (Merged) ─────────────────────────────────────────────────────
 async function initTasks() {
   const container = document.getElementById('tasks-container');
   if (!container) return;
   const oldHTML = container.innerHTML;
-  container.innerHTML = '<div class="loading-state"><div class="spinner"></div><p>Loading missions…</p></div>';
+  container.innerHTML = `<div class="loading-state"><div class="spinner"></div><p>${t('loading_missions')}</p></div>`;
 
   try {
     const resp = await fetch('./data/tasks.json?v=' + Date.now());
@@ -350,17 +376,17 @@ async function initTasks() {
         <div class="stat-card orange">
           <div class="stat-icon">🔥</div>
           <div class="stat-value">${t200.length}</div>
-          <div class="stat-label">200% Bonus Missions</div>
+          <div class="stat-label">${t('bonus_missions_200')}</div>
         </div>
         <div class="stat-card blue">
           <div class="stat-icon">🌟</div>
           <div class="stat-value">${t120.length}</div>
-          <div class="stat-label">120% Bonus Missions</div>
+          <div class="stat-label">${t('bonus_missions_120')}</div>
         </div>
         <div class="stat-card green">
           <div class="stat-icon">🎯</div>
           <div class="stat-value">${t200.length + t120.length}</div>
-          <div class="stat-label">Total Missions Tracked</div>
+          <div class="stat-label">${t('total_missions_tracked')}</div>
         </div>
       </div>
       
@@ -371,7 +397,7 @@ async function initTasks() {
     `;
   } catch (err) {
     container.innerHTML = oldHTML; // restore loading or something
-    container.innerHTML = `<div class="error-state">⚠️ Could not load tasks. ${err.message}</div>`;
+    container.innerHTML = `<div class="error-state">⚠️ ${t('error_loading')}. ${err.message}</div>`;
   }
 }
 
@@ -380,7 +406,7 @@ function renderTaskTable(title, tasksList, colorClass) {
     return `
       <div class="card">
         <div class="card-header"><h2>${title}</h2></div>
-        <div class="empty-state" style="padding:2rem;"><p>No missions available in this tier.</p></div>
+        <div class="empty-state" style="padding:2rem;"><p>${t('missions_tier_empty')}</p></div>
       </div>
     `;
   }
@@ -395,9 +421,9 @@ function renderTaskTable(title, tasksList, colorClass) {
         <table style="font-size:0.9rem;">
           <thead>
             <tr>
-              <th class="right" style="width:70px;">Points</th>
-              <th>Mission</th>
-              <th>Qty / Time Limit</th>
+              <th class="right" style="width:70px;">${t('points')}</th>
+              <th>${t('mission')}</th>
+              <th>${t('qty_time_limit')}</th>
             </tr>
           </thead>
           <tbody>
