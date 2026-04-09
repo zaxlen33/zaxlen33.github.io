@@ -118,60 +118,67 @@ a:hover { text-decoration: underline; }
 /* Mobile menu toggle */
 .menu-toggle {
   display: none;
-  background: none;
-  border: none;
+  background: rgba(35, 44, 61, 0.6);
+  border: 1px solid var(--border);
   color: var(--text-primary);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   cursor: pointer;
-  padding: 4px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.menu-toggle:hover {
+  border-color: var(--accent-blue);
+  background: rgba(88, 166, 255, 0.1);
+}
+.menu-toggle:active {
+  transform: scale(0.95);
 }
 
 /* Language Switcher */
 .lang-switcher-container {
   display: flex;
   align-items: center;
-  margin-left: 0.75rem;
   position: relative;
-}
-
-.lang-switcher-container::before {
-  content: "🌐";
-  position: absolute;
-  left: 12px;
-  font-size: 0.85rem;
-  pointer-events: none;
-  opacity: 0.8;
-  z-index: 1;
+  flex-shrink: 0;
 }
 
 .lang-select {
-  background: rgba(35, 44, 61, 0.6);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 8px;
   color: var(--text-primary);
-  padding: 6px 32px 6px 34px;
+  padding: 7px 28px 7px 10px;
   font-size: 0.82rem;
   font-weight: 600;
   outline: none;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  -moz-appearance: none;
+  transition: all 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%238b949e' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  min-width: 0;
 }
 
 .lang-select:hover {
   border-color: var(--accent-blue);
-  background: rgba(88, 166, 255, 0.08);
-  box-shadow: 0 4px 12px rgba(88, 166, 255, 0.15);
-  transform: translateY(-1px);
+  background-color: rgba(88, 166, 255, 0.06);
 }
 
 .lang-select:focus {
   border-color: var(--accent-blue);
-  box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.15);
+}
+
+.lang-select option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 8px;
 }
 
 /* Custom indicator for the select */
@@ -728,8 +735,14 @@ tbody td.mono   { font-family: var(--font-mono); }
   border-bottom-color: var(--accent-blue);
 }
 
+/* ── Utility: hide on mobile ── */
+.hide-mobile { }
+
 /* ── Responsive ── */
+
+/* ── Tablet & Small Desktop (≤ 768px) ── */
 @media (max-width: 768px) {
+  /* Navigation */
   .navbar-nav { display: none; }
   .navbar-nav.open {
     display: flex;
@@ -740,18 +753,170 @@ tbody td.mono   { font-family: var(--font-mono); }
     border-bottom: 1px solid var(--border);
     padding: 0.5rem;
     z-index: 99;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .navbar-nav.open a {
+    padding: 10px 14px;
+    font-size: 1rem;
   }
   .menu-toggle { display: block; }
-  .page-header h1 { font-size: 1.5rem; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .session-list { grid-template-columns: 1fr; }
-  .toolbar { flex-direction: column; align-items: stretch; }
+
+  /* Container */
+  .container { padding: 0 1rem; }
+
+  /* Page header */
+  .page-header { padding: 1.5rem 0 1rem; margin-bottom: 1.2rem; }
+  .page-header h1 { font-size: 1.3rem; gap: 8px; }
+  .page-header p { font-size: 0.85rem; }
+  .page-header .badge { font-size: 0.65rem; padding: 1px 7px; }
+
+  /* Stat cards */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-bottom: 1.2rem; }
+  .stat-card { padding: 0.9rem 1rem; gap: 4px; }
+  .stat-card .stat-icon { font-size: 1.2rem; margin-bottom: 0; }
+  .stat-card .stat-value { font-size: 1.3rem; word-break: break-all; }
+  .stat-card .stat-label { font-size: 0.68rem; letter-spacing: 0.03em; }
+  .stat-card .stat-delta { font-size: 0.7rem; }
+
+  /* Cards */
+  .card { margin-bottom: 1rem; }
+  .card-header { padding: 0.75rem 1rem; flex-wrap: wrap; }
+  .card-header h2 { font-size: 0.9rem; }
+  .card-body { padding: 1rem; }
+
+  /* Tables */
+  table { font-size: 0.78rem; }
+  thead th { padding: 7px 8px; font-size: 0.68rem; }
+  tbody td { padding: 7px 8px; }
+  .hide-mobile { display: none !important; }
+
+  /* Session / monthly cards */
+  .session-list { grid-template-columns: 1fr; gap: 0.75rem; }
+  .session-card { padding: 1rem; }
+  .session-card .session-title { font-size: 0.9rem; }
+
+  /* Toolbar / filters */
+  .toolbar { flex-direction: column; align-items: stretch; gap: 0.5rem; }
   .search-box { min-width: 100%; }
+  .select-box { width: 100%; }
+
+  /* Detail header */
+  .detail-header { padding: 1rem; margin-bottom: 1rem; }
+  .detail-header h2 { font-size: 1.1rem; }
+  .detail-header .meta-row { gap: 0.75rem; font-size: 0.8rem; flex-direction: column; }
+
+  /* Breadcrumb */
+  .breadcrumb { font-size: 0.8rem; margin-bottom: 1rem; }
+
+  /* Tabs */
+  .tabs { gap: 2px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tab-btn { padding: 6px 10px; font-size: 0.8rem; white-space: nowrap; }
+
+  /* Charts */
+  .chart-box { height: 220px !important; }
+
+  /* Leaderboard (rankings page) */
+  .leaderboard-container { grid-template-columns: 1fr !important; }
+  .leaderboard-row { padding: 10px; }
+  .leaderboard-name { font-size: 0.88rem; }
+  .leaderboard-value { font-size: 0.95rem; }
+  .leaderboard-rank { font-size: 1rem; }
+
+  /* Footer */
+  .footer { padding: 1rem 0; margin-top: 2rem; font-size: 0.75rem; }
+
+  /* Progress bars in tables */
+  .progress-bar { width: 40px !important; min-width: 40px; }
+  .pct-label { min-width: 34px; font-size: 0.73rem; }
 }
 
+/* ── Small Phone (≤ 480px) ── */
 @media (max-width: 480px) {
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .stat-card .stat-value { font-size: 1.3rem; }
+  /* Stat cards — 2 columns but smaller */
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .stat-card { padding: 0.7rem 0.8rem; }
+  .stat-card .stat-icon { font-size: 1rem; }
+  .stat-card .stat-value { font-size: 1.1rem; }
+  .stat-card .stat-label { font-size: 0.62rem; }
+
+  /* Even more compact tables */
+  table { font-size: 0.72rem; }
+  thead th { padding: 5px 5px; font-size: 0.62rem; letter-spacing: 0.02em; }
+  tbody td { padding: 6px 5px; }
+  .mono { font-size: 0.72rem; }
+
+  /* Page header */
+  .page-header h1 { font-size: 1.1rem; }
+  .page-header p { font-size: 0.78rem; }
+
+  /* Card headers */
+  .card-header h2 { font-size: 0.82rem; gap: 4px; }
+  .badge-count { font-size: 0.68rem; padding: 1px 7px; }
+
+  /* Navbar */
+  .navbar .container { height: 50px; }
+  .navbar-brand { font-size: 0.9rem; gap: 6px; }
+  .navbar-brand .logo { font-size: 1.2rem; }
+
+  /* Language switcher */
+  .lang-select { font-size: 0.72rem; padding: 4px 26px 4px 28px; }
+  .lang-switcher-container::before { font-size: 0.75rem; left: 10px; }
+
+  /* Charts smaller */
+  .chart-box { height: 180px !important; }
+  .chart-grid { grid-template-columns: 1fr !important; }
+  .charts-grid { grid-template-columns: 1fr !important; }
+
+  /* Detail pages */
+  .detail-header { padding: 0.8rem; }
+  .detail-header h2 { font-size: 1rem; }
+  .detail-header .meta-row { gap: 0.5rem; font-size: 0.75rem; }
+
+  /* Session cards */
+  .session-card .session-title { font-size: 0.85rem; }
+  .session-card .session-meta { font-size: 0.75rem; }
+
+  /* Player profile */
+  .profile-header { padding: 1rem; flex-direction: column; text-align: center; gap: 0.8rem; }
+  .profile-avatar { width: 56px; height: 56px; font-size: 1.5rem; }
+  .profile-info h1 { font-size: 1.2rem; flex-wrap: wrap; justify-content: center; }
+  .profile-info p { font-size: 0.78rem; }
+  .player-tab { padding: 0.4rem 0.8rem; font-size: 0.78rem; }
+
+  /* Leaderboard */
+  .leaderboard-rank { width: 22px; font-size: 0.9rem; }
+  .leaderboard-rank.top-1 { font-size: 1.1rem; }
+  .leaderboard-rank.top-2 { font-size: 1rem; }
+  .leaderboard-rank.top-3 { font-size: 0.95rem; }
+  .leaderboard-name { font-size: 0.8rem; margin-left: 6px; }
+  .leaderboard-value { font-size: 0.85rem; }
+
+  /* Rank badges */
+  .rank-badge { font-size: 0.65rem; padding: 1px 5px; }
+
+  /* Delta values */
+  .delta { font-size: 0.72rem; }
+
+  /* Buttons */
+  .btn { padding: 6px 10px; font-size: 0.78rem; }
+  .btn-primary { font-size: 0.72rem; }
+
+  /* Festival score big */
+  .festival-score-big { font-size: 1.4rem; }
+
+  /* Month headers */
+  .month-header { padding: 0.8rem 1rem; font-size: 0.88rem; }
+}
+
+/* ── Table wrapper — horizontal scroll on mobile ── */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -0.25rem;
+  padding: 0 0.25rem;
+}
+.table-wrapper table {
+  min-width: 600px;
 }
 
 /* ── Number formatting helper ── */
