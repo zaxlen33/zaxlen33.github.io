@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
           el.placeholder = translation;
         } else {
-          el.innerHTML = translation;
+          el.innerText = translation;
         }
       });
 
