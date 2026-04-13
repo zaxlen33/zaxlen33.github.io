@@ -55,18 +55,10 @@ function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
 
 /** Render a rank badge */
 function rankBadge(rank) {
-  const cleanRank = (rank || '').trim().replace(/[\r\n]+/g, '');
-  let rTier = '';
-  if (cleanRank.includes('5')) rTier = 'r5';
-  else if (cleanRank.includes('4')) rTier = 'r4';
-  else if (cleanRank.includes('3')) rTier = 'r3';
-  else if (cleanRank.includes('2')) rTier = 'r2';
-  else if (cleanRank.includes('1')) rTier = 'r1';
-  
-  const label = rTier ? rTier.toUpperCase() : (cap(cleanRank) || '—');
-  const cls = rTier || 'r1';
-  
-  return `<span class="rank-badge rank-${cls}">${label}</span>`;
+  const r = (rank || '').toLowerCase().replace(/\s+/g, '');
+  const labels = { r5: 'R5', r4: 'R4', r3: 'R3', r2: 'R2', r1: 'R1' };
+  const label = labels[r] || cap(rank) || '—';
+  return `<span class="rank-badge rank-${r || 'r1'}">${label}</span>`;
 }
 
 /** Get URL hash parameter */
@@ -347,8 +339,8 @@ function renderWarList(container, weekly, wars) {
     new Chart(document.getElementById('chart-war-combined-guild'), {
       type: 'line',
       data: { labels: chartLabels, datasets: [
-        { label: t('chart_guild_power'), data: chartPower, borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,0.08)', borderWidth: 2.5, tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0d1117', pointBorderColor: '#58a6ff', pointBorderWidth: 2, yAxisID: 'y'  },
-        { label: t('chart_total_kills'), data: chartKills, borderColor: '#f85149', backgroundColor: 'rgba(248,81,73,0.08)',  borderWidth: 2.5, tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0d1117', pointBorderColor: '#f85149', pointBorderWidth: 2, yAxisID: 'y2' }
+        { label: 'Guild Power', data: chartPower, borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,0.08)', borderWidth: 2.5, tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0d1117', pointBorderColor: '#58a6ff', pointBorderWidth: 2, yAxisID: 'y'  },
+        { label: 'Total Kills', data: chartKills, borderColor: '#f85149', backgroundColor: 'rgba(248,81,73,0.08)',  borderWidth: 2.5, tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0d1117', pointBorderColor: '#f85149', pointBorderWidth: 2, yAxisID: 'y2' }
       ]},
       options: {
         responsive: true, maintainAspectRatio: false,
@@ -362,8 +354,7 @@ function renderWarList(container, weekly, wars) {
                 const i = items[0]?.dataIndex ?? 0;
                 const rd = chartReportDates[i];
                 const mc = chartMemberCounts[i];
-                const w = `${t('week_of')} ${chartLabels[i]}`;
-                return rd ? `${w}  (${t('report_label')} ${rd}, ${mc} ${t('members_lower')})` : w;
+                return rd ? `Week of ${chartLabels[i]}  (Report: ${rd}, ${mc} members)` : `Week of ${chartLabels[i]}`;
               },
               label: (item) => {
                 const val = item.raw;
@@ -688,7 +679,7 @@ function renderHuntList(container, hunts) {
                   </div>
                 </td>
                 <td class="center" data-label="${t('table_action')}">
-                  <a href="hunt.html#${h.id}" class="btn btn-primary action-btn">
+                  <a href="hunt.html#${h.id}" class="btn btn-primary" style="font-size:0.78rem;padding:4px 10px;">
                     ${t('view_arrow')}
                   </a>
                 </td>
@@ -1049,7 +1040,7 @@ function renderHistoryList(container, members, lastUpdated) {
           <td class="right hide-mobile" data-label="${t('table_kills_gained')}">${fmtDelta(kills_diff)}</td>
           <td class="right mono" data-label="${t('snapshots_label')}">${snaps.length}</td>
           <td class="center" data-label="${t('table_action')}">
-            <a href="player.html?view=all&id=${encodeURIComponent(m.name||'')}" class="btn btn-primary action-btn">${t('view_arrow')}</a>
+            <a href="player.html?view=all&id=${encodeURIComponent(m.name||'')}" class="btn btn-primary" style="font-size:0.78rem;padding:4px 10px;">${t('view_arrow')}</a>
           </td>
         </tr>`;
     }).join('');
@@ -1282,7 +1273,7 @@ async function initMembers() {
 
   function _tgBadge(tg) {
     if (!tg) return '<span style="color:var(--text-muted);font-size:0.9rem;">—</span>';
-    return `<span class="tg-badge">💬 ${tg}</span>`;
+    return `<span style="font-size:0.78rem;color:#58a6ff;border:1px solid rgba(88,166,255,0.4);background:rgba(88,166,255,0.1);border-radius:4px;padding:3px 7px;display:inline-block;font-family:var(--font-mono);word-break:break-all;line-height:1.2;">💬 ${tg}</span>`;
   }
 
   function renderRows() {
@@ -1293,13 +1284,13 @@ async function initMembers() {
     tbody.innerHTML = currentMembers.map((m, i) => `
       <tr data-searchable="${(m.name || '').toLowerCase()} ${(m.rank || '').toLowerCase()} ${(m.telegram || '').toLowerCase()}">
         <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-        <td class="card-main" data-label="${t('table_player')}"><strong>${m.name || '—'}</strong></td>
+        <td class="card-main" data-label="${t('table_player')}" style="font-weight:700;font-size:1.15rem;">${m.name || '—'}</td>
         <td class="center" data-label="${t('rank_label')}">${rankBadge(m.rank)}</td>
         <td class="center td-telegram" data-label="${t('telegram')}">${_tgBadge(m.telegram)}</td>
         <td class="right mono" data-label="${t('might')}">${fmtCompact(m.might)}</td>
         <td class="right mono" data-label="${t('kills')}" style="color:var(--accent-yellow);">${fmtCompact(m.kills)}</td>
         <td class="center" data-label="${t('table_action')}">
-          <a href="player.html?view=member&id=${encodeURIComponent(m.name||'')}" class="btn btn-primary action-btn">${t('view_profile')}</a>
+          <a href="player.html?view=member&id=${encodeURIComponent(m.name||'')}" class="btn btn-primary" style="font-size:0.75rem;padding:4px 8px;">${t('view_profile')}</a>
         </td>
       </tr>`).join('');
   }
