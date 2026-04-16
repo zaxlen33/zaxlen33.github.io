@@ -259,8 +259,12 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52, huntUidKey
   let weekTotal = 0;
   for (const d of statDays) weekTotal += d.pts_total;
   
-  const met      = weekTotal >= 56;
-  const pct      = Math.min(100, Math.round((weekTotal / 56) * 100));
+  // Minimum points required — read from the weekly data if available so it
+  // stays in sync with the Python config without re-deploying JS.
+  const minPts   = (statDays.length > 0 && statDays[0].min_required) ||
+                   (memberHuntEntry && memberHuntEntry.hunt_min) || 56;
+  const met      = weekTotal >= minPts;
+  const pct      = Math.min(100, Math.round((weekTotal / minPts) * 100));
   const pctColor = met ? 'var(--accent-green)' : pct >= 75 ? 'var(--accent-yellow)' : 'var(--accent-red)';
 
   let statWeekLabel = '';
@@ -296,7 +300,7 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52, huntUidKey
       <div style="font-size:2.2rem;">${met?'✅':'❌'}</div>
       <div style="flex:1;">
         <div style="font-weight:700;font-size:1rem;color:${pctColor};">${met ? t('goal_met') : t('goal_not_met')}</div>
-        <div style="color:var(--text-secondary);margin-top:3px;">${fmtNum(weekTotal)} / 56 ${t('pts_accumulated')}</div>
+        <div style="color:var(--text-secondary);margin-top:3px;">${fmtNum(weekTotal)} / ${minPts} ${t('pts_accumulated')}</div>
         <div style="margin-top:8px;">
           <div class="progress-bar" style="width:100%;max-width:280px;"><div class="progress-fill" style="width:${pct}%;background:${pctColor};"></div></div>
           <span style="font-family:var(--font-mono);font-size:.83rem;color:${pctColor};">${pct}%</span>
