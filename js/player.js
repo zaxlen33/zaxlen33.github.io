@@ -629,19 +629,43 @@ async function initPlayer() {
     // member_hunts is keyed by str(user_id) with { name, uid, weeks[] }
     // We find the matching key by comparing the stored name.
     const nameLower = name.toLowerCase();
+    // The player's stable UID (igg_id) from history.json — used as fallback when name changed
+    const playerUid = growth ? (growth.uid || null) : null;
 
-    const warUidKey = Object.keys(warDailyData).find(
-      k => (warDailyData[k].name || '').toLowerCase() === nameLower
-    ) || null;
+    // Helper: find matching key in a daily-data object by name first, then by UID
+    function findDailyKey(dailyData) {
+      // 1. Try exact name match (fast path — covers most cases)
+      const byName = Object.keys(dailyData).find(
+        k => (dailyData[k].name || '').toLowerCase() === nameLower
+      );
+      if (byName) return byName;
+      // 2. Fallback: match by the string key itself == playerUid (covers name-changed players)
+      if (playerUid) {
+        const byUid = Object.keys(dailyData).find(
+          k => String(k) === String(playerUid)
+        );
+        if (byUid) return byUid;
+      }
+      return null;
+    }
 
-    const huntUidKey = Object.keys(huntDailyData).find(
-      k => (huntDailyData[k].name || '').toLowerCase() === nameLower
-    ) || null;
+    const warUidKey  = findDailyKey(warDailyData);
+    const huntUidKey = findDailyKey(huntDailyData);
 
-    // member_hunts: find entry by name match, then extract weeks array for charts
-    const mhuntsUidKey = Object.keys(mhunts).find(
-      k => (mhunts[k].name || '').toLowerCase() === nameLower
-    ) || null;
+    // member_hunts: find entry by name match first, then by UID fallback
+    const mhuntsUidKey = (() => {
+      const byName = Object.keys(mhunts).find(
+        k => (mhunts[k].name || '').toLowerCase() === nameLower
+      );
+      if (byName) return byName;
+      if (playerUid) {
+        const byUid = Object.keys(mhunts).find(
+          k => String(k) === String(playerUid)
+        );
+        if (byUid) return byUid;
+      }
+      return null;
+    })();
     const playerHunts52 = mhuntsUidKey ? (mhunts[mhuntsUidKey].weeks || []) : [];
 
     // Resolve Telegram @username from website members.json (uses current name)
