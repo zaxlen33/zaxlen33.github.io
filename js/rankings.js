@@ -53,13 +53,17 @@ async function initRankings() {
     const festDate   = latestFest ? latestFest.date   : '—';
     const warMonthId = latestWar  ? latestWar.month   : '';
     const huntWeekId = latestHunt ? latestHunt.id     : '';
+    // Read festival minimum from the embedded summary (set by Python backend)
+    const minFestReq = (latestFest && latestFest.summary ? latestFest.summary.festival_min_score : 0) || 3100;
+    // Read hunt minimum from the embedded summary
+    const minHuntReq = (latestHunt && latestHunt.summary ? latestHunt.summary.min_required : 0) || 56;
 
     container.innerHTML = `
       <div class="leaderboard-container" style="margin-bottom:2rem;">
         ${renderWarLeaderboard(t('rank_power_growth'), top5MightGrowth, 'might_diff', 'var(--accent-blue)', warMonth, warMonthId)}
         ${renderWarLeaderboard(t('rank_kills_growth'), top5KillsGrowth, 'kills_diff', 'var(--accent-yellow)', warMonth, warMonthId)}
-        ${renderHuntLeaderboard(t('rank_hunt_pts'), top5Hunt, huntWeek, huntWeekId)}
-        ${renderFestivalLeaderboard(t('rank_festival_pts'), top5Fest, festDate)}
+        ${renderHuntLeaderboard(t('rank_hunt_pts'), top5Hunt, huntWeek, huntWeekId, minHuntReq)}
+        ${renderFestivalLeaderboard(t('rank_festival_pts'), top5Fest, festDate, minFestReq)}
       </div>`;
 
   } catch (err) {
@@ -100,7 +104,7 @@ function renderWarLeaderboard(title, members, metric, color, monthLabel, monthId
     </div>`;
 }
 
-function renderHuntLeaderboard(title, players, weekLabel, weekId) {
+function renderHuntLeaderboard(title, players, weekLabel, weekId, minReqParam) {
   if (!players.length) {
     return `<div class="card" style="border-top:3px solid var(--accent-green);">
       <div class="card-header"><h2>${title}</h2></div>
@@ -109,7 +113,8 @@ function renderHuntLeaderboard(title, players, weekLabel, weekId) {
   }
 
   const ranks = ['🥇', '🥈', '🥉', '4', '5'];
-  const minReq = 56;
+  // minReqParam is read from the embedded summary data (set by Python backend)
+  const minReq = minReqParam || 56;
 
   return `
     <div class="card" style="border-top:3px solid var(--accent-green);">
@@ -153,7 +158,7 @@ window.addEventListener('languageChanged', () => {
   if (window.location.pathname.split('/').pop() === 'rankings.html') initRankings();
 });
 
-function renderFestivalLeaderboard(title, players, dateLabel) {
+function renderFestivalLeaderboard(title, players, dateLabel, minReqParam) {
   if (!players.length) {
     return `<div class="card" style="border-top:3px solid #a855f7;">
       <div class="card-header"><h2>${title}</h2></div>
@@ -162,7 +167,8 @@ function renderFestivalLeaderboard(title, players, dateLabel) {
   }
 
   const ranks = ['🥇', '🥈', '🥉', '4', '5'];
-  const minReq = 3100;
+  // minReqParam is read from the embedded festival summary (set by Python backend)
+  const minReq = minReqParam || 3100;
 
   return `
     <div class="card" style="border-top:3px solid #a855f7;">
