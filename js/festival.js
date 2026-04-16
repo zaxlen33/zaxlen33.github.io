@@ -13,7 +13,10 @@
  * ]
  */
 
-const FESTIVAL_MIN = 3100;
+// FESTIVAL_MIN is injected from the data (summary.festival_min_score) so it
+// stays in sync with config.json without re-deploying JS.
+// It is initialised to the fallback value and updated after the data loads.
+let FESTIVAL_MIN = 3100;
 const DATA_URL     = './data/festival.json';
 
 // Chart.js defaults
@@ -66,6 +69,11 @@ async function init() {
     const raw = await loadData();
     // Sort oldest → newest
     festivals = [...raw].sort((a, b) => (a.date > b.date ? 1 : -1));
+    // Sync FESTIVAL_MIN from the most recent festival's config field
+    if (festivals.length > 0) {
+      const lastSummary = festivals[festivals.length - 1].summary || {};
+      FESTIVAL_MIN = lastSummary.festival_min_score || FESTIVAL_MIN;
+    }
     renderHistoryTab();
   } catch (err) {
     document.getElementById('festival-list').innerHTML =
