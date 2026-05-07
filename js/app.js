@@ -144,6 +144,10 @@ async function initIndex() {
   const container = document.getElementById('dashboard');
   if (!container) return;
 
+  // Race condition guard: mark this container with the language we are loading
+  const targetLang = window.i18n?.currentLang;
+  container.dataset.loadingLang = targetLang;
+
   setLoading(container, t('loading_dashboard'));
 
   try {
@@ -162,12 +166,18 @@ async function initIndex() {
     const latestWeek  = weeklyData.length ? weeklyData[weeklyData.length - 1] : null;
     const memberCount = historyData.members ? historyData.members.length : 0;
 
+    // Race condition guard: check if language changed while we were fetching
+    if (container.dataset.loadingLang !== window.i18n?.currentLang) {
+      console.warn('Language changed during fetch, discarding stale render.');
+      return;
+    }
+
     container.innerHTML = `
       <div class="stats-grid">
         <div class="stat-card blue">
           <div class="stat-icon">🏰</div>
           <div class="stat-value">${fmtNum(warsData.length)}</div>
-          <div class="stat-label">${t('war_reports')}</div>
+          <div class="stat-label" data-i18n="war_reports">${t('war_reports')}</div>
         </div>
         <div class="stat-card green">
           <div class="stat-icon">🦅</div>
@@ -273,27 +283,27 @@ function renderWarList(container, weekly, wars) {
       <div class="stat-card blue">
         <div class="stat-icon">📅</div>
         <div class="stat-value">${wars.length}</div>
-        <div class="stat-label">${t('monthly_reports')}</div>
+        <div class="stat-label" data-i18n="monthly_reports">${t('monthly_reports')}</div>
       </div>
       <div class="stat-card green">
         <div class="stat-icon">👥</div>
         <div class="stat-value">${lrMembers}</div>
-        <div class="stat-label">${t('members_last')}</div>
+        <div class="stat-label" data-i18n="members_last">${t('members_last')}</div>
       </div>
       <div class="stat-card orange">
         <div class="stat-icon">🏰</div>
         <div class="stat-value">${fmtCompact(lrPower)}</div>
-        <div class="stat-label">${t('might_last')}</div>
+        <div class="stat-label" data-i18n="might_last">${t('might_last')}</div>
       </div>
       <div class="stat-card yellow">
         <div class="stat-icon">⚔️</div>
         <div class="stat-value">${fmtCompact(lrKills)}</div>
-        <div class="stat-label">${t('kills_last')}</div>
+        <div class="stat-label" data-i18n="kills_last">${t('kills_last')}</div>
       </div>
       <div class="stat-card purple">
         <div class="stat-icon">📊</div>
         <div class="stat-value">${fmtCompact(lrAvg)}</div>
-        <div class="stat-label">${t('avg_might_last')}</div>
+        <div class="stat-label" data-i18n="avg_might_last">${t('avg_might_last')}</div>
       </div>
     </div>
 
@@ -408,22 +418,22 @@ function renderWarDetail(container, war) {
       <div class="stat-card blue">
         <div class="stat-icon">🏰</div>
         <div class="stat-value">${fmtCompact(war.total_might)}</div>
-        <div class="stat-label">${t('guild_power_title')}</div>
+        <div class="stat-label" data-i18n="guild_power_title">${t('guild_power_title')}</div>
       </div>
       <div class="stat-card yellow">
         <div class="stat-icon">⚔️</div>
         <div class="stat-value">${fmtCompact(war.total_kills)}</div>
-        <div class="stat-label">${t('guild_kills_title')}</div>
+        <div class="stat-label" data-i18n="guild_kills_title">${t('guild_kills_title')}</div>
       </div>
       <div class="stat-card green">
         <div class="stat-icon">📈</div>
         <div class="stat-value">${fmtCompact(war.total_might_gained)}</div>
-        <div class="stat-label">${t('might_gained_title')}</div>
+        <div class="stat-label" data-i18n="might_gained_title">${t('might_gained_title')}</div>
       </div>
       <div class="stat-card orange">
         <div class="stat-icon">🗡️</div>
         <div class="stat-value">${fmtCompact(war.total_kills_gained)}</div>
-        <div class="stat-label">${t('kills_gained_title')}</div>
+        <div class="stat-label" data-i18n="kills_gained_title">${t('kills_gained_title')}</div>
       </div>
     </div>
 
@@ -603,22 +613,22 @@ function renderHuntList(container, hunts) {
       <div class="stat-card blue">
         <div class="stat-icon">📋</div>
         <div class="stat-value">${hunts.length}</div>
-        <div class="stat-label">${t('total_hunt_reports')}</div>
+        <div class="stat-label" data-i18n="total_hunt_reports">${t('total_hunt_reports')}</div>
       </div>
       <div class="stat-card green">
         <div class="stat-icon">✅</div>
         <div class="stat-value">${avgMet}%</div>
-        <div class="stat-label">${t('avg_goal_met_rate')}</div>
+        <div class="stat-label" data-i18n="avg_goal_met_rate">${t('avg_goal_met_rate')}</div>
       </div>
       <div class="stat-card yellow">
         <div class="stat-icon">👥</div>
         <div class="stat-value">${sorted[0]?.summary?.total_players || '—'}</div>
-        <div class="stat-label">${t('players_latest')}</div>
+        <div class="stat-label" data-i18n="players_latest">${t('players_latest')}</div>
       </div>
       <div class="stat-card purple">
         <div class="stat-icon">🎯</div>
         <div class="stat-value">${sorted[0]?.summary?.min_required || '—'}</div>
-        <div class="stat-label">${t('min_required_pts')}</div>
+        <div class="stat-label" data-i18n="min_required_pts">${t('min_required_pts')}</div>
       </div>
     </div>
 
@@ -760,22 +770,22 @@ function renderHuntDetail(container, hunt) {
       <div class="stat-card blue">
         <div class="stat-icon">👥</div>
         <div class="stat-value">${hunt.summary.total_players}</div>
-        <div class="stat-label">${t('players')}</div>
+        <div class="stat-label" data-i18n="players">${t('players')}</div>
       </div>
       <div class="stat-card green">
         <div class="stat-icon">✅</div>
         <div class="stat-value">${hunt.summary.met_minimum}</div>
-        <div class="stat-label">${t('met_goal_label')} (≥${minReq} pts)</div>
+        <div class="stat-label" data-i18n="met_goal_label" data-i18n-args='{"min":"${minReq}"}'>${t('met_goal_label', {min: minReq})}</div>
       </div>
       <div class="stat-card red">
         <div class="stat-icon">❌</div>
         <div class="stat-value">${hunt.summary.not_met}</div>
-        <div class="stat-label">${t('did_not_meet_goal')}</div>
+        <div class="stat-label" data-i18n="did_not_meet_goal">${t('did_not_meet_goal')}</div>
       </div>
       <div class="stat-card ${pct >= 80 ? 'green' : pct >= 50 ? 'yellow' : 'red'}">
         <div class="stat-icon">🎯</div>
         <div class="stat-value">${pct}%</div>
-        <div class="stat-label">${t('goal_met_rate')}</div>
+        <div class="stat-label" data-i18n="goal_met_rate">${t('goal_met_rate')}</div>
       </div>
     </div>
 
@@ -806,11 +816,11 @@ function renderHuntDetail(container, hunt) {
             <thead>
               <tr>
                 <th>#</th>
-                <th>${t('table_player')}</th>
-                <th class="center">${t('table_rank')}</th>
-                <th class="right">${t('total_score')}</th>
-                <th class="center">${t('table_goal')}</th>
-                <th class="center">${t('table_status')}</th>
+                <th data-i18n="table_player">${t('table_player')}</th>
+                <th class="center" data-i18n="table_rank">${t('table_rank')}</th>
+                <th class="right" data-i18n="total_score">${t('total_score')}</th>
+                <th class="center" data-i18n="table_goal">${t('table_goal')}</th>
+                <th class="center" data-i18n="table_status">${t('table_status')}</th>
               </tr>
             </thead>
             <tbody id="hunt-tbody"></tbody>
@@ -951,22 +961,22 @@ function renderHistoryList(container, members, lastUpdated) {
       <div class="stat-card purple">
         <div class="stat-icon">👥</div>
         <div class="stat-value">${members.length}</div>
-        <div class="stat-label">${t('tracked_members')}</div>
+        <div class="stat-label" data-i18n="tracked_members">${t('tracked_members')}</div>
       </div>
       <div class="stat-card blue">
         <div class="stat-icon">🏰</div>
         <div class="stat-value">${fmtCompact(totalMight)}</div>
-        <div class="stat-label">${t('total_guild_might_label')}</div>
+        <div class="stat-label" data-i18n="total_guild_might_label">${t('total_guild_might_label')}</div>
       </div>
       <div class="stat-card yellow">
         <div class="stat-icon">⚔️</div>
         <div class="stat-value">${fmtCompact(totalKills)}</div>
-        <div class="stat-label">${t('total_guild_kills_label')}</div>
+        <div class="stat-label" data-i18n="total_guild_kills_label">${t('total_guild_kills_label')}</div>
       </div>
       <div class="stat-card green">
         <div class="stat-icon">📅</div>
         <div class="stat-value">${lastUpdated || '—'}</div>
-        <div class="stat-label">${t('last_updated_label')}</div>
+        <div class="stat-label" data-i18n="last_updated_label">${t('last_updated_label')}</div>
       </div>
     </div>
 
@@ -1002,14 +1012,14 @@ function renderHistoryList(container, members, lastUpdated) {
             <thead>
               <tr>
                 <th>#</th>
-                <th>${t('player')}</th>
-                <th class="center">${t('rank_label')}</th>
-                <th class="right">${t('current_might')}</th>
-                <th class="right">${t('might_gained_label')}</th>
-                <th class="right">${t('current_kills')}</th>
-                <th class="right">${t('kills_gained_label')}</th>
-                <th class="right">${t('snapshots_label')}</th>
-                <th class="center">${t('detail_label')}</th>
+                <th data-i18n="player">${t('player')}</th>
+                <th class="center" data-i18n="rank_label">${t('rank_label')}</th>
+                <th class="right" data-i18n="current_might">${t('current_might')}</th>
+                <th class="right" data-i18n="might_gained_label">${t('might_gained_label')}</th>
+                <th class="right" data-i18n="current_kills">${t('current_kills')}</th>
+                <th class="right" data-i18n="kills_gained_label">${t('kills_gained_label')}</th>
+                <th class="right" data-i18n="snapshots_label">${t('snapshots_label')}</th>
+                <th class="center" data-i18n="detail_label">${t('detail_label')}</th>
               </tr>
             </thead>
             <tbody id="history-tbody"></tbody>
