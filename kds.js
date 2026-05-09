@@ -78,11 +78,11 @@ function renderKingdomStats(kingdom) {
 // List of exception guilds (family, allies, or non-recruitable)
 const EXCEPTION_GUILDS = [
     "KCL", "CSK", "MOP", "CWS", "Sup", "KxQ", "VLY", "RR!", "AUF", "30B", "YES", "S:E", "YYP", "CCC", "YYY", "ZXX", "XMY", "SVF", "FEM", "Rzr",
-    "PBB", "HrP", "Ich", "Ash", "ZSU", "YwH", "BMG", "FFx", "SYP", "YYP", "Lhz",
+    "PBB", "HrP", "Ich", "Ash", "ZSU", "YwH", "BMG", "FFx", "SYP", "YYP", "Lhz", "AsT", "Tof", "NVQ", "ABX", "Q99",
     "DC", "M/J", "SDV", "CHV", "DtC", "msy", "-p-", "YMT", "VWI", "R~V", "D'w", "U|E", "HxT", "IWG", "(W)", "FxA", "OoO",
     "-b-", "EMP", "BMW", "I:W", "SIS", "ggi", "~NB", "VFS", "Ph9",
     "OkM", "Egu", "ReJ",
-    "#NE", "U$A", "D@w", "VSG", "=N=", "MYO", "=X="
+    "#NE", "U$A", "D@w", "VSG", "=N=", "MYO", "=X=", "VxG"
 ];
 
 let lastCopiedElement = null;
