@@ -45,11 +45,15 @@
             <div class="card battles-section">
                 <div class="section-header" style="flex-wrap: wrap; gap: 10px;">
                     <h2><i class="fas fa-dragon"></i> Battle Reports</h2>
-                    <div class="filter-controls" style="display: flex; gap: 8px;">
+                    <div class="filter-controls" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
                         <button id="filterAllBtn" class="nav-btn" style="font-size: 0.85em; padding: 5px 10px; opacity: 1;">All</button>
                         <button id="filterLeadersBtn" class="nav-btn" style="font-size: 0.85em; padding: 5px 10px; opacity: 0.6;">Unique Leaders</button>
                         <button id="filterDefendersBtn" class="nav-btn" style="font-size: 0.85em; padding: 5px 10px; opacity: 0.6;">Unique Defenders</button>
                         <button id="filterGuildsBtn" class="nav-btn" style="font-size: 0.85em; padding: 5px 10px; opacity: 0.6;">Unique Guilds</button>
+                        <label style="color: #ccc; font-size: 0.85em; display: flex; align-items: center; gap: 5px; margin-left: 10px; cursor: pointer;">
+                            <input type="checkbox" id="globalUniqueCheckbox" checked>
+                            Global Unique
+                        </label>
                     </div>
                     <span class="battle-count" id="battleCountBadge">0 battles</span>
                 </div>
@@ -65,6 +69,6 @@
         </footer>
     </div>
 
-    <script src="kds.js?v=4"></script>
+    <script src="kds.js?v=7"></script>
 </body>
 </html>
