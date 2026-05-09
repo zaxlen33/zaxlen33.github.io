@@ -69,6 +69,18 @@ const EXCEPTION_GUILDS = [
     "OkM", "Egu", "ReJ"
 ];
 
+// Función global para copiar texto al portapapeles
+window.copyText = function(element, text) {
+    if (!text || text === '?') return;
+    navigator.clipboard.writeText(text).then(() => {
+        const originalColor = element.style.color;
+        element.style.color = '#4CAF50'; // Color de éxito (verde)
+        setTimeout(() => {
+            element.style.color = originalColor;
+        }, 500);
+    }).catch(err => console.error('Error al copiar: ', err));
+};
+
 // Renderizar la tabla de batallas (reportes)
 function renderBattles(battles) {
     if (!battles || !battles.length) {
@@ -90,15 +102,21 @@ function renderBattles(battles) {
         const defenderGuild = b.defender?.guild || '?';
 
         const attackerGuildHtml = EXCEPTION_GUILDS.includes(attackerGuild) 
-            ? `<span class="guild-name" style="color: #ff4d4d; font-weight: bold;" title="Gremio Excepción">[${attackerGuild}]</span>`
-            : `<span class="guild-name">[${attackerGuild}]</span>`;
+            ? `<span class="guild-name" onclick="copyText(this, '${attackerGuild.replace(/'/g, "\\'")}')" style="color: #ff4d4d; font-weight: bold; cursor: pointer;" title="Gremio Excepción - Click para copiar">[${attackerGuild}]</span>`
+            : `<span class="guild-name" onclick="copyText(this, '${attackerGuild.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click para copiar">[${attackerGuild}]</span>`;
             
         const defenderGuildHtml = EXCEPTION_GUILDS.includes(defenderGuild)
-            ? `<span class="guild-name" style="color: #ff4d4d; font-weight: bold;" title="Gremio Excepción">[${defenderGuild}]</span>`
-            : `<span class="guild-name">[${defenderGuild}]</span>`;
+            ? `<span class="guild-name" onclick="copyText(this, '${defenderGuild.replace(/'/g, "\\'")}')" style="color: #ff4d4d; font-weight: bold; cursor: pointer;" title="Gremio Excepción - Click para copiar">[${defenderGuild}]</span>`
+            : `<span class="guild-name" onclick="copyText(this, '${defenderGuild.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click para copiar">[${defenderGuild}]</span>`;
 
-        const attackerText = `${b.attacker?.name || '?'} ${attackerGuildHtml}`;
-        const defenderText = `${b.defender?.name || '?'} ${defenderGuildHtml}`;
+        const attackerName = b.attacker?.name || '?';
+        const defenderName = b.defender?.name || '?';
+        
+        const attackerNameHtml = `<span onclick="copyText(this, '${attackerName.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click para copiar nombre">${attackerName}</span>`;
+        const defenderNameHtml = `<span onclick="copyText(this, '${defenderName.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click para copiar nombre">${defenderName}</span>`;
+
+        const attackerText = `${attackerNameHtml} ${attackerGuildHtml}`;
+        const defenderText = `${defenderNameHtml} ${defenderGuildHtml}`;
         tableHtml += `
             <tr>
                 <td>${b.timestamp || '—'}</td>
