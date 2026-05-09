@@ -218,23 +218,26 @@ function updateUI() {
         const seenGuilds = new Set();
         const uniqueGuilds = [];
         
-        let battlesToProcess = kingdom.battles || [];
-        battlesToProcess.forEach(b => {
-            let attackerGuild = b.attacker?.guild ? b.attacker.guild.replace(/[\[\]]/g, '') : null;
-            let defenderGuild = b.defender?.guild ? b.defender.guild.replace(/[\[\]]/g, '') : null;
-            
-            // Only accept exactly 3 characters for a valid guild tag
-            if (attackerGuild && attackerGuild.length !== 3) attackerGuild = null;
-            if (defenderGuild && defenderGuild.length !== 3) defenderGuild = null;
-            
-            if (attackerGuild && !seenGuilds.has(attackerGuild)) {
-                seenGuilds.add(attackerGuild);
-                uniqueGuilds.push(attackerGuild);
-            }
-            if (defenderGuild && !seenGuilds.has(defenderGuild)) {
-                seenGuilds.add(defenderGuild);
-                uniqueGuilds.push(defenderGuild);
-            }
+        // Loop through ALL kingdoms, not just the active one
+        allKingdoms.forEach(k => {
+            let battlesToProcess = k.battles || [];
+            battlesToProcess.forEach(b => {
+                let attackerGuild = b.attacker?.guild ? b.attacker.guild.replace(/[\[\]]/g, '') : null;
+                let defenderGuild = b.defender?.guild ? b.defender.guild.replace(/[\[\]]/g, '') : null;
+                
+                // Only accept exactly 3 characters for a valid guild tag
+                if (attackerGuild && attackerGuild.length !== 3) attackerGuild = null;
+                if (defenderGuild && defenderGuild.length !== 3) defenderGuild = null;
+                
+                if (attackerGuild && !seenGuilds.has(attackerGuild)) {
+                    seenGuilds.add(attackerGuild);
+                    uniqueGuilds.push(attackerGuild);
+                }
+                if (defenderGuild && !seenGuilds.has(defenderGuild)) {
+                    seenGuilds.add(defenderGuild);
+                    uniqueGuilds.push(defenderGuild);
+                }
+            });
         });
         
         let guildsHtml = '<div class="guilds-grid" style="padding: 15px; text-align: left; line-height: 3;">';
