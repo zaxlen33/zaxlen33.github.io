@@ -1,4 +1,4 @@
-// script.js - Visor de Reinos y Reportes
+// script.js - Kingdom and Report Viewer
 let kingdomsData = null;
 let currentKingdomIndex = 0;
 let allKingdoms = [];
@@ -23,13 +23,13 @@ const filterLeadersBtn = document.getElementById('filterLeadersBtn');
 const filterDefendersBtn = document.getElementById('filterDefendersBtn');
 const filterGuildsBtn = document.getElementById('filterGuildsBtn');
 
-// Helper: Formatear números grandes con M/B
+// Helper: Format large numbers with M/B
 function formatNumber(numStr) {
     if (!numStr) return numStr;
     return numStr;
 }
 
-// Renderizar estadísticas del reino activo
+// Render stats for the active kingdom
 function renderKingdomStats(kingdom) {
     if (!kingdom) return '<div class="skeleton-loader">Kingdom not available</div>';
     const stats = kingdom.stats || {};
@@ -61,7 +61,7 @@ function renderKingdomStats(kingdom) {
     `;
 }
 
-// Lista de gremios que son excepciones (familia, aliados, o no reclutables)
+// List of exception guilds (family, allies, or non-recruitable)
 const EXCEPTION_GUILDS = [
     "KCL", "CSK", "MOP", "CWS", "Sup", "KxQ", "VLY", "RR!", "AUF", "30B", "YES", "S:E", "YYP", "CCC", "YYY", "ZXX", "XMY", "SVF", "FEM", "Rzr",
     "PBB", "HrP", "Ich",
@@ -70,19 +70,19 @@ const EXCEPTION_GUILDS = [
     "OkM", "Egu", "ReJ"
 ];
 
-// Función global para copiar texto al portapapeles
+// Global function to copy text to clipboard
 window.copyText = function(element, text) {
     if (!text || text === '?') return;
     navigator.clipboard.writeText(text).then(() => {
         const originalColor = element.style.color;
-        element.style.color = '#4CAF50'; // Color de éxito (verde)
+        element.style.color = '#4CAF50'; // Success color (green)
         setTimeout(() => {
             element.style.color = originalColor;
         }, 500);
-    }).catch(err => console.error('Error al copiar: ', err));
+    }).catch(err => console.error('Error copying: ', err));
 };
 
-// Renderizar la tabla de batallas (reportes)
+// Render the battles (reports) table
 function renderBattles(battles) {
     if (!battles || !battles.length) {
         return `<div class="skeleton-loader" style="background: none;"><i class="fas fa-ban"></i> No battle reports to show.</div>`;
@@ -134,13 +134,13 @@ function renderBattles(battles) {
     return tableHtml;
 }
 
-// Actualizar toda la interfaz según el índice actual
+// Update the entire UI based on the current index
 function updateUI() {
     if (!allKingdoms.length) return;
     const kingdom = allKingdoms[currentKingdomIndex];
     if (!kingdom) return;
     
-    // Actualizar contador y navegación
+    // Update counter and navigation
     kingdomCounterSpan.innerHTML = `<i class="fas fa-crown"></i> Kingdom ${currentKingdomIndex+1} of ${allKingdoms.length} · ID ${kingdom.kingdom_id}`;
     
     // Render stats
@@ -188,14 +188,14 @@ function updateUI() {
     if (filterDefendersBtn) filterDefendersBtn.style.opacity = currentFilterMode === 'defenders' ? '1' : '0.6';
     if (filterGuildsBtn) filterGuildsBtn.style.opacity = currentFilterMode === 'guilds' ? '1' : '0.6';
     
-    // Habilitar/deshabilitar botones visualmente
+    // Enable/disable buttons visually
     prevBtn.disabled = (currentKingdomIndex === 0);
     nextBtn.disabled = (currentKingdomIndex === allKingdoms.length - 1);
     prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
     nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
 }
 
-// Buscar reino por ID numérico
+// Search kingdom by numeric ID
 function goToKingdomById(id) {
     const targetId = Number(id);
     if (isNaN(targetId)) {
@@ -212,7 +212,7 @@ function goToKingdomById(id) {
     return true;
 }
 
-// Cargar datos desde kingdoms.json
+// Load data from kingdoms.json
 async function loadData() {
     try {
         metaInfoSpan.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Loading reports...';
@@ -228,16 +228,16 @@ async function loadData() {
             return;
         }
         
-        // Configurar metadatos
+        // Configure metadata
         if (data.scraped_at) scrapedDateSpan.innerText = new Date(data.scraped_at).toLocaleString();
         if (data.range) rangeInfoSpan.innerText = data.range;
         metaInfoSpan.innerHTML = `<i class="fas fa-database"></i> ${data.total_success || 0} active kingdoms · Scanned: ${data.scraped_at ? data.scraped_at.split('T')[0] : '—'}`;
         
-        // Inicializar primer reino
+        // Initialize first kingdom
         currentKingdomIndex = 0;
         updateUI();
     } catch (error) {
-        console.error("Error cargando JSON:", error);
+        console.error("Error loading JSON:", error);
         statsArea.innerHTML = `<div class="skeleton-loader" style="color:#ff9f7c;"><i class="fas fa-exclamation-triangle"></i> Error loading kingdoms.json. Make sure the file exists and is valid.</div>`;
         battlesContainer.innerHTML = '<div class="skeleton-loader">Could not fetch reports.</div>';
         metaInfoSpan.innerHTML = 'Data connection error';
@@ -291,5 +291,5 @@ if (filterGuildsBtn) {
     });
 }
 
-// Iniciar aplicación
+// Start application
 loadData();
