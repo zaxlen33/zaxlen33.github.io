@@ -23,6 +23,17 @@ const filterLeadersBtn = document.getElementById('filterLeadersBtn');
 const filterDefendersBtn = document.getElementById('filterDefendersBtn');
 const filterGuildsBtn = document.getElementById('filterGuildsBtn');
 
+// Helper: Escape HTML to prevent broken tags
+function escapeHtml(unsafe) {
+    if (!unsafe) return '';
+    return unsafe.toString()
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+}
+
 // Helper: Format large numbers with M/B
 function formatNumber(numStr) {
     if (!numStr) return numStr;
@@ -70,15 +81,36 @@ const EXCEPTION_GUILDS = [
     "OkM", "Egu", "ReJ"
 ];
 
+let lastCopiedElement = null;
+let lastCopiedOriginalColor = '';
+let lastCopiedOriginalBorderColor = '';
+let lastCopiedOriginalBg = '';
+
 // Global function to copy text to clipboard
 window.copyText = function(element, text) {
     if (!text || text === '?') return;
     navigator.clipboard.writeText(text).then(() => {
-        const originalColor = element.style.color;
-        element.style.color = '#4CAF50'; // Success color (green)
-        setTimeout(() => {
-            element.style.color = originalColor;
-        }, 500);
+        // Restore previous element if it's different
+        if (lastCopiedElement && lastCopiedElement !== element) {
+            lastCopiedElement.style.color = lastCopiedOriginalColor;
+            lastCopiedElement.style.borderColor = lastCopiedOriginalBorderColor;
+            lastCopiedElement.style.background = lastCopiedOriginalBg;
+        }
+        
+        // Save original styles of the new element
+        if (lastCopiedElement !== element) {
+            lastCopiedOriginalColor = element.style.color;
+            lastCopiedOriginalBorderColor = element.style.borderColor;
+            lastCopiedOriginalBg = element.style.background;
+            lastCopiedElement = element;
+        }
+
+        // Apply active "copied" styling (permanently until another is clicked)
+        element.style.color = '#4CAF50'; 
+        element.style.borderColor = '#4CAF50';
+        if (element.classList.contains('guild-badge')) {
+            element.style.background = 'rgba(76, 175, 80, 0.1)';
+        }
     }).catch(err => console.error('Error copying: ', err));
 };
 
@@ -99,14 +131,27 @@ function renderBattles(battles) {
     battles.forEach(b => {
         const outcomeClass = b.outcome === 'burned' ? '🔥 Burned' : (b.outcome || '—');
         
-        const rawAttackerGuild = b.attacker?.guild || '?';
-        const rawDefenderGuild = b.defender?.guild || '?';
+        let rawAttackerGuild = b.attacker?.guild || '?';
+        let rawDefenderGuild = b.defender?.guild || '?';
+        let attackerName = b.attacker?.name || '?';
+        let defenderName = b.defender?.name || '?';
 
-        const cleanAttackerGuild = rawAttackerGuild.replace(/[\[\]]/g, '');
-        const cleanDefenderGuild = rawDefenderGuild.replace(/[\[\]]/g, '');
+        let cleanAttackerGuild = rawAttackerGuild.replace(/[\[\]]/g, '');
+        let cleanDefenderGuild = rawDefenderGuild.replace(/[\[\]]/g, '');
 
-        const displayAttackerGuild = cleanAttackerGuild !== '?' ? `[${cleanAttackerGuild}]` : '?';
-        const displayDefenderGuild = cleanDefenderGuild !== '?' ? `[${cleanDefenderGuild}]` : '?';
+        // Fix scraper mistake: if guild is not 3 chars, it's not a valid tag. 
+        // If it's longer, it might actually be the player name.
+        if (cleanAttackerGuild !== '?' && cleanAttackerGuild.length !== 3) {
+            if (attackerName === '?' || attackerName === '') attackerName = cleanAttackerGuild;
+            cleanAttackerGuild = '?';
+        }
+        if (cleanDefenderGuild !== '?' && cleanDefenderGuild.length !== 3) {
+            if (defenderName === '?' || defenderName === '') defenderName = cleanDefenderGuild;
+            cleanDefenderGuild = '?';
+        }
+
+        const displayAttackerGuild = cleanAttackerGuild !== '?' ? `[${escapeHtml(cleanAttackerGuild)}]` : '?';
+        const displayDefenderGuild = cleanDefenderGuild !== '?' ? `[${escapeHtml(cleanDefenderGuild)}]` : '?';
 
         const attackerGuildHtml = EXCEPTION_GUILDS.includes(cleanAttackerGuild) 
             ? `<span class="guild-name" onclick="copyText(this, '${cleanAttackerGuild.replace(/'/g, "\\'")}')" style="color: #ff4d4d; font-weight: bold; cursor: pointer;" title="Exception Guild - Click to copy">${displayAttackerGuild}</span>`
@@ -115,12 +160,9 @@ function renderBattles(battles) {
         const defenderGuildHtml = EXCEPTION_GUILDS.includes(cleanDefenderGuild)
             ? `<span class="guild-name" onclick="copyText(this, '${cleanDefenderGuild.replace(/'/g, "\\'")}')" style="color: #ff4d4d; font-weight: bold; cursor: pointer;" title="Exception Guild - Click to copy">${displayDefenderGuild}</span>`
             : `<span class="guild-name" onclick="copyText(this, '${cleanDefenderGuild.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click to copy">${displayDefenderGuild}</span>`;
-
-        const attackerName = b.attacker?.name || '?';
-        const defenderName = b.defender?.name || '?';
         
-        const attackerNameHtml = `<span onclick="copyText(this, '${attackerName.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click to copy name">${attackerName}</span>`;
-        const defenderNameHtml = `<span onclick="copyText(this, '${defenderName.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click to copy name">${defenderName}</span>`;
+        const attackerNameHtml = `<span onclick="copyText(this, '${attackerName.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click to copy name">${escapeHtml(attackerName)}</span>`;
+        const defenderNameHtml = `<span onclick="copyText(this, '${defenderName.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click to copy name">${escapeHtml(defenderName)}</span>`;
 
         const attackerText = `${attackerNameHtml} ${attackerGuildHtml}`;
         const defenderText = `${defenderNameHtml} ${defenderGuildHtml}`;
@@ -174,31 +216,66 @@ function updateUI() {
         });
     } else if (currentFilterMode === 'guilds') {
         const seenGuilds = new Set();
-        battlesToRender = battlesToRender.filter(b => {
-            let keep = false;
-            const attackerGuild = b.attacker?.guild ? b.attacker.guild.replace(/[\[\]]/g, '') : null;
-            const defenderGuild = b.defender?.guild ? b.defender.guild.replace(/[\[\]]/g, '') : null;
+        const uniqueGuilds = [];
+        
+        let battlesToProcess = kingdom.battles || [];
+        battlesToProcess.forEach(b => {
+            let attackerGuild = b.attacker?.guild ? b.attacker.guild.replace(/[\[\]]/g, '') : null;
+            let defenderGuild = b.defender?.guild ? b.defender.guild.replace(/[\[\]]/g, '') : null;
             
-            if (attackerGuild && attackerGuild !== '?' && !seenGuilds.has(attackerGuild)) {
+            // Only accept exactly 3 characters for a valid guild tag
+            if (attackerGuild && attackerGuild.length !== 3) attackerGuild = null;
+            if (defenderGuild && defenderGuild.length !== 3) defenderGuild = null;
+            
+            if (attackerGuild && !seenGuilds.has(attackerGuild)) {
                 seenGuilds.add(attackerGuild);
-                keep = true;
+                uniqueGuilds.push(attackerGuild);
             }
-            
-            if (defenderGuild && defenderGuild !== '?' && !seenGuilds.has(defenderGuild)) {
+            if (defenderGuild && !seenGuilds.has(defenderGuild)) {
                 seenGuilds.add(defenderGuild);
-                keep = true;
+                uniqueGuilds.push(defenderGuild);
             }
-            
-            // If neither has a valid guild, we just keep it so we don't hide data completely
-            if ((!attackerGuild || attackerGuild === '?') && (!defenderGuild || defenderGuild === '?')) {
-                return true; 
-            }
-            
-            return keep;
         });
+        
+        let guildsHtml = '<div class="guilds-grid" style="padding: 15px; text-align: left; line-height: 3;">';
+        if (uniqueGuilds.length === 0) {
+            guildsHtml += `<div class="skeleton-loader" style="background: none; width: 100%;"><i class="fas fa-ban"></i> No unique guilds found.</div>`;
+        } else {
+            // Sort guilds alphabetically for easier scanning
+            uniqueGuilds.sort((a, b) => a.localeCompare(b));
+            
+            uniqueGuilds.forEach(guild => {
+                const isException = EXCEPTION_GUILDS.includes(guild);
+                const baseBg = isException ? 'rgba(255,77,77,0.1)' : 'rgba(0,0,0,0.3)';
+                const baseColor = isException ? '#ff4d4d' : '#ffffff';
+                const baseBorder = isException ? '1px solid #ff4d4d' : '1px solid rgba(255,255,255,0.2)';
+                const title = isException ? 'Exception Guild - Click to copy' : 'Click to copy';
+                
+                guildsHtml += `<span class="guild-badge" onclick="copyText(this, '${guild.replace(/'/g, "\\'")}')" style="display: inline-block; cursor: pointer; padding: 6px 14px; margin: 4px; background: ${baseBg}; border-radius: 6px; border: ${baseBorder}; color: ${baseColor}; font-family: monospace; font-size: 1.1em; transition: all 0.2s; vertical-align: middle;" title="${title}">[${escapeHtml(guild)}]</span>`;
+            });
+        }
+        guildsHtml += '</div>';
+        
+        battlesContainer.innerHTML = guildsHtml;
+        battleCountBadge.innerText = `${uniqueGuilds.length} unique guilds`;
+        
+        // Return early since we already rendered
+        // Update filter buttons styling
+        if (filterAllBtn) filterAllBtn.style.opacity = currentFilterMode === 'all' ? '1' : '0.6';
+        if (filterLeadersBtn) filterLeadersBtn.style.opacity = currentFilterMode === 'leaders' ? '1' : '0.6';
+        if (filterDefendersBtn) filterDefendersBtn.style.opacity = currentFilterMode === 'defenders' ? '1' : '0.6';
+        if (filterGuildsBtn) filterGuildsBtn.style.opacity = currentFilterMode === 'guilds' ? '1' : '0.6';
+        
+        // Enable/disable buttons visually
+        prevBtn.disabled = (currentKingdomIndex === 0);
+        nextBtn.disabled = (currentKingdomIndex === allKingdoms.length - 1);
+        prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+        nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+        
+        return;
     }
 
-    // Render battles
+    // Render battles (for all, leaders, defenders)
     const battlesHtml = renderBattles(battlesToRender);
     battlesContainer.innerHTML = battlesHtml;
     battleCountBadge.innerText = `${battlesToRender.length} battles`;
