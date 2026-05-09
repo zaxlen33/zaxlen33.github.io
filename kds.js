@@ -99,16 +99,22 @@ function renderBattles(battles) {
     battles.forEach(b => {
         const outcomeClass = b.outcome === 'burned' ? '🔥 Burned' : (b.outcome || '—');
         
-        const attackerGuild = b.attacker?.guild || '?';
-        const defenderGuild = b.defender?.guild || '?';
+        const rawAttackerGuild = b.attacker?.guild || '?';
+        const rawDefenderGuild = b.defender?.guild || '?';
 
-        const attackerGuildHtml = EXCEPTION_GUILDS.includes(attackerGuild) 
-            ? `<span class="guild-name" onclick="copyText(this, '${attackerGuild.replace(/'/g, "\\'")}')" style="color: #ff4d4d; font-weight: bold; cursor: pointer;" title="Exception Guild - Click to copy">[${attackerGuild}]</span>`
-            : `<span class="guild-name" onclick="copyText(this, '${attackerGuild.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click to copy">[${attackerGuild}]</span>`;
+        const cleanAttackerGuild = rawAttackerGuild.replace(/[\[\]]/g, '');
+        const cleanDefenderGuild = rawDefenderGuild.replace(/[\[\]]/g, '');
+
+        const displayAttackerGuild = cleanAttackerGuild !== '?' ? `[${cleanAttackerGuild}]` : '?';
+        const displayDefenderGuild = cleanDefenderGuild !== '?' ? `[${cleanDefenderGuild}]` : '?';
+
+        const attackerGuildHtml = EXCEPTION_GUILDS.includes(cleanAttackerGuild) 
+            ? `<span class="guild-name" onclick="copyText(this, '${cleanAttackerGuild.replace(/'/g, "\\'")}')" style="color: #ff4d4d; font-weight: bold; cursor: pointer;" title="Exception Guild - Click to copy">${displayAttackerGuild}</span>`
+            : `<span class="guild-name" onclick="copyText(this, '${cleanAttackerGuild.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click to copy">${displayAttackerGuild}</span>`;
             
-        const defenderGuildHtml = EXCEPTION_GUILDS.includes(defenderGuild)
-            ? `<span class="guild-name" onclick="copyText(this, '${defenderGuild.replace(/'/g, "\\'")}')" style="color: #ff4d4d; font-weight: bold; cursor: pointer;" title="Exception Guild - Click to copy">[${defenderGuild}]</span>`
-            : `<span class="guild-name" onclick="copyText(this, '${defenderGuild.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click to copy">[${defenderGuild}]</span>`;
+        const defenderGuildHtml = EXCEPTION_GUILDS.includes(cleanDefenderGuild)
+            ? `<span class="guild-name" onclick="copyText(this, '${cleanDefenderGuild.replace(/'/g, "\\'")}')" style="color: #ff4d4d; font-weight: bold; cursor: pointer;" title="Exception Guild - Click to copy">${displayDefenderGuild}</span>`
+            : `<span class="guild-name" onclick="copyText(this, '${cleanDefenderGuild.replace(/'/g, "\\'")}')" style="cursor: pointer;" title="Click to copy">${displayDefenderGuild}</span>`;
 
         const attackerName = b.attacker?.name || '?';
         const defenderName = b.defender?.name || '?';
@@ -169,11 +175,26 @@ function updateUI() {
     } else if (currentFilterMode === 'guilds') {
         const seenGuilds = new Set();
         battlesToRender = battlesToRender.filter(b => {
-            const attackerGuild = b.attacker?.guild;
-            if (!attackerGuild) return true; // Keep if unknown
-            if (seenGuilds.has(attackerGuild)) return false;
-            seenGuilds.add(attackerGuild);
-            return true;
+            let keep = false;
+            const attackerGuild = b.attacker?.guild ? b.attacker.guild.replace(/[\[\]]/g, '') : null;
+            const defenderGuild = b.defender?.guild ? b.defender.guild.replace(/[\[\]]/g, '') : null;
+            
+            if (attackerGuild && attackerGuild !== '?' && !seenGuilds.has(attackerGuild)) {
+                seenGuilds.add(attackerGuild);
+                keep = true;
+            }
+            
+            if (defenderGuild && defenderGuild !== '?' && !seenGuilds.has(defenderGuild)) {
+                seenGuilds.add(defenderGuild);
+                keep = true;
+            }
+            
+            // If neither has a valid guild, we just keep it so we don't hide data completely
+            if ((!attackerGuild || attackerGuild === '?') && (!defenderGuild || defenderGuild === '?')) {
+                return true; 
+            }
+            
+            return keep;
         });
     }
 
