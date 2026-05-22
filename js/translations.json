@@ -282,7 +282,15 @@
         "module_festival": "Guild Festival",
         "module_festival_desc": "Guild Festival performance tracking — scores, bonus missions, and historical trends.",
         "module_tracker": "Identity Tracker",
-        "module_tracker_desc": "Secure log of all member name changes. Identify players via their permanent UID alongside their might and kills."
+        "module_tracker_desc": "Secure log of all member name changes. Identify players via their permanent UID alongside their might and kills.",
+        "perf_control_title": "⚠️ Performance Control",
+        "perf_control_desc": "Restricted zone. Enter the access key to view the list of underperforming players.",
+        "perf_enter_key": "Enter password...",
+        "perf_unlock_btn": "🔒 Unlock",
+        "perf_lock_btn": "🔒 Lock",
+        "perf_worst_players": "Underperformance",
+        "perf_no_underperformers": "🎉 Amazing! All players met the minimum goals.",
+        "perf_wrong_password": "❌ Incorrect password"
     },
     "es": {
         "nav_home": "🏠 Inicio",
@@ -567,7 +575,15 @@
         "module_festival": "Festival del Gremio",
         "module_festival_desc": "Seguimiento del Festival del Gremio: puntuaciones, misiones y tendencias.",
         "module_tracker": "Rastreador de Identidad",
-        "module_tracker_desc": "Registro seguro de cambios de nombre. Identifica jugadores mediante su UID permanente y su historial."
+        "module_tracker_desc": "Registro seguro de cambios de nombre. Identifica jugadores mediante su UID permanente y su historial.",
+        "perf_control_title": "⚠️ Control de Rendimiento",
+        "perf_control_desc": "Zona restringida. Introduce la clave de acceso para ver la lista de bajo rendimiento.",
+        "perf_enter_key": "Introduce la clave...",
+        "perf_unlock_btn": "🔒 Desbloquear",
+        "perf_lock_btn": "🔒 Bloquear",
+        "perf_worst_players": "Bajo Rendimiento",
+        "perf_no_underperformers": "🎉 ¡Excelente! Todos los jugadores cumplieron con los objetivos.",
+        "perf_wrong_password": "❌ Clave incorrecta"
     },
     "fr": {
         "nav_home": "🏠 Accueil",
@@ -852,7 +868,15 @@
         "module_festival": "Festival de Guilde",
         "module_festival_desc": "Suivi des performances du Festival de Guilde - scores, missions bonus et tendances.",
         "module_tracker": "Traqueur d'Identité",
-        "module_tracker_desc": "Registre sécurisé de tous les changements de nom. Identifiez les joueurs de manière fiable via leur UID permanent."
+        "module_tracker_desc": "Registre sécurisé de tous les changements de nom. Identifiez les joueurs de manière fiable via leur UID permanent.",
+        "perf_control_title": "⚠️ Contrôle de Performance",
+        "perf_control_desc": "Zone restreinte. Entrez la clé d'accès pour voir la liste des joueurs sous-performants.",
+        "perf_enter_key": "Entrez le mot de passe...",
+        "perf_unlock_btn": "🔒 Déverrouiller",
+        "perf_lock_btn": "🔒 Verrouiller",
+        "perf_worst_players": "Sous-performance",
+        "perf_no_underperformers": "🎉 Incroyable ! Tous les joueurs ont atteint les objectifs minimaux.",
+        "perf_wrong_password": "❌ Mot de passe incorrect"
     },
     "pt": {
         "nav_home": "🏠 Início",
@@ -1126,7 +1150,15 @@
         "module_festival": "Festival da Guilda",
         "module_festival_desc": "Acompanhamento do Festival da Guilda - pontuações, missões e tendências.",
         "module_tracker": "Rastreador de Identidade",
-        "module_tracker_desc": "Log seguro de todas as mudanças de nome. Identifique jogadores de forma confiável via seu UID permanente."
+        "module_tracker_desc": "Log seguro de todas as mudanças de nome. Identifique jogadores de forma confiável via seu UID permanente.",
+        "perf_control_title": "⚠️ Controle de Desempenho",
+        "perf_control_desc": "Zona restrita. Digite a chave de acesso para ver a lista de jogadores com baixo desempenho.",
+        "perf_enter_key": "Digite a senha...",
+        "perf_unlock_btn": "🔒 Desbloquear",
+        "perf_lock_btn": "🔒 Bloquear",
+        "perf_worst_players": "Baixo Desempenho",
+        "perf_no_underperformers": "🎉 Incrível! Todos os jogadores atingiram as metas mínimas.",
+        "perf_wrong_password": "❌ Senha incorreta"
     },
     "ja": {
         "nav_home": "🏠 ホーム",
@@ -1411,7 +1443,15 @@
         "module_festival": "ギルド共闘",
         "module_festival_desc": "ギルド共闘パフォーマンス追跡 — スコア、ボーナス任務、履歴トレンド。",
         "module_tracker": "名前変更トラッカー",
-        "module_tracker_desc": "すべてのメンバーの名前変更の安全なログ。永続的なUIDとともにプレイヤーを確実に識別します。"
+        "module_tracker_desc": "すべてのメンバーの名前変更の安全なログ。永続的なUIDとともにプレイヤーを確実に識別します。",
+        "perf_control_title": "⚠️ パフォーマンス管理",
+        "perf_control_desc": "制限区域。未達成プレイヤーのリストを表示するには、アクセスキーを入力してください。",
+        "perf_enter_key": "パスワードを入力...",
+        "perf_unlock_btn": "🔒 解除",
+        "perf_lock_btn": "🔒 ロック",
+        "perf_worst_players": "低パフォーマンス",
+        "perf_no_underperformers": "🎉 素晴らしい！すべてのプレイヤーが最低目標を達成しました。",
+        "perf_wrong_password": "❌ パスワードが違います"
     },
     "vi": {
         "nav_home": "🏠 Trang chủ",
@@ -1696,7 +1736,15 @@
         "module_festival": "Lễ hội Bang",
         "module_festival_desc": "Theo dõi hiệu suất Lễ hội bang — điểm số, nhiệm vụ thưởng và xu hướng lịch sử.",
         "module_tracker": "Theo dõi Danh tính",
-        "module_tracker_desc": "Nhật ký an toàn về tất cả thay đổi tên thành viên. Nhận diện người chơi qua UID vĩnh viễn."
+        "module_tracker_desc": "Nhật ký an toàn về tất cả thay đổi tên thành viên. Nhận diện người chơi qua UID vĩnh viễn.",
+        "perf_control_title": "⚠️ Kiểm soát Hiệu suất",
+        "perf_control_desc": "Khu vực hạn chế. Nhập mã truy cập để xem danh sách người chơi kém hiệu quả.",
+        "perf_enter_key": "Nhập mật khẩu...",
+        "perf_unlock_btn": "🔒 Mở khóa",
+        "perf_lock_btn": "🔒 Khóa",
+        "perf_worst_players": "Hiệu suất Kém",
+        "perf_no_underperformers": "🎉 Tuyệt vời! Tất cả người chơi đều đạt mục tiêu tối thiểu.",
+        "perf_wrong_password": "❌ Sai mật khẩu"
     },
     "zh": {
         "nav_home": "🏠 首页",
@@ -1981,6 +2029,14 @@
         "module_festival": "联盟总动员",
         "module_festival_desc": "公会总动员表现跟踪 — 积分、加成任务和历史趋势。",
         "module_tracker": "身份追踪器",
-        "module_tracker_desc": "所有成员更名记录的安全日志。通过永久UID可靠地识别追踪玩家。"
+        "module_tracker_desc": "所有成员更名记录的安全日志。通过永久UID可靠地识别追踪玩家。",
+        "perf_control_title": "⚠️ 绩效控制",
+        "perf_control_desc": "受限区域。输入访问密钥以查看表现不佳的玩家列表。",
+        "perf_enter_key": "输入密码...",
+        "perf_unlock_btn": "🔒 解锁",
+        "perf_lock_btn": "🔒 锁定",
+        "perf_worst_players": "表现不佳",
+        "perf_no_underperformers": "🎉 太棒了！所有玩家都达到了最低目标。",
+        "perf_wrong_password": "❌ 密码错误"
     }
 }
