@@ -474,7 +474,8 @@ function renderWarDetail(container, war) {
           </table>
         </div>
       </div>
-    </div>`;
+    </div>
+    <div id="war-underperformers-card" class="card perf-card" style="margin-top:1.5rem;"></div>`;
 
   const tbody = document.getElementById('war-tbody');
   let currentMembers = [...members];
@@ -542,6 +543,8 @@ function renderWarDetail(container, war) {
     });
     renderRows();
   }
+
+  renderWarUnderperformers(war, members);
 }
 
 // ══════════════════════════════════════════════════════════
@@ -827,7 +830,8 @@ function renderHuntDetail(container, hunt) {
           </table>
         </div>
       </div>
-    </div>`;
+    </div>
+    <div id="hunt-underperformers-card" class="card perf-card" style="margin-top:1.5rem;"></div>`;
 
   const tbody = document.getElementById('hunt-tbody');
   let currentPlayers = [...players];
@@ -886,6 +890,8 @@ function renderHuntDetail(container, hunt) {
   document.getElementById('hunt-search').addEventListener('input', e => { _search = e.target.value.trim().toLowerCase(); applyHuntAll(); });
   document.getElementById('hunt-filter').addEventListener('change', e => { _filter = e.target.value; applyHuntAll(); });
   document.getElementById('hunt-sort').addEventListener('change', e => { _sortKey = e.target.value; applyHuntAll(); });
+
+  renderHuntUnderperformers(hunt, players);
 }
 
 // ══════════════════════════════════════════════════════════
@@ -1338,4 +1344,221 @@ async function initMembers() {
 
   document.getElementById('members-search').addEventListener('input', e => { _search = e.target.value.trim().toLowerCase(); applyFilters(); });
   document.getElementById('members-sort').addEventListener('change', e => { _sortKey = e.target.value; applyFilters(); });
+}
+
+// ══════════════════════════════════════════════════════════
+//  PERFORMANCE CONTROL ZONE (PASSWORD: 1118)
+// ══════════════════════════════════════════════════════════
+
+function renderWarUnderperformers(war, members) {
+  const card = document.getElementById('war-underperformers-card');
+  if (!card) return;
+
+  const isUnlocked = sessionStorage.getItem('performance_unlocked') === 'true';
+
+  if (!isUnlocked) {
+    card.innerHTML = `
+      <div class="perf-lock-zone">
+        <div class="perf-lock-icon">🔒</div>
+        <div class="perf-lock-title">${t('perf_control_title')}</div>
+        <div class="perf-lock-desc">${t('perf_control_desc')}</div>
+        <div class="perf-form-group">
+          <input type="password" class="perf-input" placeholder="${t('perf_enter_key')}" id="war-perf-pass">
+          <button class="btn perf-btn-unlock" id="war-perf-btn">${t('perf_unlock_btn')}</button>
+        </div>
+        <div class="perf-error-msg" id="war-perf-err">${t('perf_wrong_password')}</div>
+      </div>
+    `;
+
+    const input = document.getElementById('war-perf-pass');
+    const btn = document.getElementById('war-perf-btn');
+    const err = document.getElementById('war-perf-err');
+
+    const handleUnlock = () => {
+      const val = input.value.trim();
+      if (val === '1118') {
+        sessionStorage.setItem('performance_unlocked', 'true');
+        renderWarUnderperformers(war, members);
+      } else {
+        err.style.display = 'block';
+        input.classList.add('shake-effect');
+        setTimeout(() => input.classList.remove('shake-effect'), 400);
+      }
+    };
+
+    btn.addEventListener('click', handleUnlock);
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleUnlock();
+    });
+  } else {
+    const underperformers = members.filter(m => (m.kills_diff || 0) < 1000000);
+    underperformers.sort((a, b) => (a.kills_diff || 0) - (b.kills_diff || 0));
+
+    let tableContent = '';
+    if (underperformers.length === 0) {
+      tableContent = `
+        <div class="empty-state" style="padding: 2.5rem; text-align: center;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+          <h3>${t('perf_no_underperformers')}</h3>
+        </div>
+      `;
+    } else {
+      tableContent = `
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>${t('table_player')}</th>
+                <th class="center">${t('table_rank')}</th>
+                <th class="right">${t('table_kills_gained')}</th>
+                <th class="right">${t('table_might')}</th>
+                <th class="center">${t('table_status')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${underperformers.map((m, i) => {
+                const gained = Math.max(0, m.kills_diff || 0);
+                return `
+                  <tr class="perf-row-fail">
+                    <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
+                    <td style="font-weight:500;">
+                      <a href="player.html?view=war&id=${encodeURIComponent(m.name)}&month=${war.month}" class="perf-link">${m.name}</a>
+                    </td>
+                    <td class="center">${rankBadge(m.rank)}</td>
+                    <td class="right mono" style="color:var(--accent-red); font-weight:700;">${fmtNum(gained)}</td>
+                    <td class="right mono">${fmtCompact(m.might)}</td>
+                    <td class="center"><span class="badge-not-met">❌ ${fmtCompact(gained)} / 1M</span></td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    card.innerHTML = `
+      <div class="perf-unlocked-header">
+        <div class="perf-unlocked-title">
+          <span>⚠️ ${t('perf_worst_players')}</span>
+        </div>
+        <button class="perf-btn-lock" id="war-perf-lock">${t('perf_lock_btn')}</button>
+      </div>
+      <div class="card-body" style="padding:0.5rem;">
+        ${tableContent}
+      </div>
+    `;
+
+    document.getElementById('war-perf-lock').addEventListener('click', () => {
+      sessionStorage.removeItem('performance_unlocked');
+      renderWarUnderperformers(war, members);
+    });
+  }
+}
+
+function renderHuntUnderperformers(hunt, players) {
+  const card = document.getElementById('hunt-underperformers-card');
+  if (!card) return;
+
+  const isUnlocked = sessionStorage.getItem('performance_unlocked') === 'true';
+
+  if (!isUnlocked) {
+    card.innerHTML = `
+      <div class="perf-lock-zone">
+        <div class="perf-lock-icon">🔒</div>
+        <div class="perf-lock-title">${t('perf_control_title')}</div>
+        <div class="perf-lock-desc">${t('perf_control_desc')}</div>
+        <div class="perf-form-group">
+          <input type="password" class="perf-input" placeholder="${t('perf_enter_key')}" id="hunt-perf-pass">
+          <button class="btn perf-btn-unlock" id="hunt-perf-btn">${t('perf_unlock_btn')}</button>
+        </div>
+        <div class="perf-error-msg" id="hunt-perf-err">${t('perf_wrong_password')}</div>
+      </div>
+    `;
+
+    const input = document.getElementById('hunt-perf-pass');
+    const btn = document.getElementById('hunt-perf-btn');
+    const err = document.getElementById('hunt-perf-err');
+
+    const handleUnlock = () => {
+      const val = input.value.trim();
+      if (val === '1118') {
+        sessionStorage.setItem('performance_unlocked', 'true');
+        renderHuntUnderperformers(hunt, players);
+      } else {
+        err.style.display = 'block';
+        input.classList.add('shake-effect');
+        setTimeout(() => input.classList.remove('shake-effect'), 400);
+      }
+    };
+
+    btn.addEventListener('click', handleUnlock);
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleUnlock();
+    });
+  } else {
+    const underperformers = players.filter(p => p.met_minimum === false);
+    underperformers.sort((a, b) => (a.pts_total || 0) - (b.pts_total || 0));
+
+    const minReq = hunt.summary.min_required || 0;
+
+    let tableContent = '';
+    if (underperformers.length === 0) {
+      tableContent = `
+        <div class="empty-state" style="padding: 2.5rem; text-align: center;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+          <h3>${t('perf_no_underperformers')}</h3>
+        </div>
+      `;
+    } else {
+      tableContent = `
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>${t('table_player')}</th>
+                <th class="center">${t('table_rank')}</th>
+                <th class="right">${t('total_score')}</th>
+                <th class="center">${t('table_status')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${underperformers.map((p, i) => {
+                return `
+                  <tr class="perf-row-fail">
+                    <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
+                    <td style="font-weight:500;">
+                      <a href="player.html?view=hunt&id=${encodeURIComponent(p.name)}&week=${encodeURIComponent(hunt.id)}" class="perf-link">${p.name}</a>
+                    </td>
+                    <td class="center">${rankBadge(p.rank || '')}</td>
+                    <td class="right mono" style="color:var(--accent-red); font-weight:700;">${fmtNum(p.pts_total || 0)}</td>
+                    <td class="center"><span class="badge-not-met">❌ ${fmtNum(p.pts_total || 0)} / ${minReq}</span></td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    card.innerHTML = `
+      <div class="perf-unlocked-header">
+        <div class="perf-unlocked-title">
+          <span>⚠️ ${t('perf_worst_players')}</span>
+        </div>
+        <button class="perf-btn-lock" id="hunt-perf-lock">${t('perf_lock_btn')}</button>
+      </div>
+      <div class="card-body" style="padding:0.5rem;">
+        ${tableContent}
+      </div>
+    `;
+
+    document.getElementById('hunt-perf-lock').addEventListener('click', () => {
+      sessionStorage.removeItem('performance_unlocked');
+      renderHuntUnderperformers(hunt, players);
+    });
+  }
 }
