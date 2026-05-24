@@ -122,7 +122,17 @@
       const membersData = await membersRes.json();
 
       const currentUids = new Set();
-      if (membersData && Array.isArray(membersData)) {
+      if (historyData && historyData.members) {
+        let lastDay = historyData.last_updated;
+        if (!lastDay) {
+          lastDay = historyData.members.reduce((max, m) => (m.last_seen > max ? m.last_seen : max), "");
+        }
+        historyData.members.forEach(m => {
+          if (m.uid && m.last_seen === lastDay) {
+            currentUids.add(m.uid);
+          }
+        });
+      } else if (membersData && Array.isArray(membersData)) {
         membersData.forEach(m => {
           if (m.uid) currentUids.add(m.uid);
         });
@@ -141,6 +151,15 @@
                 if (nh.name) nameToUid.set(nh.name, m.uid);
               });
             }
+          }
+        });
+      }
+
+      if (membersData && Array.isArray(membersData)) {
+        membersData.forEach(m => {
+          if (m.uid && m.name) {
+            uidToName.set(m.uid, m.name);
+            nameToUid.set(m.name, m.uid);
           }
         });
       }
@@ -167,6 +186,16 @@
           });
         }
         return playerMap.get(uid);
+      }
+
+      // Pre-populate playerMap with all members currently in the daily report
+      if (membersData && Array.isArray(membersData)) {
+        membersData.forEach(m => {
+          if (m.uid && m.name) {
+            const player = getOrCreatePlayer(m.name, m.uid);
+            if (m.rank && !player.rank) player.rank = m.rank;
+          }
+        });
       }
 
       // 1. Process ALL historical War reports
