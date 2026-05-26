@@ -95,7 +95,7 @@ function renderWarLeaderboard(title, members, metric, color, monthLabel, monthId
           return `
             <div class="leaderboard-row">
               <span class="leaderboard-rank${i < 3 ? ' top-' + (i+1) : ''}">${ranks[i]}</span>
-              <a href="player.html?view=war&id=${encodeURIComponent(m.name)}&month=${monthId}"
+              <a href="player.html?view=war&uid=${encodeURIComponent(m.uid||m.igg_id||'')}${!(m.uid||m.igg_id)?'&id='+encodeURIComponent(m.name):''}&month=${monthId}"
                  class="leaderboard-name">${m.name}</a>
               <span class="leaderboard-value" style="color:${valColor};">${sign}${fmtCompact(val)}</span>
             </div>`;
@@ -131,7 +131,7 @@ function renderHuntLeaderboard(title, players, weekLabel, weekId, minReqParam) {
           return `
             <div class="leaderboard-row">
               <span class="leaderboard-rank${i < 3 ? ' top-' + (i+1) : ''}">${ranks[i]}</span>
-              <a href="player.html?view=hunt&id=${encodeURIComponent(p.name)}&week=${encodeURIComponent(weekId)}"
+              <a href="player.html?view=hunt&uid=${encodeURIComponent(p.user_id||'')}${!p.user_id?'&id='+encodeURIComponent(p.name):''}&week=${encodeURIComponent(weekId)}"
                  class="leaderboard-name">${p.name}</a>
               <div style="display:flex;align-items:center;gap:8px;">
                 <span class="leaderboard-value" style="color:var(--accent-green);">${fmtNum(pts)}</span>
@@ -184,7 +184,7 @@ function renderFestivalLeaderboard(title, players, dateLabel, minReqParam) {
           return `
             <div class="leaderboard-row">
               <span class="leaderboard-rank${i < 3 ? ' top-' + (i+1) : ''}">${ranks[i]}</span>
-              <a href="player.html?view=festival&id=${encodeURIComponent(p.name)}"
+              <a href="player.html?view=festival&uid=${encodeURIComponent(p.uid||'')}${!p.uid?'&id='+encodeURIComponent(p.name):''}"
                  class="leaderboard-name">${p.name}</a>
               <div style="display:flex;align-items:center;gap:8px;">
                 <span class="leaderboard-value" style="color:${statusColor};">${fmtNum(pts)}</span>
