@@ -185,9 +185,22 @@ function buildWarSection(name, month, warDailyData, growth, warsData, warUidKey)
   // wars.json has the full month delta (first→last snapshot of the month) for
   // any historical month — no daily data window limitation.
   let mightDiff, killsDiff;
+  // Helper: find a member in a war month's members array by UID first, then by name
+  function findWarMember(warMonthObj, playerUidStr, playerName) {
+    if (!warMonthObj) return null;
+    const mbs = warMonthObj.members || [];
+    if (playerUidStr) {
+      const byUid = mbs.find(m => String(m.uid) === String(playerUidStr) || String(m.igg_id) === String(playerUidStr));
+      if (byUid) return byUid;
+    }
+    return mbs.find(m => (m.name || '').toLowerCase() === (playerName || '').toLowerCase()) || null;
+  }
+
+  const playerUidStr = growth ? (growth.uid || null) : null;
+
   if (month && warsData) {
     const warMonth  = warsData.find(w => w.month === month);
-    const warMember = warMonth ? (warMonth.members || []).find(m => m.name === name) : null;
+    const warMember = findWarMember(warMonth, playerUidStr, name);
     mightDiff = warMember ? (warMember.might_diff || 0) : ((last30 && first30) ? last30.might - first30.might : 0);
     killsDiff = warMember ? (warMember.kills_diff || 0) : ((last30 && first30) ? Math.max(0, last30.kills - first30.kills) : 0);
   } else {
@@ -206,7 +219,7 @@ function buildWarSection(name, month, warDailyData, growth, warsData, warUidKey)
   if (warsData && warsData.length > 0) {
     const targetMonth = month || warsData[warsData.length - 1].month;
     const warMonth = warsData.find(w => w.month === targetMonth);
-    const warMember = warMonth ? (warMonth.members || []).find(m => m.name === name) : null;
+    const warMember = findWarMember(warMonth, playerUidStr, name);
     quotaKillsDiff = warMember ? (warMember.kills_diff || 0) : 0;
   }
   html += _quotaBadge(quotaKillsDiff);
@@ -584,13 +597,15 @@ async function initPlayer() {
   if (!container) return;
 
   const p     = new URLSearchParams(window.location.search);
-  const name  = p.get('id');
+  // Accept ?uid=UID (primary, stable) or legacy ?id=NAME (fallback for old links)
+  const uidParam  = p.get('uid')  || '';
+  const nameParam = p.get('id')   || '';
   const view  = p.get('view') || 'all';
   const month = p.get('month') || '';
   const week  = p.get('week')  || '';
 
-  if (!name) { setError(container, t('not_found')); return; }
-  setLoading(container, t('loading_player_param').replace('{name}', name));
+  if (!uidParam && !nameParam) { setError(container, t('not_found')); return; }
+  setLoading(container, t('loading_player_param').replace('{name}', uidParam || nameParam));
 
   try {
     const [histRes, mhuntsRes, warDailyRes, huntDailyRes, festRes, membersRes, warsRes] = await Promise.allSettled([
@@ -611,59 +626,69 @@ async function initPlayer() {
     const membersData   = membersRes.status   === 'fulfilled' ? membersRes.value   : [];
     const warsData      = warsRes.status      === 'fulfilled' ? warsRes.value      : [];
 
-    // ── Resolve player by name in history.json (keyed by igg_id, has current name)
-    // history.json uses name as display but uid as stable identifier.
-    const growth = (histData.members || []).find(m => m.name === name) || null;
+    // ── Resolve player in history.json — UID-FIRST, name as fallback ──────────
+    // history.json has { uid, name, snapshots[], name_history[], ... } per member.
+    // We ALWAYS prefer UID lookup to avoid collisions when two players share a name.
+    let growth = null;
+    if (uidParam) {
+      // Primary: match by stable UID
+      growth = (histData.members || []).find(m => String(m.uid) === String(uidParam)) || null;
+    }
+    if (!growth && nameParam) {
+      // Fallback for legacy ?id=NAME links: match by current name
+      growth = (histData.members || []).find(m => m.name === nameParam) || null;
+    }
 
-    // ── Resolve the stable uid keys for war_daily and hunt_daily
-    // war_daily is keyed by str(igg_id) with { name, snapshots[] }
-    // hunt_daily is keyed by str(user_id) with { name, weeks{} }
-    // member_hunts is keyed by str(user_id) with { name, uid, weeks[] }
-    // We find the matching key by comparing the stored name.
+    // The display name comes from history.json (reflects any recent rename).
+    // If player not found in history, use the param as display name.
+    const name = growth ? growth.name : (nameParam || uidParam);
+
+    // The player's stable UID (igg_id) from history.json
+    const playerUid = growth ? (growth.uid || null) : (uidParam || null);
     const nameLower = name.toLowerCase();
-    // The player's stable UID (igg_id) from history.json — used as fallback when name changed
-    const playerUid = growth ? (growth.uid || null) : null;
 
-    // Helper: find matching key in a daily-data object by name first, then by UID
+    // ── Helper: find matching key in a daily-data object ─────────────────────
+    // Priority: 1) key === playerUid (numeric key), 2) name match (covers edge cases)
     function findDailyKey(dailyData) {
-      // 1. Try exact name match (fast path — covers most cases)
-      const byName = Object.keys(dailyData).find(
-        k => (dailyData[k].name || '').toLowerCase() === nameLower
-      );
-      if (byName) return byName;
-      // 2. Fallback: match by the string key itself == playerUid (covers name-changed players)
+      // 1. Match by numeric UID key (most reliable)
       if (playerUid) {
         const byUid = Object.keys(dailyData).find(
           k => String(k) === String(playerUid)
         );
         if (byUid) return byUid;
       }
-      return null;
+      // 2. Fallback: name match (for players not yet in history.json)
+      const byName = Object.keys(dailyData).find(
+        k => (dailyData[k].name || '').toLowerCase() === nameLower
+      );
+      return byName || null;
     }
 
     const warUidKey  = findDailyKey(warDailyData);
     const huntUidKey = findDailyKey(huntDailyData);
 
-    // member_hunts: find entry by name match first, then by UID fallback
+    // ── member_hunts: UID-first lookup ────────────────────────────────────────
     const mhuntsUidKey = (() => {
-      const byName = Object.keys(mhunts).find(
-        k => (mhunts[k].name || '').toLowerCase() === nameLower
-      );
-      if (byName) return byName;
       if (playerUid) {
         const byUid = Object.keys(mhunts).find(
           k => String(k) === String(playerUid)
         );
         if (byUid) return byUid;
       }
-      return null;
+      const byName = Object.keys(mhunts).find(
+        k => (mhunts[k].name || '').toLowerCase() === nameLower
+      );
+      return byName || null;
     })();
     const mhuntsEntry = mhuntsUidKey ? mhunts[mhuntsUidKey] : null;
     const playerHunts52 = mhuntsUidKey ? (mhunts[mhuntsUidKey].weeks || []) : [];
 
-    // Resolve Telegram @username from website members.json (uses current name)
-    const memberEntry = membersData.find(m => (m.name || '').toLowerCase() === nameLower);
-    const telegram    = memberEntry ? (memberEntry.telegram || '') : '';
+    // ── Telegram: resolve from members.json by UID first, then name ───────────
+    const memberEntry = membersData.find(m =>
+      (playerUid && String(m.uid) === String(playerUid)) ||
+      (m.name || '').toLowerCase() === nameLower
+    );
+    const telegram = memberEntry ? (memberEntry.telegram || '') : '';
 
     if      (view === 'war')  await renderWarView(container, name, month, growth, warDailyData, telegram, warsData, warUidKey);
     else if (view === 'hunt') await renderHuntView(container, name, week, huntDailyData, playerHunts52, mhuntsEntry, telegram, growth, huntUidKey);
