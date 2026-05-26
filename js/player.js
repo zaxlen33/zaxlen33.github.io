@@ -28,35 +28,119 @@ document.head.appendChild(_style);
 
 // ─── Chart helpers ───────────────────────────────────────────────────────────
 
+// Shared tooltip formatter
+function _fmtVal(v) {
+  if (v >= 1e9) return (v/1e9).toFixed(2) + 'B';
+  if (v >= 1e6) return (v/1e6).toFixed(2) + 'M';
+  if (v >= 1e3) return (v/1e3).toFixed(1) + 'k';
+  return v;
+}
+
+// Shared tick formatter (shorter)
+function _tickFmtShort(v) {
+  if (v >= 1e9) return (v/1e9).toFixed(1) + 'B';
+  if (v >= 1e6) return (v/1e6).toFixed(1) + 'M';
+  if (v >= 1e3) return (v/1e3).toFixed(0) + 'k';
+  return v;
+}
+
+// Premium tooltip config shared between chart types
+function _tooltipCfg(extra) {
+  return {
+    mode: 'index', intersect: false,
+    backgroundColor: 'rgba(10,12,18,0.97)',
+    titleColor: '#e6edf3',
+    bodyColor: '#8b949e',
+    borderColor: 'rgba(99,110,123,0.4)',
+    borderWidth: 1,
+    padding: 12,
+    cornerRadius: 10,
+    titleFont: { size: 12, weight: '600' },
+    bodyFont: { size: 12 },
+    displayColors: true,
+    boxWidth: 8,
+    boxHeight: 8,
+    usePointStyle: true,
+    ...(extra || {})
+  };
+}
+
 function _lineChart(id, label, labels, data, color, dashed = false) {
   const el = document.getElementById(id);
   if (!el) return;
   const ctx = el.getContext('2d');
+
+  // Rich two-stop gradient: vivid at top, fully transparent at bottom
   const g = ctx.createLinearGradient(0, 0, 0, 260);
-  g.addColorStop(0, color + '50'); g.addColorStop(1, color + '00');
+  g.addColorStop(0, color + '55');
+  g.addColorStop(0.5, color + '18');
+  g.addColorStop(1,   color + '00');
+
   new Chart(ctx, {
     type: 'line',
-    data: { labels, datasets: [{ label, data, borderColor: color, backgroundColor: g,
-      borderWidth: 2, fill: true, tension: 0.3,
-      pointBackgroundColor: '#0d1117', pointBorderColor: color,
-      pointBorderWidth: 2, pointRadius: 4, pointHoverRadius: 6,
-      ...(dashed ? { borderDash: [5,5] } : {})
-    }]},
+    data: {
+      labels,
+      datasets: [{
+        label, data,
+        borderColor: color,
+        backgroundColor: g,
+        borderWidth: 2.5,
+        fill: true,
+        tension: 0.4,
+        // Points: hidden normally, visible on hover
+        pointBackgroundColor: color,
+        pointBorderColor: 'rgba(10,12,18,0.9)',
+        pointBorderWidth: 2,
+        pointRadius: 3.5,
+        pointHoverRadius: 7,
+        pointHoverBackgroundColor: color,
+        pointHoverBorderColor: '#fff',
+        pointHoverBorderWidth: 2,
+        ...(dashed ? { borderDash: [6, 4] } : {})
+      }]
+    },
     options: {
-      responsive: true, maintainAspectRatio: false,
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 600, easing: 'easeOutQuart' },
+      interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: { display: false },
         tooltip: {
-          mode: 'index', intersect: false,
-          backgroundColor: 'rgba(13,17,23,.95)',
-          titleColor: '#c9d1d9', bodyColor: '#c9d1d9',
-          borderColor: '#30363d', borderWidth: 1,
-          callbacks: { label: c => { const v=c.raw; return ` ${label}: ${v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(1)+'k':v}`; } }
+          ..._tooltipCfg(),
+          callbacks: {
+            title: items => items[0]?.label || '',
+            label: c => {
+              const v = c.raw;
+              return `  ${label}: ${_fmtVal(v)}`;
+            }
+          }
         }
       },
       scales: {
-        x: { grid: { display: false }, ticks: { maxRotation: 45, font: { size: 11 } } },
-        y: { beginAtZero: false, ticks: { callback: v => v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'k':v } }
+        x: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: {
+            maxRotation: 40,
+            color: '#6e7681',
+            font: { size: 11 }
+          }
+        },
+        y: {
+          beginAtZero: false,
+          grid: {
+            color: 'rgba(48,54,61,0.5)',
+            lineWidth: 1
+          },
+          border: { display: false, dash: [4, 4] },
+          ticks: {
+            color: '#6e7681',
+            font: { size: 11 },
+            padding: 8,
+            callback: v => _tickFmtShort(v)
+          }
+        }
       }
     }
   });
@@ -65,16 +149,63 @@ function _lineChart(id, label, labels, data, color, dashed = false) {
 function _barChart(id, labels, datasets) {
   const el = document.getElementById(id);
   if (!el) return;
-  new Chart(el.getContext('2d'), {
+  const ctx = el.getContext('2d');
+
+  new Chart(ctx, {
     type: 'bar',
-    data: { labels, datasets: datasets.map(d => ({ ...d, borderRadius: 4 })) },
+    data: {
+      labels,
+      datasets: datasets.map(d => ({
+        ...d,
+        borderRadius: { topLeft: 6, topRight: 6 },
+        borderSkipped: false,
+        borderWidth: 0,
+        hoverBorderWidth: 0,
+      }))
+    },
     options: {
-      responsive: true, maintainAspectRatio: false,
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 500, easing: 'easeOutQuart' },
+      interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { position: 'top', labels: { boxWidth: 12, usePointStyle: true } },
-        tooltip: { backgroundColor: 'rgba(13,17,23,.95)', titleColor: '#c9d1d9', bodyColor: '#c9d1d9', borderColor:'#30363d', borderWidth:1 }
+        legend: {
+          position: 'top',
+          labels: {
+            boxWidth: 10,
+            boxHeight: 10,
+            usePointStyle: true,
+            pointStyle: 'rectRounded',
+            color: '#8b949e',
+            padding: 16,
+            font: { size: 12 }
+          }
+        },
+        tooltip: {
+          ..._tooltipCfg(),
+          callbacks: {
+            label: c => `  ${c.dataset.label}: ${_fmtVal(c.raw)}`
+          }
+        }
       },
-      scales: { x: { grid: { display: false } }, y: { beginAtZero: true } }
+      scales: {
+        x: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: { color: '#6e7681', font: { size: 11 } }
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(48,54,61,0.5)', lineWidth: 1 },
+          border: { display: false },
+          ticks: {
+            color: '#6e7681',
+            font: { size: 11 },
+            padding: 8,
+            callback: v => _tickFmtShort(v)
+          }
+        }
+      }
     }
   });
 }
