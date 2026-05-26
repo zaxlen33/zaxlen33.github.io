@@ -549,7 +549,7 @@
           </td>
           <td data-label="${getPerfT('player')}" style="padding: 12px 8px;">
             <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
-              <a href="player.html?view=all&id=${encodeURIComponent(p.name)}" class="perf-link" style="font-size: 0.95rem; font-weight: 700;">
+              <a href="player.html?view=all&uid=${encodeURIComponent(p.uid||'')}${!p.uid?'&id='+encodeURIComponent(p.name):''}" class="perf-link" style="font-size: 0.95rem; font-weight: 700;">
                 ${p.name}
               </a>
               ${rankBadge(p.rank)}
