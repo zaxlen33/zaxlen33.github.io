@@ -493,7 +493,7 @@ function renderWarDetail(container, war) {
       return `
       <tr data-searchable="${(m.name || '').toLowerCase()} ${(m.rank || '').toLowerCase()}">
         <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-        <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=war&id=${encodeURIComponent(m.name||'')}&month=${war.month}" class="member-link">${m.name || '—'}</a></td>
+        <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=war&uid=${encodeURIComponent(m.uid||m.igg_id||'')}${!(m.uid||m.igg_id)?'&id='+encodeURIComponent(m.name||''):''}&month=${war.month}" class="member-link">${m.name || '—'}</a></td>
         <td class="center" data-label="${t('table_rank')}">${rankBadge(m.rank)}</td>
         <td class="right mono" data-label="${t('table_might')}">${fmtCompact(m.might)}</td>
         <td class="right hide-mobile" data-label="${t('table_might_gained')}">${fmtDelta(m.might_diff)}</td>
@@ -843,7 +843,7 @@ function renderHuntDetail(container, hunt) {
       return `
         <tr data-searchable="${(p.name || '').toLowerCase()} ${(p.rank || '').toLowerCase()}">
           <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=hunt&id=${encodeURIComponent(p.name||'')}&week=${encodeURIComponent(hunt.id)}" class="member-link">${p.name || '—'}</a></td>
+          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=hunt&uid=${encodeURIComponent(p.uid||p.user_id||'')}${!(p.uid||p.user_id)?'&id='+encodeURIComponent(p.name||''):''}&week=${encodeURIComponent(hunt.id)}" class="member-link">${p.name || '—'}</a></td>
           <td class="center" data-label="${t('table_rank')}">${rankBadge(p.rank || '')}</td>
           <td class="right mono" data-label="${t('points')}" style="font-weight:700;"><span>${fmtCompact(p.pts_total)} <span style="font-size:0.75rem;color:var(--text-muted);">/ ${fmtCompact(minReq)}</span></span></td>
           <td class="center" data-label="${t('goal_rate')}">
@@ -915,8 +915,8 @@ async function initHistory() {
   if (hash) {
     const member = members.find(m => m.name === hash);
     if (member) {
-      // Redirect to player dashboard with all charts
-      window.location.replace(`./player.html?view=all&id=${encodeURIComponent(member.name)}`);
+      // Redirect to player dashboard with all charts — use UID for stable identity
+      window.location.replace(`./player.html?view=all&uid=${encodeURIComponent(member.uid || '')}${!member.uid ? '&id=' + encodeURIComponent(member.name) : ''}`);
       return;
     }
   }
@@ -928,7 +928,7 @@ async function initHistory() {
     if (h) {
       const m = members.find(x => x.name === h);
       if (m) {
-        window.location.replace(`./player.html?view=all&id=${encodeURIComponent(m.name)}`);
+        window.location.replace(`./player.html?view=all&uid=${encodeURIComponent(m.uid || '')}${!m.uid ? '&id=' + encodeURIComponent(m.name) : ''}`);
         return;
       }
     }
@@ -1047,7 +1047,7 @@ function renderHistoryList(container, members, lastUpdated) {
       return `
         <tr data-searchable="${(m.name || '').toLowerCase()} ${lastRank.toLowerCase()}">
           <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=all&id=${encodeURIComponent(m.name||'')}" class="member-link">${m.name || '—'}</a></td>
+          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=all&uid=${encodeURIComponent(m.uid||'')}${!m.uid?'&id='+encodeURIComponent(m.name||''):''}" class="member-link">${m.name || '—'}</a></td>
           <td class="center" data-label="${t('table_rank')}">${rankBadge(lastRank)}</td>
           <td class="right mono" data-label="${t('table_might')}">${fmtCompact(might)}</td>
           <td class="right hide-mobile" data-label="${t('table_might_gained')}">${fmtDelta(might_diff)}</td>
@@ -1055,7 +1055,7 @@ function renderHistoryList(container, members, lastUpdated) {
           <td class="right hide-mobile" data-label="${t('table_kills_gained')}">${fmtDelta(kills_diff)}</td>
           <td class="right mono" data-label="${t('snapshots_label')}">${snaps.length}</td>
           <td class="center" data-label="${t('table_action')}">
-            <a href="player.html?view=all&id=${encodeURIComponent(m.name||'')}" class="btn btn-primary action-btn">${t('view_arrow')}</a>
+            <a href="player.html?view=all&uid=${encodeURIComponent(m.uid||'')}${!m.uid?'&id='+encodeURIComponent(m.name||''):''}" class="btn btn-primary action-btn">${t('view_arrow')}</a>
           </td>
         </tr>`;
     }).join('');
@@ -1305,7 +1305,7 @@ async function initMembers() {
         <td class="right mono" data-label="${t('might')}">${fmtCompact(m.might)}</td>
         <td class="right mono" data-label="${t('kills')}" style="color:var(--accent-yellow);">${fmtCompact(m.kills)}</td>
         <td class="center" data-label="${t('table_action')}">
-          <a href="player.html?view=member&id=${encodeURIComponent(m.name||'')}" class="btn btn-primary action-btn">${t('view_profile')}</a>
+          <a href="player.html?view=member&uid=${encodeURIComponent(m.uid||'')}${!m.uid?'&id='+encodeURIComponent(m.name||''):''}" class="btn btn-primary action-btn">${t('view_profile')}</a>
         </td>
       </tr>`).join('');
   }
