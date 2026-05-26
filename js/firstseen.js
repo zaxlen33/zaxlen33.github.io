@@ -294,7 +294,7 @@ function buildCard(m, index) {
       <div class="fs-card-right">
         <span class="fs-date">${m.first_seen || '—'}</span>
         <span class="fs-days-ago">${daysLabel}</span>
-        <a href="./player.html?view=member&id=${encodeURIComponent(m.name)}"
+        <a href="./player.html?view=member&uid=${encodeURIComponent(m.uid && m.uid !== '—' ? m.uid : '')}${(!m.uid || m.uid === '—') ? '&id=' + encodeURIComponent(m.name) : ''}"
            class="btn btn-secondary fs-profile-btn"
            aria-label="${t('view_profile')}: ${escHtml(m.name)}">${t('view_profile')}</a>
       </div>
