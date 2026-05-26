@@ -350,45 +350,67 @@ function renderWarList(container, weekly, wars) {
   // Render the 52-week chart using weekly data
   if (chartWeeks.length >= 1 && window.Chart) {
     Chart.defaults.color = '#8b949e';
-    Chart.defaults.borderColor = '#30363d';
+    Chart.defaults.borderColor = 'rgba(48,54,61,0.6)';
 
     const _tickFmt = v => v>=1e9?(v/1e9).toFixed(1)+'B':v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'k':v;
+    const _tpCfg = {
+      backgroundColor: 'rgba(10,12,18,0.97)', titleColor: '#e6edf3', bodyColor: '#8b949e',
+      borderColor: 'rgba(99,110,123,0.4)', borderWidth: 1, padding: 12, cornerRadius: 10,
+      titleFont: { size: 12, weight: '600' }, bodyFont: { size: 12 },
+      displayColors: true, boxWidth: 8, boxHeight: 8, usePointStyle: true
+    };
 
-    new Chart(document.getElementById('chart-war-combined-guild'), {
-      type: 'line',
-      data: { labels: chartLabels, datasets: [
-        { label: t('chart_guild_power'), data: chartPower, borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,0.08)', borderWidth: 2.5, tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0d1117', pointBorderColor: '#58a6ff', pointBorderWidth: 2, yAxisID: 'y'  },
-        { label: t('chart_total_kills'), data: chartKills, borderColor: '#f85149', backgroundColor: 'rgba(248,81,73,0.08)',  borderWidth: 2.5, tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0d1117', pointBorderColor: '#f85149', pointBorderWidth: 2, yAxisID: 'y2' }
-      ]},
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        interaction: { mode: 'index', intersect: false },
-        plugins: {
-          legend: { display: true, position: 'top', labels: { boxWidth: 10, usePointStyle: true, color: '#8b949e', padding: 14 } },
-          tooltip: {
-            backgroundColor: 'rgba(13,17,23,.95)', titleColor: '#c9d1d9', bodyColor: '#c9d1d9', borderColor: '#30363d', borderWidth: 1,
-            callbacks: {
-              title: (items) => {
-                const i = items[0]?.dataIndex ?? 0;
-                const rd = chartReportDates[i];
-                const mc = chartMemberCounts[i];
-                const w = `${t('week_of')} ${chartLabels[i]}`;
-                return rd ? `${w}  (${t('report_label')} ${rd}, ${mc} ${t('members_lower')})` : w;
-              },
-              label: (item) => {
-                const val = item.raw;
-                return ` ${item.dataset.label}: ${_tickFmt(val)}`;
+    const ctxGuild = document.getElementById('chart-war-combined-guild');
+    if (ctxGuild) {
+      const gCtx = ctxGuild.getContext('2d');
+      const gBlue = gCtx.createLinearGradient(0, 0, 0, 280);
+      gBlue.addColorStop(0, 'rgba(88,166,255,0.22)'); gBlue.addColorStop(1, 'rgba(88,166,255,0)');
+      const gRed = gCtx.createLinearGradient(0, 0, 0, 280);
+      gRed.addColorStop(0, 'rgba(248,81,73,0.22)'); gRed.addColorStop(1, 'rgba(248,81,73,0)');
+
+      new Chart(gCtx, {
+        type: 'line',
+        data: { labels: chartLabels, datasets: [
+          { label: t('chart_guild_power'), data: chartPower, borderColor: '#58a6ff', backgroundColor: gBlue,
+            borderWidth: 2.5, tension: 0.4, fill: true,
+            pointRadius: 3.5, pointBackgroundColor: '#58a6ff', pointBorderColor: 'rgba(10,12,18,0.9)',
+            pointBorderWidth: 2, pointHoverRadius: 7, pointHoverBackgroundColor: '#58a6ff',
+            pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2, yAxisID: 'y' },
+          { label: t('chart_total_kills'), data: chartKills, borderColor: '#f85149', backgroundColor: gRed,
+            borderWidth: 2.5, tension: 0.4, fill: true,
+            pointRadius: 3.5, pointBackgroundColor: '#f85149', pointBorderColor: 'rgba(10,12,18,0.9)',
+            pointBorderWidth: 2, pointHoverRadius: 7, pointHoverBackgroundColor: '#f85149',
+            pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2, yAxisID: 'y2' }
+        ]},
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          animation: { duration: 600, easing: 'easeOutQuart' },
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: true, position: 'top', labels: { boxWidth: 10, boxHeight: 10, usePointStyle: true, pointStyle: 'circle', color: '#8b949e', padding: 16, font: { size: 12 } } },
+            tooltip: {
+              ..._tpCfg,
+              mode: 'index', intersect: false,
+              callbacks: {
+                title: (items) => {
+                  const i = items[0]?.dataIndex ?? 0;
+                  const rd = chartReportDates[i];
+                  const mc = chartMemberCounts[i];
+                  const w = `${t('week_of')} ${chartLabels[i]}`;
+                  return rd ? `${w}  (${t('report_label')} ${rd}, ${mc} ${t('members_lower')})` : w;
+                },
+                label: (item) => `  ${item.dataset.label}: ${_tickFmt(item.raw)}`
               }
             }
+          },
+          scales: {
+            x: { grid: { display: false }, border: { display: false }, ticks: { color: '#6e7681', font: { size: 11 } } },
+            y:  { beginAtZero: false, border: { display: false }, ticks: { callback: _tickFmt, color: '#6e7681', font: { size: 11 }, padding: 8 }, grid: { color: 'rgba(48,54,61,0.5)' } },
+            y2: { position: 'right', beginAtZero: false, border: { display: false }, ticks: { callback: _tickFmt, color: '#6e7681', font: { size: 11 }, padding: 8 }, grid: { drawOnChartArea: false } }
           }
-        },
-        scales: {
-          x: { grid: { display: false } },
-          y:  { beginAtZero: false, ticks: { callback: _tickFmt }, grid: { color: 'rgba(255,255,255,0.05)' } },
-          y2: { position: 'right', beginAtZero: false, ticks: { callback: _tickFmt }, grid: { drawOnChartArea: false } }
         }
-      }
-    });
+      });
+    }
   }
 }
 
@@ -711,38 +733,67 @@ function renderHuntList(container, hunts) {
 
   if (chartHunts.length >= 1 && window.Chart) {
     Chart.defaults.color = '#8b949e';
-    Chart.defaults.borderColor = '#30363d';
-    
-    new Chart(document.getElementById('chart-hunt-pts-guild'), {
-      type: 'line',
-      data: { labels: chartLabels, datasets: [{
-        label: t('hunt_history_title'), data: chartTotalPts,
-        borderColor: '#3fb950', backgroundColor: 'rgba(63,185,80,0.1)',
-        borderWidth: 2.5, tension: 0.3, fill: true,
-        pointRadius: 3, pointBackgroundColor: '#0d1117', pointBorderColor: '#3fb950', pointBorderWidth: 2
-      }]},
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        interaction: { mode: 'index', intersect: false },
-        plugins: {
-          legend: { display: true, position: 'top', labels: { boxWidth: 10, usePointStyle: true, color: '#8b949e', padding: 14 } },
-          tooltip: { backgroundColor: 'rgba(13,17,23,.95)', titleColor: '#c9d1d9', bodyColor: '#c9d1d9', borderColor: '#30363d', borderWidth: 1 }
-        },
-        scales: { x: { grid: { display: false } }, y: { beginAtZero: false, ticks: { callback: v => v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'k':v } } }
-      }
-    });
+    Chart.defaults.borderColor = 'rgba(48,54,61,0.6)';
+
+    const _tpCfg = {
+      backgroundColor: 'rgba(10,12,18,0.97)', titleColor: '#e6edf3', bodyColor: '#8b949e',
+      borderColor: 'rgba(99,110,123,0.4)', borderWidth: 1, padding: 12, cornerRadius: 10,
+      titleFont: { size: 12, weight: '600' }, bodyFont: { size: 12 },
+      displayColors: true, boxWidth: 8, boxHeight: 8, usePointStyle: true
+    };
+    const _tickFmt = v => v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'k':v;
+
+    const ctxHuntLine = document.getElementById('chart-hunt-pts-guild');
+    if (ctxHuntLine) {
+      const hlCtx = ctxHuntLine.getContext('2d');
+      const gGreen = hlCtx.createLinearGradient(0, 0, 0, 280);
+      gGreen.addColorStop(0, 'rgba(63,185,80,0.22)'); gGreen.addColorStop(1, 'rgba(63,185,80,0)');
+
+      new Chart(hlCtx, {
+        type: 'line',
+        data: { labels: chartLabels, datasets: [{
+          label: t('hunt_history_title'), data: chartTotalPts,
+          borderColor: '#3fb950', backgroundColor: gGreen,
+          borderWidth: 2.5, tension: 0.4, fill: true,
+          pointRadius: 3.5, pointBackgroundColor: '#3fb950', pointBorderColor: 'rgba(10,12,18,0.9)',
+          pointBorderWidth: 2, pointHoverRadius: 7, pointHoverBackgroundColor: '#3fb950',
+          pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2
+        }]},
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          animation: { duration: 600, easing: 'easeOutQuart' },
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: true, position: 'top', labels: { boxWidth: 10, boxHeight: 10, usePointStyle: true, pointStyle: 'circle', color: '#8b949e', padding: 16, font: { size: 12 } } },
+            tooltip: { ..._tpCfg, mode: 'index', intersect: false, callbacks: { label: c => `  ${c.dataset.label}: ${_tickFmt(c.raw)}` } }
+          },
+          scales: {
+            x: { grid: { display: false }, border: { display: false }, ticks: { color: '#6e7681', font: { size: 11 } } },
+            y: { beginAtZero: false, border: { display: false }, ticks: { callback: _tickFmt, color: '#6e7681', font: { size: 11 }, padding: 8 }, grid: { color: 'rgba(48,54,61,0.5)' } }
+          }
+        }
+      });
+    }
 
     const lvls = ['Lvl 1','Lvl 2','Lvl 3','Lvl 4','Lvl 5'];
     new Chart(document.getElementById('chart-hunt-box-guild'), {
       type: 'bar',
       data: { labels: lvls, datasets: [
-        { label: t('monsters_hunted_all'), data: chartMonsters, backgroundColor: '#a371f7', borderRadius: 4 },
-        { label: t('chests_purchased_all'), data: chartChests, backgroundColor: '#e3b341', borderRadius: 4 }
+        { label: t('monsters_hunted_all'), data: chartMonsters, backgroundColor: '#a371f7', borderRadius: { topLeft: 6, topRight: 6 }, borderSkipped: false, borderWidth: 0 },
+        { label: t('chests_purchased_all'), data: chartChests,  backgroundColor: '#e3b341', borderRadius: { topLeft: 6, topRight: 6 }, borderSkipped: false, borderWidth: 0 }
       ]},
       options: {
         responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { position: 'top', labels: { boxWidth: 12, usePointStyle: true } } },
-        scales: { x: { grid: { display: false } }, y: { beginAtZero: true } }
+        animation: { duration: 500, easing: 'easeOutQuart' },
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'top', labels: { boxWidth: 10, boxHeight: 10, usePointStyle: true, pointStyle: 'rectRounded', color: '#8b949e', padding: 16, font: { size: 12 } } },
+          tooltip: { ..._tpCfg, mode: 'index', intersect: false, callbacks: { label: c => `  ${c.dataset.label}: ${_tickFmt(c.raw)}` } }
+        },
+        scales: {
+          x: { grid: { display: false }, border: { display: false }, ticks: { color: '#6e7681', font: { size: 11 } } },
+          y: { beginAtZero: true, border: { display: false }, ticks: { color: '#6e7681', font: { size: 11 }, padding: 8 }, grid: { color: 'rgba(48,54,61,0.5)' } }
+        }
       }
     });
   }
