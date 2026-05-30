@@ -56,7 +56,7 @@ async function initRankings() {
     // Read festival minimum from the embedded summary (set by Python backend)
     const minFestReq = (latestFest && latestFest.summary ? latestFest.summary.festival_min_score : 0) || 3100;
     // Read hunt minimum from the embedded summary
-    const minHuntReq = (latestHunt && latestHunt.summary ? latestHunt.summary.min_required : 0) || 56;
+    const minHuntReq = (latestHunt && latestHunt.summary ? latestHunt.summary.min_required : 0) || 35;
 
     container.innerHTML = `
       <div class="leaderboard-container" style="margin-bottom:2rem;">
@@ -114,7 +114,7 @@ function renderHuntLeaderboard(title, players, weekLabel, weekId, minReqParam) {
 
   const ranks = ['🥇', '🥈', '🥉', '4', '5'];
   // minReqParam is read from the embedded summary data (set by Python backend)
-  const minReq = minReqParam || 56;
+  const minReq = minReqParam || 35;
 
   return `
     <div class="card" style="border-top:3px solid var(--accent-green);">
