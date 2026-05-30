@@ -221,7 +221,7 @@
 
       // 2. Process ALL historical Hunt reports
       huntsData.forEach(report => {
-        const minReq = report.summary?.min_required || 56;
+        const minReq = report.summary?.min_required || 35;
         if (report.players) {
           report.players.forEach(p => {
             if (!p.name) return;
