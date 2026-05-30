@@ -407,13 +407,13 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52, huntUidKey
 
   // ── 1. Calculate quota/stats for the SPECIFIED week (statWeekId) ──
   let weekTotal = 0;
-  let minPts = 56;
+  let minPts = 35;
   let met = false;
   if (statWeekId) {
     const statWeek = playerHunts52.find(w => w.date && w.date.startsWith(statWeekId));
     if (statWeek) {
       weekTotal = statWeek.pts_total || 0;
-      minPts = statWeek.min_required || (memberHuntEntry && memberHuntEntry.hunt_min) || 56;
+      minPts = statWeek.min_required || (memberHuntEntry && memberHuntEntry.hunt_min) || 35;
       met = weekTotal >= minPts;
     }
   }
