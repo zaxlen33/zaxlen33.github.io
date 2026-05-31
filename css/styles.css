@@ -749,6 +749,13 @@ tbody td.mono {
   border-color: var(--accent-blue);
 }
 
+/* Fix option styling to prevent white-on-white text in Chrome/Windows */
+select option,
+.select-box option {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
 /* ── Back button ── */
 .btn {
   display: inline-flex;
