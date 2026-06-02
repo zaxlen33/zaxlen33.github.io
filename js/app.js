@@ -471,10 +471,10 @@ function renderWarDetail(container, war) {
             <input type="text" id="war-search" placeholder="${t('search_placeholder')}" autocomplete="off">
           </div>
           <select class="select-box" id="war-sort">
+            <option value="rank" selected>${t('sort_rank')}</option>
             <option value="might">${t('sort_might')}</option>
             <option value="kills">${t('sort_kills')}</option>
             <option value="name">${t('sort_name')}</option>
-            <option value="rank">${t('sort_rank')}</option>
           </select>
         </div>
         <div class="table-wrapper">
@@ -538,7 +538,7 @@ function renderWarDetail(container, war) {
     }).join('');
   }
 
-  renderRows();
+  applyAll();
 
   // Search and Sort
   let _search = '';
@@ -553,14 +553,15 @@ function renderWarDetail(container, war) {
 
   function applyAll() {
     const sKey = document.getElementById('war-sort').value;
+    const _rn  = x => { const v = (x || ''); return v.includes('5')?5:v.includes('4')?4:v.includes('3')?3:v.includes('2')?2:v.includes('1')?1:0; };
     currentMembers = members.filter(m => !_search
       || (m.name || '').toLowerCase().includes(_search)
       || (m.uid  || '').toLowerCase().includes(_search));
     currentMembers.sort((a, b) => {
       if (sKey === 'name') return (a.name || '').localeCompare(b.name || '');
       if (sKey === 'rank') {
-        const _r = x => { const v=(x||''); return v.includes('5')?5:v.includes('4')?4:v.includes('3')?3:v.includes('2')?2:v.includes('1')?1:0; };
-        return _r(b.rank) - _r(a.rank);
+        const diff = _rn(b.rank) - _rn(a.rank);
+        return diff !== 0 ? diff : (a.name || '').localeCompare(b.name || '');
       }
       return (b[sKey] || 0) - (a[sKey] || 0);
     });
@@ -859,9 +860,9 @@ function renderHuntDetail(container, hunt) {
             <option value="not_met">❌ ${t('status_miss')}</option>
           </select>
           <select class="select-box" id="hunt-sort">
+            <option value="rank" selected>${t('sort_rank')}</option>
             <option value="name">${t('sort_name')}</option>
             <option value="pts_total">${t('sort_total_pts')}</option>
-            <option value="rank">${t('sort_rank')}</option>
           </select>
         </div>
         <div class="table-wrapper">
@@ -916,9 +917,9 @@ function renderHuntDetail(container, hunt) {
     }).join('');
   }
 
-  renderHuntRows();
+  applyHuntAll();
 
-  let _search = '', _filter = '', _sortKey = 'name';
+  let _search = '', _filter = '', _sortKey = 'rank';
   function applyHuntAll() {
     currentPlayers = players.filter(p => {
       const nameOk = !_search
@@ -928,10 +929,11 @@ function renderHuntDetail(container, hunt) {
       return nameOk && filterOk;
     });
     currentPlayers.sort((a, b) => {
+      const _rn = x => { const v=(x||''); return v.includes('5')?5:v.includes('4')?4:v.includes('3')?3:v.includes('2')?2:v.includes('1')?1:0; };
       if (_sortKey === 'name') return (a.name||'').localeCompare(b.name||'');
       if (_sortKey === 'rank') {
-        const _r = x => { const v=(x||''); return v.includes('5')?5:v.includes('4')?4:v.includes('3')?3:v.includes('2')?2:v.includes('1')?1:0; };
-        return _r(b.rank) - _r(a.rank);
+        const diff = _rn(b.rank) - _rn(a.rank);
+        return diff !== 0 ? diff : (a.name||'').localeCompare(b.name||'');
       }
       return (b[_sortKey]||0) - (a[_sortKey]||0);
     });
@@ -1047,6 +1049,7 @@ function renderHistoryList(container, members, lastUpdated) {
             <input type="text" id="history-search" placeholder="${t('search_member_placeholder')}" autocomplete="off">
           </div>
           <select class="select-box" id="history-sort">
+            <option value="rank" selected>${t('sort_rank')}</option>
             <option value="might">${t('sort_might')}</option>
             <option value="kills">${t('sort_kills')}</option>
             <option value="might_diff">${t('sort_might_diff')}</option>
@@ -1116,10 +1119,11 @@ function renderHistoryList(container, members, lastUpdated) {
     }).join('');
   }
 
-  renderHistoryRows();
+  applyHistoryAll();
 
-  let _search = '', _rank = '', _sort = 'might';
+  let _search = '', _rank = '', _sort = 'rank';
   function applyHistoryAll() {
+    const _rn = x => { const v=(x||''); return v.includes('5')?5:v.includes('4')?4:v.includes('3')?3:v.includes('2')?2:v.includes('1')?1:0; };
     currentMembers = sorted.filter(m => {
       const snaps = m.snapshots || [];
       const last = snaps.length ? snaps[snaps.length - 1] : {};
@@ -1131,6 +1135,11 @@ function renderHistoryList(container, members, lastUpdated) {
     });
     currentMembers.sort((a, b) => {
       if (_sort === 'name') return (a.name||'').localeCompare(b.name||'');
+      if (_sort === 'rank') {
+        const getLastRank = x => { const snaps = x.snapshots || []; const last = snaps.length ? snaps[snaps.length-1] : {}; return last.rank || ''; };
+        const diff = _rn(getLastRank(b)) - _rn(getLastRank(a));
+        return diff !== 0 ? diff : (a.name||'').localeCompare(b.name||'');
+      }
       const getVal = (x) => {
         const snaps = x.snapshots || [];
         const last = snaps.length ? snaps[snaps.length - 1] : {};
@@ -1315,10 +1324,10 @@ async function initMembers() {
             <input type="text" id="members-search" placeholder="${t('search_members_placeholder')}" autocomplete="off">
           </div>
           <select class="select-box" id="members-sort">
+            <option value="rank" selected>${t('sort_rank')}</option>
             <option value="kills">${t('sort_kills')}</option>
             <option value="might">${t('sort_might')}</option>
             <option value="name">${t('sort_name')}</option>
-            <option value="rank">${t('sort_rank')}</option>
           </select>
         </div>
         <div class="table-wrapper">
@@ -1367,19 +1376,11 @@ async function initMembers() {
       </tr>`).join('');
   }
 
-  renderRows();
+  applyFilters();
 
-  let _search = '', _sortKey = 'kills';
+  let _search = '', _sortKey = 'rank';
   function applyFilters() {
-    function _r(x) {
-      if (!x) return 0;
-      if (x.includes('5')) return 5;
-      if (x.includes('4')) return 4;
-      if (x.includes('3')) return 3;
-      if (x.includes('2')) return 2;
-      if (x.includes('1')) return 1;
-      return 0;
-    }
+    const _rn = x => { if (!x) return 0; if (x.includes('5')) return 5; if (x.includes('4')) return 4; if (x.includes('3')) return 3; if (x.includes('2')) return 2; if (x.includes('1')) return 1; return 0; };
     currentMembers = data.filter(m => !_search
       || (m.name     || '').toLowerCase().includes(_search)
       || (m.uid      || '').toLowerCase().includes(_search)
@@ -1388,9 +1389,8 @@ async function initMembers() {
     currentMembers.sort((a, b) => {
       if (_sortKey === 'name') return (a.name||'').localeCompare(b.name||'');
       if (_sortKey === 'rank') {
-        const ra = _r(a.rank), rb = _r(b.rank);
-        if (ra !== rb) return rb - ra;
-        return (b.might||0) - (a.might||0);
+        const diff = _rn(b.rank) - _rn(a.rank);
+        return diff !== 0 ? diff : (a.name||'').localeCompare(b.name||'');
       }
       return (b[_sortKey]||0) - (a[_sortKey]||0);
     });
