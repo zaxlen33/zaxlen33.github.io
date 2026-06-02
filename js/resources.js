@@ -240,8 +240,16 @@
       return;
     }
 
+    // Sort: rank descending (R5 → R4 → R3 → R2 → R1), then name A→Z within each rank
+    const rankNum = r => parseInt((r.rank || '').replace(/\D/g, ''), 10) || 0;
+    const sorted = [...filtered].sort((a, b) => {
+      const rDiff = rankNum(b) - rankNum(a);
+      if (rDiff !== 0) return rDiff;
+      return (a.name || '').localeCompare(b.name || '');
+    });
+
     // Render rows — no kills, no power, no profile link; just name + resource buttons
-    list.innerHTML = filtered.map((m, i) => {
+    list.innerHTML = sorted.map((m, i) => {
       const tgBadge = m.telegram
         ? `<span class="tg-badge">💬 ${escHtml(m.telegram)}</span>`
         : '';
