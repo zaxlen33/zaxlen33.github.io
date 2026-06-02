@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="UE Guild Administration — Performance Control and Resource Command Generator.">
+  <title>Administration · UE Guild Dashboard</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script src="./js/i18n.js"></script>
+</head>
+<body>
+
+  <!-- nav.js injects sidebar + topbar here -->
+
+  <!-- ── Page Content ── -->
+  <main class="container">
+
+    <!-- Hero / header -->
+    <div class="modules-hero">
+      <h1 data-i18n="admin_title">⚙️ Administration</h1>
+      <p data-i18n="admin_desc">Admin tools and restricted management panel for guild officers.</p>
+    </div>
+
+    <!-- Module navigation cards -->
+    <div class="modules-grid">
+
+      <!-- Performance Control -->
+      <a href="./performance.html" class="module-card kills" id="module-perf-admin">
+        <div class="module-icon-wrap">⚠️</div>
+        <div class="module-card-title" data-i18n="module_performance">Performance Control</div>
+        <p class="module-card-desc" data-i18n="module_performance_desc">Historical underperformance tracking across War, Hunt and Festival reports. Restricted access.</p>
+        <span class="module-card-arrow" data-i18n="view_details">View Details →</span>
+      </a>
+
+      <!-- Resources Command Generator -->
+      <a href="./resources.html" class="module-card admin-resources" id="module-resources-admin">
+        <div class="module-icon-wrap">📦</div>
+        <div class="module-card-title" data-i18n="module_resources">Resources</div>
+        <p class="module-card-desc" data-i18n="module_resources_desc">Generate admin resource commands for guild members. Search and click to copy instantly.</p>
+        <span class="module-card-arrow" data-i18n="view_details">View Details →</span>
+      </a>
+
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container" data-i18n="footer_text">
+      UE Guild Dashboard · Data updated via Telegram Bot · All rights reserved
+    </div>
+  </footer>
+
+  <script src="./js/nav.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
