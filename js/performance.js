@@ -439,7 +439,8 @@
     const filterType = document.getElementById('perf-filter').value;
 
     const filtered = cachedPlayers.filter(p => {
-      if (query && !p.name.toLowerCase().includes(query)) return false;
+      if (query && !p.name.toLowerCase().includes(query)
+               && !(p.uid || '').toLowerCase().includes(query)) return false;
       if (filterType === 'fail1' && p.globalFailures < 1) return false;
       if (filterType === 'fail3' && p.globalFailures < 2) return false;
       if (filterType === 'fail5' && p.globalFailures < 3) return false;
