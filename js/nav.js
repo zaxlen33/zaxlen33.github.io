@@ -6,9 +6,6 @@
 
 (function () {
 
-  // Feature Toggles
-  const ENABLE_PERFORMANCE_TAB = true;
-
   /* ── Nav items config ── */
   const NAV_ITEMS = [
     { href: './index.html', icon: '🏠', key: 'nav_home' },
@@ -19,7 +16,7 @@
     { href: './members.html', icon: '👥', key: 'nav_members' },
     { href: './tracker.html', icon: '🕵️', key: 'nav_tracker' },
     { href: './firstseen.html', icon: '👁️', key: 'nav_firstseen' },
-    ...(ENABLE_PERFORMANCE_TAB ? [{ href: './performance.html', icon: '⚠️', key: 'nav_performance' }] : [])
+    { href: './admin.html', icon: '⚙️', key: 'nav_admin' }
   ];
 
   /* ── Determine active page ── */
