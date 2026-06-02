@@ -3190,3 +3190,230 @@ tbody td { padding: 10px 14px; }
   box-shadow: var(--shadow);
   padding: 5px 10px;
 }
+
+/* ══════════════════════════════════════════════════════════
+   ADMINISTRATION MODULE CARD (index.html + admin.html)
+   ══════════════════════════════════════════════════════════ */
+
+.module-card.admin-hub {
+  --module-accent: #a371f7;
+  --module-glow: radial-gradient(ellipse at top left, rgba(163,113,247,0.08) 0%, transparent 70%);
+}
+
+.module-card.admin-hub      .module-icon-wrap { background: rgba(163,113,247,0.13); }
+.module-card.admin-resources { --module-accent: #58a6ff; --module-glow: radial-gradient(ellipse at top left, rgba(88,166,255,0.07) 0%, transparent 70%); }
+.module-card.admin-resources .module-icon-wrap { background: rgba(88,166,255,0.12); }
+
+/* ══════════════════════════════════════════════════════════
+   RESOURCES PAGE  (resources.html / resources.js)
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Quick hint bar beneath the search box ── */
+.res-hint {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  padding: 0.4rem 0.75rem 0.55rem;
+  line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+  align-items: center;
+}
+
+.res-hint span { color: var(--text-secondary); font-weight: 600; }
+.res-hint code {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0px 5px;
+  color: var(--text-secondary);
+}
+
+/* ── Member list ── */
+.res-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.5rem;
+}
+
+/* ── Single member row ── */
+.res-member-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  padding: 0.7rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: background 0.15s, border-color 0.15s;
+  flex-wrap: wrap;
+}
+
+.res-member-row:hover {
+  background: var(--bg-hover, rgba(255,255,255,0.035));
+  border-color: var(--border-accent);
+}
+
+/* ── Member info (left side) ── */
+.res-member-info {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  flex: 1 1 160px;
+}
+
+.res-member-index {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  min-width: 2rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.res-member-details { min-width: 0; }
+
+.res-member-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.res-member-meta {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-top: 0.2rem;
+}
+
+/* ── Resource buttons group (right side) ── */
+.res-btn-group {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+/* ── Base resource button ── */
+.res-btn {
+  padding: 0.28rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.12s, filter 0.12s, box-shadow 0.12s;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+}
+
+.res-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.18);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+}
+
+.res-btn:active {
+  transform: translateY(0);
+  filter: brightness(0.88);
+  box-shadow: none;
+}
+
+/* Flash animation when clicked */
+.res-btn-flash {
+  animation: resBtnFlash 0.65s ease forwards;
+}
+
+@keyframes resBtnFlash {
+  0%   { transform: scale(1); filter: brightness(1); }
+  20%  { transform: scale(1.18); filter: brightness(1.5); }
+  60%  { transform: scale(1.05); filter: brightness(1.2); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+/* ── Per-resource colour variants ── */
+.res-btn-general { background: linear-gradient(135deg, #b48ef7, #7c3aed); color: #fff; }
+.res-btn-food    { background: linear-gradient(135deg, #4ade80, #16a34a); color: #0a1a0e; }
+.res-btn-stone   { background: linear-gradient(135deg, #94a3b8, #64748b); color: #fff; }
+.res-btn-wood    { background: linear-gradient(135deg, #fbbf24, #a16207); color: #1a0e00; }
+.res-btn-ore     { background: linear-gradient(135deg, #60a5fa, #1d4ed8); color: #fff; }
+.res-btn-gold    { background: linear-gradient(135deg, #fde047, #f59e0b); color: #1a1200; }
+
+/* ══════════════════════════════════════════════════════════
+   COPY-COMMAND TOAST NOTIFICATION
+   ══════════════════════════════════════════════════════════ */
+
+.res-toast {
+  position: fixed;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(120px);
+  background: var(--bg-card);
+  border: 1px solid rgba(74,222,128,0.35);
+  border-radius: 12px;
+  padding: 0.65rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.87rem;
+  color: var(--text-primary);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s;
+  opacity: 0;
+  z-index: 9999;
+  max-width: min(92vw, 560px);
+  pointer-events: none;
+}
+
+.res-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.res-toast-icon { font-size: 1.15rem; flex-shrink: 0; }
+
+.res-toast-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.res-toast-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.res-toast-cmd {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #4ade80;
+  background: rgba(74,222,128,0.08);
+  border: 1px solid rgba(74,222,128,0.18);
+  border-radius: 5px;
+  padding: 2px 7px;
+  word-break: break-all;
+  display: block;
+}
+
+/* ── Mobile adjustments ── */
+@media (max-width: 600px) {
+  .res-member-row { padding: 0.6rem 0.7rem; }
+  .res-btn { font-size: 0.7rem; padding: 0.25rem 0.45rem; }
+  .res-member-name { font-size: 0.85rem; }
+  .res-hint { display: none; }
+  .res-toast { font-size: 0.8rem; padding: 0.55rem 0.85rem; }
+}
