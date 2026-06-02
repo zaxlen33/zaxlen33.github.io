@@ -538,10 +538,11 @@ function renderWarDetail(container, war) {
     }).join('');
   }
 
+  let _search = '';
+
   applyAll();
 
   // Search and Sort
-  let _search = '';
   document.getElementById('war-search').addEventListener('input', e => { 
     _search = e.target.value.trim().toLowerCase(); 
     applyAll(); 
@@ -917,9 +918,10 @@ function renderHuntDetail(container, hunt) {
     }).join('');
   }
 
+  let _search = '', _filter = '', _sortKey = 'rank';
+
   applyHuntAll();
 
-  let _search = '', _filter = '', _sortKey = 'rank';
   function applyHuntAll() {
     currentPlayers = players.filter(p => {
       const nameOk = !_search
@@ -1119,9 +1121,10 @@ function renderHistoryList(container, members, lastUpdated) {
     }).join('');
   }
 
+  let _search = '', _rank = '', _sort = 'rank';
+
   applyHistoryAll();
 
-  let _search = '', _rank = '', _sort = 'rank';
   function applyHistoryAll() {
     const _rn = x => { const v=(x||''); return v.includes('5')?5:v.includes('4')?4:v.includes('3')?3:v.includes('2')?2:v.includes('1')?1:0; };
     currentMembers = sorted.filter(m => {
@@ -1254,9 +1257,6 @@ function renderHistoryDetail(container, member, lastUpdated) {
 // ══════════════════════════════════════════════════════════
 //  ROUTER — detect current page and init
 // ══════════════════════════════════════════════════════════
-// ══════════════════════════════════════════════════════════
-//  ROUTER — detect current page and init
-// ══════════════════════════════════════════════════════════
 
 function route() {
   initMobileMenu();
@@ -1376,9 +1376,10 @@ async function initMembers() {
       </tr>`).join('');
   }
 
+  let _search = '', _sortKey = 'rank';
+
   applyFilters();
 
-  let _search = '', _sortKey = 'rank';
   function applyFilters() {
     const _rn = x => { if (!x) return 0; if (x.includes('5')) return 5; if (x.includes('4')) return 4; if (x.includes('3')) return 3; if (x.includes('2')) return 2; if (x.includes('1')) return 1; return 0; };
     currentMembers = data.filter(m => !_search
