@@ -293,9 +293,14 @@
 
   function sortPlayers() {
     const sortSelect = document.getElementById('perf-sort');
-    const sortMode = sortSelect ? sortSelect.value : 'failures_desc';
+    const sortMode = sortSelect ? sortSelect.value : 'rank';
 
     cachedPlayers.sort((a, b) => {
+      if (sortMode === 'rank') {
+        const _rn = x => { const v = (x || ''); return v.includes('5')?5:v.includes('4')?4:v.includes('3')?3:v.includes('2')?2:v.includes('1')?1:0; };
+        const diff = _rn(b.rank) - _rn(a.rank);
+        return diff !== 0 ? diff : (a.name || '').localeCompare(b.name || '');
+      }
       if (sortMode === 'failures_desc') {
         if (b.globalFailures !== a.globalFailures) return b.globalFailures - a.globalFailures;
         if (b.failures !== a.failures) return b.failures - a.failures;
@@ -378,6 +383,7 @@
           </select>
 
           <select class="select-box" id="perf-sort" style="min-width: 220px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-primary); padding: 8px 12px; outline: none; cursor: pointer;">
+            <option value="rank" selected>${window.t ? window.t('sort_rank') : 'Sort by Rank'}</option>
             <option value="failures_desc">${getPerfT('sort_failures_desc')}</option>
             <option value="rate_desc">${getPerfT('sort_rate_desc')}</option>
             <option value="war_desc">${getPerfT('sort_war_desc')}</option>
