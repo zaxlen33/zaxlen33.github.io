@@ -553,7 +553,9 @@ function renderWarDetail(container, war) {
 
   function applyAll() {
     const sKey = document.getElementById('war-sort').value;
-    currentMembers = members.filter(m => !_search || (m.name || '').toLowerCase().includes(_search));
+    currentMembers = members.filter(m => !_search
+      || (m.name || '').toLowerCase().includes(_search)
+      || (m.uid  || '').toLowerCase().includes(_search));
     currentMembers.sort((a, b) => {
       if (sKey === 'name') return (a.name || '').localeCompare(b.name || '');
       if (sKey === 'rank') {
@@ -919,7 +921,9 @@ function renderHuntDetail(container, hunt) {
   let _search = '', _filter = '', _sortKey = 'name';
   function applyHuntAll() {
     currentPlayers = players.filter(p => {
-      const nameOk = !_search || (p.name || '').toLowerCase().includes(_search);
+      const nameOk = !_search
+        || (p.name || '').toLowerCase().includes(_search)
+        || (p.uid  || p.user_id || '').toLowerCase().includes(_search);
       const filterOk = !_filter || (_filter === 'met' ? p.met_minimum : !p.met_minimum);
       return nameOk && filterOk;
     });
@@ -1119,7 +1123,9 @@ function renderHistoryList(container, members, lastUpdated) {
     currentMembers = sorted.filter(m => {
       const snaps = m.snapshots || [];
       const last = snaps.length ? snaps[snaps.length - 1] : {};
-      const nameOk = !_search || (m.name || '').toLowerCase().includes(_search);
+      const nameOk = !_search
+        || (m.name || '').toLowerCase().includes(_search)
+        || (m.uid  || '').toLowerCase().includes(_search);
       const rankOk = !_rank || (last.rank || '').toLowerCase().replace(/\s+/g, '') === _rank;
       return nameOk && rankOk;
     });
@@ -1374,7 +1380,11 @@ async function initMembers() {
       if (x.includes('1')) return 1;
       return 0;
     }
-    currentMembers = data.filter(m => !_search || (m.name || '').toLowerCase().includes(_search));
+    currentMembers = data.filter(m => !_search
+      || (m.name     || '').toLowerCase().includes(_search)
+      || (m.uid      || '').toLowerCase().includes(_search)
+      || (m.telegram || '').toLowerCase().includes(_search)
+      || String(m.igg_id || '').includes(_search));
     currentMembers.sort((a, b) => {
       if (_sortKey === 'name') return (a.name||'').localeCompare(b.name||'');
       if (_sortKey === 'rank') {
