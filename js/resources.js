@@ -69,15 +69,17 @@
   /** Build the bot command string for a given resource type and player name */
   function buildCommand(type, name) {
     const pn = toCmd(name);
+    let baseCmd = '';
     switch (type) {
-      case 'general': return `!adminrss 32M 32M 32M 32M 10M ${pn}`;
-      case 'food':    return `!adminfood ${pn} 32M`;
-      case 'stone':   return `!adminstone ${pn} 32M`;
-      case 'wood':    return `!adminwood ${pn} 32M`;
-      case 'ore':     return `!adminore ${pn} 32M`;
-      case 'gold':    return `!admingold ${pn} 10M`;
+      case 'general': baseCmd = `!adminrss 32M 32M 32M 32M 10M ${pn}`; break;
+      case 'food':    baseCmd = `!adminfood ${pn} 32M`; break;
+      case 'stone':   baseCmd = `!adminstone ${pn} 32M`; break;
+      case 'wood':    baseCmd = `!adminwood ${pn} 32M`; break;
+      case 'ore':     baseCmd = `!adminore ${pn} 32M`; break;
+      case 'gold':    baseCmd = `!admingold ${pn} 10M`; break;
       default:        return '';
     }
+    return `${baseCmd}\n${baseCmd.replace('!', '@')}`;
   }
 
   /** Copy text to clipboard (with fallback for older browsers) */
