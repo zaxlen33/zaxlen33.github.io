@@ -636,10 +636,15 @@
 
     /* Sheet header */
     .tc-sheet-hd {
+      position: sticky;
+      top: 0;
+      background: var(--bg-card);
+      z-index: 10;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 1.1rem 0.75rem;
+      padding: 0.85rem 1.1rem;
+      border-bottom: 1px solid var(--border);
     }
     .tc-sheet-hd h3 { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin: 0; }
     .tc-sheet-close {
@@ -656,6 +661,25 @@
       transition: all .15s;
     }
     .tc-sheet-close:hover { color: var(--text-primary); }
+
+    .tc-sheet-close-btn {
+      display: block;
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 1.5rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: background .15s;
+    }
+    .tc-sheet-close-btn:hover {
+      background: rgba(255,255,255,.05);
+    }
 
     /* Sheet body reuses same classes as sidebar */
     .tc-sheet-body { padding: 0 1.1rem 2.5rem; }
@@ -839,6 +863,7 @@
       <div class="tc-sec" data-i18n="calc_resources_label">Resources Needed</div>
       <div id="s-res" class="tc-rsc-list"></div>
       <div class="tc-note" data-i18n="calc_disclaimer">Note: Values are estimates and may vary by talents, heroes and equipment.</div>
+      <button class="tc-sheet-close-btn" id="tc-sheet-close-bottom" data-i18n="calc_close_btn">Cerrar</button>
     </div>
   </div>
 
