@@ -293,21 +293,37 @@
     const sheet    = document.getElementById('tc-sheet');
     const backdrop = document.getElementById('tc-backdrop');
     const closeBtn = document.getElementById('tc-sheet-close');
+    const closeBtnBottom = document.getElementById('tc-sheet-close-bottom');
 
     function open() {
       sheet?.classList.add('open');
       backdrop?.classList.add('open');
       document.body.style.overflow = 'hidden';
+      // Push history state to intercept physical back button on mobile
+      window.history.pushState({ tcSheetOpen: true }, '');
     }
-    function close() {
-      sheet?.classList.remove('open');
-      backdrop?.classList.remove('open');
-      document.body.style.overflow = '';
+
+    function close(fromPopState = false) {
+      if (sheet?.classList.contains('open')) {
+        sheet.classList.remove('open');
+        backdrop?.classList.remove('open');
+        document.body.style.overflow = '';
+        if (!fromPopState) {
+          if (window.history.state && window.history.state.tcSheetOpen) {
+            window.history.back();
+          }
+        }
+      }
     }
 
     openBtn?.addEventListener('click', open);
-    closeBtn?.addEventListener('click', close);
-    backdrop?.addEventListener('click', close);
+    closeBtn?.addEventListener('click', () => close(false));
+    closeBtnBottom?.addEventListener('click', () => close(false));
+    backdrop?.addEventListener('click', () => close(false));
+
+    window.addEventListener('popstate', (e) => {
+      close(true);
+    });
   }
 
   /* ═══════════════════════════════════════════════════════════
