@@ -8,15 +8,14 @@
 
   /* ── Nav items config ── */
   const NAV_ITEMS = [
-    { href: './index.html', icon: '🏠', key: 'nav_home' },
-    { href: './war.html', icon: '⚔️', key: 'nav_war' },
-    { href: './hunt.html', icon: '🦅', key: 'nav_hunt' },
-    { href: './festival.html', icon: '🎪', key: 'nav_festival' },
-    { href: './rankings.html', icon: '🏆', key: 'nav_rankings' },
-    { href: './members.html', icon: '👥', key: 'nav_members' },
-    { href: './tracker.html', icon: '🕵️', key: 'nav_tracker' },
-    { href: './firstseen.html', icon: '👁️', key: 'nav_firstseen' },
-    { href: './admin.html', icon: '⚙️', key: 'nav_admin' }
+    { href: './index.html',    icon: '🏠',  key: 'nav_home'     },
+    { href: './war.html',      icon: '⚔️',  key: 'nav_war'      },
+    { href: './hunt.html',     icon: '🦅',  key: 'nav_hunt'     },
+    { href: './festival.html', icon: '🎪',  key: 'nav_festival' },
+    { href: './rankings.html', icon: '🏆',  key: 'nav_rankings' },
+    { href: './members.html',  icon: '👥',  key: 'nav_members'  },
+    { href: './tools.html',    icon: '🛠️', key: 'nav_tools'    },
+    { href: './admin.html',    icon: '⚙️',  key: 'nav_admin'    }
   ];
 
   /* ── Determine active page ── */
