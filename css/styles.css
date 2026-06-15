@@ -2019,7 +2019,8 @@ body {
 .module-card.members    { --module-accent: #bc8cff; --module-glow: radial-gradient(ellipse at top left, rgba(188,140,255,0.06) 0%, transparent 70%); }
 .module-card.firstseen  { --module-accent: #db61a2; --module-glow: radial-gradient(ellipse at top left, rgba(219,97,162,0.06) 0%, transparent 70%); }
 .module-card.festival   { --module-accent: #ffa657; --module-glow: radial-gradient(ellipse at top left, rgba(255,166,87,0.06) 0%, transparent 70%); }
-.module-card.tracker    { --module-accent: #58a6ff; --module-glow: radial-gradient(ellipse at top left, rgba(88,166,255,0.06) 0%, transparent 70%); }
+.module-card.tracker      { --module-accent: #58a6ff; --module-glow: radial-gradient(ellipse at top left, rgba(88,166,255,0.06) 0%, transparent 70%); }
+.module-card.troops-calc  { --module-accent: #e3a21a; --module-glow: radial-gradient(ellipse at top left, rgba(227,162,26,0.07) 0%, transparent 70%); }
 
 /* ── Dashboard module card icon wrapper ── */
 .module-icon-wrap {
@@ -2041,7 +2042,8 @@ body {
 .module-card.members    .module-icon-wrap { background: rgba(188,140,255,0.12); }
 .module-card.firstseen  .module-icon-wrap { background: rgba(219,97,162,0.12); }
 .module-card.festival   .module-icon-wrap { background: rgba(255,166,87,0.12); }
-.module-card.tracker    .module-icon-wrap { background: rgba(88,166,255,0.12); }
+.module-card.tracker      .module-icon-wrap { background: rgba(88,166,255,0.12); }
+.module-card.troops-calc  .module-icon-wrap { background: rgba(227,162,26,0.12); }
 
 /* ── Dashboard "More Modules" footer card ── */
 .module-card-footer  { margin-bottom: 2rem; }
