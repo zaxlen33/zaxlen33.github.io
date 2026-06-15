@@ -44,17 +44,17 @@
     // ── Tier 2
     { id: 'tier_2_gladiator',       tier: 2, might: 8,  res: [100, 0,   100, 100, 5],   img: 'images/troops/T2/inf_gladiator.jpg',           type: 'Infantry' },
     { id: 'tier_2_sharpshooter',    tier: 2, might: 8,  res: [100, 100, 100, 0,   5],   img: 'images/troops/T2/rng_sharpshooter.jpg',        type: 'Ranged'   },
-    { id: 'tier_2_reptilian_rider', tier: 2, might: 8,  res: [100, 100, 0,   100, 5],   img: 'images/troops/T2/cav_reptilian rider.jpg',     type: 'Cavalry'  },
+    { id: 'tier_2_reptilian_rider', tier: 2, might: 8,  res: [100, 100, 0,   100, 5],   img: 'images/troops/T2/cav_reptilian_rider.jpg',     type: 'Cavalry'  },
     { id: 'tier_2_catapult',        tier: 2, might: 8,  res: [100, 100, 100, 100, 5],   img: 'images/troops/T2/siege_catapult.jpg',          type: 'Siege'    },
     // ── Tier 3
-    { id: 'tier_3_royal_guard',     tier: 3, might: 24, res: [150, 0,   150, 150, 10],  img: 'images/troops/T3/inf_royal guard.jpg',         type: 'Infantry' },
-    { id: 'tier_3_stealth_sniper',  tier: 3, might: 24, res: [150, 150, 150, 0,   10],  img: 'images/troops/T3/rng_stealth sniper.jpg',      type: 'Ranged'   },
-    { id: 'tier_3_royal_cavalry',   tier: 3, might: 24, res: [150, 150, 0,   150, 10],  img: 'images/troops/T3/cav_royal cavalry.jpg',       type: 'Cavalry'  },
-    { id: 'tier_3_fire_trebuchet',  tier: 3, might: 24, res: [150, 150, 150, 150, 10],  img: 'images/troops/T3/siege_fire trebuchet.jpg',    type: 'Siege'    },
+    { id: 'tier_3_royal_guard',     tier: 3, might: 24, res: [150, 0,   150, 150, 10],  img: 'images/troops/T3/inf_royal_guard.jpg',         type: 'Infantry' },
+    { id: 'tier_3_stealth_sniper',  tier: 3, might: 24, res: [150, 150, 150, 0,   10],  img: 'images/troops/T3/rng_stealth_sniper.jpg',      type: 'Ranged'   },
+    { id: 'tier_3_royal_cavalry',   tier: 3, might: 24, res: [150, 150, 0,   150, 10],  img: 'images/troops/T3/cav_royal_cavalry.jpg',       type: 'Cavalry'  },
+    { id: 'tier_3_fire_trebuchet',  tier: 3, might: 24, res: [150, 150, 150, 150, 10],  img: 'images/troops/T3/siege_fire_trebuchet.jpg',    type: 'Siege'    },
     // ── Tier 4
-    { id: 'tier_4_heroic_fighter',       tier: 4, might: 36, res: [1000, 0,    1000, 1000, 500], img: 'images/troops/T4/inf_heroic fighter.jpg',       type: 'Infantry' },
-    { id: 'tier_4_heroic_cannoneer',     tier: 4, might: 36, res: [1000, 1000, 1000, 0,    500], img: 'images/troops/T4/rng_heroic cannoneer.jpg',     type: 'Ranged'   },
-    { id: 'tier_4_ancient_drake_rider',  tier: 4, might: 36, res: [1000, 1000, 0,    1000, 500], img: 'images/troops/T4/cav_ancient drake rider.jpg',  type: 'Cavalry'  },
+    { id: 'tier_4_heroic_fighter',       tier: 4, might: 36, res: [1000, 0,    1000, 1000, 500], img: 'images/troops/T4/inf_heroic_fighter.jpg',       type: 'Infantry' },
+    { id: 'tier_4_heroic_cannoneer',     tier: 4, might: 36, res: [1000, 1000, 1000, 0,    500], img: 'images/troops/T4/rng_heroic_cannoneer.jpg',     type: 'Ranged'   },
+    { id: 'tier_4_ancient_drake_rider',  tier: 4, might: 36, res: [1000, 1000, 0,    1000, 500], img: 'images/troops/T4/cav_ancient_drake_rider.jpg',  type: 'Cavalry'  },
     { id: 'tier_4_destroyer',            tier: 4, might: 36, res: [1000, 1000, 1000, 1000, 500], img: 'images/troops/T4/siege_destroyer.jpg',           type: 'Siege'    },
   ];
 
