@@ -275,7 +275,7 @@
   const mergeQuests = (defaults, tasksData) => buildQuestsFromTasks(tasksData);
 
   // ── State ────────────────────────────────────────────────────────────────────
-  let selectedLeague = null;
+  let selectedLeague = LEAGUES.find(l => l.id === 'master');
   let plan = [];           // { questId, label, pts, type }
   let activeCat  = 'All';
   let searchTerm = '';
@@ -297,33 +297,30 @@
 
   // ── Render leagues ───────────────────────────────────────────────────────────
   function renderLeagues() {
-    const grid = $('gfc-league-grid');
-    if (!grid) return;
+    const wrap = $('gfc-league-select-wrap');
+    if (!wrap) return;
 
-    const buttonsHtml = LEAGUES.map(l => {
+    const optionsHtml = LEAGUES.map(l => {
       const tKey = `gfc_league_${l.id}`;
       const label = typeof window.t === 'function' && window.t(tKey) !== tKey ? window.t(tKey) : l.label;
-      return `
-      <button class="gfc-league-btn ${selectedLeague?.id === l.id ? 'active' : ''}"
-              data-league="${l.id}" id="gfc-league-${l.id}" data-i18n="${tKey}">
-        ${label}
-      </button>`;
+      return `<option value="${l.id}" ${selectedLeague?.id === l.id ? 'selected' : ''}>${label}</option>`;
     }).join('');
 
-    grid.innerHTML = `
-      <div class="gfc-leagues-grid">
-        ${buttonsHtml}
-      </div>
+    wrap.innerHTML = `
+      <select class="gfc-premium-select" id="gfc-league-select">
+        ${optionsHtml}
+      </select>
     `;
 
-    grid.querySelectorAll('.gfc-league-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        selectedLeague = LEAGUES.find(l => l.id === btn.dataset.league);
+    const selectEl = $('gfc-league-select');
+    if (selectEl) {
+      selectEl.addEventListener('change', (e) => {
+        selectedLeague = LEAGUES.find(l => l.id === e.target.value);
         renderLeagues();
         renderLeagueInfo();
         renderPlanSummary();
       });
-    });
+    }
   }
 
   // ── Render league info panel ─────────────────────────────────────────────────
