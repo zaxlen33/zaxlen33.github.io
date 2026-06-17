@@ -418,7 +418,12 @@
         "gfc_alert_limit": "Limit reached! You cannot add more than {attempts} missions in this league.",
         "tasks_desc": "Current required targets and bonus information for guild tasks.",
         "tools_gfc_card_title": "Guild Festival Calc",
-        "tools_gfc_card_desc": "Plan your Guild Festival missions. Select your league, add quest scores, and see if you'll hit the maximum."
+        "tools_gfc_card_desc": "Plan your Guild Festival missions. Select your league, add quest scores, and see if you'll hit the maximum.",
+        "gfc_league_beginner": "Beginner",
+        "gfc_league_intermediate": "Intermediate",
+        "gfc_league_advanced": "Advanced",
+        "gfc_league_expert": "Expert",
+        "gfc_league_master": "Master"
     },
     "es": {
         "nav_home": "🏠 Inicio",
@@ -838,7 +843,12 @@
         "gfc_alert_limit": "¡Límite alcanzado! No puedes agregar más de {attempts} misiones en esta liga.",
         "tasks_desc": "Objetivos requeridos actuales e información de bonus para las misiones de gremio.",
         "tools_gfc_card_title": "Calculadora de Festival",
-        "tools_gfc_card_desc": "Planifica tus misiones de Fiesta de Gremio. Selecciona tu liga, añade puntajes de misiones y comprueba si alcanzarás la meta máxima."
+        "tools_gfc_card_desc": "Planifica tus misiones de Fiesta de Gremio. Selecciona tu liga, añade puntajes de misiones y comprueba si alcanzarás la meta máxima.",
+        "gfc_league_beginner": "Principiante",
+        "gfc_league_intermediate": "Intermedio",
+        "gfc_league_advanced": "Avanzado",
+        "gfc_league_expert": "Experto",
+        "gfc_league_master": "Maestro"
     },
     "fr": {
         "nav_home": "🏠 Accueil",
@@ -1258,7 +1268,12 @@
         "gfc_alert_limit": "Limite atteinte ! Vous ne pouvez pas ajouter plus de {attempts} missions dans cette ligue.",
         "tasks_desc": "Objectifs requis actuels et informations sur les bonus pour les missions de guilde.",
         "tools_gfc_card_title": "Calculateur de Festival",
-        "tools_gfc_card_desc": "Planifiez vos missions de Festival de Guilde. Sélectionnez votre ligue, ajoutez des scores et vérifiez si vous atteindrez le maximum."
+        "tools_gfc_card_desc": "Planifiez vos missions de Festival de Guilde. Sélectionnez votre ligue, ajoutez des scores et vérifiez si vous atteindrez le maximum.",
+        "gfc_league_beginner": "Débutant",
+        "gfc_league_intermediate": "Intermédiaire",
+        "gfc_league_advanced": "Avancé",
+        "gfc_league_expert": "Expert",
+        "gfc_league_master": "Maître"
     },
     "pt": {
         "nav_home": "🏠 Início",
@@ -1667,7 +1682,12 @@
         "gfc_alert_limit": "Limite atingido! Você não pode adicionar mais de {attempts} missões nesta liga.",
         "tasks_desc": "Objetivos atuais exigidos e informações de bônus para missões de guilda.",
         "tools_gfc_card_title": "Calculadora do Festival",
-        "tools_gfc_card_desc": "Planeje suas missões de Festival de Guilda. Selecione sua liga, adicione pontuações e veja se alcançará o máximo."
+        "tools_gfc_card_desc": "Planeje suas missões de Festival de Guilda. Selecione sua liga, adicione pontuações e veja se alcançará o máximo.",
+        "gfc_league_beginner": "Principiante",
+        "gfc_league_intermediate": "Intermediário",
+        "gfc_league_advanced": "Avançado",
+        "gfc_league_expert": "Especialista",
+        "gfc_league_master": "Mestre"
     },
     "ja": {
         "nav_home": "🏠 ホーム",
@@ -2087,7 +2107,12 @@
         "gfc_alert_limit": "上限に達しました！このリーグでは{attempts}個以上のミッションを追加することはできません。",
         "tasks_desc": "ギルド任務の現在の必要目標とボーナス情報。",
         "tools_gfc_card_title": "ギルド共闘計算",
-        "tools_gfc_card_desc": "ギルド共闘のミッションを計画します。リーグを選択し、クエストスコアを追加して、最大ポイントに達するか確認します。"
+        "tools_gfc_card_desc": "ギルド共闘のミッションを計画します。リーグを選択し、クエストスコアを追加して、最大ポイントに達するか確認します。",
+        "gfc_league_beginner": "初級",
+        "gfc_league_intermediate": "中級",
+        "gfc_league_advanced": "高級",
+        "gfc_league_expert": "エキスパート",
+        "gfc_league_master": "マスター"
     },
     "vi": {
         "nav_home": "🏠 Trang chủ",
@@ -2507,7 +2532,12 @@
         "gfc_alert_limit": "Đã đạt giới hạn! Bạn không thể thêm quá {attempts} nhiệm vụ trong giải đấu này.",
         "tasks_desc": "Các mục tiêu yêu cầu hiện tại và thông tin phần thưởng cho nhiệm vụ bang hội.",
         "tools_gfc_card_title": "Máy tính Lễ hội",
-        "tools_gfc_card_desc": "Lập kế hoạch nhiệm vụ Lễ hội Bang hội của bạn. Chọn giải đấu, thêm điểm nhiệm vụ và xem liệu bạn có đạt điểm tối đa hay không."
+        "tools_gfc_card_desc": "Lập kế hoạch nhiệm vụ Lễ hội Bang hội của bạn. Chọn giải đấu, thêm điểm nhiệm vụ và xem liệu bạn có đạt điểm tối đa hay không.",
+        "gfc_league_beginner": "Tập sự",
+        "gfc_league_intermediate": "Trung cấp",
+        "gfc_league_advanced": "Cao cấp",
+        "gfc_league_expert": "Chuyên gia",
+        "gfc_league_master": "Bậc thầy"
     },
     "zh": {
         "nav_home": "🏠 首页",
@@ -2927,6 +2957,11 @@
         "gfc_alert_limit": "已达上限！您在此联赛中最多只能添加 {attempts} 个任务。",
         "tasks_desc": "联盟任务的当前要求目标和奖励信息。",
         "tools_gfc_card_title": "联盟总动员计算",
-        "tools_gfc_card_desc": "计划您的联盟总动员任务。选择您的联赛，添加任务分数，并查看您是否能达到最大积分。"
+        "tools_gfc_card_desc": "计划您的联盟总动员任务。选择您的联赛，添加任务分数，并查看您是否能达到最大积分。",
+        "gfc_league_beginner": "新手",
+        "gfc_league_intermediate": "中级",
+        "gfc_league_advanced": "高级",
+        "gfc_league_expert": "专家",
+        "gfc_league_master": "大师"
     }
 }
