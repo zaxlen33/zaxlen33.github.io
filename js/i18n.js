@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         this.applyTranslations();
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: this.currentLang }));
 
         // 2. Initialise switchers
         const tryInit = () => {
