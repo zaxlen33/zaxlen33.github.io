@@ -427,7 +427,8 @@
         "gfc_tab_catalogue": "Catalogue",
         "gfc_tab_plan": "My Plan",
         "gfc_filter_league": "League",
-        "gfc_filter_category": "Category"
+        "gfc_filter_category": "Category",
+        "gfc_alert_type_limit": "Limit reached! You cannot add more than {limit} {typeName} missions in this league."
     },
     "es": {
         "nav_home": "🏠 Inicio",
@@ -856,7 +857,8 @@
         "gfc_tab_catalogue": "Misiones",
         "gfc_tab_plan": "Mi Plan",
         "gfc_filter_league": "Liga",
-        "gfc_filter_category": "Categoría"
+        "gfc_filter_category": "Categoría",
+        "gfc_alert_type_limit": "¡Límite alcanzado! No puedes añadir más de {limit} misiones de tipo {typeName} en esta liga."
     },
     "fr": {
         "nav_home": "🏠 Accueil",
@@ -1285,7 +1287,8 @@
         "gfc_tab_catalogue": "Catalogue",
         "gfc_tab_plan": "Mon Plan",
         "gfc_filter_league": "Ligue",
-        "gfc_filter_category": "Catégorie"
+        "gfc_filter_category": "Catégorie",
+        "gfc_alert_type_limit": "Limite atteinte ! Vous ne pouvez pas ajouter plus de {limit} missions de type {typeName} dans cette ligue."
     },
     "pt": {
         "nav_home": "🏠 Início",
@@ -1703,7 +1706,8 @@
         "gfc_tab_catalogue": "Catálogo",
         "gfc_tab_plan": "Meu Plano",
         "gfc_filter_league": "Liga",
-        "gfc_filter_category": "Categoria"
+        "gfc_filter_category": "Categoria",
+        "gfc_alert_type_limit": "Limite atingido! Você não pode adicionar mais de {limit} missões do tipo {typeName} nesta liga."
     },
     "ja": {
         "nav_home": "🏠 ホーム",
@@ -2132,7 +2136,8 @@
         "gfc_tab_catalogue": "任務カタログ",
         "gfc_tab_plan": "作成プラン",
         "gfc_filter_league": "リーグ",
-        "gfc_filter_category": "カテゴリー"
+        "gfc_filter_category": "カテゴリー",
+        "gfc_alert_type_limit": "上限に達しました！このリーグでは{typeName}タイプの任務を{limit}個以上追加することはできません。"
     },
     "vi": {
         "nav_home": "🏠 Trang chủ",
@@ -2561,7 +2566,8 @@
         "gfc_tab_catalogue": "Nhiệm vụ",
         "gfc_tab_plan": "Kế hoạch",
         "gfc_filter_league": "Giải đấu",
-        "gfc_filter_category": "Thể loại"
+        "gfc_filter_category": "Thể loại",
+        "gfc_alert_type_limit": "Đã đạt giới hạn! Bạn không thể thêm quá {limit} nhiệm vụ loại {typeName} trong giải đấu này."
     },
     "zh": {
         "nav_home": "🏠 首页",
@@ -2990,6 +2996,7 @@
         "gfc_tab_catalogue": "任务目录",
         "gfc_tab_plan": "我的计划",
         "gfc_filter_league": "联赛",
-        "gfc_filter_category": "分类"
+        "gfc_filter_category": "分类",
+        "gfc_alert_type_limit": "已达上限！您在此联赛中最多只能添加 {limit} 个 {typeName} 类型的任务。"
     }
 }
