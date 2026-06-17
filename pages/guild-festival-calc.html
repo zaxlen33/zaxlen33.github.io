@@ -135,38 +135,39 @@
         <!-- ── Right: Main panel ── -->
         <div class="gfc-main-panel">
 
-          <!-- League selector -->
-          <div class="gfc-card">
-            <div class="gfc-card-header">
-              <h4>🏅 <span data-i18n="gfc_select_league">Select Your League</span></h4>
-            </div>
-            <div class="gfc-league-grid" id="gfc-league-grid"></div>
-          </div>
-
           <!-- Quest catalogue -->
           <div class="gfc-card">
             <div class="gfc-card-header">
               <h4>📖 <span data-i18n="gfc_mission_catalogue">Mission Catalogue</span></h4>
             </div>
 
-            <!-- Best Quests Filter & Search Row -->
-            <div class="gfc-controls-row">
-              <button id="gfc-best-toggle" class="gfc-best-btn">
-                ⭐ <span data-i18n="gfc_best_quests">Best quests</span>
-              </button>
-              <div class="gfc-search-wrap">
+            <!-- Consolidated Filter Bar -->
+            <div class="gfc-filter-bar">
+              <div class="gfc-filter-item">
+                <label class="gfc-filter-lbl" data-i18n="gfc_filter_league">League</label>
+                <div id="gfc-league-select-wrap"></div>
+              </div>
+              <div class="gfc-filter-item">
+                <label class="gfc-filter-lbl" data-i18n="gfc_filter_category">Category</label>
+                <div id="gfc-cat-filters"></div>
+              </div>
+              <div class="gfc-filter-item button">
+                <label class="gfc-filter-lbl" style="visibility: hidden;">&nbsp;</label>
+                <button id="gfc-best-toggle" class="gfc-best-btn">
+                  ⭐ <span data-i18n="gfc_best_quests">Best quests</span>
+                </button>
+              </div>
+              <div class="gfc-filter-item search">
+                <label class="gfc-filter-lbl" data-i18n="gfc_table_mission">Mission</label>
                 <input type="text" id="gfc-search" class="gfc-search-input" data-i18n="[placeholder]gfc_search_placeholder" placeholder="Search mission…">
               </div>
-            </div>
 
-            <!-- Category filter chips -->
-            <div class="gfc-cat-filters" id="gfc-cat-filters"></div>
-
-            <!-- Legend -->
-            <div class="gfc-legend">
-              <span><span style="color:var(--text-secondary)">●</span> <span data-i18n="gfc_legend_base">Base</span></span>
-              <span><span style="color:var(--accent)">●</span> <span data-i18n="gfc_legend_120">120% Bonus</span></span>
-              <span><span style="color:var(--accent-red)">●</span> <span data-i18n="gfc_legend_200">200% Double</span></span>
+              <!-- Legend -->
+              <div class="gfc-legend">
+                <span><span style="color:var(--text-secondary)">●</span> <span data-i18n="gfc_legend_base">Base</span></span>
+                <span><span style="color:var(--accent)">●</span> <span data-i18n="gfc_legend_120">120% Bonus</span></span>
+                <span><span style="color:var(--accent-red)">●</span> <span data-i18n="gfc_legend_200">200% Double</span></span>
+              </div>
             </div>
 
             <div class="gfc-table-wrap">
