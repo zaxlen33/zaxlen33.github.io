@@ -286,6 +286,84 @@
   const $ = (id) => document.getElementById(id);
   const fmtPts = (n) => n.toLocaleString();
 
+  function getTranslationWithFallback(key, args, fallbackMap) {
+    if (typeof window.t === 'function') {
+      const translated = window.t(key, args);
+      if (translated && translated !== key) {
+        return translated;
+      }
+    }
+    const lang = (window.i18n && window.i18n.currentLang) || 'en';
+    return fallbackMap[lang] || fallbackMap['en'] || key;
+  }
+
+  function showToast(message, type = 'warning') {
+    let container = document.getElementById('gfc-toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'gfc-toast-container';
+      container.className = 'gfc-toast-container';
+      document.body.appendChild(container);
+    }
+
+    // Ensure only one toast exists at a time and clear backdrop/toast
+    container.innerHTML = '';
+    container.classList.remove('active');
+
+    // Create backdrop overlay for mobile
+    const backdrop = document.createElement('div');
+    backdrop.className = 'gfc-toast-backdrop';
+    container.appendChild(backdrop);
+
+    const toast = document.createElement('div');
+    toast.className = `gfc-toast gfc-toast-${type}`;
+
+    const iconMap = {
+      error: '❌',
+      success: '✅',
+      warning: '⚠️'
+    };
+
+    const btnTextMap = {
+      es: 'Entendido',
+      en: 'Understood',
+      fr: 'Compris',
+      pt: 'Entendido',
+      ja: '了解',
+      vi: 'Đã hiểu',
+      zh: '确定'
+    };
+    const activeLang = (window.i18n && window.i18n.currentLang) || 'en';
+    const btnText = btnTextMap[activeLang] || btnTextMap['en'];
+
+    toast.innerHTML = `
+      <div class="gfc-toast-body">
+        <span class="gfc-toast-icon">${iconMap[type] || '⚠️'}</span>
+        <span class="gfc-toast-msg">${message}</span>
+      </div>
+      <button class="gfc-toast-close-btn">${btnText}</button>
+    `;
+
+    container.appendChild(toast);
+
+    // Fade/scale in
+    setTimeout(() => {
+      container.classList.add('active');
+      toast.classList.add('show');
+    }, 10);
+
+    const closeToast = () => {
+      toast.classList.remove('show');
+      container.classList.remove('active');
+      setTimeout(() => {
+        container.innerHTML = '';
+      }, 300);
+    };
+
+    toast.querySelector('.gfc-toast-close-btn').addEventListener('click', closeToast);
+    backdrop.addEventListener('click', closeToast);
+  }
+
   // Limits per league
   const LEAGUE_LIMITS = {
     beginner:     { '200': 4, '120': 4, base: 5 },
@@ -459,16 +537,32 @@
         if (!q) return;
 
         if (!selectedLeague) {
-          const msg = typeof window.t === 'function' ? window.t('gfc_alert_league') : 'Please select your league first!';
-          alert(msg);
+          const fallbackMap = {
+            es: '¡Por favor selecciona tu liga primero!',
+            en: 'Please select your league first!',
+            fr: "Veuillez d'abord sélectionner votre ligue !",
+            pt: 'Por favor, selecione sua liga primero!',
+            ja: '最初にリーグを選択してください！',
+            vi: 'Vui lòng chọn giải đấu của bạn trước!',
+            zh: '请先选择您的联赛！'
+          };
+          const msg = getTranslationWithFallback('gfc_alert_league', null, fallbackMap);
+          showToast(msg, 'error');
           return;
         }
 
         if (plan.length >= selectedLeague.attempts) {
-          const msg = typeof window.t === 'function' 
-            ? window.t('gfc_alert_limit', { attempts: selectedLeague.attempts }) 
-            : `Limit reached! You cannot add more than ${selectedLeague.attempts} missions in this league.`;
-          alert(msg);
+          const fallbackMap = {
+            es: `¡Límite alcanzado! No puedes agregar más de ${selectedLeague.attempts} misiones en esta liga.`,
+            en: `Limit reached! You cannot add more than ${selectedLeague.attempts} missions in this league.`,
+            fr: `Limite atteinte ! Vous ne pouvez pas ajouter plus de ${selectedLeague.attempts} missions dans cette ligue.`,
+            pt: `Limite atingido! Você não pode adicionar mais de ${selectedLeague.attempts} missões nesta liga.`,
+            ja: `上限に達しました！このリーグでは${selectedLeague.attempts}個以上のミッションを追加することはできません。`,
+            vi: `Đã đạt giới hạn! Bạn không thể thêm quá ${selectedLeague.attempts} nhiệm vụ trong giải đấu này.`,
+            zh: `已达上限！您在此联赛中最多只能添加 ${selectedLeague.attempts} 个任务。`
+          };
+          const msg = getTranslationWithFallback('gfc_alert_limit', { attempts: selectedLeague.attempts }, fallbackMap);
+          showToast(msg, 'error');
           return;
         }
 
@@ -476,10 +570,23 @@
         const limits = LEAGUE_LIMITS[selectedLeague.id] || { '200': 4, '120': 4, base: 5 };
         const currentTypeCount = plan.filter(p => p.type === type).length;
         if (currentTypeCount >= limits[type]) {
-          const limitMsg = typeof window.t === 'function'
-            ? window.t('gfc_alert_type_limit', { type, limit: limits[type] })
-            : `No puedes añadir más de ${limits[type]} misiones de tipo ${type === 'base' ? 'normal' : type + '%'} en esta liga.`;
-          alert(limitMsg);
+          const typeNameMap = {
+            base: typeof window.t === 'function' && window.t('gfc_legend_base') !== 'gfc_legend_base' ? window.t('gfc_legend_base') : 'Base',
+            '120': typeof window.t === 'function' && window.t('gfc_legend_120') !== 'gfc_legend_120' ? window.t('gfc_legend_120') : '120% Bonus',
+            '200': typeof window.t === 'function' && window.t('gfc_legend_200') !== 'gfc_legend_200' ? window.t('gfc_legend_200') : '200% Double'
+          };
+          const typeName = typeNameMap[type] || type;
+          const fallbackMap = {
+            es: `¡Límite alcanzado! No puedes añadir más de ${limits[type]} misiones de tipo ${typeName} en esta liga.`,
+            en: `Limit reached! You cannot add more than ${limits[type]} ${typeName} missions in this league.`,
+            fr: `Limite atteinte ! Vous ne pouvez pas ajouter plus de ${limits[type]} missions de type ${typeName} dans cette ligue.`,
+            pt: `Limite atingido! Você não pode adicionar mais de ${limits[type]} missões do tipo ${typeName} nesta liga.`,
+            ja: `上限に達しました！このリーグでは${typeName}タイプの任務を${limits[type]}個以上追加することはできません。`,
+            vi: `Đã đạt giới hạn! Bạn không thể thêm quá ${limits[type]} nhiệm vụ loại ${typeName} trong giải đấu này.`,
+            zh: `已达上限！您在此联赛中最多只能添加 ${limits[type]} 个 ${typeName} 类型的任务。`
+          };
+          const limitMsg = getTranslationWithFallback('gfc_alert_type_limit', { typeName, limit: limits[type] }, fallbackMap);
+          showToast(limitMsg, 'error');
           return;
         }
 
