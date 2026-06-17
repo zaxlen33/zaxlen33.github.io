@@ -1,20 +1,17 @@
 // website/js/player.js — Player Detail Dashboard
 // Views driven by ?view=war|hunt|all|member&id=NAME[&month=YYYY-MM][&week=WEEK_ID]
 
-Chart.defaults.color = '#8b949e';
-Chart.defaults.borderColor = '#30363d';
-Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
 
 // ─── Injected styles ─────────────────────────────────────────────────────────
 const _style = document.createElement('style');
 _style.textContent = `
   .player-tab{padding:.5rem 1.1rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text-secondary);border-radius:8px;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .2s;}
-  .player-tab:hover{border-color:var(--accent-blue);color:var(--accent-blue);}
-  .player-tab.active{background:var(--accent-blue);border-color:var(--accent-blue);color:#fff;}
+  .player-tab:hover{border-color:var(--accent);color:var(--accent);}
+  .player-tab.active{background:var(--accent);border-color:var(--accent);color:var(--bg-primary);}
   .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:1.5rem;}
   .chart-box{position:relative;height:270px;}
   .profile-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;background:var(--bg-card);padding:1.4rem;border-radius:12px;border:1px solid var(--border);}
-  .profile-avatar{width:68px;height:68px;border-radius:50%;background:var(--accent-blue);display:flex;align-items:center;justify-content:center;font-size:1.9rem;font-weight:700;color:#fff;flex-shrink:0;}
+  .profile-avatar{width:68px;height:68px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.9rem;font-weight:700;color:var(--bg-primary);flex-shrink:0;}
   .profile-info h1{margin:0 0 4px;font-size:1.7rem;color:var(--text-primary); display:flex; align-items:center;}
   .profile-info p{margin:0;color:var(--text-secondary);font-family:var(--font-mono);font-size:.88rem;}
   .section-label{color:var(--text-secondary);margin:1.5rem 0 .6rem;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;font-weight:600;}
@@ -65,15 +62,17 @@ function _tooltipCfg(extra) {
   };
 }
 
-function _lineChart(id, label, labels, data, color, dashed = false) {
+function _lineChart(id, label, labels, data, cssVar, fallbackColor, dashed = false) {
   const el = document.getElementById(id);
   if (!el) return;
   const ctx = el.getContext('2d');
 
+  const color = _getThemeColor(cssVar, fallbackColor);
+
   // Rich two-stop gradient: vivid at top, fully transparent at bottom
   const g = ctx.createLinearGradient(0, 0, 0, 260);
-  g.addColorStop(0, color + '55');
-  g.addColorStop(0.5, color + '18');
+  g.addColorStop(0, color + '25');
+  g.addColorStop(0.5, color + '08');
   g.addColorStop(1,   color + '00');
 
   new Chart(ctx, {
@@ -91,11 +90,13 @@ function _lineChart(id, label, labels, data, color, dashed = false) {
         pointBackgroundColor: color,
         pointBorderColor: 'rgba(10,12,18,0.9)',
         pointBorderWidth: 2,
-        pointRadius: 3.5,
-        pointHoverRadius: 7,
+        pointRadius: 0,
+        pointHoverRadius: 6,
         pointHoverBackgroundColor: color,
         pointHoverBorderColor: '#fff',
         pointHoverBorderWidth: 2,
+        _cssBorderVar: cssVar,
+        _cssBgVar: cssVar,
         ...(dashed ? { borderDash: [6, 4] } : {})
       }]
     },
@@ -123,19 +124,19 @@ function _lineChart(id, label, labels, data, color, dashed = false) {
           border: { display: false },
           ticks: {
             maxRotation: 40,
-            color: '#6e7681',
+            color: _getThemeColor('--text-muted', '#6e7681'),
             font: { size: 11 }
           }
         },
         y: {
           beginAtZero: false,
           grid: {
-            color: 'rgba(48,54,61,0.5)',
+            color: _getThemeColor('--border', '#30363d'),
             lineWidth: 1
           },
           border: { display: false, dash: [4, 4] },
           ticks: {
-            color: '#6e7681',
+            color: _getThemeColor('--text-muted', '#6e7681'),
             font: { size: 11 },
             padding: 8,
             callback: v => _tickFmtShort(v)
@@ -155,13 +156,18 @@ function _barChart(id, labels, datasets) {
     type: 'bar',
     data: {
       labels,
-      datasets: datasets.map(d => ({
-        ...d,
-        borderRadius: { topLeft: 6, topRight: 6 },
-        borderSkipped: false,
-        borderWidth: 0,
-        hoverBorderWidth: 0,
-      }))
+      datasets: datasets.map(d => {
+        const bgVar = d._cssBgVar;
+        const resolvedBg = bgVar ? _getThemeColor(bgVar, d.backgroundColor) : d.backgroundColor;
+        return {
+          ...d,
+          backgroundColor: resolvedBg,
+          borderRadius: { topLeft: 6, topRight: 6 },
+          borderSkipped: false,
+          borderWidth: 0,
+          hoverBorderWidth: 0,
+        };
+      })
     },
     options: {
       responsive: true,
@@ -176,7 +182,7 @@ function _barChart(id, labels, datasets) {
             boxHeight: 10,
             usePointStyle: true,
             pointStyle: 'rectRounded',
-            color: '#8b949e',
+            color: _getThemeColor('--text-secondary', '#8b949e'),
             padding: 16,
             font: { size: 12 }
           }
@@ -192,14 +198,14 @@ function _barChart(id, labels, datasets) {
         x: {
           grid: { display: false },
           border: { display: false },
-          ticks: { color: '#6e7681', font: { size: 11 } }
+          ticks: { color: _getThemeColor('--text-muted', '#6e7681'), font: { size: 11 } }
         },
         y: {
           beginAtZero: true,
-          grid: { color: 'rgba(48,54,61,0.5)', lineWidth: 1 },
+          grid: { color: _getThemeColor('--border', '#30363d'), lineWidth: 1 },
           border: { display: false },
           ticks: {
-            color: '#6e7681',
+            color: _getThemeColor('--text-muted', '#6e7681'),
             font: { size: 11 },
             padding: 8,
             callback: v => _tickFmtShort(v)
@@ -372,13 +378,13 @@ function buildWarSection(name, month, warDailyData, growth, warsData, warUidKey)
   return { html, mount() {
     if (chartDays.length >= 2) {
       const dates = chartDays.map(s => s.date.slice(5));
-      _lineChart('chart-war-might-30d', t('might'), dates, chartDays.map(s=>s.might), '#58a6ff');
-      _lineChart('chart-war-kills-30d', t('kills'), dates, chartDays.map(s=>s.kills), '#f85149');
+      _lineChart('chart-war-might-30d', t('might'), dates, chartDays.map(s=>s.might), '--accent-cyan', '#06b6d4');
+      _lineChart('chart-war-kills-30d', t('kills'), dates, chartDays.map(s=>s.kills), '--accent-red', '#f85149');
     }
     if (snaps52.length >= 2) {
       const dates = snaps52.map(s => s.date);
-      _lineChart('chart-war-might-52w', t('might'), dates, snaps52.map(s=>s.might), '#58a6ff');
-      _lineChart('chart-war-kills-52w', t('kills'), dates, snaps52.map(s=>s.kills), '#f85149');
+      _lineChart('chart-war-might-52w', t('might'), dates, snaps52.map(s=>s.might), '--accent-cyan', '#06b6d4');
+      _lineChart('chart-war-kills-52w', t('kills'), dates, snaps52.map(s=>s.kills), '--accent-red', '#f85149');
     }
   }};
 }
@@ -477,11 +483,11 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52, huntUidKey
 
   return { html, mount() {
     if (sortedChartDays.length >= 1) {
-      _lineChart('chart-hunt-pts-7d', t('cumulative_points'), cumDates, cumVals, '#3fb950');
+      _lineChart('chart-hunt-pts-7d', t('cumulative_points'), cumDates, cumVals, '--accent-green', '#3fb950');
       const lvls = ['Lvl 1','Lvl 2','Lvl 3','Lvl 4','Lvl 5'];
       _barChart('chart-hunt-bar-7d', lvls, [
-        { label: t('monsters'),  data:[cumMon.lvl1,cumMon.lvl2,cumMon.lvl3,cumMon.lvl4,cumMon.lvl5],   backgroundColor:'#a371f7' },
-        { label: t('chests'), data:[cumPurch.lvl1,cumPurch.lvl2,cumPurch.lvl3,cumPurch.lvl4,cumPurch.lvl5], backgroundColor:'#e3b341' }
+        { label: t('monsters'),  data:[cumMon.lvl1,cumMon.lvl2,cumMon.lvl3,cumMon.lvl4,cumMon.lvl5],   backgroundColor:'#a371f7', _cssBgVar: '--accent-purple' },
+        { label: t('chests'), data:[cumPurch.lvl1,cumPurch.lvl2,cumPurch.lvl3,cumPurch.lvl4,cumPurch.lvl5], backgroundColor:'#e3b341', _cssBgVar: '--accent-yellow' }
       ]);
     }
     if (playerHunts52.length >= 2) {
@@ -489,15 +495,15 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52, huntUidKey
         let d = h.date.split(' to ')[0];
         return i === playerHunts52.length - 1 ? d + ' ⟳' : d;
       });
-      _lineChart('chart-hunt-pts-52w', t('hunt_history'), hd, playerHunts52.map(h=>h.pts_total), '#3fb950');
+      _lineChart('chart-hunt-pts-52w', t('hunt_history'), hd, playerHunts52.map(h=>h.pts_total), '--accent-green', '#3fb950');
     }
     if (playerHunts52.length >= 1) {
       const monsters = mhuntsEntry ? (mhuntsEntry.lifetime_monsters || {}) : {};
       const purchases = mhuntsEntry ? (mhuntsEntry.lifetime_purchases || {}) : {};
       const lvls = ['Lvl 1','Lvl 2','Lvl 3','Lvl 4','Lvl 5'];
       _barChart('chart-hunt-bar-52w', lvls, [
-        { label: t('monsters'),  data:[monsters.lvl1||0,monsters.lvl2||0,monsters.lvl3||0,monsters.lvl4||0,monsters.lvl5||0],   backgroundColor:'#a371f7' },
-        { label: t('chests'), data:[purchases.lvl1||0,purchases.lvl2||0,purchases.lvl3||0,purchases.lvl4||0,purchases.lvl5||0], backgroundColor:'#e3b341' }
+        { label: t('monsters'),  data:[monsters.lvl1||0,monsters.lvl2||0,monsters.lvl3||0,monsters.lvl4||0,monsters.lvl5||0],   backgroundColor:'#a371f7', _cssBgVar: '--accent-purple' },
+        { label: t('chests'), data:[purchases.lvl1||0,purchases.lvl2||0,purchases.lvl3||0,purchases.lvl4||0,purchases.lvl5||0], backgroundColor:'#e3b341', _cssBgVar: '--accent-yellow' }
       ]);
     }
   }};
@@ -554,9 +560,9 @@ function buildFestivalSection(name, growth, rawFestivalData) {
     mount() {
       if (last12.length > 0) {
         _barChart('chart-player-fest-bar', last12.map(f => f.dateSpan), [
-          { label: t('score'), data: last12.map(f => f.score), backgroundColor: '#a371f7' }
+          { label: t('score'), data: last12.map(f => f.score), backgroundColor: '#a371f7', _cssBgVar: '--accent' }
         ]);
-        _lineChart('chart-player-fest-line', t('score'), last12.map(f => f.dateSpan), last12.map(f => f.score), '#a371f7');
+        _lineChart('chart-player-fest-line', t('score'), last12.map(f => f.dateSpan), last12.map(f => f.score), '--accent', '#bc8cff');
       }
     }
   };
@@ -613,30 +619,30 @@ function buildAllHistorySection(name, growth, playerHunts52, mhuntsEntry, rawFes
   return { html, mount() {
     if (snaps52.length >= 2) {
       const dates = snaps52.map(s=>s.date);
-      _lineChart('chart-all-might', t('might'), dates, snaps52.map(s=>s.might), '#58a6ff');
-      _lineChart('chart-all-kills', t('kills'), dates, snaps52.map(s=>s.kills), '#f85149');
+      _lineChart('chart-all-might', t('might'), dates, snaps52.map(s=>s.might), '--accent-cyan', '#06b6d4');
+      _lineChart('chart-all-kills', t('kills'), dates, snaps52.map(s=>s.kills), '--accent-red', '#f85149');
     }
     if (playerHunts52.length >= 2) {
       const hd = playerHunts52.map((h, i) => {
         let d = h.date.split(' to ')[0];
         return i === playerHunts52.length - 1 ? d + ' ⟳' : d;
       });
-      _lineChart('chart-all-hunt-pts', t('points'), hd, playerHunts52.map(h => h.pts_total), '#3fb950');
+      _lineChart('chart-all-hunt-pts', t('points'), hd, playerHunts52.map(h => h.pts_total), '--accent-green', '#3fb950');
     }
     if (lastH52) {
       const monsters = mhuntsEntry ? (mhuntsEntry.lifetime_monsters || {}) : {};
       const purchases = mhuntsEntry ? (mhuntsEntry.lifetime_purchases || {}) : {};
       const lvls = ['Lvl 1','Lvl 2','Lvl 3','Lvl 4','Lvl 5'];
       _barChart('chart-all-hunt-bar', lvls, [
-        { label: t('monsters'), data:[monsters.lvl1||0,monsters.lvl2||0,monsters.lvl3||0,monsters.lvl4||0,monsters.lvl5||0],backgroundColor:'#a371f7'},
-        { label: t('chests'), data:[purchases.lvl1||0,purchases.lvl2||0,purchases.lvl3||0,purchases.lvl4||0,purchases.lvl5||0],backgroundColor:'#e3b341'}
+        { label: t('monsters'), data:[monsters.lvl1||0,monsters.lvl2||0,monsters.lvl3||0,monsters.lvl4||0,monsters.lvl5||0],backgroundColor:'#a371f7', _cssBgVar: '--accent-purple'},
+        { label: t('chests'), data:[purchases.lvl1||0,purchases.lvl2||0,purchases.lvl3||0,purchases.lvl4||0,purchases.lvl5||0],backgroundColor:'#e3b341', _cssBgVar: '--accent-yellow'}
       ]);
     }
     if (last12Fest.length > 0) {
       _barChart('chart-all-fest-bar', last12Fest.map(f => f.dateSpan), [
-        { label: t('score'), data: last12Fest.map(f => f.score), backgroundColor: '#a371f7' }
+        { label: t('score'), data: last12Fest.map(f => f.score), backgroundColor: '#a371f7', _cssBgVar: '--accent' }
       ]);
-      _lineChart('chart-all-fest-line', t('score'), last12Fest.map(f => f.dateSpan), last12Fest.map(f => f.score), '#a371f7');
+      _lineChart('chart-all-fest-line', t('score'), last12Fest.map(f => f.dateSpan), last12Fest.map(f => f.score), '--accent', '#bc8cff');
     }
   }};
 }
