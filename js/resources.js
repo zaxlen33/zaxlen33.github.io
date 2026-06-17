@@ -147,7 +147,8 @@
       </div>`;
 
     try {
-      const resp = await fetch('./data/members.json?v=' + Date.now());
+      const inPages = window.location.pathname.includes('/pages/');
+      const resp = await fetch((inPages ? '../data/' : './data/') + 'members.json?v=' + Date.now());
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       _allMembers = await resp.json();
 
