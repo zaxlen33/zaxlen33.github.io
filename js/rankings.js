@@ -60,7 +60,7 @@ async function initRankings() {
 
     container.innerHTML = `
       <div class="leaderboard-container" style="margin-bottom:2rem;">
-        ${renderWarLeaderboard(t('rank_power_growth'), top5MightGrowth, 'might_diff', 'var(--accent-blue)', warMonth, warMonthId)}
+        ${renderWarLeaderboard(t('rank_power_growth'), top5MightGrowth, 'might_diff', 'var(--accent-cyan)', warMonth, warMonthId)}
         ${renderWarLeaderboard(t('rank_kills_growth'), top5KillsGrowth, 'kills_diff', 'var(--accent-yellow)', warMonth, warMonthId)}
         ${renderHuntLeaderboard(t('rank_hunt_pts'), top5Hunt, huntWeek, huntWeekId, minHuntReq)}
         ${renderFestivalLeaderboard(t('rank_festival_pts'), top5Fest, festDate, minFestReq)}
