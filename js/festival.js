@@ -17,12 +17,78 @@
 // stays in sync with config.json without re-deploying JS.
 // It is initialised to the fallback value and updated after the data loads.
 let FESTIVAL_MIN = 3100;
-const DATA_URL     = './data/festival.json';
+const _inPages = window.location.pathname.includes('/pages/');
+const DATA_URL     = (_inPages ? '../data/' : './data/') + 'festival.json';
 
-// Chart.js defaults
-Chart.defaults.color           = '#8b949e';
-Chart.defaults.borderColor     = '#30363d';
-Chart.defaults.font.family     = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+// Chart.js theme utilities
+const _getThemeColor = (variable, fallback) => {
+  const val = getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
+  return val || fallback;
+};
+
+const updateChartDefaults = () => {
+  if (window.Chart) {
+    Chart.defaults.color           = _getThemeColor('--text-secondary', '#8b949e');
+    Chart.defaults.borderColor     = _getThemeColor('--border', '#30363d');
+    Chart.defaults.font.family     = "'Inter', -apple-system, sans-serif";
+  }
+};
+updateChartDefaults();
+
+// Dynamic theme change updates for active Chart.js instances in festival page
+window.addEventListener('themechanged', () => {
+  updateChartDefaults();
+  const newTextColor = _getThemeColor('--text-muted', '#6e7681');
+  const newGridColor = _getThemeColor('--border', '#30363d');
+  const newLegendColor = _getThemeColor('--text-secondary', '#8b949e');
+  
+  const instances = Chart.instances;
+  const chartList = Array.isArray(instances) ? instances : Object.values(instances || {});
+  
+  chartList.forEach(chart => {
+    // Update datasets dynamically
+    if (chart.data && chart.data.datasets) {
+      chart.data.datasets.forEach(dataset => {
+        if (dataset._cssBorderVar) {
+          const color = _getThemeColor(dataset._cssBorderVar);
+          dataset.borderColor = color;
+          dataset.pointBorderColor = color;
+          dataset.pointHoverBackgroundColor = color;
+          
+          if (dataset._cssBgVar) {
+            dataset.backgroundColor = color + '12'; // translucent fill
+          }
+        }
+      });
+    }
+    
+    if (chart.options.scales) {
+      if (chart.options.scales.x) {
+        if (chart.options.scales.x.ticks) {
+          chart.options.scales.x.ticks.color = newTextColor;
+        }
+        if (chart.options.scales.x.grid) {
+          chart.options.scales.x.grid.color = newGridColor;
+        }
+      }
+      if (chart.options.scales.y) {
+        if (chart.options.scales.y.ticks) {
+          chart.options.scales.y.ticks.color = newTextColor;
+        }
+        if (chart.options.scales.y.grid) {
+          chart.options.scales.y.grid.color = newGridColor;
+        }
+        if (chart.options.scales.y.title) {
+          chart.options.scales.y.title.color = newTextColor;
+        }
+      }
+    }
+    if (chart.options.plugins && chart.options.plugins.legend && chart.options.plugins.legend.labels) {
+      chart.options.plugins.legend.labels.color = newLegendColor;
+    }
+    chart.update();
+  });
+});
 
 // ── State ───────────────────────────────────────────────────────────────────
 let festivals    = [];   // sorted oldest → newest
@@ -93,22 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Re-render when language changes
   window.addEventListener('languageChanged', () => {
-    if (activeTab === 'history') renderHistoryTab();
-    else if (activeTab === 'tasks') initTasks();
-  });
-});
-
-// ── TAB SWITCHING ─────────────────────────────────────────────────────────────
-
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const tab = btn.dataset.tab;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-history-content').style.display  = tab === 'history'  ? '' : 'none';
-    document.getElementById('tab-tasks-content').style.display    = tab === 'tasks'    ? '' : 'none';
-    activeTab = tab;
-    if (tab === 'tasks' && !window._tasksLoaded) { window._tasksLoaded = true; initTasks(); }
+    renderHistoryTab();
   });
 });
 
@@ -164,7 +215,7 @@ function renderFestivalList(list) {
       <div class="session-card" data-date="${f.date}" onclick="openFestivalDetail('${f.date}')">
         <div class="session-title">
           🎪 ${fullDate(f.date)}
-          ${isLatest ? `<span class="badge" style="font-size:0.7rem;background:rgba(168,85,247,.15);color:#a855f7;border-color:rgba(168,85,247,.3)">${t('latest')}</span>` : ''}
+          ${isLatest ? `<span class="badge" style="font-size:0.7rem;background:rgba(var(--accent-rgb),0.12);color:var(--accent);border-color:rgba(var(--accent-rgb),0.25)">${t('latest')}</span>` : ''}
         </div>
         <div class="session-meta">
           <div class="session-row">
@@ -291,12 +342,23 @@ function buildHistoryCharts() {
   const bonus     = festivals.map(f => f.summary.completed_bonus   || 0);
 
   const _tip = {
-    backgroundColor: 'rgba(13,17,23,.95)',
-    titleColor: '#c9d1d9', bodyColor: '#c9d1d9',
-    borderColor: '#30363d', borderWidth: 1
+    backgroundColor: _getThemeColor('--bg-secondary', 'rgba(10,12,18,0.95)'),
+    titleColor: _getThemeColor('--text-primary', '#e6edf3'),
+    bodyColor: _getThemeColor('--text-secondary', '#8b949e'),
+    borderColor: _getThemeColor('--border', 'rgba(99,110,123,0.4)'),
+    borderWidth: 1, padding: 12, cornerRadius: 10,
+    titleFont: { size: 13, weight: '600' }, bodyFont: { size: 12 },
+    displayColors: true, boxWidth: 8, boxHeight: 8, usePointStyle: true
   };
-  const _legend = { position: 'top', labels: { usePointStyle: true, boxWidth: 10, color: 'rgba(255,255,255,0.7)', padding: 14 } };
-  const _ptStyle = (color) => ({ pointRadius: 5, pointBackgroundColor: '#0d1117', pointBorderColor: color, pointBorderWidth: 2 });
+
+  const _legend = { position: 'top', labels: { usePointStyle: true, boxWidth: 10, color: _getThemeColor('--text-secondary', 'rgba(255,255,255,0.7)'), padding: 14 } };
+
+  const _ptStyle = (color) => ({ pointRadius: 0, pointHoverRadius: 6, pointBackgroundColor: _getThemeColor('--bg-primary', '#0d1117'), pointBorderColor: color, pointBorderWidth: 2 });
+
+  const passedColor = _getThemeColor('--accent-green', '#22c55e');
+  const failedColor = _getThemeColor('--accent-red', '#ef4444');
+  const bonusColor  = _getThemeColor('--accent', '#a855f7');
+  const avgColor    = _getThemeColor('--accent-yellow', '#f59e0b');
 
   // ── Compliance line chart (3 toggle-able lines) ─────────────────────────────
   const ctxBar = document.getElementById('chart-history-bar').getContext('2d');
@@ -305,9 +367,9 @@ function buildHistoryCharts() {
     data: {
       labels,
       datasets: [
-        { label: t('fest_part_completed'),   data: passed, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.08)',   borderWidth: 2.5, tension: 0.3, fill: false, ..._ptStyle('#22c55e') },
-        { label: t('fest_part_failed'),   data: failed, borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.08)',   borderWidth: 2.5, tension: 0.3, fill: false, ..._ptStyle('#ef4444') },
-        { label: t('fest_bonus_earned'), data: bonus,  borderColor: '#a855f7', backgroundColor: 'rgba(168,85,247,0.08)',  borderWidth: 2.5, tension: 0.3, fill: false, borderDash: [5,3], ..._ptStyle('#a855f7') }
+        { label: t('fest_part_completed'),   data: passed, borderColor: passedColor, backgroundColor: passedColor + '12',   borderWidth: 2.5, tension: 0.3, fill: false, _cssBorderVar: '--accent-green', ..._ptStyle(passedColor) },
+        { label: t('fest_part_failed'),   data: failed, borderColor: failedColor, backgroundColor: failedColor + '12',   borderWidth: 2.5, tension: 0.3, fill: false, _cssBorderVar: '--accent-red', ..._ptStyle(failedColor) },
+        { label: t('fest_bonus_earned'), data: bonus,  borderColor: bonusColor, backgroundColor: bonusColor + '12',  borderWidth: 2.5, tension: 0.3, fill: false, borderDash: [5,3], _cssBorderVar: '--accent', ..._ptStyle(bonusColor) }
       ]
     },
     options: {
@@ -315,8 +377,13 @@ function buildHistoryCharts() {
       interaction: { mode: 'index', intersect: false },
       plugins: { legend: _legend, tooltip: _tip },
       scales: {
-        x: { grid: { display: false } },
-        y: { grid: { color: 'rgba(255,255,255,0.05)' }, title: { display: true, text: t('players'), color: 'rgba(255,255,255,0.5)' }, beginAtZero: true }
+        x: { grid: { display: false }, ticks: { color: _getThemeColor('--text-secondary', '#8b949e') } },
+        y: {
+          grid: { color: _getThemeColor('--border', 'rgba(255,255,255,0.05)') },
+          title: { display: true, text: t('players'), color: _getThemeColor('--text-secondary', 'rgba(255,255,255,0.5)') },
+          beginAtZero: true,
+          ticks: { color: _getThemeColor('--text-secondary', '#8b949e') }
+        }
       }
     }
   });
@@ -330,23 +397,30 @@ function buildHistoryCharts() {
       datasets: [{
         label: t('avg_pts_player_ax'),
         data: avgScores,
-        borderColor: '#f59e0b',
-        backgroundColor: festivals.length === 1 ? 'rgba(245,158,11,0.7)' : 'rgba(245,158,11,0.12)',
+        borderColor: avgColor,
+        backgroundColor: festivals.length === 1 ? avgColor + 'aa' : avgColor + '12',
         borderWidth: 2.5, tension: 0.3,
         fill: true,
-        ..._ptStyle('#f59e0b')
+        _cssBorderVar: '--accent-yellow',
+        _cssBgVar: '--accent-yellow',
+        ..._ptStyle(avgColor)
       }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 10, color: 'rgba(255,255,255,0.7)' } },
+        legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 10, color: _getThemeColor('--text-secondary', 'rgba(255,255,255,0.7)') } },
         tooltip: _tip
       },
       scales: {
-        x: { grid: { display: false } },
-        y: { grid: { color: 'rgba(255,255,255,0.05)' }, title: { display: true, text: t('avg_pts_player_ax'), color: 'rgba(255,255,255,0.5)' }, beginAtZero: false }
+        x: { grid: { display: false }, ticks: { color: _getThemeColor('--text-secondary', '#8b949e') } },
+        y: {
+          grid: { color: _getThemeColor('--border', 'rgba(255,255,255,0.05)') },
+          title: { display: true, text: t('avg_pts_player_ax'), color: _getThemeColor('--text-secondary', 'rgba(255,255,255,0.5)') },
+          beginAtZero: false,
+          ticks: { color: _getThemeColor('--text-secondary', '#8b949e') }
+        }
       }
     }
   });
@@ -364,90 +438,4 @@ window.addEventListener('languageChanged', () => {
   }
 });
 
-// ── TASKS LOGIC (Merged) ─────────────────────────────────────────────────────
-async function initTasks() {
-  const container = document.getElementById('tasks-container');
-  if (!container) return;
-  const oldHTML = container.innerHTML;
-  container.innerHTML = `<div class="loading-state"><div class="spinner"></div><p>${t('loading_missions')}</p></div>`;
 
-  try {
-    const resp = await fetch('./data/tasks.json?v=' + Date.now());
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const tasks = await resp.json();
-    
-    const t200 = tasks['200_percent_bonus_missions'] || [];
-    const t120 = tasks['120_percent_bonus_missions'] || [];
-    
-    container.innerHTML = `
-      <div class="stats-grid" style="margin-bottom:1.5rem;">
-        <div class="stat-card orange">
-          <div class="stat-icon">🔥</div>
-          <div class="stat-value">${t200.length}</div>
-          <div class="stat-label">${t('bonus_missions_200')}</div>
-        </div>
-        <div class="stat-card blue">
-          <div class="stat-icon">🌟</div>
-          <div class="stat-value">${t120.length}</div>
-          <div class="stat-label">${t('bonus_missions_120')}</div>
-        </div>
-        <div class="stat-card green">
-          <div class="stat-icon">🎯</div>
-          <div class="stat-value">${t200.length + t120.length}</div>
-          <div class="stat-label">${t('total_missions_tracked')}</div>
-        </div>
-      </div>
-      
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;">
-        ${renderTaskTable(t('bonus_missions_200_title'), t200, 'orange')}
-        ${renderTaskTable(t('bonus_missions_120_title'), t120, 'blue')}
-      </div>
-    `;
-  } catch (err) {
-    container.innerHTML = oldHTML; // restore loading or something
-    container.innerHTML = `<div class="error-state">⚠️ ${t('error_loading')}. ${err.message}</div>`;
-  }
-}
-
-function renderTaskTable(title, tasksList, colorClass) {
-  if (!tasksList.length) {
-    return `
-      <div class="card">
-        <div class="card-header"><h2>${title}</h2></div>
-        <div class="empty-state" style="padding:2rem;"><p>${t('missions_tier_empty')}</p></div>
-      </div>
-    `;
-  }
-  
-  return `
-    <div class="card" style="border-top:3px solid var(--accent-${colorClass});">
-      <div class="card-header">
-        <h2>${title}</h2>
-        <span class="badge-count">${tasksList.length}</span>
-      </div>
-      <div class="table-wrapper">
-        <table style="font-size:0.9rem;">
-          <thead>
-            <tr>
-              <th class="right" style="width:70px;">${t('points')}</th>
-              <th>${t('mission')}</th>
-              <th>${t('qty_time_limit')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${tasksList.map(task => `
-              <tr style="transition:background 0.15s;" onmouseover="this.style.background='var(--bg-hover)'" onmouseout="this.style.background=''">
-                <td class="right mono" data-label="${t('points')}" style="font-weight:700;color:var(--accent-${colorClass});font-size:0.95rem;">${task.required_points}</td>
-                <td class="card-main" data-label="${t('mission')}" style="font-weight:600;color:var(--text-primary);">${task.mission}</td>
-                <td data-label="${t('qty_time_limit')}">
-                  <div style="color:var(--text-secondary);font-weight:500;">${task.quantity}</div>
-                  <div style="color:var(--text-muted);font-size:0.8rem;margin-top:2px;">⏳ ${task.time_limit}</div>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
-}
