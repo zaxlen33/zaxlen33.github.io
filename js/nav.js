@@ -1,3 +1,9 @@
+// Apply theme immediately to html element to prevent visual flash
+(function () {
+  const savedTheme = localStorage.getItem('ue-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+})();
+
 /**
  * nav.js — Shared Navigation Component for UE Guild Dashboard
  * Injects sidebar, overlay, and top-bar into every page.
@@ -7,15 +13,20 @@
 (function () {
 
   /* ── Nav items config ── */
+  // Detect if we are inside the pages/ subfolder
+  const _inPages = window.location.pathname.includes('/pages/');
+  const _base = _inPages ? './' : './pages/';
+  const _home = _inPages ? '../index.html' : './index.html';
+
   const NAV_ITEMS = [
-    { href: './index.html',    icon: '🏠',  key: 'nav_home'     },
-    { href: './war.html',      icon: '⚔️',  key: 'nav_war'      },
-    { href: './hunt.html',     icon: '🦅',  key: 'nav_hunt'     },
-    { href: './festival.html', icon: '🎪',  key: 'nav_festival' },
-    { href: './rankings.html', icon: '🏆',  key: 'nav_rankings' },
-    { href: './members.html',  icon: '👥',  key: 'nav_members'  },
-    { href: './tools.html',    icon: '🛠️', key: 'nav_tools'    },
-    { href: './admin.html',    icon: '⚙️',  key: 'nav_admin'    }
+    { href: _home,                    icon: '🏠',  key: 'nav_home'     },
+    { href: _base + 'war.html',      icon: '⚔️',  key: 'nav_war'      },
+    { href: _base + 'hunt.html',     icon: '🦅',  key: 'nav_hunt'     },
+    { href: _base + 'festival.html', icon: '🎪',  key: 'nav_festival' },
+    { href: _base + 'rankings.html', icon: '🏆',  key: 'nav_rankings' },
+    { href: _base + 'members.html',  icon: '👥',  key: 'nav_members'  },
+    { href: _base + 'tools.html',    icon: '🛠️', key: 'nav_tools'    },
+    { href: _base + 'admin.html',    icon: '⚙️',  key: 'nav_admin'    }
   ];
 
   /* ── Determine active page ── */
@@ -46,6 +57,9 @@
     // Avoid double-inject
     if (document.getElementById('ue-sidebar')) return;
 
+    const currentTheme = localStorage.getItem('ue-theme') || 'dark';
+    const themeIcon = currentTheme === 'light' ? '🌙' : '☀️';
+
     const html = `
       <!-- ── Sidebar overlay (mobile) ── -->
       <div id="sidebar-overlay" class="sidebar-overlay" aria-hidden="true"></div>
@@ -53,7 +67,7 @@
       <!-- ── Sidebar ── -->
       <aside id="ue-sidebar" class="sidebar" aria-label="Main navigation">
         <div class="sidebar-header">
-          <a href="./index.html" class="sidebar-brand">
+          <a href="${_home}" class="sidebar-brand">
             <span class="sidebar-logo">🏰</span>
             <span class="sidebar-title">UE Guild</span>
           </a>
@@ -77,13 +91,14 @@
           <span class="hamburger-line"></span>
         </button>
 
-        <a href="./index.html" class="topbar-brand">
+        <a href="${_home}" class="topbar-brand">
           <span class="topbar-logo">🏰</span>
           <span class="topbar-title">UE <span>Guild</span></span>
         </a>
 
         <div class="topbar-right">
           <div class="lang-switcher-container" id="topbar-lang"></div>
+          <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle light/dark mode">${themeIcon}</button>
         </div>
       </header>
     `;
@@ -129,6 +144,27 @@
     // Escape key
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closeSidebar();
+    });
+
+    // Theme Toggle Click Logic
+    const toggleButtons = document.querySelectorAll('.theme-toggle-btn');
+    toggleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('ue-theme', newTheme);
+        
+        // Update all theme toggle buttons' icons
+        const newIcon = newTheme === 'light' ? '🌙' : '☀️';
+        document.querySelectorAll('.theme-toggle-btn').forEach(b => {
+          b.textContent = newIcon;
+        });
+
+        // Trigger custom event so other components (like Chart.js) can update
+        window.dispatchEvent(new CustomEvent('themechanged', { detail: { theme: newTheme } }));
+      });
     });
   }
 
