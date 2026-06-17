@@ -1,4 +1,4 @@
-/* ── Guild Festival Calculator styles ── */
+/* â”€â”€ Guild Festival Calculator styles â”€â”€ */
 #gfc-section {
   margin-top: 1rem;
 }
@@ -21,7 +21,7 @@
   margin: 0.25rem 0 0;
 }
 
-/* ── Layout ── */
+/* â”€â”€ Layout â”€â”€ */
 .gfc-layout {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -29,7 +29,7 @@
   align-items: start;
 }
 
-/* ── Mobile: single column, main panel FIRST ── */
+/* â”€â”€ Mobile: single column, main panel FIRST â”€â”€ */
 @media (max-width: 900px) {
   .gfc-layout {
     grid-template-columns: 1fr;
@@ -40,7 +40,7 @@
   .gfc-sidebar     { order: 2; position: static !important; top: auto !important; }
 }
 
-/* ── Sticky sidebar (desktop only) ── */
+/* â”€â”€ Sticky sidebar (desktop only) â”€â”€ */
 .gfc-sidebar {
   position: sticky;
   top: 84px;
@@ -49,7 +49,7 @@
   gap: 1rem;
 }
 
-/* ── Cards ── */
+/* â”€â”€ Cards â”€â”€ */
 .gfc-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -74,7 +74,7 @@
 }
 .gfc-card-body { padding: 1rem; }
 
-/* ── Info grid (league status) ── */
+/* â”€â”€ Info grid (league status) â”€â”€ */
 .gfc-info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -102,7 +102,7 @@
   display: none;
 }
 
-/* ── Progress bar ── */
+/* â”€â”€ Progress bar â”€â”€ */
 .gfc-progress-wrap {
   margin: 0.75rem 0;
 }
@@ -126,7 +126,7 @@
   transition: width 0.35s ease, background 0.35s ease;
 }
 
-/* ── Plan stats row ── */
+/* â”€â”€ Plan stats row â”€â”€ */
 .gfc-plan-stats {
   margin-bottom: 0.75rem;
   text-align: center;
@@ -141,7 +141,7 @@
   color: var(--text-primary);
 }
 
-/* ── Reset btn ── */
+/* â”€â”€ Reset btn â”€â”€ */
 #gfc-reset {
   background: transparent;
   border: 1px solid var(--border);
@@ -154,7 +154,7 @@
 }
 #gfc-reset:hover { border-color: var(--accent-red); color: var(--accent-red); }
 
-/* ── Sequence list ── */
+/* â”€â”€ Sequence list â”€â”€ */
 .gfc-seq-list {
   list-style: none;
   padding: 0;
@@ -192,14 +192,14 @@
 .gfc-seq-remove  { color: var(--text-muted); cursor: pointer; padding: 4px; font-size: 0.8rem; background: none; border: none; transition: color 0.2s; }
 .gfc-seq-remove:hover { color: var(--accent-red); }
 
-/* ── Main panel ── */
+/* â”€â”€ Main panel â”€â”€ */
 .gfc-main-panel {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-/* ── League grid ── */
+/* â”€â”€ League grid â”€â”€ */
 .gfc-league-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -238,7 +238,7 @@
   box-shadow: 0 0 12px rgba(var(--accent-rgb),.35);
 }
 
-/* ── Catalogue header controls ── */
+/* â”€â”€ Catalogue header controls â”€â”€ */
 .gfc-cat-filters {
   padding: 0 1rem 0.75rem;
   display: flex;
@@ -284,7 +284,7 @@
 }
 .gfc-search-input:focus { outline: none; border-color: var(--accent); }
 
-/* ── Quest table ── */
+/* â”€â”€ Quest table â”€â”€ */
 .gfc-table-wrap {
   max-height: 580px;
   overflow-y: auto;
@@ -330,7 +330,7 @@
 .gfc-quest-name { display: block; font-weight: 600; color: var(--text-primary); }
 .gfc-quest-cat  { display: block; font-size: 0.68rem; color: var(--text-muted); margin-top: 1px; }
 
-/* ── Score buttons ── */
+/* â”€â”€ Score buttons â”€â”€ */
 .gfc-score-btn-group {
   display: flex;
   gap: 4px;
@@ -363,7 +363,7 @@
 .gfc-btn-200   { border-color: rgba(var(--accent-red-rgb), 0.3);    color: var(--accent-red);   background: rgba(var(--accent-red-rgb), 0.08); }
 .gfc-btn-200:hover   { background: var(--accent-red); color: #ffffff; border-color: var(--accent-red); box-shadow: 0 0 10px rgba(var(--accent-red-rgb), 0.3); }
 
-/* ── Legend ── */
+/* â”€â”€ Legend â”€â”€ */
 .gfc-legend {
   display: flex;
   gap: 1.25rem;
@@ -374,7 +374,7 @@
 }
 .gfc-legend span { display: flex; align-items: center; gap: 5px; }
 
-/* ── Mobile plan summary banner ─────────────────────────────────── */
+/* â”€â”€ Mobile plan summary banner â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 /* A compact sticky bar at the bottom showing current plan pts on mobile */
 .gfc-mob-plan-bar {
   display: none;
@@ -447,3 +447,45 @@
   transition: opacity .15s;
 }
 .gfc-mob-scroll-plan:hover { opacity: 0.88; }
+
+
+/* â”€â”€ Best Quests Filter Button â”€â”€ */
+.gfc-best-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 999px;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.gfc-best-btn:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.1));
+  border-color: rgba(245, 158, 11, 0.8);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+}
+.gfc-best-btn.active {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #ffffff;
+  border-color: #f59e0b;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+  transform: scale(1.02);
+}
+
+/* â”€â”€ Quest Row Colors â”€â”€ */
+tr.gfc-quest-excellent td {
+  background: rgba(34, 197, 94, 0.1) !important;
+}
+tr.gfc-quest-good td {
+  background: rgba(245, 158, 11, 0.12) !important;
+}
+tr.gfc-quest-low td {
+  background: rgba(239, 68, 68, 0.08) !important;
+}
