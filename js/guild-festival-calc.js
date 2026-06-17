@@ -228,12 +228,47 @@
       } else {
         return; // skip malformed entries with no point data
       }
-      quests.push({ id: `q${id++}`, cat: getMissionCategory(q.name), name: q.name, req: q.req, time: q.time, pts: [pBase, p120, p200] });
+      quests.push({ 
+        id: `q${id++}`, 
+        cat: getMissionCategory(q.name), 
+        name: q.name, 
+        req: q.req, 
+        time: q.time, 
+        pts: [pBase, p120, p200],
+        valueRating: getMissionValueRating(q.name)
+      });
     });
 
     // Sort: category A→Z, then base pts descending
     quests.sort((a, b) => a.cat !== b.cat ? a.cat.localeCompare(b.cat) : b.pts[0] - a.pts[0]);
     return quests;
+  }
+
+  function getMissionValueRating(name) {
+    const m = (name || '').toLowerCase();
+    
+    // Excellent (Green)
+    if (
+      m.includes('random') || m.includes('aleatoria') ||
+      m.includes('guardian') || m.includes('guardián') ||
+      m.includes('monster') || m.includes('monstruo') ||
+      m.includes('chaos bastion') || m.includes('fortaleza') || m.includes('darknest') ||
+      m.includes('collect') || m.includes('gather') || m.includes('recolectar') ||
+      m.includes('daily mission') || m.includes('misiones diarias') || m.includes('admin')
+    ) {
+      return 'excellent';
+    }
+    
+    // Good (Yellow)
+    if (
+      m.includes('upgrade artifact') || m.includes('mejorar artefacto') ||
+      m.includes('speedup') || m.includes('acelerador') ||
+      m.includes('research') || m.includes('investigación') || m.includes('investigacion')
+    ) {
+      return 'good';
+    }
+    
+    return 'low';
   }
 
   // Keep old name as alias for any other code that might call it
@@ -244,22 +279,35 @@
   let plan = [];           // { questId, label, pts, type }
   let activeCat  = 'All';
   let searchTerm = '';
+  let showBestQuestsOnly = false;
   let personalTarget = 0;
 
   // ── Helpers ──────────────────────────────────────────────────────────────────
   const $ = (id) => document.getElementById(id);
   const fmtPts = (n) => n.toLocaleString();
 
+  // Limits per league
+  const LEAGUE_LIMITS = {
+    beginner:     { '200': 4, '120': 4, base: 5 },
+    intermediate: { '200': 4, '120': 5, base: 5 },
+    advanced:     { '200': 5, '120': 5, base: 5 },
+    expert:       { '200': 6, '120': 6, base: 4 },
+    master:       { '200': 7, '120': 7, base: 4 }
+  };
+
   // ── Render leagues ───────────────────────────────────────────────────────────
   function renderLeagues() {
     const grid = $('gfc-league-grid');
     if (!grid) return;
-    grid.innerHTML = LEAGUES.map(l => `
+    grid.innerHTML = LEAGUES.map(l => {
+      const tKey = `gfc_league_${l.id}`;
+      const label = typeof window.t === 'function' && window.t(tKey) !== tKey ? window.t(tKey) : l.label;
+      return `
       <button class="gfc-league-btn ${selectedLeague?.id === l.id ? 'active' : ''}"
-              data-league="${l.id}" id="gfc-league-${l.id}">
-        ${l.label}
-      </button>
-    `).join('');
+              data-league="${l.id}" id="gfc-league-${l.id}" data-i18n="${tKey}">
+        ${label}
+      </button>`;
+    }).join('');
 
     grid.querySelectorAll('.gfc-league-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -273,7 +321,12 @@
 
   // ── Render league info panel ─────────────────────────────────────────────────
   function renderLeagueInfo() {
-    $('gfc-league-name').textContent    = selectedLeague ? selectedLeague.label : '—';
+    let displayName = '—';
+    if (selectedLeague) {
+      const tKey = `gfc_league_${selectedLeague.id}`;
+      displayName = typeof window.t === 'function' && window.t(tKey) !== tKey ? window.t(tKey) : selectedLeague.label;
+    }
+    $('gfc-league-name').textContent = displayName;
     $('gfc-league-attempts').textContent = selectedLeague ? selectedLeague.attempts : '—';
     $('gfc-league-minpts').textContent   = selectedLeague ? fmtPts(selectedLeague.minGuildPts) : '—';
 
@@ -327,7 +380,7 @@
     const tbody = $('gfc-quest-tbody');
     if (!tbody) return;
 
-    const filtered = QUESTS.filter(q => {
+    let filtered = QUESTS.filter(q => {
       const catOk  = activeCat === 'All' || q.cat === activeCat;
       const displayCat = tCat(q.cat);
       // Search matches translated name, original name, translated category, or original category
@@ -340,6 +393,18 @@
       return catOk && termOk;
     });
 
+    if (showBestQuestsOnly) {
+      const ratingValue = { 'excellent': 1, 'good': 2, 'low': 3, 'none': 3 };
+      filtered.sort((a, b) => {
+        if (ratingValue[a.valueRating] !== ratingValue[b.valueRating]) {
+          return ratingValue[a.valueRating] - ratingValue[b.valueRating];
+        }
+        return b.pts[0] - a.pts[0];
+      });
+    } else {
+      filtered.sort((a, b) => a.cat !== b.cat ? a.cat.localeCompare(b.cat) : b.pts[0] - a.pts[0]);
+    }
+
     if (!filtered.length) {
       const noMatches = typeof window.t === 'function' ? window.t('gfc_no_matches') : 'No missions match your search.';
       tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--text-muted)">${noMatches}</td></tr>`;
@@ -349,8 +414,13 @@
     tbody.innerHTML = filtered.map(q => {
       const displayName = typeof tMission === 'function' ? tMission(q.name) : q.name;
       const displayCat = tCat(q.cat);
+      let rowClass = '';
+      if (q.valueRating === 'excellent') rowClass = 'gfc-quest-excellent';
+      else if (q.valueRating === 'good') rowClass = 'gfc-quest-good';
+      else if (q.valueRating === 'low') rowClass = 'gfc-quest-low';
+
       return `
-      <tr>
+      <tr class="${rowClass}">
         <td>
           <span class="gfc-quest-name">${displayName}</span>
           <span class="gfc-quest-cat">${displayCat}</span>
@@ -385,6 +455,17 @@
             ? window.t('gfc_alert_limit', { attempts: selectedLeague.attempts }) 
             : `Limit reached! You cannot add more than ${selectedLeague.attempts} missions in this league.`;
           alert(msg);
+          return;
+        }
+
+        // Check specific score type limits
+        const limits = LEAGUE_LIMITS[selectedLeague.id] || { '200': 4, '120': 4, base: 5 };
+        const currentTypeCount = plan.filter(p => p.type === type).length;
+        if (currentTypeCount >= limits[type]) {
+          const limitMsg = typeof window.t === 'function'
+            ? window.t('gfc_alert_type_limit', { type, limit: limits[type] })
+            : `No puedes añadir más de ${limits[type]} misiones de tipo ${type === 'base' ? 'normal' : type + '%'} en esta liga.`;
+          alert(limitMsg);
           return;
         }
 
@@ -481,7 +562,13 @@
       QUESTS = mergeQuests(DEFAULT_QUESTS, tasksData);
     } catch (err) {
       console.warn('Could not load tasks.json, falling back to default quests:', err);
-      QUESTS = [...DEFAULT_QUESTS];
+      // Run the DEFAULT_QUESTS through the builder to assign ratings properly just in case
+      QUESTS = mergeQuests(DEFAULT_QUESTS, { '200_percent_bonus_missions': [], '120_percent_bonus_missions': [] });
+    }
+
+    // Process default quests if the builder above didn't inject anything because tasksData was empty
+    if (!QUESTS || QUESTS.length === 0) {
+      QUESTS = DEFAULT_QUESTS.map(q => ({ ...q, valueRating: getMissionValueRating(q.name) }));
     }
 
     renderLeagues();
@@ -489,6 +576,16 @@
     renderCatFilters();
     renderQuestTable();
     renderPlanSummary();
+
+    // Best quests filter
+    const bestToggle = $('gfc-best-toggle');
+    if (bestToggle) {
+      bestToggle.addEventListener('click', () => {
+        showBestQuestsOnly = !showBestQuestsOnly;
+        bestToggle.classList.toggle('active', showBestQuestsOnly);
+        renderQuestTable();
+      });
+    }
 
     // Search
     const searchEl = $('gfc-search');
