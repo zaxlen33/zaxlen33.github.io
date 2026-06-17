@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Lords Mobile - Kingdom Reports Viewer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/kds.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="hero-header">
+            <div class="header-content">
+                <h1><i class="fas fa-scroll"></i> Battle Chronicles</h1>
+                <p>Unified Kingdom Reports • Era 1400–1700</p>
+                <div class="meta-badge" id="metaInfo">Loading data...</div>
+            </div>
+        </header>
+
+        <main class="main-panel">
+            <!-- Kingdom navigation panel -->
+            <div class="card nav-card">
+                <div class="nav-controls">
+                    <button id="prevKingdomBtn" class="nav-btn"><i class="fas fa-chevron-left"></i> Previous Kingdom</button>
+                    <div class="kingdom-jump">
+                        <input type="number" id="kingdomInput" placeholder="Kingdom ID (e.g. 1400)" class="kingdom-input">
+                        <button id="goKingdomBtn" class="go-btn"><i class="fas fa-location-dot"></i> Go</button>
+                    </div>
+                    <button id="nextKingdomBtn" class="nav-btn">Next Kingdom <i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="kingdom-counter" id="kingdomCounter">
+                    <span>—</span>
+                </div>
+            </div>
+
+            <!-- Detailed information for the current kingdom -->
+            <div class="card kingdom-stats-card" id="kingdomStatsArea">
+                <div class="skeleton-loader">Loading kingdom information...</div>
+            </div>
+
+            <!-- Battles section (reports) -->
+            <div class="card battles-section">
+                <div class="section-header" style="flex-wrap: wrap; gap: 10px;">
+                    <h2><i class="fas fa-dragon"></i> Battle Reports</h2>
+                    <div class="filter-controls" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                        <button id="filterAllBtn" class="nav-btn" style="font-size: 0.85em; padding: 5px 10px; opacity: 1;">All</button>
+                        <button id="filterLeadersBtn" class="nav-btn" style="font-size: 0.85em; padding: 5px 10px; opacity: 0.6;">Unique Leaders</button>
+                        <button id="filterDefendersBtn" class="nav-btn" style="font-size: 0.85em; padding: 5px 10px; opacity: 0.6;">Unique Defenders</button>
+                        <button id="filterGuildsBtn" class="nav-btn" style="font-size: 0.85em; padding: 5px 10px; opacity: 0.6;">Unique Guilds</button>
+                        <label style="color: #ccc; font-size: 0.85em; display: flex; align-items: center; gap: 5px; margin-left: 10px; cursor: pointer;">
+                            <input type="checkbox" id="globalUniqueCheckbox" checked>
+                            Global Unique
+                        </label>
+                    </div>
+                    <span class="battle-count" id="battleCountBadge">0 battles</span>
+                </div>
+                <div class="battle-table-wrapper" id="battlesListContainer">
+                    <div class="skeleton-loader">Loading encounters...</div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p><i class="far fa-calendar-alt"></i> Synced Data: <span id="scrapedDate">—</span> | <i class="fas fa-chart-line"></i> Historical Range: <span id="rangeInfo">1400–1700</span></p>
+            <p class="footer-note">Report Visualization · Kingdom Navigation</p>
+        </footer>
+    </div>
+
+    <script src="../js/kds.js?v=7"></script>
+</body>
+</html>
