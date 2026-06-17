@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Guild Festival · UE Guild Dashboard</title>
+  <meta name="description" content="Guild Festival history, score comparisons, and per-member performance tracking for UE Guild.">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/festival.css">
+  <script src="../js/i18n.js"></script>
+</head>
+<body>
+
+  <!-- nav.js injects sidebar + topbar -->
+
+  <!-- ── Page Content ── -->
+  <main class="container">
+    <div class="page-header">
+      <h1 data-i18n="nav_festival">🎪 Guild Festival</h1>
+      <p data-i18n="festival_desc">Score history and individual performance across the last 12 festivals.</p>
+    </div>
+
+    <!-- ══ ALL HISTORY ════════════════════════════════════════════ -->
+    <section id="tab-history-content">
+
+      <div class="stats-grid" id="festival-stats">
+        <div class="stat-card blue">
+          <span class="stat-icon">🎪</span>
+          <span class="stat-value" id="stat-festivals">—</span>
+          <span class="stat-label" data-i18n="festivals_stored">Festivals stored</span>
+        </div>
+        <div class="stat-card purple">
+          <span class="stat-icon">🏆</span>
+          <span class="stat-value" id="stat-avg-score">—</span>
+          <span class="stat-label" data-i18n="avg_pts_player">Avg Points/Player</span>
+        </div>
+        <div class="stat-card green">
+          <span class="stat-icon">✅</span>
+          <span class="stat-value" id="stat-avg-pass">—</span>
+          <span class="stat-label" data-i18n="avg_compliant">Avg Compliant Pl.</span>
+        </div>
+        <div class="stat-card red">
+          <span class="stat-icon">❌</span>
+          <span class="stat-value" id="stat-avg-fail">—</span>
+          <span class="stat-label" data-i18n="avg_non_compliant">Avg Non-compliant</span>
+        </div>
+        <div class="stat-card yellow">
+          <span class="stat-icon">🌟</span>
+          <span class="stat-value" id="stat-avg-bonus">—</span>
+          <span class="stat-label" data-i18n="avg_bonus">Avg Bonus Pl.</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 data-i18n="compliance_per_festival">📊 Compliance Per Festival</h2>
+          <span class="badge-count" id="festival-count-badge"></span>
+        </div>
+        <div class="card-body">
+          <div style="position:relative; height:250px;">
+             <canvas id="chart-history-bar"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 data-i18n="avg_pts_player">📈 Avg. Points per Player</h2>
+        </div>
+        <div class="card-body">
+          <div style="position:relative; height:250px;">
+             <canvas id="chart-history-line"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Festival events list -->
+      <div class="card">
+        <div class="card-header">
+          <h2 data-i18n="festival_events">📋 Festival Events</h2>
+          <div class="toolbar" style="margin:0">
+            <div class="search-box" style="min-width:200px">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="search-festival" data-i18n="date" placeholder="Filter by date…">
+            </div>
+          </div>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div id="festival-list">
+            <div class="loading-state"><div class="spinner"></div><p data-i18n="loading_festival">Loading festivals…</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selected festival detail table -->
+      <div id="festival-detail" style="display:none">
+        <div class="breadcrumb">
+          <a href="#" id="back-to-list" data-i18n="back_to_list">← All Festivals</a>
+          <span class="sep">›</span>
+          <span class="current" id="detail-title"></span>
+        </div>
+
+        <div class="detail-header" id="detail-summary-box"></div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 data-i18n="player_scores">🎪 Player Scores</h2>
+            <div class="search-box" style="min-width:200px; margin:0">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="search-detail" data-i18n="search_placeholder" placeholder="Search player…">
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table id="detail-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th data-i18n="player">Player</th>
+                  <th class="right" data-i18n="score">Score</th>
+                  <th class="center" data-i18n="min_met">Min. Met?</th>
+                  <th class="center" data-i18n="completed">Completed</th>
+                  <th class="center" data-i18n="bonus">Bonus</th>
+                </tr>
+              </thead>
+              <tbody id="detail-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container" data-i18n="footer_text">
+      UE Guild Dashboard · Data updated via Telegram Bot
+    </div>
+  </footer>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/festival.js"></script>
+</body>
+</html>
