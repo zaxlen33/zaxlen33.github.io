@@ -310,23 +310,9 @@
       </button>`;
     }).join('');
 
-    const selectOptionsHtml = LEAGUES.map(l => {
-      const tKey = `gfc_league_${l.id}`;
-      const label = typeof window.t === 'function' && window.t(tKey) !== tKey ? window.t(tKey) : l.label;
-      return `<option value="${l.id}" ${selectedLeague?.id === l.id ? 'selected' : ''}>${label}</option>`;
-    }).join('');
-
-    const selectPlaceholder = typeof window.t === 'function' ? window.t('gfc_select_league_placeholder') : '— Selecciona tu Liga —';
-
     grid.innerHTML = `
-      <div class="gfc-leagues-desktop">
+      <div class="gfc-leagues-grid">
         ${buttonsHtml}
-      </div>
-      <div class="gfc-leagues-mobile">
-        <select class="gfc-mobile-select" id="gfc-league-select">
-          <option value="" disabled ${!selectedLeague ? 'selected' : ''}>${selectPlaceholder}</option>
-          ${selectOptionsHtml}
-        </select>
       </div>
     `;
 
@@ -338,16 +324,6 @@
         renderPlanSummary();
       });
     });
-
-    const selectEl = $('gfc-league-select');
-    if (selectEl) {
-      selectEl.addEventListener('change', (e) => {
-        selectedLeague = LEAGUES.find(l => l.id === e.target.value);
-        renderLeagues();
-        renderLeagueInfo();
-        renderPlanSummary();
-      });
-    }
   }
 
   // ── Render league info panel ─────────────────────────────────────────────────
@@ -395,38 +371,22 @@
     const el   = $('gfc-cat-filters');
     if (!el) return;
 
-    const chipsHtml = cats.map(c => `
-      <button class="gfc-cat-chip ${activeCat === c ? 'active' : ''}" data-cat="${c}">${tCat(c)}</button>
-    `).join('');
-
     const optionsHtml = cats.map(c => `
       <option value="${c}" ${activeCat === c ? 'selected' : ''}>${tCat(c)}</option>
     `).join('');
 
     el.innerHTML = `
-      <div class="gfc-chips-desktop">
-        ${chipsHtml}
-      </div>
-      <div class="gfc-select-mobile">
-        <select class="gfc-mobile-select" id="gfc-cat-select">
+      <div class="gfc-select-wrap">
+        <select class="gfc-premium-select" id="gfc-cat-select">
           ${optionsHtml}
         </select>
       </div>
     `;
 
-    el.querySelectorAll('.gfc-cat-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        activeCat = chip.dataset.cat;
-        renderCatFilters();
-        renderQuestTable();
-      });
-    });
-
     const selectEl = $('gfc-cat-select');
     if (selectEl) {
       selectEl.addEventListener('change', (e) => {
         activeCat = e.target.value;
-        renderCatFilters();
         renderQuestTable();
       });
     }
@@ -549,6 +509,10 @@
     const avgNeeded   = remaining > 0 ? Math.ceil(needed / remaining) : 0;
 
     $('gfc-plan-count').textContent = `${plan.length} / ${attempts || '—'}`;
+    const tabBadge = $('gfc-tab-badge');
+    if (tabBadge) {
+      tabBadge.textContent = plan.length;
+    }
     $('gfc-plan-total').textContent = fmtPts(totalPts);
     $('gfc-plan-avg').textContent   = selectedLeague ? fmtPts(avgNeeded) : '—';
 
@@ -657,13 +621,41 @@
     renderQuestTable();
     renderPlanSummary();
 
-    // Scroll to plan on mobile floating bar click
+    // Initialize mobile tabs
+    const tabs = document.querySelectorAll('.gfc-tab-btn');
+    const layout = document.querySelector('.gfc-layout');
+    
+    function setMobileTab(tabId) {
+      tabs.forEach(btn => {
+        const isActive = btn.dataset.tab === tabId;
+        btn.classList.toggle('active', isActive);
+      });
+      if (layout) {
+        if (tabId === 'catalogue') {
+          layout.classList.remove('show-plan');
+          layout.classList.add('show-catalogue');
+        } else {
+          layout.classList.remove('show-catalogue');
+          layout.classList.add('show-plan');
+        }
+      }
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setMobileTab(btn.dataset.tab);
+      });
+    });
+
+    // Switch to plan tab on mobile floating bar click (no scrolling needed)
     const scrollPlanBtn = $('gfc-mob-scroll-plan');
     if (scrollPlanBtn) {
       scrollPlanBtn.addEventListener('click', () => {
-        const planSection = $('gfc-plan-section');
-        if (planSection) {
-          planSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setMobileTab('plan');
+        // Scroll slightly to top of section so they don't stay scrolled down
+        const section = $('gfc-section');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     }
