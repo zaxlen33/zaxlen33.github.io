@@ -13,7 +13,8 @@ async function initTracker() {
   if (!container) return;
 
   try {
-    const resp = await fetch('./data/history.json?v=' + Date.now());
+    const inPages = window.location.pathname.includes('/pages/');
+    const resp = await fetch((inPages ? '../data/' : './data/') + 'history.json?v=' + Date.now());
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const data = await resp.json();
 
