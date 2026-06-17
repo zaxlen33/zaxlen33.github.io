@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="Lords Mobile Troops Calculator — calculate resources, training time and gem cost.">
+  <title>Troops Calculator · UE Guild</title>
+  <link rel="stylesheet" href="../css/styles.css?v=20260615">
+  <link rel="stylesheet" href="../css/troops-calculator.css">
+  <script src="../js/i18n.js"></script>
+</head>
+<body>
+
+  <main class="container tc-page">
+
+    <div class="page-header">
+      <h1 data-i18n="calc_troops_title">⚔️ Troops Calculator</h1>
+      <p data-i18n="calc_troops_desc">Enter the quantities of troops you want to train to see resources, time and gem cost.</p>
+    </div>
+
+    <div class="tc-layout">
+
+      <!-- ════════════════════════════════════════
+           LEFT — controls + tier grid
+      ════════════════════════════════════════ -->
+      <div class="tc-col-main">
+
+        <!-- Training Speed -->
+        <div class="tc-speed-box">
+          <span class="tc-speed-emoji">⚡</span>
+          <div class="tc-speed-text">
+            <strong data-i18n="calc_training_speed_label">Training Speed</strong>
+            <small>Lords Mobile boost %</small>
+          </div>
+          <div class="tc-speed-field">
+            <input type="number" id="tc-speed" class="tc-speed-input"
+                   value="360" min="0" max="9999" autocomplete="off">
+            <span class="tc-speed-unit">%</span>
+          </div>
+        </div>
+
+        <!-- Tabs + Reset -->
+        <div class="tc-tabs-wrap">
+          <div class="tc-tabs" role="tablist">
+            <button class="tc-tab active" data-tier="1" role="tab">T1</button>
+            <button class="tc-tab"        data-tier="2" role="tab">T2</button>
+            <button class="tc-tab"        data-tier="3" role="tab">T3</button>
+            <button class="tc-tab"        data-tier="4" role="tab">T4</button>
+          </div>
+          <button class="tc-reset-btn" id="tc-reset-all">🗑 <span data-i18n="calc_reset_all_btn">Reset All</span></button>
+        </div>
+
+        <!-- Tier panels (JS fills these) -->
+        <div id="tc-panel-1" class="tc-panel tc-grid active" role="tabpanel"></div>
+        <div id="tc-panel-2" class="tc-panel tc-grid"        role="tabpanel"></div>
+        <div id="tc-panel-3" class="tc-panel tc-grid"        role="tabpanel"></div>
+        <div id="tc-panel-4" class="tc-panel tc-grid"        role="tabpanel"></div>
+
+      </div><!-- /.tc-col-main -->
+
+
+      <!-- ════════════════════════════════════════
+           RIGHT — desktop sticky sidebar
+      ════════════════════════════════════════ -->
+      <aside class="tc-col-aside">
+        <div class="tc-sidebar-card">
+          <div class="tc-sidebar-head" data-i18n="calc_results_title">📊 Results</div>
+          <div class="tc-sidebar-body">
+
+            <!-- placeholder -->
+            <div id="tc-ph" class="tc-ph">
+              <div class="tc-ph-icon">🪖</div>
+              <p data-i18n="calc_placeholder_text">Enter troop quantities to see the plan.</p>
+            </div>
+
+            <!-- results -->
+            <div id="tc-result" class="tc-res-content">
+              <div class="tc-gem-block">
+                <div class="tc-gem-lbl" data-i18n="calc_gem_cost_label">Est. Gem Cost</div>
+                <div class="tc-gem-val">
+                  <img src="../images/gems/gems.jpg" class="tc-gem-ico" alt="gems">
+                  <span id="d-gems">0</span>
+                </div>
+              </div>
+              <div class="tc-stat-2">
+                <div class="tc-stat-box">
+                  <div class="tc-stat-lbl" data-i18n="calc_total_might_label">Might</div>
+                  <div class="tc-stat-val" id="d-might">0</div>
+                </div>
+                <div class="tc-stat-box">
+                  <div class="tc-stat-lbl" data-i18n="calc_total_time_label">Time</div>
+                  <div class="tc-stat-val" id="d-time">—</div>
+                </div>
+              </div>
+              <div class="tc-sec" data-i18n="calc_planned_troops_label">Planned Troops</div>
+              <div id="d-troops" class="tc-sp-list"></div>
+              <hr class="tc-hr">
+              <div class="tc-sec" data-i18n="calc_speedup_plan_label">Speedup Plan</div>
+              <div id="d-sp" class="tc-sp-list"></div>
+              <hr class="tc-hr">
+              <div class="tc-sec" data-i18n="calc_resources_label">Resources</div>
+              <div id="d-res" class="tc-rsc-list"></div>
+              <div class="tc-note" data-i18n="calc_disclaimer">Values are estimates.</div>
+            </div>
+
+          </div>
+        </div>
+      </aside>
+
+    </div><!-- /.tc-layout -->
+
+  </main>
+
+  <footer class="footer">
+    <div class="container" data-i18n="footer_text">UE Guild Dashboard</div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════
+       MOBILE — floating results button
+  ═══════════════════════════════════════════ -->
+  <div class="tc-mob-bar" id="tc-mob-bar">
+    <div class="tc-mob-stats">
+      <div class="tc-mob-stat">
+        <span class="tc-mob-icon">
+          <img src="../images/gems/gems.jpg" class="tc-mob-gem-ico" alt="gems">
+        </span>
+        <div class="tc-mob-info">
+          <span class="tc-mob-val" id="m-gems">0</span>
+          <span class="tc-mob-lbl" data-i18n="calc_gem_cost_label">Gems</span>
+        </div>
+      </div>
+      <div class="tc-mob-stat">
+        <span class="tc-mob-icon">⚔️</span>
+        <div class="tc-mob-info">
+          <span class="tc-mob-val" id="m-might">0</span>
+          <span class="tc-mob-lbl" data-i18n="calc_total_might_label">Might</span>
+        </div>
+      </div>
+      <div class="tc-mob-stat">
+        <span class="tc-mob-icon">⏱️</span>
+        <div class="tc-mob-info">
+          <span class="tc-mob-val" id="m-time">—</span>
+          <span class="tc-mob-lbl" data-i18n="calc_total_time_label">Time</span>
+        </div>
+      </div>
+    </div>
+    <button class="tc-mob-open" id="tc-mob-open" data-i18n="calc_see_results_btn">
+      📊 Ver Resultados
+    </button>
+  </div>
+
+  <!-- Mobile backdrop -->
+  <div class="tc-backdrop" id="tc-backdrop"></div>
+
+  <!-- Mobile bottom sheet -->
+  <div class="tc-sheet" id="tc-sheet">
+    <div class="tc-sheet-handle"></div>
+    <div class="tc-sheet-hd">
+      <h3 data-i18n="calc_results_title">📊 Calculation Results</h3>
+      <button class="tc-sheet-close" id="tc-sheet-close">✕</button>
+    </div>
+    <div class="tc-sheet-body">
+      <div class="tc-gem-block">
+        <div class="tc-gem-lbl" data-i18n="calc_gem_cost_label">Est. Gem Cost</div>
+        <div class="tc-gem-val">
+          <img src="../images/gems/gems.jpg" class="tc-gem-ico" alt="gems">
+          <span id="s-gems">0</span>
+        </div>
+      </div>
+      <div class="tc-stat-2">
+        <div class="tc-stat-box">
+          <div class="tc-stat-lbl" data-i18n="calc_total_might_label">Total Might</div>
+          <div class="tc-stat-val" id="s-might">0</div>
+        </div>
+        <div class="tc-stat-box">
+          <div class="tc-stat-lbl" data-i18n="calc_total_time_label">Train Time</div>
+          <div class="tc-stat-val" id="s-time">—</div>
+        </div>
+      </div>
+      <div class="tc-sec" data-i18n="calc_planned_troops_label">Planned Troops</div>
+      <div id="s-troops" class="tc-sp-list"></div>
+      <hr class="tc-hr">
+      <div class="tc-sec" data-i18n="calc_speedup_plan_label">Speedup Plan</div>
+      <div id="s-sp" class="tc-sp-list"></div>
+      <hr class="tc-hr">
+      <div class="tc-sec" data-i18n="calc_resources_label">Resources Needed</div>
+      <div id="s-res" class="tc-rsc-list"></div>
+      <div class="tc-note" data-i18n="calc_disclaimer">Note: Values are estimates and may vary by talents, heroes and equipment.</div>
+      <button class="tc-sheet-close-btn" id="tc-sheet-close-bottom" data-i18n="calc_close_btn">Cerrar</button>
+    </div>
+  </div>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/troops.js"></script>
+</body>
+</html>
