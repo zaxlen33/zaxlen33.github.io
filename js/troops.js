@@ -30,6 +30,9 @@
 (function () {
   'use strict';
 
+  const _inPages = window.location.pathname.includes('/pages/');
+  const IMG_BASE = _inPages ? '../' : './';
+
   /* ═══════════════════════════════════════════════════════════
      GAME DATA
   ═══════════════════════════════════════════════════════════ */
@@ -163,7 +166,7 @@
       <div class="tc-card" id="card-${troop.id}">
         <div class="tc-card-img-wrap">
           <img class="tc-card-img"
-               src="./${troop.img}"
+               src="${IMG_BASE}${troop.img}"
                alt="${esc(name)}"
                loading="lazy"
                onerror="this.parentElement.style.background='#1c2233';this.style.display='none'">
@@ -426,7 +429,7 @@
       return `
         <div class="tc-speedup-item">
           <div class="tc-speedup-left">
-            <img src="./${t.img}" class="tc-speedup-img" style="object-fit: cover; transform: scale(1.3);" alt="${esc(name)}">
+            <img src="${IMG_BASE}${t.img}" class="tc-speedup-img" style="object-fit: cover; transform: scale(1.3);" alt="${esc(name)}">
             <span>${esc(name)}</span>
           </div>
           <span class="tc-speedup-badge">x ${fmtNum(qty)}</span>
@@ -444,7 +447,7 @@
       <div class="tc-speedup-item">
         <div class="tc-speedup-left">
           ${p.img
-            ? `<img src="./${p.img}" class="tc-speedup-img" alt="${esc(p.id)}">`
+            ? `<img src="${IMG_BASE}${p.img}" class="tc-speedup-img" alt="${esc(p.id)}">`
             : `<span class="tc-speedup-fallback">⏱️</span>`}
           <span>${esc(prefix)} ${esc(p.id)}</span>
         </div>
@@ -456,7 +459,7 @@
     return RESOURCES.map((r, i) => `
       <div class="tc-res-item">
         <span class="tc-res-name">
-          <img src="./${r.img}" class="tc-res-icon" alt="${esc(r.name)}">
+          <img src="${IMG_BASE}${r.img}" class="tc-res-icon" alt="${esc(r.name)}">
           <span>${esc(t(r.key) || r.name)}</span>
         </span>
         <span class="tc-res-val">${fmtShort(totalRes[i])}</span>
