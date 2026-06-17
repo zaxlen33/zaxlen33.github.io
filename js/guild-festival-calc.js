@@ -299,7 +299,8 @@
   function renderLeagues() {
     const grid = $('gfc-league-grid');
     if (!grid) return;
-    grid.innerHTML = LEAGUES.map(l => {
+
+    const buttonsHtml = LEAGUES.map(l => {
       const tKey = `gfc_league_${l.id}`;
       const label = typeof window.t === 'function' && window.t(tKey) !== tKey ? window.t(tKey) : l.label;
       return `
@@ -309,6 +310,26 @@
       </button>`;
     }).join('');
 
+    const selectOptionsHtml = LEAGUES.map(l => {
+      const tKey = `gfc_league_${l.id}`;
+      const label = typeof window.t === 'function' && window.t(tKey) !== tKey ? window.t(tKey) : l.label;
+      return `<option value="${l.id}" ${selectedLeague?.id === l.id ? 'selected' : ''}>${label}</option>`;
+    }).join('');
+
+    const selectPlaceholder = typeof window.t === 'function' ? window.t('gfc_select_league_placeholder') : '— Selecciona tu Liga —';
+
+    grid.innerHTML = `
+      <div class="gfc-leagues-desktop">
+        ${buttonsHtml}
+      </div>
+      <div class="gfc-leagues-mobile">
+        <select class="gfc-mobile-select" id="gfc-league-select">
+          <option value="" disabled ${!selectedLeague ? 'selected' : ''}>${selectPlaceholder}</option>
+          ${selectOptionsHtml}
+        </select>
+      </div>
+    `;
+
     grid.querySelectorAll('.gfc-league-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         selectedLeague = LEAGUES.find(l => l.id === btn.dataset.league);
@@ -317,6 +338,16 @@
         renderPlanSummary();
       });
     });
+
+    const selectEl = $('gfc-league-select');
+    if (selectEl) {
+      selectEl.addEventListener('change', (e) => {
+        selectedLeague = LEAGUES.find(l => l.id === e.target.value);
+        renderLeagues();
+        renderLeagueInfo();
+        renderPlanSummary();
+      });
+    }
   }
 
   // ── Render league info panel ─────────────────────────────────────────────────
@@ -363,9 +394,26 @@
     const cats = ['All', ...new Set(QUESTS.map(q => q.cat))];
     const el   = $('gfc-cat-filters');
     if (!el) return;
-    el.innerHTML = cats.map(c => `
+
+    const chipsHtml = cats.map(c => `
       <button class="gfc-cat-chip ${activeCat === c ? 'active' : ''}" data-cat="${c}">${tCat(c)}</button>
     `).join('');
+
+    const optionsHtml = cats.map(c => `
+      <option value="${c}" ${activeCat === c ? 'selected' : ''}>${tCat(c)}</option>
+    `).join('');
+
+    el.innerHTML = `
+      <div class="gfc-chips-desktop">
+        ${chipsHtml}
+      </div>
+      <div class="gfc-select-mobile">
+        <select class="gfc-mobile-select" id="gfc-cat-select">
+          ${optionsHtml}
+        </select>
+      </div>
+    `;
+
     el.querySelectorAll('.gfc-cat-chip').forEach(chip => {
       chip.addEventListener('click', () => {
         activeCat = chip.dataset.cat;
@@ -373,6 +421,15 @@
         renderQuestTable();
       });
     });
+
+    const selectEl = $('gfc-cat-select');
+    if (selectEl) {
+      selectEl.addEventListener('change', (e) => {
+        activeCat = e.target.value;
+        renderCatFilters();
+        renderQuestTable();
+      });
+    }
   }
 
   // ── Render quest table ───────────────────────────────────────────────────────
@@ -421,13 +478,13 @@
 
       return `
       <tr class="${rowClass}">
-        <td>
+        <td class="gfc-cell-name">
           <span class="gfc-quest-name">${displayName}</span>
           <span class="gfc-quest-cat">${displayCat}</span>
         </td>
-        <td style="text-align:center;color:var(--text-primary);font-size:.9rem;font-weight:600;">${q.req}</td>
-        <td style="text-align:center;color:var(--text-primary);font-size:.9rem;font-weight:600;">${q.time}</td>
-        <td>
+        <td class="gfc-cell-req" style="text-align:center;color:var(--text-primary);font-size:.9rem;font-weight:600;">${q.req}</td>
+        <td class="gfc-cell-time" style="text-align:center;color:var(--text-primary);font-size:.9rem;font-weight:600;">${q.time}</td>
+        <td class="gfc-cell-score">
           <div class="gfc-score-btn-group">
             <button class="gfc-btn-score gfc-btn-base"    data-qid="${q.id}" data-type="base"  title="Base score">    ${fmtPts(q.pts[0])}</button>
             <button class="gfc-btn-score gfc-btn-120"     data-qid="${q.id}" data-type="120"   title="120% Bonus">    ${fmtPts(q.pts[1])}</button>
@@ -509,6 +566,29 @@
           : 'var(--accent-cyan)';
     }
 
+    // Update mobile floating bar
+    const mobCount = $('gfc-mob-count');
+    const mobTotal = $('gfc-mob-total');
+    const mobPct = $('gfc-mob-pct');
+    const mobBar = $('gfc-mob-plan-bar');
+
+    if (mobCount) {
+      mobCount.textContent = `${plan.length} / ${attempts || '—'}`;
+    }
+    if (mobTotal) {
+      mobTotal.textContent = `${fmtPts(totalPts)} pts`;
+    }
+    if (mobPct) {
+      mobPct.textContent = `${pct}%`;
+    }
+    if (mobBar) {
+      if (selectedLeague && plan.length > 0) {
+        mobBar.classList.add('visible');
+      } else {
+        mobBar.classList.remove('visible');
+      }
+    }
+
     // Sequence list
     const list = $('gfc-plan-list');
     if (!list) return;
@@ -577,6 +657,17 @@
     renderQuestTable();
     renderPlanSummary();
 
+    // Scroll to plan on mobile floating bar click
+    const scrollPlanBtn = $('gfc-mob-scroll-plan');
+    if (scrollPlanBtn) {
+      scrollPlanBtn.addEventListener('click', () => {
+        const planSection = $('gfc-plan-section');
+        if (planSection) {
+          planSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+
     // Best quests filter
     const bestToggle = $('gfc-best-toggle');
     if (bestToggle) {
@@ -638,6 +729,7 @@
 
   // Re-render quest names and plan when the language changes
   window.addEventListener('languageChanged', () => {
+    renderLeagues();
     renderCatFilters();
     renderQuestTable();
     renderPlanSummary();
