@@ -28,7 +28,7 @@
     <div class="modules-grid">
 
       <!-- Guild Info (Top Rankings) -->
-      <a href="./rankings.html" class="module-card guild-info" id="module-guild">
+      <a href="./pages/rankings.html" class="module-card guild-info" id="module-guild">
         <div class="module-icon-wrap">🏆</div>
         <div class="module-card-title" data-i18n="module_guild_info">Guild Rankings</div>
         <p class="module-card-desc" data-i18n="module_guild_info_desc">Rankings, festival scores, and guild-wide performance overviews across all tracked events.</p>
@@ -36,7 +36,7 @@
       </a>
 
       <!-- Kills / War -->
-      <a href="./war.html" class="module-card kills" id="module-kills">
+      <a href="./pages/war.html" class="module-card kills" id="module-kills">
         <div class="module-icon-wrap">⚔️</div>
         <div class="module-card-title" data-i18n="module_kills">Kills &amp; War</div>
         <p class="module-card-desc" data-i18n="module_kills_desc">Weekly war reports — guild power, kills, member rankings, and 52-week growth tracking.</p>
@@ -44,7 +44,7 @@
       </a>
 
       <!-- Monster Hunting -->
-      <a href="./hunt.html" class="module-card hunt" id="module-hunt">
+      <a href="./pages/hunt.html" class="module-card hunt" id="module-hunt">
         <div class="module-icon-wrap">🦅</div>
         <div class="module-card-title" data-i18n="module_hunt">Monster Hunting</div>
         <p class="module-card-desc" data-i18n="module_hunt_desc">Hunt performance tracking — player kills, points, goal completion rates, and hunt history.</p>
@@ -52,7 +52,7 @@
       </a>
 
       <!-- Check Members -->
-      <a href="./members.html" class="module-card members" id="module-members">
+      <a href="./pages/members.html" class="module-card members" id="module-members">
         <div class="module-icon-wrap">👥</div>
         <div class="module-card-title" data-i18n="module_members">Check Members</div>
         <p class="module-card-desc" data-i18n="module_members_desc">Browse all guild members — current power, kills, rank, and detailed individual profiles.</p>
@@ -60,7 +60,7 @@
       </a>
 
       <!-- Tracker -->
-      <a href="./tracker.html" class="module-card tracker" id="module-tracker">
+      <a href="./pages/tracker.html" class="module-card tracker" id="module-tracker">
         <div class="module-icon-wrap">🕵️</div>
         <div class="module-card-title" data-i18n="module_tracker">Identity Tracker</div>
         <p class="module-card-desc" data-i18n="module_tracker_desc">Secure log of all member name changes. Identify players via their permanent UID alongside their might and kills.</p>
@@ -68,7 +68,7 @@
       </a>
 
       <!-- First Seen (security registry) -->
-      <a href="./firstseen.html" class="module-card firstseen" id="module-firstseen">
+      <a href="./pages/firstseen.html" class="module-card firstseen" id="module-firstseen">
         <div class="module-icon-wrap">👁️</div>
         <div class="module-card-title" data-i18n="module_firstseen">First Seen</div>
         <p class="module-card-desc" data-i18n="module_firstseen_desc">Guild registry ordered by join date — spot potential spies and monitor new members during sensitive events.</p>
@@ -76,7 +76,7 @@
       </a>
 
       <!-- Troops Calculator -->
-      <a href="./troops-calculator.html" class="module-card troops-calc" id="module-troops-calc">
+      <a href="./pages/troops-calculator.html" class="module-card troops-calc" id="module-troops-calc">
         <div class="module-icon-wrap">🪖</div>
         <div class="module-card-title" data-i18n="module_troops_calc">Troops Calculator</div>
         <p class="module-card-desc" data-i18n="module_troops_calc_desc">Calculate resources, training time and gem cost for your Lords Mobile troops.</p>
@@ -84,7 +84,7 @@
       </a>
 
       <!-- Guild Festival -->
-      <a href="./festival.html" class="module-card festival" id="module-festival">
+      <a href="./pages/festival.html" class="module-card festival" id="module-festival">
         <div class="module-icon-wrap">🎪</div>
         <div class="module-card-title" data-i18n="module_festival">Guild Festival</div>
         <p class="module-card-desc" data-i18n="module_festival_desc">Guild Festival performance tracking — scores, bonus missions, and historical trends.</p>
@@ -92,7 +92,7 @@
       </a>
 
       <!-- Administration -->
-      <a href="./admin.html" class="module-card admin-hub" id="module-admin">
+      <a href="./pages/admin.html" class="module-card admin-hub" id="module-admin">
         <div class="module-icon-wrap">⚙️</div>
         <div class="module-card-title" data-i18n="module_admin">Administration</div>
         <p class="module-card-desc" data-i18n="module_admin_desc">Officer tools — Performance Control and Resource Command Generator for fast guild management.</p>
@@ -100,6 +100,7 @@
       </a>
 
     </div>
+
 
   </main>
 
@@ -111,70 +112,6 @@
 
   <script src="./js/nav.js"></script>
   <script src="./js/app.js"></script>
-  <script>
-    // Render only the stats bar on the index page (not the full dashboard div)
-    document.addEventListener('DOMContentLoaded', () => {
-      // Wait for i18n + app.js to be ready
-      window.addEventListener('load', initIndexStats);
-      // Also attempt immediately in case scripts already ran
-      if (document.readyState === 'complete') initIndexStats();
-
-      // Re-render stats when language changes
-      window.addEventListener('languageChanged', () => {
-        const el = document.getElementById('dashboard-stats');
-        if (el) {
-          el.dataset.loaded = ''; 
-          initIndexStats();
-        }
-      });
-    });
-
-    async function initIndexStats() {
-      const el = document.getElementById('dashboard-stats');
-      if (!el || el.dataset.loaded) return;
-      el.dataset.loaded = 'true';
-      try {
-        const [wars, hunts, history, weekly] = await Promise.allSettled([
-          loadJSON('wars.json'), loadJSON('hunts.json'),
-          loadJSON('history.json'), loadJSON('weekly.json'),
-        ]);
-        const warsData    = wars.status    === 'fulfilled' ? wars.value    : [];
-        const huntsData   = hunts.status   === 'fulfilled' ? hunts.value   : [];
-        const historyData = history.status === 'fulfilled' ? history.value : { members: [] };
-        const weeklyData  = weekly.status  === 'fulfilled' ? weekly.value  : [];
-        const latestWeek  = weeklyData.length ? weeklyData[weeklyData.length - 1] : null;
-        const memberCount = historyData.members ? historyData.members.length : 0;
-
-        el.innerHTML = `
-          <div class="stat-card blue">
-            <div class="stat-icon">🏰</div>
-            <div class="stat-value">${fmtNum(warsData.length)}</div>
-            <div class="stat-label" data-i18n="war_reports">${t('war_reports')}</div>
-          </div>
-          <div class="stat-card green">
-            <div class="stat-icon">🦅</div>
-            <div class="stat-value">${huntsData.length}</div>
-            <div class="stat-label" data-i18n="hunt_reports">${t('hunt_reports')}</div>
-          </div>
-          <div class="stat-card purple">
-            <div class="stat-icon">👥</div>
-            <div class="stat-value">${memberCount}</div>
-            <div class="stat-label" data-i18n="tracked_members">${t('tracked_members')}</div>
-          </div>
-          <div class="stat-card orange">
-            <div class="stat-icon">⭐</div>
-            <div class="stat-value">${latestWeek ? fmtCompact(latestWeek.total_power) : '—'}</div>
-            <div class="stat-label" data-i18n="guild_power">${t('guild_power')}</div>
-          </div>
-          <div class="stat-card yellow">
-            <div class="stat-icon">⚔️</div>
-            <div class="stat-value">${latestWeek ? fmtCompact(latestWeek.total_kills) : '—'}</div>
-            <div class="stat-label" data-i18n="guild_kills">${t('guild_kills')}</div>
-          </div>`;
-      } catch (e) {
-        el.innerHTML = '';
-      }
-    }
-  </script>
+  <script src="./js/index.js"></script>
 </body>
 </html>
