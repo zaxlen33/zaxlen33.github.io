@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="Guild identity tracker — name change log and UID tracking for all members.">
+  <title>Guild Tracker · UE Guild Dashboard</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/tracker.css">
+  <script src="../js/i18n.js"></script>
+</head>
+<body>
+  <!-- nav.js injects sidebar + topbar -->
+  <main class="container">
+    <div class="page-header">
+      <h1 data-i18n="nav_tracker">🕵 Guild Tracker</h1>
+      <p data-i18n="tracker_desc">Secure log of all member name changes. Identify players tracking reliably via their encrypted, permanent UID alongside their current might and kills.</p>
+    </div>
+    <div id="tracker-container">
+      <div class="loading-state"><div class="spinner"></div><p data-i18n="loading_tracker">Loading tracker payload…</p></div>
+    </div>
+  </main>
+  <footer class="footer"><div class="container" data-i18n="footer_text">UE Guild Dashboard · Data updated via Telegram Bot</div></footer>
+  <script src="../js/nav.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/tracker.js"></script>
+</body>
+</html>
