@@ -1,0 +1,449 @@
+/* ── Guild Festival Calculator styles ── */
+#gfc-section {
+  margin-top: 1rem;
+}
+
+.gfc-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.gfc-section-header h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+.gfc-section-header p {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: 0.25rem 0 0;
+}
+
+/* ── Layout ── */
+.gfc-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+/* ── Mobile: single column, main panel FIRST ── */
+@media (max-width: 900px) {
+  .gfc-layout {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+  /* Reorder: main panel first, sidebar (plan summary) after */
+  .gfc-main-panel { order: 1; }
+  .gfc-sidebar     { order: 2; position: static !important; top: auto !important; }
+}
+
+/* ── Sticky sidebar (desktop only) ── */
+.gfc-sidebar {
+  position: sticky;
+  top: 84px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Cards ── */
+.gfc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.gfc-card-header {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.gfc-card-header h4 {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+}
+.gfc-card-body { padding: 1rem; }
+
+/* ── Info grid (league status) ── */
+.gfc-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.gfc-info-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.55rem 0.75rem;
+  text-align: center;
+}
+.gfc-info-val  { display: block; font-size: 1.1rem; font-weight: 800; color: var(--text-primary); }
+.gfc-info-val.accent { color: var(--accent); }
+.gfc-info-lbl  { display: block; font-size: 0.68rem; text-transform: uppercase; color: var(--text-muted); margin-top: 2px; }
+
+.gfc-bonus-msg {
+  background: rgba(var(--accent-rgb), 0.1);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  color: var(--accent);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  display: none;
+}
+
+/* ── Progress bar ── */
+.gfc-progress-wrap {
+  margin: 0.75rem 0;
+}
+.gfc-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.gfc-progress-track {
+  background: var(--bg-secondary);
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+.gfc-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.35s ease, background 0.35s ease;
+}
+
+/* ── Plan stats row ── */
+.gfc-plan-stats {
+  margin-bottom: 0.75rem;
+  text-align: center;
+  background: rgba(255,255,255,.04);
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+.gfc-plan-stats .gfc-info-lbl { margin-bottom: 2px; }
+.gfc-plan-avg-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+/* ── Reset btn ── */
+#gfc-reset {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 5px;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+#gfc-reset:hover { border-color: var(--accent-red); color: var(--accent-red); }
+
+/* ── Sequence list ── */
+.gfc-seq-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 340px;
+  overflow-y: auto;
+}
+.gfc-seq-item {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gfc-seq-number {
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.75rem;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.gfc-seq-content { flex: 1; min-width: 0; }
+.gfc-seq-title   { display: block; color: var(--text-primary); font-size: 0.8rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gfc-seq-meta    { display: block; color: var(--text-muted); font-size: 0.7rem; }
+.gfc-seq-pts     { font-weight: 700; color: var(--accent); font-size: 0.85rem; flex-shrink: 0; }
+.gfc-seq-remove  { color: var(--text-muted); cursor: pointer; padding: 4px; font-size: 0.8rem; background: none; border: none; transition: color 0.2s; }
+.gfc-seq-remove:hover { color: var(--accent-red); }
+
+/* ── Main panel ── */
+.gfc-main-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── League grid ── */
+.gfc-league-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 8px;
+  padding: 1rem;
+}
+@media (max-width: 480px) {
+  .gfc-league-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 0.75rem;
+  }
+}
+.gfc-league-btn {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 10px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+@media (max-width: 480px) {
+  .gfc-league-btn { padding: 8px 4px; font-size: 0.72rem; }
+}
+.gfc-league-btn:hover { border-color: var(--accent); color: var(--text-primary); }
+.gfc-league-btn.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  font-weight: 800;
+  box-shadow: 0 0 12px rgba(var(--accent-rgb),.35);
+}
+
+/* ── Catalogue header controls ── */
+.gfc-cat-filters {
+  padding: 0 1rem 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+@media (max-width: 480px) {
+  .gfc-cat-filters { padding: 0 0.75rem 0.6rem; gap: 5px; }
+}
+.gfc-cat-chip {
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+@media (max-width: 480px) {
+  .gfc-cat-chip { font-size: 0.7rem; padding: 3px 9px; }
+}
+.gfc-cat-chip:hover  { border-color: var(--accent); color: var(--text-primary); }
+.gfc-cat-chip.active { background: var(--accent); color: #ffffff; font-weight: 700; border-color: var(--accent); box-shadow: 0 0 10px rgba(var(--accent-rgb),.3); }
+
+.gfc-search-wrap {
+  padding: 0 1rem 0.75rem;
+}
+@media (max-width: 480px) {
+  .gfc-search-wrap { padding: 0 0.75rem 0.6rem; }
+}
+.gfc-search-input {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 7px 12px;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 0.875rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.gfc-search-input:focus { outline: none; border-color: var(--accent); }
+
+/* ── Quest table ── */
+.gfc-table-wrap {
+  max-height: 580px;
+  overflow-y: auto;
+  overflow-x: auto; /* allow horizontal scroll on tiny screens */
+}
+@media (max-width: 900px) {
+  .gfc-table-wrap { max-height: none; overflow-y: visible; }
+}
+.gfc-quest-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 360px; /* prevent squashing below this */
+}
+.gfc-quest-table th {
+  background: var(--bg-secondary);
+  color: var(--accent-yellow, #f59e0b);
+  position: sticky;
+  top: 0;
+  padding: 9px 12px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--border);
+  z-index: 5;
+  white-space: nowrap;
+}
+@media (max-width: 900px) {
+  .gfc-quest-table th { position: static; }
+}
+.gfc-quest-table th:first-child { text-align: left; }
+.gfc-quest-table th:last-child  { text-align: right; padding-right: 14px; }
+.gfc-quest-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+  font-size: 0.84rem;
+}
+@media (max-width: 480px) {
+  .gfc-quest-table th,
+  .gfc-quest-table td { padding: 7px 8px; font-size: 0.78rem; }
+}
+.gfc-quest-table tr:hover td { background: rgba(255,255,255,.03); }
+.gfc-quest-name { display: block; font-weight: 600; color: var(--text-primary); }
+.gfc-quest-cat  { display: block; font-size: 0.68rem; color: var(--text-muted); margin-top: 1px; }
+
+/* ── Score buttons ── */
+.gfc-score-btn-group {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+}
+@media (max-width: 480px) {
+  .gfc-score-btn-group { gap: 3px; flex-wrap: wrap; }
+}
+.gfc-btn-score {
+  padding: 5px 0;
+  min-width: 50px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid;
+  background: transparent;
+  text-align: center;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .gfc-btn-score { min-width: 44px; font-size: 0.7rem; padding: 4px 0; }
+}
+.gfc-btn-base  { border-color: var(--border);            color: var(--text-secondary);             background: var(--bg-hover); }
+.gfc-btn-base:hover  { background: var(--bg-secondary);         color: var(--text-primary); border-color: var(--border-accent); }
+.gfc-btn-120   { border-color: rgba(var(--accent-rgb), 0.3);    color: var(--accent);   background: rgba(var(--accent-rgb), 0.06); }
+.gfc-btn-120:hover   { background: var(--accent); color: var(--bg-primary); border-color: var(--accent); box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.25); }
+.gfc-btn-200   { border-color: rgba(var(--accent-red-rgb), 0.3);    color: var(--accent-red);   background: rgba(var(--accent-red-rgb), 0.08); }
+.gfc-btn-200:hover   { background: var(--accent-red); color: #ffffff; border-color: var(--accent-red); box-shadow: 0 0 10px rgba(var(--accent-red-rgb), 0.3); }
+
+/* ── Legend ── */
+.gfc-legend {
+  display: flex;
+  gap: 1.25rem;
+  padding: 0 1rem 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+.gfc-legend span { display: flex; align-items: center; gap: 5px; }
+
+/* ── Mobile plan summary banner ─────────────────────────────────── */
+/* A compact sticky bar at the bottom showing current plan pts on mobile */
+.gfc-mob-plan-bar {
+  display: none;
+}
+@media (max-width: 900px) {
+  .gfc-mob-plan-bar {
+    display: flex;
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    width: calc(100% - 1.5rem);
+    max-width: 480px;
+    background: rgba(20, 24, 40, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-top: 2.5px solid var(--accent);
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    z-index: 150;
+    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+    padding: 0.6rem 0.9rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .gfc-mob-plan-bar.visible {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+.gfc-mob-plan-stats {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+.gfc-mob-stat-item {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.gfc-mob-stat-val {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.gfc-mob-stat-lbl {
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.gfc-mob-scroll-plan {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--accent);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 20px;
+  padding: 0.42rem 0.8rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(var(--accent-rgb), .25);
+  transition: opacity .15s;
+}
+.gfc-mob-scroll-plan:hover { opacity: 0.88; }
