@@ -26,7 +26,20 @@
         </div>
       </div>
 
-      <div class="gfc-layout">
+      <!-- Mobile Tabs -->
+      <div class="gfc-mobile-tabs" id="gfc-mobile-tabs">
+        <button class="gfc-tab-btn active" data-tab="catalogue">
+          <span class="gfc-tab-icon">📖</span>
+          <span data-i18n="gfc_tab_catalogue">Catalogue</span>
+        </button>
+        <button class="gfc-tab-btn" data-tab="plan">
+          <span class="gfc-tab-icon">🎯</span>
+          <span data-i18n="gfc_tab_plan">My Plan</span>
+          <span class="gfc-tab-badge" id="gfc-tab-badge">0</span>
+        </button>
+      </div>
+
+      <div class="gfc-layout show-catalogue">
 
         <!-- ── Left: Sticky sidebar ── -->
         <div class="gfc-sidebar">
