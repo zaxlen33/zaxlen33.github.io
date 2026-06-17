@@ -423,7 +423,9 @@
         "gfc_league_intermediate": "Intermediate",
         "gfc_league_advanced": "Advanced",
         "gfc_league_expert": "Expert",
-        "gfc_league_master": "Master"
+        "gfc_league_master": "Master",
+        "gfc_tab_catalogue": "Catalogue",
+        "gfc_tab_plan": "My Plan"
     },
     "es": {
         "nav_home": "🏠 Inicio",
@@ -848,7 +850,9 @@
         "gfc_league_intermediate": "Intermedio",
         "gfc_league_advanced": "Avanzado",
         "gfc_league_expert": "Experto",
-        "gfc_league_master": "Maestro"
+        "gfc_league_master": "Maestro",
+        "gfc_tab_catalogue": "Misiones",
+        "gfc_tab_plan": "Mi Plan"
     },
     "fr": {
         "nav_home": "🏠 Accueil",
@@ -1273,7 +1277,9 @@
         "gfc_league_intermediate": "Intermédiaire",
         "gfc_league_advanced": "Avancé",
         "gfc_league_expert": "Expert",
-        "gfc_league_master": "Maître"
+        "gfc_league_master": "Maître",
+        "gfc_tab_catalogue": "Catalogue",
+        "gfc_tab_plan": "Mon Plan"
     },
     "pt": {
         "nav_home": "🏠 Início",
@@ -1687,7 +1693,9 @@
         "gfc_league_intermediate": "Intermediário",
         "gfc_league_advanced": "Avançado",
         "gfc_league_expert": "Especialista",
-        "gfc_league_master": "Mestre"
+        "gfc_league_master": "Mestre",
+        "gfc_tab_catalogue": "Catálogo",
+        "gfc_tab_plan": "Meu Plano"
     },
     "ja": {
         "nav_home": "🏠 ホーム",
@@ -2112,7 +2120,9 @@
         "gfc_league_intermediate": "中級",
         "gfc_league_advanced": "高級",
         "gfc_league_expert": "エキスパート",
-        "gfc_league_master": "マスター"
+        "gfc_league_master": "マスター",
+        "gfc_tab_catalogue": "任務カタログ",
+        "gfc_tab_plan": "作成プラン"
     },
     "vi": {
         "nav_home": "🏠 Trang chủ",
@@ -2537,7 +2547,9 @@
         "gfc_league_intermediate": "Trung cấp",
         "gfc_league_advanced": "Cao cấp",
         "gfc_league_expert": "Chuyên gia",
-        "gfc_league_master": "Bậc thầy"
+        "gfc_league_master": "Bậc thầy",
+        "gfc_tab_catalogue": "Nhiệm vụ",
+        "gfc_tab_plan": "Kế hoạch"
     },
     "zh": {
         "nav_home": "🏠 首页",
@@ -2962,6 +2974,8 @@
         "gfc_league_intermediate": "中级",
         "gfc_league_advanced": "高级",
         "gfc_league_expert": "专家",
-        "gfc_league_master": "大师"
+        "gfc_league_master": "大师",
+        "gfc_tab_catalogue": "任务目录",
+        "gfc_tab_plan": "我的计划"
     }
 }
