@@ -1,0 +1,22 @@
+.leaderboard-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
+.leaderboard-row { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-bottom: 1px solid var(--border); transition: background 0.15s; }
+.leaderboard-row:hover { background: var(--bg-hover); }
+.leaderboard-rank { font-size: 1.2rem; font-weight: 700; color: var(--text-muted); width: 30px; }
+.leaderboard-rank.top-1 { color: var(--gold); text-shadow: 0 0 5px rgba(var(--gold-rgb),0.5); font-size: 1.4rem; }
+.leaderboard-rank.top-2 { color: var(--silver); text-shadow: 0 0 5px rgba(var(--silver-rgb),0.5); font-size: 1.3rem; }
+.leaderboard-rank.top-3 { color: var(--bronze); text-shadow: 0 0 5px rgba(var(--bronze-rgb),0.5); font-size: 1.2rem; }
+.leaderboard-name { font-weight: 600; color: var(--text-primary); margin-left: 10px; flex-grow: 1; text-decoration: none; overflow: hidden; text-overflow: ellipsis; }
+.leaderboard-name:hover { text-decoration: underline; color: var(--accent-cyan); }
+.leaderboard-value { font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; white-space: nowrap; }
+@media (max-width: 768px) {
+  .leaderboard-container { grid-template-columns: 1fr; }
+  .leaderboard-row { padding: 10px 8px; }
+  .leaderboard-name { font-size: 0.85rem; }
+  .leaderboard-value { font-size: 0.9rem; }
+}
+@media (max-width: 480px) {
+  .leaderboard-container { grid-template-columns: 1fr; gap: 1rem; }
+  .leaderboard-rank { width: 24px; font-size: 1rem; }
+  .leaderboard-name { font-size: 0.8rem; margin-left: 6px; }
+  .leaderboard-value { font-size: 0.82rem; }
+}
