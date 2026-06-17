@@ -1,4 +1,4 @@
-/* â”€â”€ Guild Festival Calculator styles â”€â”€ */
+/* ── Guild Festival Calculator styles ── */
 #gfc-section {
   margin-top: 1rem;
 }
@@ -21,7 +21,7 @@
   margin: 0.25rem 0 0;
 }
 
-/* â”€â”€ Layout â”€â”€ */
+/* ── Layout ── */
 .gfc-layout {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -29,7 +29,7 @@
   align-items: start;
 }
 
-/* â”€â”€ Mobile: single column, main panel FIRST â”€â”€ */
+/* ── Mobile: single column, main panel FIRST ── */
 @media (max-width: 900px) {
   .gfc-layout {
     grid-template-columns: 1fr;
@@ -40,7 +40,7 @@
   .gfc-sidebar     { order: 2; position: static !important; top: auto !important; }
 }
 
-/* â”€â”€ Sticky sidebar (desktop only) â”€â”€ */
+/* ── Sticky sidebar (desktop only) ── */
 .gfc-sidebar {
   position: sticky;
   top: 84px;
@@ -49,7 +49,7 @@
   gap: 1rem;
 }
 
-/* â”€â”€ Cards â”€â”€ */
+/* ── Cards ── */
 .gfc-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -74,7 +74,7 @@
 }
 .gfc-card-body { padding: 1rem; }
 
-/* â”€â”€ Info grid (league status) â”€â”€ */
+/* ── Info grid (league status) ── */
 .gfc-info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -102,7 +102,7 @@
   display: none;
 }
 
-/* â”€â”€ Progress bar â”€â”€ */
+/* ── Progress bar ── */
 .gfc-progress-wrap {
   margin: 0.75rem 0;
 }
@@ -126,7 +126,7 @@
   transition: width 0.35s ease, background 0.35s ease;
 }
 
-/* â”€â”€ Plan stats row â”€â”€ */
+/* ── Plan stats row ── */
 .gfc-plan-stats {
   margin-bottom: 0.75rem;
   text-align: center;
@@ -141,7 +141,7 @@
   color: var(--text-primary);
 }
 
-/* â”€â”€ Reset btn â”€â”€ */
+/* ── Reset btn ── */
 #gfc-reset {
   background: transparent;
   border: 1px solid var(--border);
@@ -154,7 +154,7 @@
 }
 #gfc-reset:hover { border-color: var(--accent-red); color: var(--accent-red); }
 
-/* â”€â”€ Sequence list â”€â”€ */
+/* ── Sequence list ── */
 .gfc-seq-list {
   list-style: none;
   padding: 0;
@@ -186,31 +186,39 @@
   flex-shrink: 0;
 }
 .gfc-seq-content { flex: 1; min-width: 0; }
-.gfc-seq-title   { display: block; color: var(--text-primary); font-size: 0.8rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gfc-seq-title   { display: block; color: var(--text-primary); font-size: 0.8rem; font-weight: 600; white-space: normal; word-break: break-word; }
 .gfc-seq-meta    { display: block; color: var(--text-muted); font-size: 0.7rem; }
 .gfc-seq-pts     { font-weight: 700; color: var(--accent); font-size: 0.85rem; flex-shrink: 0; }
 .gfc-seq-remove  { color: var(--text-muted); cursor: pointer; padding: 4px; font-size: 0.8rem; background: none; border: none; transition: color 0.2s; }
 .gfc-seq-remove:hover { color: var(--accent-red); }
 
-/* â”€â”€ Main panel â”€â”€ */
+/* ── Main panel ── */
 .gfc-main-panel {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-/* â”€â”€ League grid â”€â”€ */
+/* ── League grid ── */
 .gfc-league-grid {
+  padding: 0;
+}
+.gfc-leagues-desktop {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 8px;
   padding: 1rem;
 }
-@media (max-width: 480px) {
-  .gfc-league-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    padding: 0.75rem;
+.gfc-leagues-mobile {
+  display: none;
+  padding: 1rem;
+}
+@media (max-width: 768px) {
+  .gfc-leagues-desktop {
+    display: none;
+  }
+  .gfc-leagues-mobile {
+    display: block;
   }
 }
 .gfc-league-btn {
@@ -226,9 +234,6 @@
   transition: all 0.25s ease;
   text-align: center;
 }
-@media (max-width: 480px) {
-  .gfc-league-btn { padding: 8px 4px; font-size: 0.72rem; }
-}
 .gfc-league-btn:hover { border-color: var(--accent); color: var(--text-primary); }
 .gfc-league-btn.active {
   background: var(--accent);
@@ -238,15 +243,28 @@
   box-shadow: 0 0 12px rgba(var(--accent-rgb),.35);
 }
 
-/* â”€â”€ Catalogue header controls â”€â”€ */
+/* ── Catalogue header controls ── */
 .gfc-cat-filters {
+  padding: 0;
+}
+.gfc-chips-desktop {
   padding: 0 1rem 0.75rem;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
-@media (max-width: 480px) {
-  .gfc-cat-filters { padding: 0 0.75rem 0.6rem; gap: 5px; }
+.gfc-select-mobile {
+  display: none;
+  padding: 0 1rem 0.75rem;
+}
+@media (max-width: 768px) {
+  .gfc-chips-desktop {
+    display: none;
+  }
+  .gfc-select-mobile {
+    display: block;
+    padding: 0 0.75rem 0.6rem;
+  }
 }
 .gfc-cat-chip {
   font-size: 0.75rem;
@@ -259,11 +277,33 @@
   transition: all 0.2s ease;
   user-select: none;
 }
-@media (max-width: 480px) {
-  .gfc-cat-chip { font-size: 0.7rem; padding: 3px 9px; }
-}
 .gfc-cat-chip:hover  { border-color: var(--accent); color: var(--text-primary); }
 .gfc-cat-chip.active { background: var(--accent); color: #ffffff; font-weight: 700; border-color: var(--accent); box-shadow: 0 0 10px rgba(var(--accent-rgb),.3); }
+
+/* ── Custom Premium Select Dropdown for Mobile ── */
+.gfc-mobile-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: var(--bg-secondary) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>") no-repeat right 14px center;
+  background-size: 16px;
+  padding: 10px 14px !important;
+  padding-right: 40px !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  width: 100%;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+.gfc-mobile-select:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.3);
+}
 
 .gfc-search-wrap {
   padding: 0 1rem 0.75rem;
@@ -284,7 +324,7 @@
 }
 .gfc-search-input:focus { outline: none; border-color: var(--accent); }
 
-/* â”€â”€ Quest table â”€â”€ */
+/* ── Quest table ── */
 .gfc-table-wrap {
   max-height: 580px;
   overflow-y: auto;
@@ -330,7 +370,7 @@
 .gfc-quest-name { display: block; font-weight: 600; color: var(--text-primary); }
 .gfc-quest-cat  { display: block; font-size: 0.68rem; color: var(--text-muted); margin-top: 1px; }
 
-/* â”€â”€ Score buttons â”€â”€ */
+/* ── Score buttons ── */
 .gfc-score-btn-group {
   display: flex;
   gap: 4px;
@@ -363,7 +403,7 @@
 .gfc-btn-200   { border-color: rgba(var(--accent-red-rgb), 0.3);    color: var(--accent-red);   background: rgba(var(--accent-red-rgb), 0.08); }
 .gfc-btn-200:hover   { background: var(--accent-red); color: #ffffff; border-color: var(--accent-red); box-shadow: 0 0 10px rgba(var(--accent-red-rgb), 0.3); }
 
-/* â”€â”€ Legend â”€â”€ */
+/* ── Legend ── */
 .gfc-legend {
   display: flex;
   gap: 1.25rem;
@@ -374,8 +414,7 @@
 }
 .gfc-legend span { display: flex; align-items: center; gap: 5px; }
 
-/* â”€â”€ Mobile plan summary banner â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-/* A compact sticky bar at the bottom showing current plan pts on mobile */
+/* ── Mobile plan summary banner ────────────────────────────────── */
 .gfc-mob-plan-bar {
   display: none;
 }
@@ -448,8 +487,7 @@
 }
 .gfc-mob-scroll-plan:hover { opacity: 0.88; }
 
-
-/* â”€â”€ Best Quests Filter Button â”€â”€ */
+/* ── Best Quests Filter Button ── */
 .gfc-best-btn {
   display: inline-flex;
   align-items: center;
@@ -479,7 +517,7 @@
   transform: scale(1.02);
 }
 
-/* â”€â”€ Quest Row Colors â”€â”€ */
+/* ── Quest Row Colors (Desktop) ── */
 tr.gfc-quest-excellent td {
   background: rgba(34, 197, 94, 0.1) !important;
 }
@@ -488,4 +526,152 @@ tr.gfc-quest-good td {
 }
 tr.gfc-quest-low td {
   background: rgba(239, 68, 68, 0.08) !important;
+}
+
+/* ── Responsive Controls Row ── */
+.gfc-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem 0.25rem;
+}
+.gfc-controls-row .gfc-search-wrap {
+  flex: 1;
+  padding: 0;
+}
+.gfc-controls-row .gfc-best-btn {
+  flex-shrink: 0;
+}
+@media (max-width: 580px) {
+  .gfc-controls-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    padding: 0.75rem;
+  }
+}
+
+/* ── Card adjustment on mobile ── */
+@media (max-width: 480px) {
+  .gfc-card-body {
+    padding: 0.75rem;
+  }
+  .gfc-card-header {
+    padding: 0.65rem 0.75rem;
+  }
+}
+
+/* ── Mobile quest table layout (< 650px) ── */
+@media (max-width: 650px) {
+  .gfc-table-wrap {
+    max-height: none;
+    overflow-y: visible;
+    overflow-x: hidden !important;
+  }
+  .gfc-quest-table {
+    min-width: 0 !important;
+  }
+  .gfc-quest-table,
+  .gfc-quest-table tbody,
+  .gfc-quest-table tr,
+  .gfc-quest-table td {
+    display: block;
+    width: 100% !important;
+  }
+  .gfc-quest-table thead {
+    display: none; /* Hide header */
+  }
+  .gfc-quest-table tr {
+    padding: 0.85rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-areas:
+      "name name"
+      "req time"
+      "score score";
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  /* Move Row Background Colors from cells (TD) to the entire Row (TR) */
+  tr.gfc-quest-excellent td,
+  tr.gfc-quest-good td,
+  tr.gfc-quest-low td {
+    background: transparent !important;
+  }
+  tr.gfc-quest-excellent {
+    background: rgba(34, 197, 94, 0.07) !important;
+  }
+  tr.gfc-quest-good {
+    background: rgba(245, 158, 11, 0.09) !important;
+  }
+  tr.gfc-quest-low {
+    background: rgba(239, 68, 68, 0.05) !important;
+  }
+  
+  .gfc-cell-name {
+    grid-area: name;
+    padding: 0 !important;
+    border: none !important;
+  }
+  .gfc-cell-req {
+    grid-area: req;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    padding: 0 !important;
+    border: none !important;
+    text-align: left !important;
+  }
+  .gfc-cell-req::before {
+    content: "📋 ";
+    font-size: 0.85rem;
+    filter: opacity(0.8);
+  }
+  .gfc-cell-time {
+    grid-area: time;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    padding: 0 !important;
+    border: none !important;
+    text-align: right !important;
+    justify-content: flex-end;
+  }
+  .gfc-cell-time::before {
+    content: "⏱️ ";
+    font-size: 0.85rem;
+    filter: opacity(0.8);
+  }
+  
+  .gfc-cell-score {
+    grid-area: score;
+    padding: 0 !important;
+    border: none !important;
+    width: 100% !important;
+    margin-top: 0.15rem;
+  }
+  
+  .gfc-cell-score .gfc-score-btn-group {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    gap: 6px !important;
+    justify-content: space-between !important;
+  }
+  
+  .gfc-cell-score .gfc-btn-score {
+    flex: 1 !important;
+    min-width: 0 !important;
+    padding: 8px 0 !important;
+    font-size: 0.8rem !important;
+    border-radius: 6px !important;
+  }
 }
