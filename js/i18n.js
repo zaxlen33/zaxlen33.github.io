@@ -18,8 +18,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
-        const response = await fetch('./js/translations.json?v=' + Date.now());
-        this.data = await response.json();
+        const inPages = window.location.pathname.includes('/pages/');
+        const base = inPages ? '../js/' : './js/';
+        const translationsUrl = base + 'translations.json?v=' + Date.now();
+        const missionUrl      = base + 'mission_i18n.json?v=' + Date.now();
+
+        const [transResp, missionResp] = await Promise.all([
+          fetch(translationsUrl),
+          fetch(missionUrl)
+        ]);
+        this.data = await transResp.json();
+
+        // Merge mission translations into the main data object
+        if (missionResp.ok) {
+          const missionData = await missionResp.json();
+          for (const lang of Object.keys(missionData)) {
+            if (!this.data[lang]) this.data[lang] = {};
+            Object.assign(this.data[lang], missionData[lang]);
+          }
+        }
         
         // 3. Normalize currentLang (ensure it exists in data, else fallback to 'en')
         const shortLang = this.currentLang.split('-')[0].toLowerCase();
@@ -72,7 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       
       document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
+        let key = el.getAttribute('data-i18n');
+
+        // Handle [attr]key syntax e.g. [placeholder]gfc_search_placeholder
+        const attrMatch = key.match(/^\[([^\]]+)\](.+)$/);
+        if (attrMatch) {
+          const attr = attrMatch[1];
+          const realKey = attrMatch[2];
+          const translation = this.t(realKey);
+          if (translation && translation !== realKey) {
+            el.setAttribute(attr, translation);
+          }
+          return;
+        }
+
         let translation = this.t(key);
         if (!translation || translation === key) return;
 
@@ -175,3 +205,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /** Global helper function */
 window.t = (key, args) => window.i18n ? window.i18n.t(key, args) : key;
+
+/**
+ * Translate a raw mission name from tasks.json.
+ * Converts the name to its i18n key (mission_<snake_case>) and looks it up.
+ * Falls back to the original name if no translation is found.
+ */
+window.tMission = (name) => {
+  if (!name) return name;
+  const key = 'mission_' + name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+  const translated = window.t(key);
+  // If t() returned the key itself (no translation), fall back to the raw name
+  return translated === key ? name : translated;
+};
