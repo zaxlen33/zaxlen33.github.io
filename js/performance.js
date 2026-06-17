@@ -103,12 +103,14 @@
     if (window.i18n) window.i18n.applyTranslations();
 
     try {
+      const inPages = window.location.pathname.includes('/pages/');
+      const basePrefix = inPages ? '../data/' : './data/';
       const [warsRes, huntsRes, festivalRes, historyRes, membersRes] = await Promise.all([
-        fetch('./data/wars.json?v=' + Date.now()),
-        fetch('./data/hunts.json?v=' + Date.now()),
-        fetch('./data/festival.json?v=' + Date.now()),
-        fetch('./data/history.json?v=' + Date.now()),
-        fetch('./data/members.json?v=' + Date.now())
+        fetch(basePrefix + 'wars.json?v=' + Date.now()),
+        fetch(basePrefix + 'hunts.json?v=' + Date.now()),
+        fetch(basePrefix + 'festival.json?v=' + Date.now()),
+        fetch(basePrefix + 'history.json?v=' + Date.now()),
+        fetch(basePrefix + 'members.json?v=' + Date.now())
       ]);
 
       if (!warsRes.ok || !huntsRes.ok || !festivalRes.ok || !historyRes.ok || !membersRes.ok) {
@@ -347,7 +349,7 @@
 
       <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; padding: 1.5rem 1.5rem 0.5rem 1.5rem;">
         <div class="stat-card">
-          <span class="stat-icon" style="color: var(--accent-blue);">👥</span>
+          <span class="stat-icon" style="color: var(--accent-cyan);">👥</span>
           <span class="stat-value" id="stats-total-members">${totalAssessed}</span>
           <span class="stat-label">${getPerfT('stat_total')}</span>
         </div>
