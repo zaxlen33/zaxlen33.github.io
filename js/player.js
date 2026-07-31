@@ -1,4 +1,4 @@
-// website/js/player.js — Player Detail Dashboard
+// website/js/player.js - Player Detail Dashboard
 // Views driven by ?view=war|hunt|all|member&id=NAME[&month=YYYY-MM][&week=WEEK_ID]
 
 
@@ -278,8 +278,8 @@ function _profileHeader(name, growth, view, telegram) {
     rBadge = rankBadge(last.rank).replace('class="rank-badge', `style="${badgeStyle}" class="rank-badge`);
   }
 
-  const firstSeen = growth && growth.first_seen ? growth.first_seen : '—';
-  const lastSeen  = last ? last.date : '—';
+  const firstSeen = growth && growth.first_seen ? growth.first_seen : '-';
+  const lastSeen  = last ? last.date : '-';
 
   return `
     <div class="breadcrumb" style="margin-bottom:1.5rem;">
@@ -320,7 +320,7 @@ function buildWarSection(name, month, warDailyData, growth, warsData, warUidKey)
 
   // For kills/might diff: use wars.json when a specific month is selected.
   // wars.json has the full month delta (first→last snapshot of the month) for
-  // any historical month — no daily data window limitation.
+  // any historical month - no daily data window limitation.
   let mightDiff, killsDiff;
   // Helper: find a member in a war month's members array by UID first, then by name
   function findWarMember(warMonthObj, playerUidStr, playerName) {
@@ -341,15 +341,15 @@ function buildWarSection(name, month, warDailyData, growth, warsData, warUidKey)
     mightDiff = warMember ? (warMember.might_diff || 0) : ((last30 && first30) ? last30.might - first30.might : 0);
     killsDiff = warMember ? (warMember.kills_diff || 0) : ((last30 && first30) ? Math.max(0, last30.kills - first30.kills) : 0);
   } else {
-    // General "last 30 days" view — use daily delta
+    // General "last 30 days" view - use daily delta
     mightDiff = (last30 && first30) ? last30.might - first30.might : 0;
     killsDiff = (last30 && first30) ? Math.max(0, last30.kills - first30.kills) : 0;
   }
 
   let html = '';
   html += _statCards([
-    { icon:'🏰', value: last30 ? fmtCompact(last30.might) : '—', label: t('current_might'), color:'blue',   delta: mightDiff, deltaLabel: month ? t('latest') : t('last_30_days') },
-    { icon:'⚔️', value: last30 ? fmtCompact(last30.kills) : '—', label: t('current_kills'), color:'yellow', delta: killsDiff, deltaLabel: month ? t('latest') : t('last_30_days') },
+    { icon:'🏰', value: last30 ? fmtCompact(last30.might) : '-', label: t('current_might'), color:'blue',   delta: mightDiff, deltaLabel: month ? t('latest') : t('last_30_days') },
+    { icon:'⚔️', value: last30 ? fmtCompact(last30.kills) : '-', label: t('current_kills'), color:'yellow', delta: killsDiff, deltaLabel: month ? t('latest') : t('last_30_days') },
   ]);
 
   let quotaKillsDiff = killsDiff;
@@ -361,7 +361,7 @@ function buildWarSection(name, month, warDailyData, growth, warsData, warUidKey)
   }
   html += _quotaBadge(quotaKillsDiff);
 
-  // Chart section — always shows last 30 days of daily snapshots
+  // Chart section - always shows last 30 days of daily snapshots
   html += `<div class="section-label">📅 ${t('last_30_days')}</div>`;
   html += `<div class="chart-grid">`;
   html += chartDays.length >= 2 ? _card(t('chart_power_30d'), 'chart-war-might-30d') : _noData(t('power_30d'));
@@ -455,7 +455,7 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52, huntUidKey
   let html = '';
 
   html += `<div class="card" style="border-top:3px solid ${pctColor};margin-bottom:1.5rem;">
-    <div class="card-header"><h2>🎯 ${t('goal_title')} — ${statWeekLabel}</h2></div>
+    <div class="card-header"><h2>🎯 ${t('goal_title')} - ${statWeekLabel}</h2></div>
     <div class="card-body" style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
       <div style="font-size:2.2rem;">${met?'✅':'❌'}</div>
       <div style="flex:1;">
@@ -475,7 +475,7 @@ function buildHuntSection(name, weekId, huntDailyData, playerHunts52, huntUidKey
   html += sortedChartDays.length >= 1 ? _card(t('chart_hunt_bar_7d'), 'chart-hunt-bar-7d') : _noData(t('monsters_hunted'));
   html += `</div>`;
 
-  html += `<div class="section-label">📊 ${t('hunt_history_title') || '52-Week History — Hunt Data'}</div>`;
+  html += `<div class="section-label">📊 ${t('hunt_history_title') || '52-Week History - Hunt Data'}</div>`;
   html += `<div class="chart-grid">`;
   html += playerHunts52.length >= 2 ? _card(t('chart_hunt_pts_52w'), 'chart-hunt-pts-52w') : _noData(t('hunt_history'));
   html += playerHunts52.length >= 1 ? _card(t('chart_hunt_bar_52w'), 'chart-hunt-bar-52w') : _noData(t('chests_purchased'));
@@ -550,7 +550,7 @@ function buildFestivalSection(name, growth, rawFestivalData) {
     <table>
       <thead><tr><th>${t('date')}</th><th class="right">${t('score')}</th></tr></thead>
       <tbody>
-        ${last12.slice().reverse().map(f => `<tr style="transition:background 0.15s;" onmouseover="this.style.background='var(--bg-hover)'" onmouseout="this.style.background=''"><td class="card-main">${f.dateSpan}</td><td data-label="${t('score')}" class="right mono">${f.participated ? Number(f.score).toLocaleString() : '—'}</td></tr>`).join('')}
+        ${last12.slice().reverse().map(f => `<tr style="transition:background 0.15s;" onmouseover="this.style.background='var(--bg-hover)'" onmouseout="this.style.background=''"><td class="card-main">${f.dateSpan}</td><td data-label="${t('score')}" class="right mono">${f.participated ? Number(f.score).toLocaleString() : '-'}</td></tr>`).join('')}
       </tbody>
     </table>
   </div>`;
@@ -576,9 +576,9 @@ function buildAllHistorySection(name, growth, playerHunts52, mhuntsEntry, rawFes
   const lastH52 = playerHunts52.length ? playerHunts52[playerHunts52.length-1] : null;
 
   let html = _statCards([
-    { icon:'🏰', value: last52 ? fmtCompact(last52.might) : '—', label: t('current_might'), color:'blue' },
-    { icon:'⚔️', value: last52 ? fmtCompact(last52.kills) : '—', label: t('current_kills'), color:'yellow' },
-    { icon:'🎯', value: lastH52 ? fmtNum(lastH52.pts_total) : '—', label: t('points'), color:'green' },
+    { icon:'🏰', value: last52 ? fmtCompact(last52.might) : '-', label: t('current_might'), color:'blue' },
+    { icon:'⚔️', value: last52 ? fmtCompact(last52.kills) : '-', label: t('current_kills'), color:'yellow' },
+    { icon:'🎯', value: lastH52 ? fmtNum(lastH52.pts_total) : '-', label: t('points'), color:'green' },
     { icon:'📊', value: snaps52.length, label: t('snapshots_label'), color:'purple' },
   ]);
 
@@ -639,12 +639,194 @@ function buildAllHistorySection(name, growth, playerHunts52, mhuntsEntry, rawFes
       ]);
     }
     if (last12Fest.length > 0) {
+      _lineChart('chart-all-fest-line', t('score'), last12Fest.map(f => f.dateSpan), last12Fest.map(f => f.score), '--accent', '#bc8cff');
       _barChart('chart-all-fest-bar', last12Fest.map(f => f.dateSpan), [
         { label: t('score'), data: last12Fest.map(f => f.score), backgroundColor: '#a371f7', _cssBgVar: '--accent' }
       ]);
-      _lineChart('chart-all-fest-line', t('score'), last12Fest.map(f => f.dateSpan), last12Fest.map(f => f.score), '--accent', '#bc8cff');
     }
   }};
+}
+
+// ─── Build Dragon Arena section ──────────────────────────────────────────────
+
+function buildDragonArenaSection(name, growth, daEvents) {
+  const SLOTS = [
+    { slot: 1, start: '1:00 am',  end: '2:00 am'  },
+    { slot: 2, start: '4:00 am',  end: '5:00 am'  },
+    { slot: 3, start: '7:00 am',  end: '8:00 am'  },
+    { slot: 4, start: '10:00 am', end: '11:00 am' },
+    { slot: 5, start: '1:00 pm',  end: '2:00 pm'  },
+    { slot: 6, start: '4:00 pm',  end: '5:00 pm'  },
+    { slot: 7, start: '7:00 pm',  end: '8:00 pm'  },
+    { slot: 8, start: '10:00 pm', end: '11:00 pm' }
+  ];
+
+  const uid = growth ? (growth.uid || 'N/A') : 'N/A';
+  const events = (daEvents || []).slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+  let playedCount = 0;
+  let noShowCount = 0;
+  let absentCount = 0;
+  const slotCounts = Array(8).fill(0);
+  const histLabels = [];
+  const histValues = [];
+
+  events.forEach(ev => {
+    histLabels.push(ev.date || '');
+    const p = (ev.participants || []).find(x => (uid && uid !== 'N/A' && x.uid === uid) || (x.name && x.name.toLowerCase() === (name || '').toLowerCase()));
+    if (p) {
+      if (p.team === 'A' || p.team === 'B') {
+        playedCount++;
+        if (ev.slot >= 1 && ev.slot <= 8) slotCounts[ev.slot - 1]++;
+        histValues.push(1);
+      } else if (p.team === 'no_show') {
+        noShowCount++;
+        histValues.push(0.5);
+      } else {
+        absentCount++;
+        histValues.push(0);
+      }
+    } else {
+      absentCount++;
+      histValues.push(0);
+    }
+  });
+
+  const totalEvents = events.length;
+  const attendanceRate = totalEvents ? Math.round((playedCount / totalEvents) * 100) + '%' : '-';
+
+  let html = _statCards([
+    { icon:'🐉', value: playedCount, label: t('completed') || 'Played', color:'purple' },
+    { icon:'❌', value: noShowCount, label: t('da_no_show') || 'No Show', color:'red' },
+    { icon:'📊', value: attendanceRate, label: t('da_attendance_history') || 'Attendance', color:'green' },
+    { icon:'🗓️', value: totalEvents, label: t('da_config_event') || 'Total Events', color:'blue' },
+  ]);
+
+  const hasSlots = slotCounts.some(c => c > 0);
+  const hasHist  = histLabels.length > 0;
+
+  html += `<div class="section-label">${t('nav_dragon_arena')}</div>`;
+  html += `<div class="chart-grid">`;
+  html += hasSlots ? _card(t('da_preferred_slots'), 'chart-da-slots') : _noData(t('da_preferred_slots'));
+  html += hasHist  ? _card(t('da_attendance_history'), 'chart-da-line') : _noData(t('da_attendance_history'));
+  html += `</div>`;
+
+  return {
+    html,
+    mount() {
+      // Bar chart: preferred slots
+      if (hasSlots) {
+        const el = document.getElementById('chart-da-slots');
+        if (el) {
+          const ctx = el.getContext('2d');
+          const getC = (v, fb) => getComputedStyle(document.documentElement).getPropertyValue(v).trim() || fb;
+          const barColors = slotCounts.map(v => v > 0 ? 'rgba(163,113,247,0.85)' : 'rgba(163,113,247,0.25)');
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: SLOTS.map(s => `Slot ${s.slot}\n${s.start}`),
+              datasets: [{
+                label: 'Times Played',
+                data: slotCounts,
+                backgroundColor: barColors,
+                borderRadius: { topLeft: 6, topRight: 6 },
+                borderSkipped: false,
+              }]
+            },
+            options: {
+              responsive: true, maintainAspectRatio: false,
+              animation: { duration: 600, easing: 'easeOutQuart' },
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  backgroundColor: 'rgba(10,12,18,0.97)',
+                  titleColor: '#e6edf3', bodyColor: '#8b949e',
+                  borderColor: 'rgba(99,110,123,0.4)', borderWidth: 1, padding: 12, cornerRadius: 10,
+                  callbacks: {
+                    title: items => { const s = SLOTS[items[0].dataIndex]; return `Slot ${s.slot} · ${s.start}–${s.end} UTC-5`; },
+                    label: c => `  Played: ${c.raw} time${c.raw !== 1 ? 's' : ''}`
+                  }
+                }
+              },
+              scales: {
+                x: { grid: { display: false }, border: { display: false }, ticks: { color: getC('--text-muted','#6e7681'), font: { size: 10 }, maxRotation: 0 } },
+                y: { beginAtZero: true, grid: { color: getC('--border','#30363d') }, border: { display: false },
+                     ticks: { color: getC('--text-muted','#6e7681'), stepSize: 1, callback: v => Number.isInteger(v) ? v : '' } }
+              }
+            }
+          });
+        }
+      }
+
+      // Line chart: attendance over time
+      if (hasHist) {
+        const el = document.getElementById('chart-da-line');
+        if (el) {
+          const ctx = el.getContext('2d');
+          const getC = (v, fb) => getComputedStyle(document.documentElement).getPropertyValue(v).trim() || fb;
+          const pointColors = histValues.map(v => {
+            if (v === 1)   return 'rgba(63,185,80,0.9)';
+            if (v === 0.5) return 'rgba(248,81,73,0.9)';
+            return 'rgba(110,118,129,0.6)';
+          });
+          const pointRadius = histValues.map(v => v !== null ? 6 : 3);
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: histLabels,
+              datasets: [{
+                label: 'Attendance',
+                data: histValues,
+                borderColor: 'rgba(163,113,247,0.6)',
+                backgroundColor: 'rgba(163,113,247,0.05)',
+                borderWidth: 1.5,
+                fill: false,
+                tension: 0,
+                pointBackgroundColor: pointColors,
+                pointBorderColor: 'rgba(10,12,18,0.9)',
+                pointBorderWidth: 2,
+                pointRadius: pointRadius,
+                pointHoverRadius: 8,
+                spanGaps: true,
+              }]
+            },
+            options: {
+              responsive: true, maintainAspectRatio: false,
+              animation: { duration: 600, easing: 'easeOutQuart' },
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  backgroundColor: 'rgba(10,12,18,0.97)',
+                  titleColor: '#e6edf3', bodyColor: '#8b949e',
+                  borderColor: 'rgba(99,110,123,0.4)', borderWidth: 1, padding: 12, cornerRadius: 10,
+                  callbacks: {
+                    title: items => items[0]?.label || '',
+                    label: c => {
+                      const v = c.raw;
+                      if (v === 1)   return '  ✅ Participated';
+                      if (v === 0.5) return '  ❌ No Show';
+                      return '  - Absent';
+                    }
+                  }
+                }
+              },
+              scales: {
+                x: { grid: { display: false }, border: { display: false }, ticks: { color: getC('--text-muted','#6e7681'), font: { size: 10 }, maxRotation: 45 } },
+                y: {
+                  min: -0.1, max: 1.3,
+                  grid: { color: getC('--border','#30363d') }, border: { display: false },
+                  ticks: {
+                    color: getC('--text-muted','#6e7681'),
+                    callback: v => { if (v === 1) return '✅ Played'; if (v === 0.5) return '❌ No Show'; if (v === 0) return '- Absent'; return ''; }
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+    }
+  };
 }
 
 // ─── VIEWS ───────────────────────────────────────────────────────────────────
@@ -667,7 +849,7 @@ async function renderAllHistoryView(container, name, growth, playerHunts52, mhun
   sec.mount();
 }
 
-async function renderMemberView(container, name, growth, warDailyData, huntDailyData, playerHunts52, mhuntsEntry, festivalData, telegram, warsData, warUidKey, huntUidKey) {
+async function renderMemberView(container, name, growth, warDailyData, huntDailyData, playerHunts52, mhuntsEntry, festivalData, telegram, warsData, warUidKey, huntUidKey, daEvents) {
   let nameChangesHtml = '';
   if (growth && growth.name_history && growth.name_history.length > 0) {
     nameChangesHtml = `<div class="card" style="margin-bottom:1.5rem;">
@@ -693,13 +875,15 @@ async function renderMemberView(container, name, growth, warDailyData, huntDaily
       <button id="btn-hunt" class="player-tab" onclick="switchMemberTab('hunt')">${t('nav_hunt')}</button>
       <button id="btn-fest" class="player-tab" onclick="switchMemberTab('fest')">${t('nav_festival')}</button>
       <button id="btn-all"  class="player-tab" onclick="switchMemberTab('all')">${t('nav_history')}</button>
+      <button id="btn-da"   class="player-tab" onclick="switchMemberTab('da')">🐉 Dragon Arena</button>
     </div>
     <div id="tab-war"></div>
     <div id="tab-hunt" style="display:none;"></div>
     <div id="tab-fest" style="display:none;"></div>
-    <div id="tab-all"  style="display:none;"></div>`;
+    <div id="tab-all"  style="display:none;"></div>
+    <div id="tab-da"   style="display:none;"></div>`;
 
-  const mounted = { war: false, hunt: false, fest: false, all: false };
+  const mounted = { war: false, hunt: false, fest: false, all: false, da: false };
 
   function mountTab(tab) {
     if (mounted[tab]) return;
@@ -711,6 +895,7 @@ async function renderMemberView(container, name, growth, warDailyData, huntDaily
     if      (tab === 'war')  sec = buildWarSection(name, urlMonth, warDailyData, growth, warsData, warUidKey);
     else if (tab === 'hunt') sec = buildHuntSection(name, urlWeek, huntDailyData, playerHunts52, huntUidKey, mhuntsEntry);
     else if (tab === 'fest') sec = buildFestivalSection(name, growth, festivalData);
+    else if (tab === 'da')   sec = buildDragonArenaSection(name, growth, daEvents);
     else                     sec = buildAllHistorySection(name, growth, playerHunts52, mhuntsEntry, festivalData);
     el.innerHTML = sec.html;
     sec.mount();
@@ -719,7 +904,7 @@ async function renderMemberView(container, name, growth, warDailyData, huntDaily
   mountTab('war');
 
   window.switchMemberTab = function(tab) {
-    ['war','hunt','fest','all'].forEach(t => {
+    ['war','hunt','fest','all','da'].forEach(t => {
       document.getElementById(`tab-${t}`).style.display  = t === tab ? '' : 'none';
       document.getElementById(`btn-${t}`).classList.toggle('active', t === tab);
     });
@@ -745,14 +930,15 @@ async function initPlayer() {
   setLoading(container, t('loading_player_param').replace('{name}', uidParam || nameParam));
 
   try {
-    const [histRes, mhuntsRes, warDailyRes, huntDailyRes, festRes, membersRes, warsRes] = await Promise.allSettled([
+    const [histRes, mhuntsRes, warDailyRes, huntDailyRes, festRes, membersRes, warsRes, daRes] = await Promise.allSettled([
       loadJSON('history.json'),
       loadJSON('member_hunts.json'),
       loadJSON('member_war_daily.json'),
       loadJSON('member_hunt_daily.json'),
       loadJSON('festival.json'),
       loadJSON('members.json'),
-      loadJSON('wars.json'),       // full monthly war data — used for accurate kills/might delta
+      loadJSON('wars.json'),       // full monthly war data - used for accurate kills/might delta
+      loadJSON('dragon_arena.json'),
     ]);
 
     const histData      = histRes.status      === 'fulfilled' ? histRes.value      : { members: [] };
@@ -762,8 +948,9 @@ async function initPlayer() {
     const festivalData  = festRes.status      === 'fulfilled' ? festRes.value      : [];
     const membersData   = membersRes.status   === 'fulfilled' ? membersRes.value   : [];
     const warsData      = warsRes.status      === 'fulfilled' ? warsRes.value      : [];
+    const daEvents      = daRes.status        === 'fulfilled' ? daRes.value        : [];
 
-    // ── Resolve player in history.json — UID-FIRST, name as fallback ──────────
+    // ── Resolve player in history.json - UID-FIRST, name as fallback ──────────
     // history.json has { uid, igg_id, name, snapshots[], name_history[], ... } per member.
     // We ALWAYS prefer UID lookup (stable hash or numeric igg_id) to avoid collisions when two players share a name.
     let growth = null;
@@ -889,7 +1076,7 @@ async function initPlayer() {
     if      (view === 'war')  await renderWarView(container, name, month, growth, warDailyData, telegram, warsData, warUidKey);
     else if (view === 'hunt') await renderHuntView(container, name, week, huntDailyData, playerHunts52, mhuntsEntry, telegram, growth, huntUidKey);
     else if (view === 'all')  await renderAllHistoryView(container, name, growth, playerHunts52, mhuntsEntry, festivalData, telegram);
-    else /* member */         await renderMemberView(container, name, growth, warDailyData, huntDailyData, playerHunts52, mhuntsEntry, festivalData, telegram, warsData, warUidKey, huntUidKey);
+    else /* member */         await renderMemberView(container, name, growth, warDailyData, huntDailyData, playerHunts52, mhuntsEntry, festivalData, telegram, warsData, warUidKey, huntUidKey, daEvents);
 
   } catch(err) {
     setError(container, t('error_loading') + ': ' + err.message);
