@@ -49,12 +49,12 @@ async function initIndexStats() {
       </div>
       <div class="stat-card orange">
         <div class="stat-icon">⭐</div>
-        <div class="stat-value">${latestWeek ? fmtCompact(latestWeek.total_power) : '—'}</div>
+        <div class="stat-value">${latestWeek ? fmtCompact(latestWeek.total_power) : '-'}</div>
         <div class="stat-label" data-i18n="guild_power">${t('guild_power')}</div>
       </div>
       <div class="stat-card yellow">
         <div class="stat-icon">⚔️</div>
-        <div class="stat-value">${latestWeek ? fmtCompact(latestWeek.total_kills) : '—'}</div>
+        <div class="stat-value">${latestWeek ? fmtCompact(latestWeek.total_kills) : '-'}</div>
         <div class="stat-label" data-i18n="guild_kills">${t('guild_kills')}</div>
       </div>`;
   } catch (e) {
