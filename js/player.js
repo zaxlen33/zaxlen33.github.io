@@ -570,7 +570,7 @@ function buildFestivalSection(name, growth, rawFestivalData) {
 
 // ─── Build "All History" section (52w only) ──────────────────────────────────
 
-function buildAllHistorySection(name, growth, playerHunts52, mhuntsEntry, rawFestivalData) {
+function buildAllHistorySection(name, growth, playerHunts52, mhuntsEntry, rawFestivalData, daEvents) {
   const snaps52 = growth ? (growth.snapshots||[]) : [];
   const last52  = snaps52.length ? snaps52[snaps52.length-1] : null;
   const lastH52 = playerHunts52.length ? playerHunts52[playerHunts52.length-1] : null;
@@ -616,6 +616,9 @@ function buildAllHistorySection(name, growth, playerHunts52, mhuntsEntry, rawFes
   html += last12Fest.length > 0 ? _card(t('chart_fest_bar_12e'), 'chart-all-fest-bar') : _noData(t('festival_scores_bar'));
   html += `</div>`;
 
+  const daSec = buildDragonArenaSection(name, growth, daEvents);
+  html += `<div style="margin-top:2rem;"></div>` + daSec.html;
+
   return { html, mount() {
     if (snaps52.length >= 2) {
       const dates = snaps52.map(s=>s.date);
@@ -644,6 +647,7 @@ function buildAllHistorySection(name, growth, playerHunts52, mhuntsEntry, rawFes
         { label: t('score'), data: last12Fest.map(f => f.score), backgroundColor: '#a371f7', _cssBgVar: '--accent' }
       ]);
     }
+    daSec.mount();
   }};
 }
 
@@ -675,11 +679,11 @@ function buildDragonArenaSection(name, growth, daEvents) {
     histLabels.push(ev.date || '');
     const p = (ev.participants || []).find(x => (uid && uid !== 'N/A' && x.uid === uid) || (x.name && x.name.toLowerCase() === (name || '').toLowerCase()));
     if (p) {
-      if (p.team === 'A' || p.team === 'B') {
+      if (p.status === 'confirmed') {
         playedCount++;
         if (ev.slot >= 1 && ev.slot <= 8) slotCounts[ev.slot - 1]++;
         histValues.push(1);
-      } else if (p.team === 'no_show') {
+      } else if (p.status === 'no_show') {
         noShowCount++;
         histValues.push(0.5);
       } else {
@@ -724,7 +728,7 @@ function buildDragonArenaSection(name, growth, daEvents) {
           new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: SLOTS.map(s => `Slot ${s.slot}\n${s.start}`),
+              labels: SLOTS.map(s => `Slot ${s.slot}`),
               datasets: [{
                 label: 'Times Played',
                 data: slotCounts,
@@ -743,7 +747,7 @@ function buildDragonArenaSection(name, growth, daEvents) {
                   titleColor: '#e6edf3', bodyColor: '#8b949e',
                   borderColor: 'rgba(99,110,123,0.4)', borderWidth: 1, padding: 12, cornerRadius: 10,
                   callbacks: {
-                    title: items => { const s = SLOTS[items[0].dataIndex]; return `Slot ${s.slot} · ${s.start}–${s.end} UTC-5`; },
+                    title: items => { const s = SLOTS[items[0].dataIndex]; return `Slot ${s.slot} (${s.start}–${s.end} UTC-5)`; },
                     label: c => `  Played: ${c.raw} time${c.raw !== 1 ? 's' : ''}`
                   }
                 }
@@ -803,9 +807,9 @@ function buildDragonArenaSection(name, growth, daEvents) {
                     title: items => items[0]?.label || '',
                     label: c => {
                       const v = c.raw;
-                      if (v === 1)   return '  ✅ Participated';
-                      if (v === 0.5) return '  ❌ No Show';
-                      return '  - Absent';
+                      if (v === 1)   return '  Played';
+                      if (v === 0.5) return '  No Show';
+                      return '  Absent';
                     }
                   }
                 }
@@ -817,7 +821,7 @@ function buildDragonArenaSection(name, growth, daEvents) {
                   grid: { color: getC('--border','#30363d') }, border: { display: false },
                   ticks: {
                     color: getC('--text-muted','#6e7681'),
-                    callback: v => { if (v === 1) return '✅ Played'; if (v === 0.5) return '❌ No Show'; if (v === 0) return '- Absent'; return ''; }
+                    callback: v => { if (v === 1) return 'Played'; if (v === 0.5) return 'No Show'; if (v === 0) return 'Absent'; return ''; }
                   }
                 }
               }
@@ -867,15 +871,17 @@ async function renderMemberView(container, name, growth, warDailyData, huntDaily
     </div>`;
   }
 
+  const cleanEmoji = str => (str || '').replace(/^(?:[\p{Extended_Pictographic}\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]\s*)+/u, '');
+
   container.innerHTML = `
     ${_profileHeader(name, growth, 'member', telegram)}
     ${nameChangesHtml}
     <div style="display:flex;gap:.5rem;margin:1.2rem 0;flex-wrap:wrap;">
-      <button id="btn-war"  class="player-tab active" onclick="switchMemberTab('war')">${t('nav_war')}</button>
-      <button id="btn-hunt" class="player-tab" onclick="switchMemberTab('hunt')">${t('nav_hunt')}</button>
-      <button id="btn-fest" class="player-tab" onclick="switchMemberTab('fest')">${t('nav_festival')}</button>
-      <button id="btn-all"  class="player-tab" onclick="switchMemberTab('all')">${t('nav_history')}</button>
-      <button id="btn-da"   class="player-tab" onclick="switchMemberTab('da')">🐉 Dragon Arena</button>
+      <button id="btn-war"  class="player-tab active" onclick="switchMemberTab('war')">${cleanEmoji(t('nav_war'))}</button>
+      <button id="btn-hunt" class="player-tab" onclick="switchMemberTab('hunt')">${cleanEmoji(t('nav_hunt'))}</button>
+      <button id="btn-fest" class="player-tab" onclick="switchMemberTab('fest')">${cleanEmoji(t('nav_festival'))}</button>
+      <button id="btn-all"  class="player-tab" onclick="switchMemberTab('all')">${cleanEmoji(t('nav_history'))}</button>
+      <button id="btn-da"   class="player-tab" onclick="switchMemberTab('da')">Dragon Arena</button>
     </div>
     <div id="tab-war"></div>
     <div id="tab-hunt" style="display:none;"></div>
@@ -896,7 +902,7 @@ async function renderMemberView(container, name, growth, warDailyData, huntDaily
     else if (tab === 'hunt') sec = buildHuntSection(name, urlWeek, huntDailyData, playerHunts52, huntUidKey, mhuntsEntry);
     else if (tab === 'fest') sec = buildFestivalSection(name, growth, festivalData);
     else if (tab === 'da')   sec = buildDragonArenaSection(name, growth, daEvents);
-    else                     sec = buildAllHistorySection(name, growth, playerHunts52, mhuntsEntry, festivalData);
+    else                     sec = buildAllHistorySection(name, growth, playerHunts52, mhuntsEntry, festivalData, daEvents);
     el.innerHTML = sec.html;
     sec.mount();
   }
@@ -905,8 +911,10 @@ async function renderMemberView(container, name, growth, warDailyData, huntDaily
 
   window.switchMemberTab = function(tab) {
     ['war','hunt','fest','all','da'].forEach(t => {
-      document.getElementById(`tab-${t}`).style.display  = t === tab ? '' : 'none';
-      document.getElementById(`btn-${t}`).classList.toggle('active', t === tab);
+      const tabEl = document.getElementById(`tab-${t}`);
+      const btnEl = document.getElementById(`btn-${t}`);
+      if (tabEl) tabEl.style.display = t === tab ? '' : 'none';
+      if (btnEl) btnEl.classList.toggle('active', t === tab);
     });
     mountTab(tab);
   };
