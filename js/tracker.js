@@ -122,13 +122,13 @@ async function initTracker() {
 
     let html = '';
 
-    // Recent changes (≤180 days) — rendered at the top, expanded by default
+    // Recent changes (≤180 days) - rendered at the top, expanded by default
     if (recentChanges.length > 0) {
       recentChanges.sort((a, b) => b.until.localeCompare(a.until));
       html += renderGroups(buildMonthGroups(recentChanges));
     }
 
-    // Older changes (>180 days) — collapsed in a disclosure block
+    // Older changes (>180 days) - collapsed in a disclosure block
     if (olderChanges.length > 0) {
       olderChanges.sort((a, b) => b.until.localeCompare(a.until));
       html += `
