@@ -1,26 +1,26 @@
 /**
- * troops.js — Troops Calculator for UE Guild Dashboard
+ * troops.js - Troops Calculator for UE Guild Dashboard
  *
  * Renders troop cards into tier panels, wires all interactions,
  * performs live calculations and updates both the desktop sidebar
  * and the mobile bottom sheet.
  *
  * HTML contract (troops-calculator.html):
- *   #tc-panel-{1-4}     — grid containers for each tier
- *   #tc-speed            — training speed input
- *   #tc-reset-all        — reset all button
- *   .tc-tab[data-tier]   — tier tab buttons
- *   #badge-{1-4}         — badge spans on tabs
- *   #tc-active-count     — "X troops selected" label
+ *   #tc-panel-{1-4}     - grid containers for each tier
+ *   #tc-speed            - training speed input
+ *   #tc-reset-all        - reset all button
+ *   .tc-tab[data-tier]   - tier tab buttons
+ *   #badge-{1-4}         - badge spans on tabs
+ *   #tc-active-count     - "X troops selected" label
  *
  *   Desktop sidebar:
- *   #tc-placeholder / #tc-results  — toggle visibility
+ *   #tc-placeholder / #tc-results  - toggle visibility
  *   #tc-gems-val / #tc-might-val / #tc-time-val
  *   #tc-speedup-list / #tc-res-list
  *
  *   Mobile bar: #tc-mobile-bar .visible
  *   #tc-m-gems / #tc-m-might / #tc-m-time
- *   #tc-mobile-see — opens sheet
+ *   #tc-mobile-see - opens sheet
  *
  *   Mobile sheet: #tc-sheet / #tc-backdrop / #tc-sheet-close
  *   #tc-s-gems / #tc-s-might / #tc-s-time
@@ -61,7 +61,7 @@
     { id: 'tier_4_destroyer',            tier: 4, might: 36, res: [1000, 1000, 1000, 1000, 500], img: 'images/troops/T4/siege_destroyer.jpg',           type: 'Siege'    },
   ];
 
-  // Troop display names (English fallback — i18n overrides via troop.nameKey if added later)
+  // Troop display names (English fallback - i18n overrides via troop.nameKey if added later)
   const TROOP_NAMES = {
     tier_1_grunt:           'Grunt',
     tier_1_archer:          'Archer',
@@ -81,7 +81,7 @@
     tier_4_destroyer:             'Destroyer',
   };
 
-  // Base training time per tier (seconds per unit) — Lords Mobile values
+  // Base training time per tier (seconds per unit) - Lords Mobile values
   const BASE_TIME = { 1: 10, 2: 20, 3: 45, 4: 120 };
 
   // Speedups: key → { seconds, cost (gems), img }
@@ -148,7 +148,7 @@
   }
 
   /* ═══════════════════════════════════════════════════════════
-     RENDER — troop card panels
+     RENDER - troop card panels
   ═══════════════════════════════════════════════════════════ */
 
   function renderPanels() {
@@ -211,7 +211,7 @@
   }
 
   /* ═══════════════════════════════════════════════════════════
-     CONTROLS — event delegation
+     CONTROLS - event delegation
   ═══════════════════════════════════════════════════════════ */
 
   function wireControls() {
@@ -223,7 +223,7 @@
     document.getElementById('tc-reset-all')
       ?.addEventListener('click', resetAll);
 
-    // Event delegation — all four panels
+    // Event delegation - all four panels
     document.querySelectorAll('.tc-panel').forEach(panel => {
       panel.addEventListener('click',  handlePanelClick);
       panel.addEventListener('input',  handlePanelInput);
@@ -364,7 +364,7 @@
       if (qty > 0) maxTier = Math.max(maxTier, parseInt(tier));
     }
 
-    // Filter speedups — exclude large ones for low tiers
+    // Filter speedups - exclude large ones for low tiers
     const exclude = [];
     if (maxTier > 0 && maxTier <= 2) { exclude.push('3d'); }
 
@@ -441,7 +441,7 @@
     const noSpeedups = t('calc_no_big_speedups');
     const prefix     = t('calc_speedup_prefix');
     if (plan.length === 0) {
-      return `<p class="tc-no-speedups">${esc(totalSecs > 0 ? noSpeedups : '—')}</p>`;
+      return `<p class="tc-no-speedups">${esc(totalSecs > 0 ? noSpeedups : '-')}</p>`;
     }
     return plan.map(p => `
       <div class="tc-speedup-item">
