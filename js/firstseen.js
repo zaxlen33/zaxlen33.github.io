@@ -1,5 +1,5 @@
 /**
- * firstseen.js — "First Seen" module
+ * firstseen.js - "First Seen" module
  *
  * Reads history.json and renders all members ordered by first_seen (newest first).
  * Highlights members seen within the last 7 / 14 / 30 days as potential new joins.
@@ -49,8 +49,8 @@ async function initFirstSeen() {
       const firstSeen = m.first_seen || '';
 
       return {
-        uid:         m.uid         || '—',
-        name:        m.name        || '—',
+        uid:         m.uid         || '-',
+        name:        m.name        || '-',
         first_seen:  firstSeen,
         last_seen:   m.last_seen   || '',
         daysAgo:     firstSeen ? daysDiff(today, firstSeen) : 9999,
@@ -124,7 +124,7 @@ async function initFirstSeen() {
 /* ─── Component builders ────────────────────────────────── */
 
 /**
- * Red alert bar — only shown when ≥1 member joined in the last 7 days.
+ * Red alert bar - only shown when ≥1 member joined in the last 7 days.
  */
 function buildAlert(new7) {
   if (new7 === 0) return '';
@@ -225,7 +225,7 @@ function buildEmpty() {
 
 /**
  * Collapsible section for members first seen more than 6 months ago.
- * These are deprioritized — still accessible but not shown by default.
+ * These are deprioritized - still accessible but not shown by default.
  */
 function buildArchivedSection(archivedMembers) {
   return `
@@ -268,7 +268,7 @@ function buildCard(m, index) {
     m.daysAgo === 0    ? t('fs_today') :
     m.daysAgo === 1    ? `1 ${t('fs_day_ago')}` :
     m.daysAgo < 9999   ? `${m.daysAgo} ${t('fs_days_ago')}` :
-    '—';
+    '-';
 
   const lastSeenChip = m.last_seen
     ? `<span class="fs-stat-chip">${t('last_seen_label')}: <span>${m.last_seen}</span></span>`
@@ -293,9 +293,9 @@ function buildCard(m, index) {
       </div>
 
       <div class="fs-card-right">
-        <span class="fs-date">${m.first_seen || '—'}</span>
+        <span class="fs-date">${m.first_seen || '-'}</span>
         <span class="fs-days-ago">${daysLabel}</span>
-        <a href="./player.html?view=member&uid=${encodeURIComponent(m.uid && m.uid !== '—' ? m.uid : '')}${(!m.uid || m.uid === '—') ? '&id=' + encodeURIComponent(m.name) : ''}"
+        <a href="./player.html?view=member&uid=${encodeURIComponent(m.uid && m.uid !== '-' ? m.uid : '')}${(!m.uid || m.uid === '-') ? '&id=' + encodeURIComponent(m.name) : ''}"
            class="btn btn-secondary fs-profile-btn"
            aria-label="${t('view_profile')}: ${escHtml(m.name)}">${t('view_profile')}</a>
       </div>
