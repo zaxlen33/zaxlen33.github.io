@@ -57,15 +57,15 @@ function renderKingdomStats(kingdom) {
             </div>
             <div class="stat-item">
                 <div class="stat-label"><i class="fas fa-chart-simple"></i> RALLIES (Last week)</div>
-                <div class="stat-value">${stats["Rallies last week"] || '—'}</div>
+                <div class="stat-value">${stats["Rallies last week"] || '-'}</div>
             </div>
             <div class="stat-item">
                 <div class="stat-label"><i class="fas fa-skull"></i> TROOPS LOST</div>
-                <div class="stat-value">${stats["Troops loss last week"] || '—'}</div>
+                <div class="stat-value">${stats["Troops loss last week"] || '-'}</div>
             </div>
             <div class="stat-item">
                 <div class="stat-label"><i class="fas fa-tower-broadcast"></i> MIGHT LOST</div>
-                <div class="stat-value">${stats["Might loss last week"] || '—'}</div>
+                <div class="stat-value">${stats["Might loss last week"] || '-'}</div>
             </div>
             ${carto ? `<div class="stat-item">
                 <div class="stat-label"><i class="fas fa-map"></i> CARTOGRAPHY</div>
@@ -133,7 +133,7 @@ function renderBattles(battles) {
     `;
 
     battles.forEach(b => {
-        const outcomeClass = b.outcome === 'burned' ? '🔥 Burned' : (b.outcome || '—');
+        const outcomeClass = b.outcome === 'burned' ? '🔥 Burned' : (b.outcome || '-');
 
         const cleanAttackerGuild = b.attacker?.guild || '?';
         const cleanDefenderGuild = b.defender?.guild || '?';
@@ -158,13 +158,13 @@ function renderBattles(battles) {
         const defenderText = `${defenderNameHtml} ${defenderGuildHtml}`;
         tableHtml += `
             <tr>
-                <td>${b.timestamp || '—'}</td>
+                <td>${b.timestamp || '-'}</td>
                 <td><span class="outcome-badge">${outcomeClass}</span></td>
-                <td>${b.might_loss || '—'}</td>
-                <td>${b.troops_loss || '—'}</td>
+                <td>${b.might_loss || '-'}</td>
+                <td>${b.troops_loss || '-'}</td>
                 <td>${attackerText}</td>
                 <td>${defenderText}</td>
-                <td style="font-family: monospace;">${b.battle_id || '—'}</td>
+                <td style="font-family: monospace;">${b.battle_id || '-'}</td>
             </tr>
         `;
     });
@@ -401,7 +401,7 @@ async function loadData() {
         // Configure metadata
         if (data.scraped_at) scrapedDateSpan.innerText = new Date(data.scraped_at).toLocaleString();
         if (data.range) rangeInfoSpan.innerText = data.range;
-        metaInfoSpan.innerHTML = `<i class="fas fa-database"></i> ${data.total_success || 0} active kingdoms · Scanned: ${data.scraped_at ? data.scraped_at.split('T')[0] : '—'}`;
+        metaInfoSpan.innerHTML = `<i class="fas fa-database"></i> ${data.total_success || 0} active kingdoms · Scanned: ${data.scraped_at ? data.scraped_at.split('T')[0] : '-'}`;
 
         // Initialize first kingdom
         currentKingdomIndex = 0;
