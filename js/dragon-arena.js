@@ -28,13 +28,11 @@
   function getSlot(n) { return SLOTS.find(s => s.slot === n) || null; }
 
   function slotLabel(n) {
-    const s = getSlot(n);
-    return s ? `Slot ${n} · ${s.start}-${s.end} UTC-5` : `Slot ${n}`;
+    return `Slot ${n}`;
   }
 
   function slotFull(n) {
-    const s = getSlot(n);
-    return s ? `Slot ${n} · ${s.start}-${s.end} UTC-5 (${s.utc})` : `Slot ${n}`;
+    return `Slot ${n}`;
   }
 
   // ── Helpers ────────────────────────────────────────────────────────────────
@@ -161,7 +159,17 @@
             borderColor: 'rgba(99,110,123,0.4)', borderWidth: 1,
             padding: 12, cornerRadius: 10,
             callbacks: {
-              title: items => items[0]?.label?.replace('\n', ' · ') || '',
+              title: items => {
+                const idx = items[0].dataIndex;
+                const e = chartEvents[idx];
+                if (!e) return '';
+                const d = fmtDate(e.date);
+                const s = getSlot(e.slot);
+                if (s) {
+                  return `${d} · Slot ${e.slot} (${s.start}–${s.end} UTC-5)`;
+                }
+                return `${d} · Slot ${e.slot}`;
+              },
               label: c => `  ${c.dataset.label}: ${c.raw} players`
             }
           }
@@ -369,7 +377,7 @@
         <div class="stat-card purple">
           <span class="stat-icon">⏰</span>
           <span class="stat-value">Slot ${ev.slot}</span>
-          <span class="stat-label">${slotFull(ev.slot)}</span>
+          <span class="stat-label" data-i18n="da_slot">Slot</span>
         </div>
         <div class="stat-card green">
           <span class="stat-icon">🛡️</span>
