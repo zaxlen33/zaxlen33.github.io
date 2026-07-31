@@ -1,5 +1,5 @@
 /**
- * UE Guild Dashboard — app.js
+ * UE Guild Dashboard - app.js
  * Handles dynamic data loading for all pages.
  * Data is always fetched from ./data/*.json using the Fetch API.
  * Individual views are driven by the URL hash (e.g., war.html#2026-03).
@@ -106,13 +106,13 @@ async function loadJSON(filename) {
 
 /** Format a large number with commas */
 function fmtNum(n) {
-  if (n === null || n === undefined) return '—';
+  if (n === null || n === undefined) return '-';
   return Number(n).toLocaleString(window.i18n?.currentLang || 'en');
 }
 
 /** Format large numbers compactly for stat cards (1.23B, 456.7M, 12.3K) */
 function fmtCompact(n) {
-  if (n === null || n === undefined) return '—';
+  if (n === null || n === undefined) return '-';
   const num = Number(n);
   if (Math.abs(num) >= 1e9) return (num / 1e9).toFixed(2) + 'B';
   if (Math.abs(num) >= 1e6) return (num / 1e6).toFixed(1) + 'M';
@@ -141,7 +141,7 @@ function rankBadge(rank) {
   else if (cleanRank.includes('2')) rTier = 'r2';
   else if (cleanRank.includes('1')) rTier = 'r1';
   
-  const label = rTier ? rTier.toUpperCase() : (cap(cleanRank) || '—');
+  const label = rTier ? rTier.toUpperCase() : (cap(cleanRank) || '-');
   const cls = rTier || 'r1';
   
   return `<span class="rank-badge rank-${cls}">${label}</span>`;
@@ -269,12 +269,12 @@ async function initIndex() {
         </div>
         <div class="stat-card orange">
           <div class="stat-icon">⭐</div>
-          <div class="stat-value">${latestWeek ? fmtCompact(latestWeek.total_power) : '—'}</div>
+          <div class="stat-value">${latestWeek ? fmtCompact(latestWeek.total_power) : '-'}</div>
           <div class="stat-label" data-i18n="guild_power">${t('guild_power')}</div>
         </div>
         <div class="stat-card yellow">
           <div class="stat-icon">⚔️</div>
-          <div class="stat-value">${latestWeek ? fmtCompact(latestWeek.total_kills) : '—'}</div>
+          <div class="stat-value">${latestWeek ? fmtCompact(latestWeek.total_kills) : '-'}</div>
           <div class="stat-label" data-i18n="guild_kills">${t('guild_kills')}</div>
         </div>
       </div>`;
@@ -600,7 +600,7 @@ function renderWarDetail(container, war) {
       return `
       <tr data-searchable="${(m.name || '').toLowerCase()} ${(m.rank || '').toLowerCase()}">
         <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-        <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=war&uid=${encodeURIComponent(m.uid||m.igg_id||'')}${!(m.uid||m.igg_id)?'&id='+encodeURIComponent(m.name||''):''}&month=${war.month}" class="member-link">${m.name || '—'}</a></td>
+        <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=war&uid=${encodeURIComponent(m.uid||m.igg_id||'')}${!(m.uid||m.igg_id)?'&id='+encodeURIComponent(m.name||''):''}&month=${war.month}" class="member-link">${m.name || '-'}</a></td>
         <td class="center" data-label="${t('table_rank')}">${rankBadge(m.rank)}</td>
         <td class="right mono" data-label="${t('table_might')}">${fmtCompact(m.might)}</td>
         <td class="right hide-mobile" data-label="${t('table_might_gained')}">${fmtDelta(m.might_diff)}</td>
@@ -733,12 +733,12 @@ function renderHuntList(container, hunts) {
       </div>
       <div class="stat-card yellow">
         <div class="stat-icon">👥</div>
-        <div class="stat-value">${sorted[0]?.summary?.total_players || '—'}</div>
+        <div class="stat-value">${sorted[0]?.summary?.total_players || '-'}</div>
         <div class="stat-label" data-i18n="players_latest">${t('players_latest')}</div>
       </div>
       <div class="stat-card purple">
         <div class="stat-icon">🎯</div>
-        <div class="stat-value">${sorted[0]?.summary?.min_required || '—'}</div>
+        <div class="stat-value">${sorted[0]?.summary?.min_required || '-'}</div>
         <div class="stat-label" data-i18n="min_required_pts">${t('min_required_pts')}</div>
       </div>
     </div>
@@ -987,7 +987,7 @@ function renderHuntDetail(container, hunt) {
       return `
         <tr data-searchable="${(p.name || '').toLowerCase()} ${(p.rank || '').toLowerCase()}">
           <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=hunt&uid=${encodeURIComponent(p.uid||p.user_id||'')}${!(p.uid||p.user_id)?'&id='+encodeURIComponent(p.name||''):''}&week=${encodeURIComponent(hunt.id)}" class="member-link">${p.name || '—'}</a></td>
+          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=hunt&uid=${encodeURIComponent(p.uid||p.user_id||'')}${!(p.uid||p.user_id)?'&id='+encodeURIComponent(p.name||''):''}&week=${encodeURIComponent(hunt.id)}" class="member-link">${p.name || '-'}</a></td>
           <td class="center" data-label="${t('table_rank')}">${rankBadge(p.rank || '')}</td>
           <td class="right mono" data-label="${t('points')}" style="font-weight:700;"><span>${fmtCompact(p.pts_total)} <span style="font-size:0.75rem;color:var(--text-muted);">/ ${fmtCompact(minReq)}</span></span></td>
           <td class="center" data-label="${t('goal_rate')}">
@@ -1063,7 +1063,7 @@ async function initHistory() {
   if (hash) {
     const member = members.find(m => m.name === hash);
     if (member) {
-      // Redirect to player dashboard with all charts — use UID for stable identity
+      // Redirect to player dashboard with all charts - use UID for stable identity
       window.location.replace(`./player.html?view=all&uid=${encodeURIComponent(member.uid || '')}${!member.uid ? '&id=' + encodeURIComponent(member.name) : ''}`);
       return;
     }
@@ -1123,7 +1123,7 @@ function renderHistoryList(container, members, lastUpdated) {
       </div>
       <div class="stat-card green">
         <div class="stat-icon">📅</div>
-        <div class="stat-value">${lastUpdated || '—'}</div>
+        <div class="stat-value">${lastUpdated || '-'}</div>
         <div class="stat-label" data-i18n="last_updated_label">${t('last_updated_label')}</div>
       </div>
     </div>
@@ -1196,7 +1196,7 @@ function renderHistoryList(container, members, lastUpdated) {
       return `
         <tr data-searchable="${(m.name || '').toLowerCase()} ${lastRank.toLowerCase()}">
           <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=all&uid=${encodeURIComponent(m.uid||'')}${!m.uid?'&id='+encodeURIComponent(m.name||''):''}" class="member-link">${m.name || '—'}</a></td>
+          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=all&uid=${encodeURIComponent(m.uid||'')}${!m.uid?'&id='+encodeURIComponent(m.name||''):''}" class="member-link">${m.name || '-'}</a></td>
           <td class="center" data-label="${t('table_rank')}">${rankBadge(lastRank)}</td>
           <td class="right mono" data-label="${t('table_might')}">${fmtCompact(might)}</td>
           <td class="right hide-mobile" data-label="${t('table_might_gained')}">${fmtDelta(might_diff)}</td>
@@ -1261,8 +1261,8 @@ function renderHistoryDetail(container, member, lastUpdated) {
     <div class="detail-header">
       <h2>📈 ${member.name}</h2>
       <div class="meta-row">
-        <div class="meta-item">📅 ${t('first_seen_label')}: <strong>${member.first_seen || '—'}</strong></div>
-        <div class="meta-item">🔄 ${t('last_seen_label')}: <strong>${member.last_seen || '—'}</strong></div>
+        <div class="meta-item">📅 ${t('first_seen_label')}: <strong>${member.first_seen || '-'}</strong></div>
+        <div class="meta-item">🔄 ${t('last_seen_label')}: <strong>${member.last_seen || '-'}</strong></div>
         <div class="meta-item">📊 ${t('snapshots_label')}: <strong>${snaps.length}</strong></div>
         ${member.name_history && member.name_history.length ? `<div class="meta-item">📝 ${t('name_changes_label')}: <strong>${member.name_history.length}</strong></div>` : ''}
       </div>
@@ -1288,12 +1288,12 @@ function renderHistoryDetail(container, member, lastUpdated) {
       </div>
       <div class="stat-card purple">
         <div class="stat-icon">🎖️</div>
-        <div class="stat-value">${(last.rank || '—').toUpperCase()}</div>
+        <div class="stat-value">${(last.rank || '-').toUpperCase()}</div>
         <div class="stat-label">${t('current_rank_label')}</div>
       </div>
       <div class="stat-card green">
         <div class="stat-icon">📅</div>
-        <div class="stat-value">${last.date || '—'}</div>
+        <div class="stat-value">${last.date || '-'}</div>
         <div class="stat-label">${t('latest_snapshot_label')}</div>
       </div>
     </div>` : ''}
@@ -1321,7 +1321,7 @@ function renderHistoryDetail(container, member, lastUpdated) {
             ${[...snaps].reverse().map((s, i) => `
               <tr>
                 <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-                <td data-label="${t('date')}" style="font-weight:500;">${s.date || '—'}</td>
+                <td data-label="${t('date')}" style="font-weight:500;">${s.date || '-'}</td>
                 <td class="mono" data-label="${t('file_label')}" style="font-size:0.78rem;color:var(--text-muted);">${(s.filename || '').replace(/\.[^/.]+$/, '')}</td>
                 <td class="center" data-label="${t('rank_label')}">${rankBadge(s.rank)}</td>
                 <td class="right mono" data-label="${t('might')}">${fmtCompact(s.might)}</td>
@@ -1344,7 +1344,7 @@ function renderHistoryDetail(container, member, lastUpdated) {
 }
 
 // ══════════════════════════════════════════════════════════
-//  ROUTER — detect current page and init
+//  ROUTER - detect current page and init
 // ══════════════════════════════════════════════════════════
 
 function route() {
@@ -1442,7 +1442,7 @@ async function initMembers() {
   let currentMembers = [...data];
 
   function _tgBadge(tg) {
-    if (!tg) return '<span style="color:var(--text-muted);font-size:0.9rem;">—</span>';
+    if (!tg) return '<span style="color:var(--text-muted);font-size:0.9rem;">-</span>';
     return `<span class="tg-badge">💬 ${tg}</span>`;
   }
 
@@ -1454,7 +1454,7 @@ async function initMembers() {
     tbody.innerHTML = currentMembers.map((m, i) => `
       <tr data-searchable="${(m.name || '').toLowerCase()} ${(m.rank || '').toLowerCase()} ${(m.telegram || '').toLowerCase()}">
         <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-        <td class="card-main" data-label="${t('table_player')}"><strong>${m.name || '—'}</strong></td>
+        <td class="card-main" data-label="${t('table_player')}"><strong>${m.name || '-'}</strong></td>
         <td class="center" data-label="${t('rank_label')}">${rankBadge(m.rank)}</td>
         <td class="center td-telegram" data-label="${t('telegram')}">${_tgBadge(m.telegram)}</td>
         <td class="right mono" data-label="${t('might')}">${fmtCompact(m.might)}</td>
