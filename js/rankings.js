@@ -1,4 +1,4 @@
-// website/js/rankings.js — Guild Rankings
+// website/js/rankings.js - Guild Rankings
 // Top 5 power growth (30d), Top 5 kills (30d), Top 5 hunt (latest 7d week)
 
 async function initRankings() {
@@ -48,9 +48,9 @@ async function initRankings() {
       .sort((a, b) => (b.score || 0) - (a.score || 0))
       .slice(0, 5);
 
-    const warMonth   = latestWar  ? latestWar.label  : '—';
-    const huntWeek   = latestHunt ? latestHunt.date   : '—';
-    const festDate   = latestFest ? latestFest.date   : '—';
+    const warMonth   = latestWar  ? latestWar.label  : '-';
+    const huntWeek   = latestHunt ? latestHunt.date   : '-';
+    const festDate   = latestFest ? latestFest.date   : '-';
     const warMonthId = latestWar  ? latestWar.month   : '';
     const huntWeekId = latestHunt ? latestHunt.id     : '';
     // Read festival minimum from the embedded summary (set by Python backend)
