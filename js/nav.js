@@ -5,7 +5,7 @@
 })();
 
 /**
- * nav.js — Shared Navigation Component for UE Guild Dashboard
+ * nav.js - Shared Navigation Component for UE Guild Dashboard
  * Injects sidebar, overlay, and top-bar into every page.
  * Must be loaded AFTER i18n.js.
  */
@@ -22,7 +22,7 @@
     { href: _home,                    icon: '🏠',  key: 'nav_home'     },
     { href: _base + 'war.html',      icon: '⚔️',  key: 'nav_war'      },
     { href: _base + 'hunt.html',     icon: '🦅',  key: 'nav_hunt'     },
-    { href: _base + 'festival.html', icon: '🎪',  key: 'nav_festival' },
+    { href: _base + 'festival.html', icon: '📅',  key: 'nav_events'  },
     { href: _base + 'rankings.html', icon: '🏆',  key: 'nav_rankings' },
     { href: _base + 'members.html',  icon: '👥',  key: 'nav_members'  },
     { href: _base + 'tools.html',    icon: '🛠️', key: 'nav_tools'    },
@@ -41,7 +41,7 @@
       const isActive = item.href.includes(page) ? 'active' : '';
       const label = (typeof t === 'function') ? t(item.key) : item.key;
       // Strip any leading emoji from the translation (keep our icon consistent)
-      const text = label.replace(/^[\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]\s*/u, '');
+      const text = label.replace(/^(?:[\p{Extended_Pictographic}\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]\s*)+/u, '');
       return `
         <li>
           <a href="${item.href}" class="nav-link ${isActive}">
