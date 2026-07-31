@@ -17,7 +17,7 @@
   ];
 
   // ── Quest catalogue (fallback when tasks.json unavailable) ──────────────────
-  // pts: [base, 120%, 200%]  — values sourced directly from tasks.json
+  // pts: [base, 120%, 200%]  - values sourced directly from tasks.json
   const DEFAULT_QUESTS = [
     // ─ Resources ─
     { id: 'q01',  cat: 'Resources', name: 'Collect resources',                          req: '6.3m',      time: '24h', pts: [97,  116, 194] },
@@ -144,7 +144,7 @@
 
   function getMissionCategory(mission) {
     const m = (mission || '').toLowerCase();
-    // Artifacts — must come before 'power' to catch 'artifact coins' first
+    // Artifacts - must come before 'power' to catch 'artifact coins' first
     if (m.includes('artifact') || m.includes('upgrade artifacts') || m.includes('enhance artifacts')) return 'Artifacts';
     // Might
     if (m.includes('total power') || m.includes('troop power') || m.includes('research power') || m.includes('might')) return 'Might';
@@ -164,7 +164,7 @@
     if (m.includes('hero trial') || m.includes('all hero') || m.includes('trials') || m.includes('etapas')) return 'Heroes';
     // Castle
     if (m.includes('castle style') || m.includes('castle star') || m.includes('estrellas de castillo')) return 'Castle';
-    // Labyrinth — must come after 'castle' to avoid catching 'castle'
+    // Labyrinth - must come after 'castle' to avoid catching 'castle'
     if (m.includes('use stars') || m.includes('labyrinth') || m.includes('guardian') || m.includes('elite labyrinth')) return 'Labyrinth';
     // Tycoon
     if (m.includes('goblin') || m.includes('lucky token') || m.includes('amuletos') || m.includes('treasury') || m.includes('treasurer')) return 'Tycoon';
@@ -403,14 +403,14 @@
 
   // ── Render league info panel ─────────────────────────────────────────────────
   function renderLeagueInfo() {
-    let displayName = '—';
+    let displayName = '-';
     if (selectedLeague) {
       const tKey = `gfc_league_${selectedLeague.id}`;
       displayName = typeof window.t === 'function' && window.t(tKey) !== tKey ? window.t(tKey) : selectedLeague.label;
     }
     $('gfc-league-name').textContent = displayName;
-    $('gfc-league-attempts').textContent = selectedLeague ? selectedLeague.attempts : '—';
-    $('gfc-league-minpts').textContent   = selectedLeague ? fmtPts(selectedLeague.minGuildPts) : '—';
+    $('gfc-league-attempts').textContent = selectedLeague ? selectedLeague.attempts : '-';
+    $('gfc-league-minpts').textContent   = selectedLeague ? fmtPts(selectedLeague.minGuildPts) : '-';
 
     const targetInput = $('gfc-personal-target');
     const minRequiredSpan = $('gfc-min-required-pts');
@@ -430,8 +430,8 @@
     } else {
       targetInput.disabled = true;
       targetInput.value = '';
-      minRequiredSpan.textContent = '—';
-      computedGuildPts.textContent = '—';
+      minRequiredSpan.textContent = '-';
+      computedGuildPts.textContent = '-';
     }
 
     const bonusMsg = $('gfc-bonus-msg');
@@ -612,13 +612,13 @@
     const remaining   = attempts - plan.length;
     const avgNeeded   = remaining > 0 ? Math.ceil(needed / remaining) : 0;
 
-    $('gfc-plan-count').textContent = `${plan.length} / ${attempts || '—'}`;
+    $('gfc-plan-count').textContent = `${plan.length} / ${attempts || '-'}`;
     const tabBadge = $('gfc-tab-badge');
     if (tabBadge) {
       tabBadge.textContent = plan.length;
     }
     $('gfc-plan-total').textContent = fmtPts(totalPts);
-    $('gfc-plan-avg').textContent   = selectedLeague ? fmtPts(avgNeeded) : '—';
+    $('gfc-plan-avg').textContent   = selectedLeague ? fmtPts(avgNeeded) : '-';
 
     // Progress bar
     const pct = target ? Math.min(100, Math.round(totalPts / target * 100)) : 0;
@@ -641,7 +641,7 @@
     const mobBar = $('gfc-mob-plan-bar');
 
     if (mobCount) {
-      mobCount.textContent = `${plan.length} / ${attempts || '—'}`;
+      mobCount.textContent = `${plan.length} / ${attempts || '-'}`;
     }
     if (mobTotal) {
       mobTotal.textContent = `${fmtPts(totalPts)} pts`;
