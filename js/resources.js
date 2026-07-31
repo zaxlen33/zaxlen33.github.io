@@ -1,5 +1,5 @@
 /**
- * resources.js — Admin Resource Command Generator
+ * resources.js - Admin Resource Command Generator
  *
  * Loads members.json and renders a searchable list of guild members.
  * Each member shows 6 resource buttons. Clicking any button generates
@@ -251,7 +251,7 @@
       return (a.name || '').localeCompare(b.name || '');
     });
 
-    // Render rows — no kills, no power, no profile link; just name + resource buttons
+    // Render rows - no kills, no power, no profile link; just name + resource buttons
     list.innerHTML = sorted.map((m, i) => {
       const tgBadge = m.telegram
         ? `<span class="tg-badge">💬 ${escHtml(m.telegram)}</span>`
@@ -267,7 +267,7 @@
           data-type="${r.type}"
           data-name="${escAttr(m.name || '')}"
           title="${escAttr(cmd)}"
-          aria-label="${r.label} — ${escAttr(cmd)}">
+          aria-label="${r.label} - ${escAttr(cmd)}">
           ${r.emoji} ${r.label}
         </button>`;
       }).join('');
@@ -277,7 +277,7 @@
           <div class="res-member-info">
             <span class="res-member-index">${i + 1}</span>
             <div class="res-member-details">
-              <div class="res-member-name">${escHtml(m.name || '—')}</div>
+              <div class="res-member-name">${escHtml(m.name || '-')}</div>
               <div class="res-member-meta">${uidBadge}${tgBadge}</div>
             </div>
           </div>
