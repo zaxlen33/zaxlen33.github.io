@@ -1,5 +1,5 @@
 /**
- * i18n.js — Lightweight Internationalization for UE Guild Dashboard
+ * i18n.js - Lightweight Internationalization for UE Guild Dashboard
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -106,6 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let translation = this.t(key);
         if (!translation || translation === key) return;
+
+        // Strip leading emoji for navigation labels to prevent duplication with .nav-icon
+        if (el.classList.contains('nav-text') || el.closest('.nav-link') || key.startsWith('nav_')) {
+          translation = translation.replace(/^(?:[\p{Extended_Pictographic}\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]\s*)+/u, '');
+        }
 
         // Argument replacement
         const args = el.getAttribute('data-i18n-args');
