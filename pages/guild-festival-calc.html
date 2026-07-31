@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta name="description" content="Guild Festival Calculator — plan and track your Guild Festival score for UE Guild.">
+  <meta name="description" content="Guild Festival Calculator - plan and track your Guild Festival score for UE Guild.">
   <title>Guild Festival Calc · UE Guild Dashboard</title>
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/guild-festival-calc.css">
@@ -52,16 +52,16 @@
             <div class="gfc-card-body">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;">
                 <span style="font-size:.8rem;color:var(--text-muted)" data-i18n="gfc_current_league">Current League:</span>
-                <span style="font-weight:700;color:var(--text-primary)" id="gfc-league-name">—</span>
+                <span style="font-weight:700;color:var(--text-primary)" id="gfc-league-name">-</span>
               </div>
               <div class="gfc-info-grid">
                 <div class="gfc-info-box">
                   <span class="gfc-info-lbl" data-i18n="gfc_attempts">Attempts</span>
-                  <span class="gfc-info-val" id="gfc-league-attempts">—</span>
+                  <span class="gfc-info-val" id="gfc-league-attempts">-</span>
                 </div>
                 <div class="gfc-info-box">
                   <span class="gfc-info-lbl" data-i18n="gfc_min_guild_pts">Min Guild Pts</span>
-                  <span class="gfc-info-val" style="color:var(--accent-yellow,#f59e0b)" id="gfc-league-minpts">—</span>
+                  <span class="gfc-info-val" style="color:var(--accent-yellow,#f59e0b)" id="gfc-league-minpts">-</span>
                 </div>
               </div>
 
@@ -72,14 +72,14 @@
                 </label>
                 <input type="number" id="gfc-personal-target" class="gfc-search-input" style="padding: 7px 10px; font-size: 0.85rem;" placeholder="Ej: 3100" disabled>
                 <div id="gfc-target-error" style="color: var(--accent-red); font-size: 0.72rem; margin-top: 5px; display: none; font-weight: 600;">
-                  ⚠️ Debes aumentar tu meta personal (mínimo: <span id="gfc-min-required-pts">—</span>)
+                  ⚠️ Debes aumentar tu meta personal (mínimo: <span id="gfc-min-required-pts">-</span>)
                 </div>
               </div>
 
               <!-- Computed Guild Target box -->
               <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.75rem;font-size:0.8rem;">
                 <span style="color:var(--text-muted);" data-i18n="gfc_guild_target">Guild Target (x100):</span>
-                <span style="font-weight:700;color:var(--text-primary);" id="gfc-computed-guild-pts">—</span>
+                <span style="font-weight:700;color:var(--text-primary);" id="gfc-computed-guild-pts">-</span>
               </div>
 
               <div class="gfc-bonus-msg" id="gfc-bonus-msg" style="margin-top:0.75rem;" data-i18n="gfc_bonus_mission">
@@ -98,7 +98,7 @@
               <div class="gfc-info-grid">
                 <div class="gfc-info-box">
                   <span class="gfc-info-lbl" data-i18n="gfc_missions">Missions</span>
-                  <span class="gfc-info-val" id="gfc-plan-count">0 / —</span>
+                  <span class="gfc-info-val" id="gfc-plan-count">0 / -</span>
                 </div>
                 <div class="gfc-info-box">
                   <span class="gfc-info-lbl" data-i18n="gfc_total_points">Total Points</span>
@@ -118,7 +118,7 @@
 
               <div class="gfc-plan-stats">
                 <span class="gfc-info-lbl" data-i18n="gfc_avg_needed">Avg. Needed per Remaining Mission</span>
-                <span class="gfc-plan-avg-val" id="gfc-plan-avg">—</span>
+                <span class="gfc-plan-avg-val" id="gfc-plan-avg">-</span>
                 <span style="color:var(--text-muted);font-size:.75rem"> pts</span>
               </div>
 
@@ -197,7 +197,7 @@
   <div class="gfc-mob-plan-bar" id="gfc-mob-plan-bar">
     <div class="gfc-mob-plan-stats">
       <div class="gfc-mob-stat-item">
-        <span class="gfc-mob-stat-val" id="gfc-mob-count">0 / —</span>
+        <span class="gfc-mob-stat-val" id="gfc-mob-count">0 / -</span>
         <span class="gfc-mob-stat-lbl" data-i18n="gfc_missions">Missions</span>
       </div>
       <div class="gfc-mob-stat-item">
