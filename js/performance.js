@@ -1,5 +1,5 @@
 /**
- * performance.js — Global Historical Underperformance Ranking Dashboard
+ * performance.js - Global Historical Underperformance Ranking Dashboard
  * 
  * Fetches ALL historical reports from War, Hunt, and Guild Festival datasets,
  * calculates both snapshot-based and global compensatory metrics (6 squares),
@@ -41,7 +41,7 @@
     else if (cleanRank.includes('2')) rTier = 'r2';
     else if (cleanRank.includes('1')) rTier = 'r1';
 
-    const label = rTier ? rTier.toUpperCase() : (cleanRank || '—');
+    const label = rTier ? rTier.toUpperCase() : (cleanRank || '-');
     const cls = rTier || 'r1';
 
     return `<span class="rank-badge rank-${cls}">${label}</span>`;
