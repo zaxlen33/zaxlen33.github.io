@@ -397,18 +397,18 @@
         <div class="stat-card yellow">
           <span class="stat-icon">👥</span>
           <span class="stat-value">${teamA.length + teamB.length}</span>
-          <span class="stat-label" data-i18n="da_stat_avg">Total Participants</span>
+          <span class="stat-label" data-i18n="da_stat_avg"></span>
         </div>
       </div>
 
       <!-- Participant Table -->
       <div class="card">
         <div class="card-header">
-          <h2 data-i18n="da_event_roster">🐉 Event Roster</h2>
+          <h2 data-i18n="da_event_roster"></h2>
           <div class="toolbar" style="margin:0;">
             <div class="search-box" style="min-width:180px;">
               <span class="search-icon">🔍</span>
-              <input type="text" id="da-detail-search" data-i18n="[placeholder]da_search_player" placeholder="Search player…">
+              <input type="text" id="da-detail-search" data-i18n="[placeholder]da_search_player">
             </div>
           </div>
         </div>
