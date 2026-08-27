@@ -1,0 +1,13 @@
+.month-card { margin-bottom: 2rem; }
+.month-header {
+  background: var(--bg-card);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  border-left: 4px solid var(--accent-orange);
+}
+.month-header:hover { background: var(--bg-hover); }
