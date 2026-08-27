@@ -2409,7 +2409,7 @@
         "da_participants": "参加者",
         "da_members": "メンバー",
         "da_ns_a": "欠席 A",
-        "da_ns_b": "âŒ æ¬ å¸­ B",
+        "da_ns_b": "❌ 欠席 B",
         "da_team_b_conf": "チーム B (確認済)",
         "da_team_b_unconf": "チーム B (未確認)",
         "module_da_desc_public": "ドラゴンアリーナイベントの参加追跡、チーム編成、スケジュール、参加履歴。",
