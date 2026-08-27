@@ -73,12 +73,12 @@
     c.innerHTML = `
       <div class="perf-lock-zone">
         <div class="perf-lock-icon">🔒</div>
-        <h2 class="perf-lock-title" data-i18n="da_restricted_area">Área Restringida</h2>
-        <p class="perf-lock-desc" data-i18n="da_lock_desc">Introduce la clave de seguridad para acceder al registro de Dragon Arena.</p>
+        <h2 class="perf-lock-title" data-i18n="da_restricted_area"></h2>
+        <p class="perf-lock-desc" data-i18n="da_lock_desc"></p>
         <form id="da-unlock-form" class="perf-form-group">
           <input type="password" id="da-pass-input" class="perf-input"
             data-i18n="[placeholder]da_enter_pass" placeholder="Clave de acceso…" autofocus required>
-          <button type="submit" class="btn perf-btn-unlock" data-i18n="da_unlock">Desbloquear</button>
+          <button type="submit" class="btn perf-btn-unlock" data-i18n="da_unlock"></button>
         </form>
         <div id="da-err" class="perf-error-msg" style="display:none;" data-i18n="da_incorrect_pass">
           ❌ Contraseña incorrecta. Inténtalo de nuevo.
