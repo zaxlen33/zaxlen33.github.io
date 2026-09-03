@@ -32,6 +32,7 @@ const fmtNum    = window.Utils.fmt.num;
 const fmtComma  = window.Utils.fmt.comma;
 const shortDate = window.Utils.fmt.shortDate;
 const fullDate  = window.Utils.fmt.fullDate;
+const _getThemeColor = window.Utils.charts.getThemeColor;
 
 function destroyChart(c) { window.Utils.destroyChart(c); }
 
@@ -61,7 +62,10 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (window.location.pathname.split('/').pop() !== 'festival.html') return;
+  // This script powers the festival detail view. Initialise from the page
+  // structure instead of a filename so a renamed/detail route cannot leave
+  // the dashboard in its silent empty state.
+  if (!document.getElementById('festival-list')) return;
   // Wait for i18n to be ready before first render
   const checkI18n = setInterval(() => {
     if (window.i18n && Object.keys(window.i18n.data).length > 0) {

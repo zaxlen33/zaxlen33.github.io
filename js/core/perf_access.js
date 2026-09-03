@@ -12,16 +12,15 @@
  * and renders a high-fidelity comparison table protected by an obfuscated password.
  */
 
-(function () {
-  // ── Configuration & State ──────────────────────────────────────────────────
-  const checkAccess = async (v) => {
+// ── Configuration & State ──────────────────────────────────────────────────
+const checkAccess = async (v) => {
     if (!v) return false;
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(v));
     return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('') === "63ecbfa3a1ad34a1fdd5e3dd3aeaec31456d1d676552c654d5ecf7dab0b2f4f8";
   };
-  let cachedPlayers = [];
+let cachedPlayers = [];
 
-  // ── Self-contained Localization Fallbacks ──────────────────────────────
+// ── Self-contained Localization Fallbacks ──────────────────────────────
 
   function getPerfT(key) {
     if (window.t) {

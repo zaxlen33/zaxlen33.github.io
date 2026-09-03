@@ -478,3 +478,92 @@ const c = document.getElementById('da-admin-container');
   }
 
   // ── Build export data ────────────────────────────────────────────────────────
+  function buildExportData() {
+    const slot = getSlot(_eventSlot);
+    const members = _members.map(member => {
+      const team = _roster[member.uid] || 'UNCONFIRMED_B';
+      return {
+        uid: member.uid || '',
+        name: member.name || '',
+        rank: member.rank || '',
+        telegram: member.telegram || '',
+        assignment: team
+      };
+    });
+    const assignments = members.reduce((counts, member) => {
+      counts[member.assignment] = (counts[member.assignment] || 0) + 1;
+      return counts;
+    }, {});
+
+    return {
+      event: {
+        type: 'dragon_arena',
+        date: _eventDate,
+        slot: slot ? { number: slot.slot, start_utc_minus_5: slot.start, end_utc_minus_5: slot.end, utc: slot.utc } : null
+      },
+      generated_at: new Date().toISOString(),
+      summary: {
+        total_members: members.length,
+        team_a: assignments.A || 0,
+        no_show_a: assignments.NS_A || 0,
+        team_b_confirmed: assignments.B || 0,
+        team_b_unconfirmed: assignments.UNCONFIRMED_B || 0
+      },
+      members
+    };
+  }
+
+  function downloadBlob(content, filename, mimeType) {
+    const url = URL.createObjectURL(new Blob([content], { type: mimeType }));
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function exportJSON() {
+    const data = buildExportData();
+    downloadBlob(JSON.stringify(data, null, 2), `dragon-arena-${_eventDate || 'roster'}-slot-${_eventSlot || 'na'}.json`, 'application/json;charset=utf-8');
+  }
+
+  function exportExcel() {
+    const data = buildExportData();
+    if (!window.XLSX) {
+      downloadBlob(JSON.stringify(data.members, null, 2), `dragon-arena-${_eventDate || 'roster'}-slot-${_eventSlot || 'na'}.json`, 'application/json;charset=utf-8');
+      return;
+    }
+
+    const rows = data.members.map(member => ({
+      UID: member.uid,
+      Player: member.name,
+      Rank: member.rank,
+      Telegram: member.telegram,
+      Assignment: member.assignment
+    }));
+    const workbook = XLSX.utils.book_new();
+    const rosterSheet = XLSX.utils.json_to_sheet(rows);
+    const summarySheet = XLSX.utils.json_to_sheet([
+      { Field: 'Date', Value: data.event.date },
+      { Field: 'Slot', Value: data.event.slot ? data.event.slot.number : '' },
+      { Field: 'Time (UTC-5)', Value: data.event.slot ? `${data.event.slot.start_utc_minus_5}–${data.event.slot.end_utc_minus_5}` : '' },
+      { Field: 'Team A', Value: data.summary.team_a },
+      { Field: 'No Show A', Value: data.summary.no_show_a },
+      { Field: 'Team B confirmed', Value: data.summary.team_b_confirmed },
+      { Field: 'Team B unconfirmed', Value: data.summary.team_b_unconfirmed }
+    ]);
+    rosterSheet['!cols'] = [{ wch: 16 }, { wch: 28 }, { wch: 10 }, { wch: 24 }, { wch: 20 }];
+    summarySheet['!cols'] = [{ wch: 24 }, { wch: 32 }];
+    XLSX.utils.book_append_sheet(workbook, summarySheet, 'Summary');
+    XLSX.utils.book_append_sheet(workbook, rosterSheet, 'Roster');
+    XLSX.writeFile(workbook, `dragon-arena-${_eventDate || 'roster'}-slot-${_eventSlot || 'na'}.xlsx`);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderLock);
+  } else {
+    renderLock();
+  }
+})();

@@ -298,13 +298,166 @@
   }
 
   function showToast(message, type = 'warning') {
+    const existing = document.getElementById('gfc-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'gfc-toast';
+    toast.textContent = message;
+    toast.setAttribute('role', 'status');
+    toast.style.cssText = `position:fixed;right:1rem;bottom:1rem;z-index:1000;padding:.75rem 1rem;border-radius:8px;color:#fff;background:${type === 'error' ? 'var(--accent-red)' : 'var(--accent-yellow)'};box-shadow:0 8px 24px rgba(0,0,0,.28);`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+
+  function renderLeagues() {
+    const wrap = $('gfc-league-select-wrap');
+    if (!wrap) return;
+
+    wrap.innerHTML = `<select id="gfc-league-select" class="gfc-search-input" aria-label="League">${LEAGUES.map(league =>
+      `<option value="${league.id}"${league.id === selectedLeague?.id ? ' selected' : ''}>${league.label}</option>`
+    ).join('')}</select>`;
+
+    $('gfc-league-select').addEventListener('change', event => {
+      selectedLeague = LEAGUES.find(league => league.id === event.target.value) || LEAGUES[0];
+      personalTarget = selectedLeague.minGuildPts / 100;
+      plan = [];
+      renderLeagueInfo();
+      renderQuestTable();
+      renderPlanSummary();
+    });
+  }
+
+  function renderLeagueInfo() {
+    if (!selectedLeague) return;
+    const minRequired = selectedLeague.minGuildPts / 100;
+    const targetInput = $('gfc-personal-target');
+
+    $('gfc-league-name').textContent = selectedLeague.label;
+    $('gfc-league-attempts').textContent = selectedLeague.attempts;
+    $('gfc-league-minpts').textContent = fmtPts(selectedLeague.minGuildPts);
+    $('gfc-min-required-pts').textContent = fmtPts(minRequired);
+    $('gfc-computed-guild-pts').textContent = fmtPts((personalTarget || minRequired) * 100);
+    $('gfc-bonus-msg').style.display = selectedLeague.hasBonus ? '' : 'none';
+
+    if (targetInput) {
+      targetInput.disabled = false;
+      targetInput.min = minRequired;
+      targetInput.value = personalTarget || minRequired;
+    }
+  }
+
+  function renderCatFilters() {
+    const wrap = $('gfc-cat-filters');
+    if (!wrap) return;
+    const categories = ['All', ...new Set(QUESTS.map(quest => quest.cat))];
+
+    wrap.innerHTML = categories.map(category =>
+      `<button type="button" class="gfc-best-btn${category === activeCat ? ' active' : ''}" data-category="${category}">${category === 'All' ? (window.t ? window.t('all') : 'All') : tCat(category)}</button>`
+    ).join('');
+
+    wrap.querySelectorAll('[data-category]').forEach(button => {
+      button.addEventListener('click', () => {
+        activeCat = button.dataset.category;
+        renderCatFilters();
+        renderQuestTable();
+      });
+    });
+  }
+
+  function renderQuestTable() {
+    const tbody = $('gfc-quest-tbody');
+    if (!tbody) return;
+
+    const matchingQuests = QUESTS.filter(quest => {
+      const matchesCategory = activeCat === 'All' || quest.cat === activeCat;
+      const haystack = `${quest.name} ${quest.req} ${quest.cat}`.toLowerCase();
+      const matchesSearch = !searchTerm || haystack.includes(searchTerm);
+      const matchesRating = !showBestQuestsOnly || quest.valueRating === 'excellent';
+      return matchesCategory && matchesSearch && matchesRating;
+    });
+
+    if (!matchingQuests.length) {
+      tbody.innerHTML = '<tr><td colspan="4" style="padding:1.5rem;text-align:center;color:var(--text-muted)">No matching missions.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = matchingQuests.map(quest => {
+      const scoreButtons = quest.pts.map((points, index) => {
+        const multiplier = index === 0 ? 'Base' : index === 1 ? '120%' : '200%';
+        return `<button type="button" class="btn" data-quest-id="${quest.id}" data-points-index="${index}" style="padding:.3rem .45rem;font-size:.75rem">${fmtPts(points)} <small>${multiplier}</small></button>`;
+      }).join(' ');
+      const rating = quest.valueRating === 'excellent' ? '🟢' : quest.valueRating === 'good' ? '🟡' : '⚪';
+      return `<tr>
+        <td><strong>${rating} ${quest.name}</strong><div style="font-size:.72rem;color:var(--text-muted)">${tCat(quest.cat)}</div></td>
+        <td style="text-align:center">${quest.req}</td>
+        <td style="text-align:center">${quest.time}</td>
+        <td style="text-align:right;white-space:nowrap">${scoreButtons}</td>
+      </tr>`;
+    }).join('');
+
+    tbody.querySelectorAll('[data-quest-id]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (!selectedLeague || plan.length >= selectedLeague.attempts) {
+          showToast(`You can select up to ${selectedLeague?.attempts || 0} missions.`, 'error');
+          return;
+        }
+        const quest = QUESTS.find(item => item.id === button.dataset.questId);
+        const pointsIndex = Number(button.dataset.pointsIndex);
+        if (!quest || !Number.isFinite(quest.pts[pointsIndex])) return;
+        plan.push({
+          id: `${quest.id}-${pointsIndex}-${Date.now()}-${plan.length}`,
+          questId: quest.id,
+          label: quest.name,
+          points: quest.pts[pointsIndex],
+          type: pointsIndex === 0 ? 'Base' : pointsIndex === 1 ? '120%' : '200%'
+        });
+        renderPlanSummary();
+      });
+    });
+  }
+
+  function renderPlanSummary() {
+    if (!selectedLeague) return;
+    const total = plan.reduce((sum, item) => sum + item.points, 0);
+    const target = personalTarget || selectedLeague.minGuildPts / 100;
+    const remainingAttempts = Math.max(0, selectedLeague.attempts - plan.length);
+    const remainingPoints = Math.max(0, target - total);
+    const progress = target > 0 ? Math.min(100, Math.round((total / target) * 100)) : 0;
+    const avgNeeded = remainingAttempts ? Math.ceil(remainingPoints / remainingAttempts) : 0;
+
+    $('gfc-plan-count').textContent = `${plan.length} / ${selectedLeague.attempts}`;
+    $('gfc-plan-total').textContent = fmtPts(total);
+    $('gfc-progress-pct').textContent = `${progress}%`;
+    $('gfc-progress-fill').style.width = `${progress}%`;
+    $('gfc-plan-avg').textContent = remainingAttempts ? fmtPts(avgNeeded) : '—';
+    $('gfc-tab-badge').textContent = plan.length;
+    $('gfc-mob-count').textContent = `${plan.length} / ${selectedLeague.attempts}`;
+    $('gfc-mob-total').textContent = `${fmtPts(total)} pts`;
+    $('gfc-mob-pct').textContent = `${progress}%`;
+
+    const planList = $('gfc-plan-list');
+    planList.innerHTML = plan.length ? plan.map((item, index) =>
+      `<div style="display:flex;justify-content:space-between;gap:.5rem;padding:.45rem 0;border-bottom:1px solid var(--border)">
+        <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${index + 1}. ${item.label} <small style="color:var(--text-muted)">${item.type}</small></span>
+        <span style="white-space:nowrap"><strong>${fmtPts(item.points)}</strong> <button type="button" class="btn" data-remove-plan="${item.id}" style="padding:.1rem .35rem">×</button></span>
+      </div>`
+    ).join('') : '<p style="color:var(--text-muted);margin:0">Select missions to build your plan.</p>';
+
+    planList.querySelectorAll('[data-remove-plan]').forEach(button => {
+      button.addEventListener('click', () => {
+        plan = plan.filter(item => item.id !== button.dataset.removePlan);
+        renderPlanSummary();
+      });
+    });
+  }
 
 async function init() {
     const section = document.getElementById('gfc-section');
     if (!section) return; // Not on tools page
 
     try {
-      const tasksData = await loadJSON('tasks.json');
+      const tasksData = await window.Utils.fetchJSON(window.Utils.paths.DATA_BASE + 'tasks.json');
       QUESTS = mergeQuests(DEFAULT_QUESTS, tasksData);
     } catch (err) {
       console.warn('Could not load tasks.json, falling back to default quests:', err);

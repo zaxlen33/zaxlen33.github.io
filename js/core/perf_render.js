@@ -34,7 +34,6 @@
       return a.name.localeCompare(b.name);
     });
   }
-
   function renderDashboardUI() {
     const container = document.getElementById('performance-container');
     if (!container) return;
@@ -327,5 +326,3 @@
     });
     init();
   }
-
-})();
