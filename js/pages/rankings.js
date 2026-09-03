@@ -1,5 +1,5 @@
 // website/js/rankings.js - Guild Rankings
-// Top 5 power growth (30d), Top 5 kills (30d), Top 5 hunt (latest 7d week)
+// Top 5 monthly power growth, Top 5 monthly kills, Top 5 hunt (latest 7d week)
 
 async function initRankings() {
   const container = document.getElementById('rankings-container');
@@ -18,7 +18,10 @@ async function initRankings() {
     const hunts = huntsRes.status === 'fulfilled' ? huntsRes.value : [];
     const fests = festRes.status  === 'fulfilled' ? festRes.value  : [];
 
-    // ── 30-day data: latest war month ────────────────────────────────
+    // ── Monthly data: always use the newest calendar month ───────────
+    // A new month starts at zero until a second snapshot establishes growth.
+    // Do not fall back to the prior month, which would keep stale rankings
+    // visible after the monthly reset.
     const latestWar = wars.length ? wars[wars.length - 1] : null;
     const warMembers = latestWar ? (latestWar.members || []) : [];
 
