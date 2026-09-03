@@ -1,73 +1,7 @@
 /**
  * Player page: initPlayer() — URL params, data load, tabs routing, DOMContentLoaded
  * Requires: player_head.js, player_sections.js
- * Auto-split from the original large monolithic JS file (globals preserved).
  */
-
-  if (growth && growth.name_history && growth.name_history.length > 0) {
-    nameChangesHtml = `<div class="card" style="margin-bottom:1.5rem;">
-      <div class="card-header" style="cursor:pointer;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
-        <h2 style="font-size:1.1rem; color:var(--text-primary);"><span style="margin-right:8px;">📝</span>${t('identity_tracker')} (${growth.name_history.length} ${t('previous_names')}) <span style="font-size:0.8rem;float:right;color:var(--text-secondary);font-weight:normal;">${t('view_all')} ▾</span></h2>
-      </div>
-      <div class="card-body" style="display:none; padding:0; border-top:1px solid var(--border);">
-        <table style="border:none;margin:0;">
-          <thead><tr><th>${t('old_name_new_name')}</th><th class="right">${t('until_date')}</th></tr></thead>
-          <tbody>
-            ${growth.name_history.map(nh => `<tr style="transition:background 0.15s;" onmouseover="this.style.background='var(--bg-hover)'" onmouseout="this.style.background=''"><td class="card-main" style="color:var(--text-secondary);text-decoration:line-through">${nh.name}</td><td class="right mono" data-label="${t('until_date')}">${nh.until}</td></tr>`).join('')}
-          </tbody>
-        </table>
-      </div>
-    </div>`;
-  }
-
-  const cleanEmoji = str => (str || '').replace(/^(?:[\p{Extended_Pictographic}\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]\s*)+/u, '');
-
-  container.innerHTML = `
-    ${_profileHeader(name, growth, 'member', telegram)}
-    ${nameChangesHtml}
-    <div style="display:flex;gap:.5rem;margin:1.2rem 0;flex-wrap:wrap;">
-      <button id="btn-war"  class="player-tab active" onclick="switchMemberTab('war')">${cleanEmoji(t('nav_war'))}</button>
-      <button id="btn-hunt" class="player-tab" onclick="switchMemberTab('hunt')">${cleanEmoji(t('nav_hunt'))}</button>
-      <button id="btn-fest" class="player-tab" onclick="switchMemberTab('fest')">${cleanEmoji(t('nav_festival'))}</button>
-      <button id="btn-da"   class="player-tab" onclick="switchMemberTab('da')">Dragon Arena</button>
-      <button id="btn-all"  class="player-tab" onclick="switchMemberTab('all')">${cleanEmoji(t('nav_history'))}</button>
-    </div>
-    <div id="tab-war"></div>
-    <div id="tab-hunt" style="display:none;"></div>
-    <div id="tab-fest" style="display:none;"></div>
-    <div id="tab-all"  style="display:none;"></div>
-    <div id="tab-da"   style="display:none;"></div>`;
-
-  const mounted = { war: false, hunt: false, fest: false, all: false, da: false };
-
-  function mountTab(tab) {
-    if (mounted[tab]) return;
-    mounted[tab] = true;
-    const el = document.getElementById(`tab-${tab}`);
-    const urlMonth = new URLSearchParams(window.location.search).get('month') || '';
-    const urlWeek = new URLSearchParams(window.location.search).get('week') || '';
-    let sec;
-    if (tab === 'war') sec = buildWarSection(name, urlMonth, warDailyData, growth, warsData, warUidKey);
-    else if (tab === 'hunt') sec = buildHuntSection(name, urlWeek, huntDailyData, playerHunts52, huntUidKey, mhuntsEntry);
-    else if (tab === 'fest') sec = buildFestivalSection(name, growth, festivalData);
-    else if (tab === 'da') sec = buildDragonArenaSection(name, growth, daEvents);
-    else sec = buildAllHistorySection(name, growth, playerHunts52, mhuntsEntry, festivalData, daEvents);
-    el.innerHTML = sec.html;
-    sec.mount();
-  }
-
-  mountTab('war');
-
-  window.switchMemberTab = function (tab) {
-    ['war', 'hunt', 'fest', 'all', 'da'].forEach(t => {
-      const tabEl = document.getElementById(`tab-${t}`);
-      const btnEl = document.getElementById(`btn-${t}`);
-      if (tabEl) tabEl.style.display = t === tab ? '' : 'none';
-      if (btnEl) btnEl.classList.toggle('active', t === tab);
-    });
-    mountTab(tab);
-  };
-}
 
 // ─── Main entry ──────────────────────────────────────────────────────────────
 
