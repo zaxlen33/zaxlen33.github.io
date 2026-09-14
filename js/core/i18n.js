@@ -20,13 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const inPages = window.location.pathname.includes('/pages/');
         const base = inPages ? '../data/i18n/' : './data/i18n/';
-        const translationsUrl = base + 'translations.json?v=' + Date.now();
-        const missionUrl      = base + 'mission_i18n.json?v=' + Date.now();
+        const translationsUrl = base + 'translations.json';
+        const missionUrl      = base + 'mission_i18n.json';
 
         const [transResp, missionResp] = await Promise.all([
-          fetch(translationsUrl),
-          fetch(missionUrl)
+          fetch(translationsUrl, { cache: 'default' }),
+          fetch(missionUrl, { cache: 'default' })
         ]);
+        if (!transResp.ok) throw new Error(`HTTP ${transResp.status} for ${translationsUrl}`);
         this.data = await transResp.json();
 
         // Merge mission translations into the main data object

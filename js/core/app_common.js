@@ -70,9 +70,9 @@ window.addEventListener('themechanged', () => {
 });
 
 async function loadJSON(filename) {
-  const url = DATA_BASE + filename + '?v=' + Date.now();
+  const url = DATA_BASE + filename;
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: 'default' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   } catch (err) {
@@ -103,6 +103,16 @@ function fmtDelta(n, html = true) {
 
 function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
 
+function escapeText(value) {
+  if (window.Utils && typeof window.Utils.escapeHTML === 'function') {
+    return window.Utils.escapeHTML(value);
+  }
+  return String(value == null ? '' : value).replace(
+    /[&<>"']/g,
+    ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]
+  );
+}
+
 function rankBadge(rank) {
   const cleanRank = (rank || '').trim().replace(/[\r\n]+/g, '');
   let rTier = '';
@@ -114,9 +124,7 @@ function rankBadge(rank) {
 
   const label = rTier ? rTier.toUpperCase() : (cap(cleanRank) || '-');
   const cls = rTier || 'r1';
-  const safeLabel = window.Utils
-    ? window.Utils.escapeHTML(label)
-    : String(label).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const safeLabel = escapeText(label);
 
   return `<span class="rank-badge rank-${cls}">${safeLabel}</span>`;
 }
@@ -128,11 +136,11 @@ function getHashParam() {
 
 function setLoading(el, msg) {
   const loadingMsg = msg || t('loading_data');
-  if (el) el.innerHTML = `<div class="loading-state"><div class="spinner"></div><p>${loadingMsg}</p></div>`;
+  if (el) el.innerHTML = `<div class="loading-state"><div class="spinner"></div><p>${escapeText(loadingMsg)}</p></div>`;
 }
 
 function setError(el, msg) {
-  if (el) el.innerHTML = `<div class="error-state">⚠️ ${window.Utils.escapeHTML(msg)}</div>`;
+  if (el) el.innerHTML = `<div class="error-state">⚠️ ${escapeText(msg)}</div>`;
 }
 
 function setEmpty(el, title, msg) {
@@ -141,8 +149,8 @@ function setEmpty(el, title, msg) {
   el.innerHTML = `
     <div class="empty-state">
       <div class="empty-icon">📭</div>
-      <h3>${window.Utils.escapeHTML(emptyTitle)}</h3>
-      ${emptyMsg ? `<p>${window.Utils.escapeHTML(emptyMsg)}</p>` : ''}
+      <h3>${escapeText(emptyTitle)}</h3>
+      ${emptyMsg ? `<p>${escapeText(emptyMsg)}</p>` : ''}
     </div>`;
 }
 
