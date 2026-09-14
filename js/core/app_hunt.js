@@ -142,7 +142,7 @@ function renderHuntList(container, hunts) {
               return `
               <tr>
                 <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-                <td data-label="${t('date')}" style="font-weight:500;">${h.date}</td>
+                <td data-label="${t('date')}" style="font-weight:500;">${window.Utils.escapeHTML(h.date)}</td>
                 <td class="right mono" data-label="${t('players')}">${h.summary.total_players}</td>
                 <td class="right" data-label="${t('met_goal')}"><span class="badge-met">✅ ${h.summary.met_minimum}</span></td>
                 <td class="right" data-label="${t('not_met')}"><span class="badge-not-met">❌ ${h.summary.not_met}</span></td>
@@ -156,7 +156,7 @@ function renderHuntList(container, hunts) {
                   </div>
                 </td>
                 <td class="center" data-label="${t('table_action')}">
-                  <a href="hunt.html#${h.id}" class="btn btn-primary action-btn">
+                  <a href="hunt.html#${encodeURIComponent(h.id)}" class="btn btn-primary action-btn">
                     ${t('view_arrow')}
                   </a>
                 </td>
@@ -249,11 +249,11 @@ function renderHuntDetail(container, hunt) {
     <div class="breadcrumb">
       <a href="hunt.html">${t('nav_hunt')}</a>
       <span class="sep">›</span>
-      <span class="current">${hunt.date}</span>
+      <span class="current">${window.Utils.escapeHTML(hunt.date)}</span>
     </div>
 
     <div class="detail-header">
-      <h2>🦅 ${hunt.date}</h2>
+      <h2>🦅 ${window.Utils.escapeHTML(hunt.date)}</h2>
 
     </div>
 
@@ -332,9 +332,9 @@ function renderHuntDetail(container, hunt) {
       const goalPct = minReq > 0 ? Math.min(100, Math.round((p.pts_total / minReq) * 100)) : 0;
       const pctColor = p.met_minimum ? 'var(--accent-green)' : goalPct >= 75 ? 'var(--accent-yellow)' : 'var(--accent-red)';
       return `
-        <tr data-searchable="${(p.name || '').toLowerCase()} ${(p.rank || '').toLowerCase()}">
+        <tr data-searchable="${window.Utils.escapeHTML(`${p.name || ''} ${p.rank || ''}`.toLowerCase())}">
           <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=hunt&uid=${encodeURIComponent(p.uid||p.user_id||'')}${!(p.uid||p.user_id)?'&id='+encodeURIComponent(p.name||''):''}&week=${encodeURIComponent(hunt.id)}" class="member-link">${p.name || '-'}</a></td>
+          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=hunt&uid=${encodeURIComponent(p.uid||p.user_id||'')}${!(p.uid||p.user_id)?'&id='+encodeURIComponent(p.name||''):''}&week=${encodeURIComponent(hunt.id)}" class="member-link">${window.Utils.escapeHTML(p.name || '-')}</a></td>
           <td class="center" data-label="${t('table_rank')}">${rankBadge(p.rank || '')}</td>
           <td class="right mono" data-label="${t('points')}" style="font-weight:700;"><span>${fmtCompact(p.pts_total)} <span style="font-size:0.75rem;color:var(--text-muted);">/ ${fmtCompact(minReq)}</span></span></td>
           <td class="center" data-label="${t('goal_rate')}">

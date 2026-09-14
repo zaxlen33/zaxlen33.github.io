@@ -160,9 +160,9 @@ function renderHistoryList(container, members, lastUpdated) {
       const kills_diff = last ? last.kills_diff || 0 : 0;
       const lastRank   = last ? last.rank || '' : '';
       return `
-        <tr data-searchable="${(m.name || '').toLowerCase()} ${lastRank.toLowerCase()}">
+        <tr data-searchable="${window.Utils.escapeHTML(`${m.name || ''} ${lastRank}`.toLowerCase())}">
           <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=all&uid=${encodeURIComponent(m.uid||'')}${!m.uid?'&id='+encodeURIComponent(m.name||''):''}" class="member-link">${m.name || '-'}</a></td>
+          <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=all&uid=${encodeURIComponent(m.uid||'')}${!m.uid?'&id='+encodeURIComponent(m.name||''):''}" class="member-link">${window.Utils.escapeHTML(m.name || '-')}</a></td>
           <td class="center" data-label="${t('table_rank')}">${rankBadge(lastRank)}</td>
           <td class="right mono" data-label="${t('table_might')}">${fmtCompact(might)}</td>
           <td class="right hide-mobile" data-label="${t('table_might_gained')}">${fmtDelta(might_diff)}</td>
@@ -221,14 +221,14 @@ function renderHistoryDetail(container, member, lastUpdated) {
     <div class="breadcrumb">
       <a href="history.html">📈 ${t('member_history_overview')}</a>
       <span class="sep">›</span>
-      <span class="current">${member.name}</span>
+      <span class="current">${window.Utils.escapeHTML(member.name)}</span>
     </div>
 
     <div class="detail-header">
-      <h2>📈 ${member.name}</h2>
+      <h2>📈 ${window.Utils.escapeHTML(member.name)}</h2>
       <div class="meta-row">
-        <div class="meta-item">📅 ${t('first_seen_label')}: <strong>${member.first_seen || '-'}</strong></div>
-        <div class="meta-item">🔄 ${t('last_seen_label')}: <strong>${member.last_seen || '-'}</strong></div>
+        <div class="meta-item">📅 ${t('first_seen_label')}: <strong>${window.Utils.escapeHTML(member.first_seen || '-')}</strong></div>
+        <div class="meta-item">🔄 ${t('last_seen_label')}: <strong>${window.Utils.escapeHTML(member.last_seen || '-')}</strong></div>
         <div class="meta-item">📊 ${t('snapshots_label')}: <strong>${snaps.length}</strong></div>
         ${member.name_history && member.name_history.length ? `<div class="meta-item">📝 ${t('name_changes_label')}: <strong>${member.name_history.length}</strong></div>` : ''}
       </div>
@@ -254,7 +254,7 @@ function renderHistoryDetail(container, member, lastUpdated) {
       </div>
       <div class="stat-card purple">
         <div class="stat-icon">🎖️</div>
-        <div class="stat-value">${(last.rank || '-').toUpperCase()}</div>
+        <div class="stat-value">${window.Utils.escapeHTML((last.rank || '-').toUpperCase())}</div>
         <div class="stat-label">${t('current_rank_label')}</div>
       </div>
       <div class="stat-card green">
@@ -287,8 +287,8 @@ function renderHistoryDetail(container, member, lastUpdated) {
             ${[...snaps].reverse().map((s, i) => `
               <tr>
                 <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-                <td data-label="${t('date')}" style="font-weight:500;">${s.date || '-'}</td>
-                <td class="mono" data-label="${t('file_label')}" style="font-size:0.78rem;color:var(--text-muted);">${(s.filename || '').replace(/\.[^/.]+$/, '')}</td>
+                <td data-label="${t('date')}" style="font-weight:500;">${window.Utils.escapeHTML(s.date || '-')}</td>
+                <td class="mono" data-label="${t('file_label')}" style="font-size:0.78rem;color:var(--text-muted);">${window.Utils.escapeHTML((s.filename || '').replace(/\.[^/.]+$/, ''))}</td>
                 <td class="center" data-label="${t('rank_label')}">${rankBadge(s.rank)}</td>
                 <td class="right mono" data-label="${t('might')}">${fmtCompact(s.might)}</td>
                 <td class="right" data-label="${t('might_gained_label')}">${fmtDelta(s.might_diff)}</td>
@@ -304,7 +304,7 @@ function renderHistoryDetail(container, member, lastUpdated) {
     <div class="card">
       <div class="card-header"><h2>📝 ${t('name_history_title')}</h2></div>
       <div class="card-body">
-        ${member.name_history.map(n => `<div style="padding:4px 0;font-family:var(--font-mono);font-size:0.88rem;color:var(--text-secondary);">${n}</div>`).join('')}
+        ${member.name_history.map(n => `<div style="padding:4px 0;font-family:var(--font-mono);font-size:0.88rem;color:var(--text-secondary);">${window.Utils.escapeHTML(n)}</div>`).join('')}
       </div>
     </div>` : ''}`;
 }

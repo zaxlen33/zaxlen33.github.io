@@ -316,9 +316,9 @@ function renderWarDetail(container, war) {
       const pctColor = killPct >= 100 ? 'var(--accent-green)' : killPct >= 50 ? 'var(--accent-yellow)' : 'var(--accent-red)';
       const met = gained >= KILL_GOAL;
       return `
-      <tr data-searchable="${(m.name || '').toLowerCase()} ${(m.rank || '').toLowerCase()}">
+      <tr data-searchable="${window.Utils.escapeHTML(`${m.name || ''} ${m.rank || ''}`.toLowerCase())}">
         <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-        <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=war&uid=${encodeURIComponent(m.uid||m.igg_id||'')}${!(m.uid||m.igg_id)?'&id='+encodeURIComponent(m.name||''):''}&month=${war.month}" class="member-link">${m.name || '-'}</a></td>
+        <td data-label="${t('table_player')}" style="font-weight:500;"><a href="player.html?view=war&uid=${encodeURIComponent(m.uid||m.igg_id||'')}${!(m.uid||m.igg_id)?'&id='+encodeURIComponent(m.name||''):''}&month=${encodeURIComponent(war.month)}" class="member-link">${window.Utils.escapeHTML(m.name || '-')}</a></td>
         <td class="center" data-label="${t('table_rank')}">${rankBadge(m.rank)}</td>
         <td class="right mono" data-label="${t('table_might')}">${fmtCompact(m.might)}</td>
         <td class="right hide-mobile" data-label="${t('table_might_gained')}">${fmtDelta(m.might_diff)}</td>

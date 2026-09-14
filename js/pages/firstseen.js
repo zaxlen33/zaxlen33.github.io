@@ -278,7 +278,7 @@ function buildCard(m, index) {
       <div class="fs-card-body">
         <div class="fs-card-name">${escHtml(m.name)}</div>
         <div class="fs-card-meta">
-          <span class="fs-uid">🔐 ${m.uid}</span>
+          <span class="fs-uid">🔐 ${escHtml(m.uid)}</span>
           ${recencyBadge}
           ${nameChangeBadge}
         </div>

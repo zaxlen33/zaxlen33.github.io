@@ -114,8 +114,11 @@ function rankBadge(rank) {
 
   const label = rTier ? rTier.toUpperCase() : (cap(cleanRank) || '-');
   const cls = rTier || 'r1';
+  const safeLabel = window.Utils
+    ? window.Utils.escapeHTML(label)
+    : String(label).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 
-  return `<span class="rank-badge rank-${cls}">${label}</span>`;
+  return `<span class="rank-badge rank-${cls}">${safeLabel}</span>`;
 }
 
 function getHashParam() {
@@ -129,7 +132,7 @@ function setLoading(el, msg) {
 }
 
 function setError(el, msg) {
-  if (el) el.innerHTML = `<div class="error-state">⚠️ ${msg}</div>`;
+  if (el) el.innerHTML = `<div class="error-state">⚠️ ${window.Utils.escapeHTML(msg)}</div>`;
 }
 
 function setEmpty(el, title, msg) {
@@ -138,8 +141,8 @@ function setEmpty(el, title, msg) {
   el.innerHTML = `
     <div class="empty-state">
       <div class="empty-icon">📭</div>
-      <h3>${emptyTitle}</h3>
-      ${emptyMsg ? `<p>${emptyMsg}</p>` : ''}
+      <h3>${window.Utils.escapeHTML(emptyTitle)}</h3>
+      ${emptyMsg ? `<p>${window.Utils.escapeHTML(emptyMsg)}</p>` : ''}
     </div>`;
 }
 

@@ -68,7 +68,7 @@ async function initMembers() {
 
   function _tgBadge(tg) {
     if (!tg) return '<span style="color:var(--text-muted);font-size:0.9rem;">-</span>';
-    return `<span class="tg-badge">💬 ${tg}</span>`;
+    return `<span class="tg-badge">💬 ${window.Utils.escapeHTML(tg)}</span>`;
   }
 
   function renderRows() {
@@ -77,9 +77,9 @@ async function initMembers() {
       return;
     }
     tbody.innerHTML = currentMembers.map((m, i) => `
-      <tr data-searchable="${(m.name || '').toLowerCase()} ${(m.rank || '').toLowerCase()} ${(m.telegram || '').toLowerCase()}">
+      <tr data-searchable="${window.Utils.escapeHTML(`${m.name || ''} ${m.rank || ''} ${m.telegram || ''}`.toLowerCase())}">
         <td class="mono" data-label="#" style="color:var(--text-muted);">${i + 1}</td>
-        <td class="card-main" data-label="${t('table_player')}"><strong>${m.name || '-'}</strong></td>
+        <td class="card-main" data-label="${t('table_player')}"><strong>${window.Utils.escapeHTML(m.name || '-')}</strong></td>
         <td class="center" data-label="${t('rank_label')}">${rankBadge(m.rank)}</td>
         <td class="center td-telegram" data-label="${t('telegram')}">${_tgBadge(m.telegram)}</td>
         <td class="right mono" data-label="${t('might')}">${fmtCompact(m.might)}</td>

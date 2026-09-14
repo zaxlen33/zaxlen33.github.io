@@ -389,7 +389,7 @@
       }).join(' ');
       const rating = quest.valueRating === 'excellent' ? '🟢' : quest.valueRating === 'good' ? '🟡' : '⚪';
       return `<tr>
-        <td><strong>${rating} ${quest.name}</strong><div style="font-size:.72rem;color:var(--text-muted)">${tCat(quest.cat)}</div></td>
+        <td><strong>${rating} ${window.Utils.escapeHTML(quest.name)}</strong><div style="font-size:.72rem;color:var(--text-muted)">${window.Utils.escapeHTML(tCat(quest.cat))}</div></td>
         <td style="text-align:center">${quest.req}</td>
         <td style="text-align:center">${quest.time}</td>
         <td style="text-align:right;white-space:nowrap">${scoreButtons}</td>

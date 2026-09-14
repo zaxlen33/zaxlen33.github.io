@@ -59,7 +59,7 @@
     else if (r.includes('2')) tier = 'r2';
     else if (r.includes('1')) tier = 'r1';
     const label = tier ? tier.toUpperCase() : (r || 'N/A');
-    return `<span class="rank-badge rank-${tier || 'r1'}">${label}</span>`;
+    return `<span class="rank-badge rank-${tier || 'r1'}">${window.Utils.escapeHTML(label)}</span>`;
   }
 
   function applyI18n() {
@@ -423,9 +423,9 @@
             </thead>
             <tbody id="da-detail-tbody">
               ${rows.map((r, i) => `
-                <tr data-name="${(r.name||'').toLowerCase()}">
+                <tr data-name="${window.Utils.escapeHTML((r.name || '').toLowerCase())}">
                   <td class="mono" style="color:var(--text-muted);">${i + 1}</td>
-                  <td class="card-main"><strong>${r.name || ''}</strong></td>
+                  <td class="card-main"><strong>${window.Utils.escapeHTML(r.name || '')}</strong></td>
                   <td class="center">${r.rank ? rankBadge(r.rank) : 'N/A'}</td>
                   <td class="center">${teamBadge(r.team)}</td>
                 </tr>`).join('')}

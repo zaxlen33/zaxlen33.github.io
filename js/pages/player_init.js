@@ -16,6 +16,12 @@ async function initPlayer() {
   const view = p.get('view') || 'all';
   const month = p.get('month') || '';
   const week = p.get('week') || '';
+  const uidMatches = (candidate, requested) => {
+    const current = String(candidate || '');
+    const wanted = String(requested || '');
+    return current === wanted
+      || (/^UE-[A-F0-9]{5}$/i.test(wanted) && current.startsWith(wanted));
+  };
 
   if (!uidParam && !nameParam) { setError(container, t('not_found')); return; }
   setLoading(container, t('loading_player_param').replace('{name}', uidParam || nameParam));
@@ -48,7 +54,7 @@ async function initPlayer() {
     if (uidParam) {
       // Primary: match by stable hashed UID or numeric igg_id
       growth = (histData.members || []).find(m =>
-        String(m.uid) === String(uidParam) ||
+        uidMatches(m.uid, uidParam) ||
         (m.igg_id && String(m.igg_id) === String(uidParam))
       ) || null;
     }
@@ -72,7 +78,7 @@ async function initPlayer() {
 
     // Fallback 1: look up in membersData (members.json) by matching display UID
     if (!playerIggId && playerUid && membersData) {
-      const mb = membersData.find(m => String(m.uid) === String(playerUid));
+      const mb = membersData.find(m => uidMatches(m.uid, playerUid));
       if (mb && mb.igg_id) {
         playerIggId = String(mb.igg_id);
       }
@@ -89,7 +95,7 @@ async function initPlayer() {
     // Fallback 3: look up in warsData (wars.json) by matching display UID
     if (!playerIggId && playerUid && warsData) {
       for (const monthData of warsData) {
-        const mb = (monthData.members || []).find(m => String(m.uid) === String(playerUid));
+        const mb = (monthData.members || []).find(m => uidMatches(m.uid, playerUid));
         if (mb && mb.igg_id) {
           playerIggId = String(mb.igg_id);
           break;
@@ -158,7 +164,7 @@ async function initPlayer() {
 
     // ── Telegram: resolve from members.json by UID/IGG ID first, then name ────
     const memberEntry = membersData.find(m =>
-      (playerUid && String(m.uid) === String(playerUid)) ||
+      (playerUid && uidMatches(m.uid, playerUid)) ||
       (playerIggId && m.igg_id && String(m.igg_id) === String(playerIggId)) ||
       (m.name || '').toLowerCase() === nameLower
     );

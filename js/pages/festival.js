@@ -57,7 +57,7 @@ async function init() {
     renderHistoryTab();
   } catch (err) {
     document.getElementById('festival-list').innerHTML =
-      `<div class="error-state">⚠️ ${t('error_loading')}: ${err.message}</div>`;
+      `<div class="error-state">⚠️ ${t('error_loading')}: ${window.Utils.escapeHTML(err.message)}</div>`;
   }
 }
 
@@ -129,7 +129,7 @@ function renderFestivalList(list) {
       const isLatest = f === festivals[festivals.length - 1];
 
       return `
-      <div class="session-card" data-date="${f.date}" onclick="openFestivalDetail('${f.date}')">
+      <div class="session-card" data-date="${window.Utils.escapeHTML(f.date)}">
         <div class="session-title">
           🎪 ${fullDate(f.date)}
           ${isLatest ? `<span class="badge" style="font-size:0.7rem;background:rgba(var(--accent-rgb),0.12);color:var(--accent);border-color:rgba(var(--accent-rgb),0.25)">${t('latest')}</span>` : ''}
@@ -161,6 +161,10 @@ function renderFestivalList(list) {
         <div class="view-btn">${t('view_details')}</div>
       </div>`;
     }).join('') + '</div>';
+
+  el.querySelectorAll('.session-card').forEach(card => {
+    card.addEventListener('click', () => openFestivalDetail(card.dataset.date));
+  });
 }
 
 // Search filter
@@ -193,7 +197,7 @@ function openFestivalDetail(date) {
 
   // Detail summary box
   document.getElementById('detail-summary-box').innerHTML = `
-    <h2>${fullDate(f.date)}</h2>
+    <h2>${window.Utils.escapeHTML(fullDate(f.date))}</h2>
     <div class="festival-score-big">${fmtNum(s.total_score)}</div>
     <div class="meta-row" style="margin-top:0.8rem">
       <div class="meta-item">👥 <strong>${s.total_players}</strong> ${t('players')}</div>
@@ -226,7 +230,7 @@ function renderDetailTable(players) {
     const cls   = isBest ? 'row-best' : (met ? 'row-pass' : 'row-fail');
     return `<tr class="${cls}">
       <td class="center" data-label="#">${i+1}</td>
-      <td data-label="${t('table_player')}">${isBest ? '🥇 ' : ''}${p.name}</td>
+      <td data-label="${t('table_player')}">${isBest ? '🥇 ' : ''}${window.Utils.escapeHTML(p.name)}</td>
       <td class="right" data-label="${t('score')}"><strong>${fmtNum(p.score)}</strong></td>
       <td class="center ${met?'met-yes':'met-no'}" data-label="${t('table_status')}">${met ? t('met_yes') : t('met_no')}</td>
       <td class="center" data-label="${t('bonus_completed')}">${p.completed}/${p.total}</td>

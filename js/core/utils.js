@@ -39,32 +39,41 @@
 
   // ── 2. FETCH HELPERS ───────────────────────────────────────────────────────
 
-  /** Append a cache-busting query param if not already present. */
+  /** Append a cache-busting query param when a caller explicitly requests it. */
   function _cacheBust(url, v) {
     const sep = url.includes('?') ? '&' : '?';
     return url + sep + 'v=' + (v == null ? Date.now() : v);
   }
 
   /**
-   * Fetch a URL, return parsed JSON. Auto-appends ?v=Date.now() for cache busting.
+   * Fetch a URL and return parsed JSON. Browser/HTTP caching is enabled by default.
    * @param {string} url – absolute or relative URL (DATA_BASE prefix is optional, caller decides)
    * @param {object} opts
-   *   opts.cacheBust = true (default) | false | string version
+   *   opts.cacheBust = false (default) | true | string version
    *   opts.timeoutMs = 0 (default, browser default)
    * @returns {Promise<any>} parsed JSON body
    * @throws Error on HTTP !ok or network failure
    */
   async function fetchJSON(url, opts = {}) {
     const bust = opts.cacheBust;
-    const finalUrl = bust === false ? url : _cacheBust(url, typeof bust === 'string' ? bust : undefined);
+    const finalUrl = bust
+      ? _cacheBust(url, typeof bust === 'string' ? bust : undefined)
+      : url;
 
     const controller = (typeof AbortController !== 'undefined' && opts.timeoutMs > 0)
       ? new AbortController() : null;
-    if (controller) setTimeout(() => controller.abort(), opts.timeoutMs);
+    const timeoutId = controller ? setTimeout(() => controller.abort(), opts.timeoutMs) : null;
 
-    const resp = await fetch(finalUrl, controller ? { signal: controller.signal } : undefined);
-    if (!resp.ok) throw new Error(`HTTP ${resp.status} for ${url}`);
-    return resp.json();
+    try {
+      const resp = await fetch(finalUrl, {
+        cache: opts.cache || 'default',
+        ...(controller ? { signal: controller.signal } : {}),
+      });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status} for ${url}`);
+      return await resp.json();
+    } finally {
+      if (timeoutId) clearTimeout(timeoutId);
+    }
   }
 
   /**
@@ -233,7 +242,7 @@
 
     const cls   = tier || 'r1';
     const label = tier ? tier.toUpperCase() : (clean || '-');
-    return `<span class="rank-badge rank-${cls}">${label}</span>`;
+    return `<span class="rank-badge rank-${cls}">${escapeHTML(label)}</span>`;
   }
 
   function onDomReady(fn) {
@@ -242,6 +251,18 @@
     } else {
       setTimeout(fn, 0);
     }
+  }
+
+  /** Escape untrusted values before interpolating them into an HTML string. */
+  function escapeHTML(value) {
+    const replacements = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    };
+    return String(value == null ? '' : value).replace(/[&<>"']/g, ch => replacements[ch]);
   }
 
   // ── EXPORTS (global) ───────────────────────────────────────────────────────
@@ -264,6 +285,7 @@
     }),
     destroyChart,
     rankBadge,
+    escapeHTML,
     onDomReady,
   });
 

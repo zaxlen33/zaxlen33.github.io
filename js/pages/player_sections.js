@@ -623,7 +623,7 @@ async function renderMemberView(container, name, growth, warDailyData, huntDaily
         <table style="border:none;margin:0;">
           <thead><tr><th>${t('old_name_new_name')}</th><th class="right">${t('until_date')}</th></tr></thead>
           <tbody>
-            ${growth.name_history.map(nh => `<tr style="transition:background 0.15s;" onmouseover="this.style.background='var(--bg-hover)'" onmouseout="this.style.background=''"><td class="card-main" style="color:var(--text-secondary);text-decoration:line-through">${nh.name}</td><td class="right mono" data-label="${t('until_date')}">${nh.until}</td></tr>`).join('')}
+            ${growth.name_history.map(nh => `<tr style="transition:background 0.15s;" onmouseover="this.style.background='var(--bg-hover)'" onmouseout="this.style.background=''"><td class="card-main" style="color:var(--text-secondary);text-decoration:line-through">${window.Utils.escapeHTML(nh.name)}</td><td class="right mono" data-label="${t('until_date')}">${window.Utils.escapeHTML(nh.until)}</td></tr>`).join('')}
           </tbody>
         </table>
       </div>

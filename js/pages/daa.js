@@ -60,7 +60,8 @@
     else if (r.includes('3')) tier = 'r3';
     else if (r.includes('2')) tier = 'r2';
     else if (r.includes('1')) tier = 'r1';
-    return `<span class="rank-badge rank-${tier || 'r1'}">${tier ? tier.toUpperCase() : (r || '-')}</span>`;
+    const label = tier ? tier.toUpperCase() : (r || '-');
+    return `<span class="rank-badge rank-${tier || 'r1'}">${window.Utils.escapeHTML(label)}</span>`;
   }
 
   function getSlot(n) { return SLOTS.find(s => s.slot === n) || null; }
@@ -334,23 +335,23 @@ const c = document.getElementById('da-admin-container');
         <div class="card-body" style="padding:0;">
           <div id="da-members-list">
             ${_members.map(m => `
-              <div class="da-member-row" id="row-${m.uid}" data-uid="${m.uid}"
-                   data-search="${(m.name||'').toLowerCase()} ${(m.rank||'').toLowerCase()} ${(m.telegram||'').toLowerCase()} ${m.uid}">
+              <div class="da-member-row" id="row-${window.Utils.escapeHTML(m.uid)}" data-uid="${window.Utils.escapeHTML(m.uid)}"
+                   data-search="${window.Utils.escapeHTML(`${m.name || ''} ${m.rank || ''} ${m.telegram || ''} ${m.uid || ''}`.toLowerCase())}">
                 <div class="da-member-info">
-                  <div class="da-member-avatar">${(m.name || '?').charAt(0).toUpperCase()}</div>
+                  <div class="da-member-avatar">${window.Utils.escapeHTML((m.name || '?').charAt(0).toUpperCase())}</div>
                   <div style="min-width:0;">
-                    <div class="da-member-name">${m.name || '-'}</div>
+                    <div class="da-member-name">${window.Utils.escapeHTML(m.name || '-')}</div>
                     <div class="da-member-sub" style="flex-wrap:wrap;">
                       ${rankBadge(m.rank)} 
-                      <span class="da-uid-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="opacity:.7;flex-shrink:0"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>${m.uid}</span>
-                      ${m.telegram ? `<span class="tg-badge" style="font-size:.8rem;padding:2px 6px;">💬 ${m.telegram}</span>` : ''}
+                      <span class="da-uid-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="opacity:.7;flex-shrink:0"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>${window.Utils.escapeHTML(m.uid)}</span>
+                      ${m.telegram ? `<span class="tg-badge" style="font-size:.8rem;padding:2px 6px;">💬 ${window.Utils.escapeHTML(m.telegram)}</span>` : ''}
                     </div>
                   </div>
                 </div>
-                <div class="da-team-btns" data-uid="${m.uid}">
-                  <button class="da-tbtn da-tbtn-a" data-uid="${m.uid}" data-team="A" title="Asistió al Slot A">Slot A</button>
-                  <button class="da-tbtn da-tbtn-ns-a" data-uid="${m.uid}" data-team="NS_A" title="No asistió al Slot A">No A</button>
-                  <button class="da-tbtn da-tbtn-b" data-uid="${m.uid}" data-team="B" title="Confirmó Slot B">Slot B</button>
+                <div class="da-team-btns" data-uid="${window.Utils.escapeHTML(m.uid)}">
+                  <button class="da-tbtn da-tbtn-a" data-uid="${window.Utils.escapeHTML(m.uid)}" data-team="A" title="Asistió al Slot A">Slot A</button>
+                  <button class="da-tbtn da-tbtn-ns-a" data-uid="${window.Utils.escapeHTML(m.uid)}" data-team="NS_A" title="No asistió al Slot A">No A</button>
+                  <button class="da-tbtn da-tbtn-b" data-uid="${window.Utils.escapeHTML(m.uid)}" data-team="B" title="Confirmó Slot B">Slot B</button>
                 </div>
               </div>`).join('')}
           </div>
@@ -480,36 +481,41 @@ const c = document.getElementById('da-admin-container');
   // ── Build export data ────────────────────────────────────────────────────────
   function buildExportData() {
     const slot = getSlot(_eventSlot);
-    const members = _members.map(member => {
-      const team = _roster[member.uid] || 'UNCONFIRMED_B';
+    const assignmentStates = {
+      A: { team: 'A', status: 'confirmed' },
+      NS_A: { team: 'A', status: 'no_show' },
+      B: { team: 'B', status: 'confirmed' },
+      UNCONFIRMED_B: { team: 'B', status: 'unconfirmed' }
+    };
+    const participants = _members.map(member => {
+      const assignment = _roster[member.uid] || 'UNCONFIRMED_B';
+      const state = assignmentStates[assignment] || assignmentStates.UNCONFIRMED_B;
       return {
         uid: member.uid || '',
         name: member.name || '',
         rank: member.rank || '',
         telegram: member.telegram || '',
-        assignment: team
+        team: state.team,
+        status: state.status
       };
     });
-    const assignments = members.reduce((counts, member) => {
-      counts[member.assignment] = (counts[member.assignment] || 0) + 1;
-      return counts;
-    }, {});
+    const recordedAt = new Date().toISOString();
 
     return {
-      event: {
-        type: 'dragon_arena',
-        date: _eventDate,
-        slot: slot ? { number: slot.slot, start_utc_minus_5: slot.start, end_utc_minus_5: slot.end, utc: slot.utc } : null
-      },
-      generated_at: new Date().toISOString(),
+      id: `${_eventDate}-S${_eventSlot}`,
+      date: _eventDate,
+      slot: _eventSlot,
+      slot_label: slot ? `Slot ${slot.slot} · ${slot.start}–${slot.end} UTC-5` : `Slot ${_eventSlot}`,
+      slot_utc: slot ? slot.utc : '',
+      recorded_at: recordedAt,
       summary: {
-        total_members: members.length,
-        team_a: assignments.A || 0,
-        no_show_a: assignments.NS_A || 0,
-        team_b_confirmed: assignments.B || 0,
-        team_b_unconfirmed: assignments.UNCONFIRMED_B || 0
+        total_members: participants.length,
+        team_a: participants.filter(member => member.team === 'A' && member.status === 'confirmed').length,
+        no_show_a: participants.filter(member => member.team === 'A' && member.status === 'no_show').length,
+        team_b_confirmed: participants.filter(member => member.team === 'B' && member.status === 'confirmed').length,
+        team_b_unconfirmed: participants.filter(member => member.team === 'B' && member.status === 'unconfirmed').length
       },
-      members
+      participants
     };
   }
 
@@ -532,32 +538,36 @@ const c = document.getElementById('da-admin-container');
   function exportExcel() {
     const data = buildExportData();
     if (!window.XLSX) {
-      downloadBlob(JSON.stringify(data.members, null, 2), `dragon-arena-${_eventDate || 'roster'}-slot-${_eventSlot || 'na'}.json`, 'application/json;charset=utf-8');
+      downloadBlob(JSON.stringify(data, null, 2), `dragon-arena-${_eventDate || 'roster'}-slot-${_eventSlot || 'na'}.json`, 'application/json;charset=utf-8');
       return;
     }
 
-    const rows = data.members.map(member => ({
+    const rows = data.participants.map(member => ({
       UID: member.uid,
-      Player: member.name,
+      Name: member.name,
       Rank: member.rank,
       Telegram: member.telegram,
-      Assignment: member.assignment
+      Team: member.team,
+      Status: member.status
     }));
     const workbook = XLSX.utils.book_new();
-    const rosterSheet = XLSX.utils.json_to_sheet(rows);
-    const summarySheet = XLSX.utils.json_to_sheet([
-      { Field: 'Date', Value: data.event.date },
-      { Field: 'Slot', Value: data.event.slot ? data.event.slot.number : '' },
-      { Field: 'Time (UTC-5)', Value: data.event.slot ? `${data.event.slot.start_utc_minus_5}–${data.event.slot.end_utc_minus_5}` : '' },
+    const participantsSheet = XLSX.utils.json_to_sheet(rows);
+    const eventSheet = XLSX.utils.json_to_sheet([
+      { Field: 'Event ID', Value: data.id },
+      { Field: 'Date', Value: data.date },
+      { Field: 'Slot', Value: data.slot },
+      { Field: 'Schedule UTC-5', Value: data.slot_label },
+      { Field: 'Schedule UTC', Value: data.slot_utc },
+      { Field: 'Recorded At', Value: data.recorded_at },
       { Field: 'Team A', Value: data.summary.team_a },
       { Field: 'No Show A', Value: data.summary.no_show_a },
       { Field: 'Team B confirmed', Value: data.summary.team_b_confirmed },
       { Field: 'Team B unconfirmed', Value: data.summary.team_b_unconfirmed }
     ]);
-    rosterSheet['!cols'] = [{ wch: 16 }, { wch: 28 }, { wch: 10 }, { wch: 24 }, { wch: 20 }];
-    summarySheet['!cols'] = [{ wch: 24 }, { wch: 32 }];
-    XLSX.utils.book_append_sheet(workbook, summarySheet, 'Summary');
-    XLSX.utils.book_append_sheet(workbook, rosterSheet, 'Roster');
+    participantsSheet['!cols'] = [{ wch: 16 }, { wch: 28 }, { wch: 10 }, { wch: 24 }, { wch: 10 }, { wch: 16 }];
+    eventSheet['!cols'] = [{ wch: 24 }, { wch: 40 }];
+    XLSX.utils.book_append_sheet(workbook, eventSheet, 'Event Info');
+    XLSX.utils.book_append_sheet(workbook, participantsSheet, 'Participants');
     XLSX.writeFile(workbook, `dragon-arena-${_eventDate || 'roster'}-slot-${_eventSlot || 'na'}.xlsx`);
   }
 
